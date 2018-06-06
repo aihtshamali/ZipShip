@@ -1,4 +1,3 @@
-
 window._ = require('lodash');
 
 /**
@@ -22,6 +21,9 @@ try {
 window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.countries = require ('countries-cities/main.js');   // Returns an array of country names.
+// windows.cities = require ('countries-cities').getCities("Pakistan"); // Returns an array of city names of the particualr country.
+
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that

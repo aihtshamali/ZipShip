@@ -1,77 +1,123 @@
-@extends('layouts.app')
+@extends('layouts.loginlayout')
+@section('title')
+  Register
+@endsection
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
-
-                <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('register') }}">
+    <!-- CONTENT -->
+    <section id="home" class="fullscreen t-center fullwidth cover" data-background="{{asset('images/ContactImages/images/backgrounds/background_05.jpg')}}">
+        <!-- Container -->
+        <div class="container-xs mxw-350 v-center">
+           <div class="t-center white">
+               <h1 class="bold-title">Create New Account</h1>
+               <h4 class="xxs-mt merriweather italic light">
+                   Nice to see you here! Please create your account.
+               </h4>
+               <div class="form dark xs-mt normal-title">
+                   <form action="{{ route('register')}}" method="post">
                         {{ csrf_field() }}
-
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Register
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+                       <!-- First name -->
+                       <span class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}">
+                         <input type="text" name="firstname" id="firstname" placeholder="First Name..." class="classic_form bg-white radius"  value="{{ old('firstname') }}" required autofocus>
+                         @if ($errors->has('firstname'))
+                             <span class="help-block">
+                                 <strong>{{ $errors->first('firstname') }}</strong>
+                             </span>
+                         @endif
+                       </span>
+                       <!-- Last name -->
+                       <span class="form-group{{ $errors->has('lastname') ? ' has-error' : '' }}">
+                         <input type="text" name="lastname" id="lastname" placeholder="Last Name..." class="classic_form bg-white radius"  value="{{ old('lastname') }}" required autofocus>
+                         @if ($errors->has('lastname'))
+                             <span class="help-block">
+                                 <strong>{{ $errors->first('lastname') }}</strong>
+                             </span>
+                         @endif
+                       </span>
+                       <!-- Email -->
+                       <span class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                         <input type="email" name="email" id="email" placeholder="Email..." class="classic_form bg-white radius"  value="{{ old('email') }}" autofocus required>
+                         @if ($errors->has('email'))
+                             <span class="help-block">
+                                 <strong>{{ $errors->first('email') }}</strong>
+                             </span>
+                         @endif
+                       </span>
+                       <span class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
+                         <input type="text" name="address" id="address" placeholder="Address..." class="classic_form bg-white radius"  value="{{ old('address') }}" required autofocus>
+                         @if ($errors->has('address'))
+                             <span class="help-block">
+                                 <strong>{{ $errors->first('address') }}</strong>
+                             </span>
+                         @endif
+                       </span>
+                       <span class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+                         <input type="text" name="phone" id="phone" placeholder="Phone..." class="classic_form bg-white radius"  value="{{ old('phone') }}" autofocus required>
+                         @if ($errors->has('phone'))
+                             <span class="help-block">
+                                 <strong>{{ $errors->first('phone') }}</strong>
+                             </span>
+                         @endif
+                       </span>
+                       <span class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                         <input type="password" name="password" id="password" placeholder="Password" class="classic_form bg-white radius">
+                           @if ($errors->has('password'))
+                               <span class="help-block">
+                                   <strong>{{ $errors->first('password') }}</strong>
+                               </span>
+                           @endif
+                       </span>
+                       <span class="form-group{{ $errors->has('password-confirm') ? ' has-error' : '' }}">
+                         <input type="password" name="password_confirmation" id="password-confirm" placeholder="Confirm Password..." class="classic_form bg-white radius">
+                           @if ($errors->has('password-confirm'))
+                               <span class="help-block">
+                                   <strong>{{ $errors->first('password-confirm') }}</strong>
+                               </span>
+                           @endif
+                       </span>
+                       <!-- Send Button -->
+                       <button type="submit" id="submit" class="bg-colored1 click-effect white bold qdr-hover-6 classic_form uppercase no-border radius">Register</button>
+                       <!-- End Send Button -->
+                   </form>
+               </div>
+               <h5>Do you want see more? <a href="index.html" class="underline">Back to ZipShip.</a></h5>
+           </div>
         </div>
+        <!-- End Container -->
+    </section>
+    <!-- END CONTENT -->
+
+
+    <!-- Quick Contact Form -->
+    <div class="quick-contact-form border-colored1">
+        <h5 class="uppercase t-center extrabold">Drop us a message</h5>
+        <p class="t-center normal">You're in the right place! Just drop us a message. How can we help?</p>
+        <!-- Contact Form -->
+        <form class="quick_form" name="quick_form" method="post" action="#">
+            <!-- Name -->
+            <input type="text" name="qname" id="qname" required placeholder="Name" class="no-mt">
+            <!-- Email -->
+            <input type="email" name="qemail" id="qemail" required placeholder="E-Mail">
+            <!-- Message -->
+            <textarea name="qmessage" id="qmessage" required placeholder="Message"></textarea>
+            <!-- Send Button -->
+            <button type="submit" id="qsubmit" class="bg-colored1 white qdr-hover-6 uppercase extrabold">Send</button>
+            <!-- End Send Button -->
+        </form>
+        <!-- End Form -->
+        <a href="{{url('contact')}}" target="_blank" class="inline-block colored-hover uppercase extrabold h6 qdr-hover-5">Or see contact page</a>
     </div>
-</div>
+    <!-- Contact us button -->
+    <a href="#" class="drop-msg click-effect dark-effect"><i class="fa fa-envelope-o"></i></a>
+
+    <!-- Messages for contact form -->
+    <div id="error_message" class="clearfix">
+        <i class="fa fa-warning"></i>
+        <span>Validation error occured. Please enter the fields and submit it again.</span>
+    </div>
+    <!-- Submit Message -->
+    <div id="submit_message" class="clearfix">
+        <i class="fa fa-check"></i>
+        <span>Thank You ! Your email has been delivered.</span>
+    </div>
 @endsection

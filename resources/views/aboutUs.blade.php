@@ -4,9 +4,10 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>About Us</title>
-    <meta name="description" content="ZipShip is a super easy customizing, creative, professional design, bootstrap responsive and high performance website template and 700+ pages for multi-purpose using to agencies, portfolio, photographers and your all wishes." />
+    <!-- Description -->
+    <meta name="description" content="ZipShip Description Will be here" />
     <!--Keywords -->
-    <meta name="keywords" content="modern, creative, website, html5, bootstrap responsive, parallax, soft, front-end, designer, coming soon, account, portfolio, photographer, grid, social, modules, design, personal, faq, one page, multi-purpose, branding, studio, agency, templates, css3, carousel, slider, corporate, theme, ZipShip, demos, blog, shop" />
+    <meta name="keywords" content="Transfer, creative, website, html5, bootstrap responsive, parallax, soft, front-end, designer, coming soon, account, portfolio, photographer, grid, social, modules, design, personal, faq, one page, multi-purpose, branding, studio, agency, templates, css3, carousel, slider, corporate, theme, ZipShip, demos, blog, shop" />
     <meta name="author" content="GoldEyes" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1" />
     <!--Favicon -->
@@ -14,7 +15,7 @@
     <!-- Apple Touch Icon -->
     <link rel="apple-touch-icon" href="images/finalOld.jpg"/>
 
-	<!-- CSS Files -->
+	   <!-- CSS Files -->
     <link rel="stylesheet" href="{{asset('css/ContactCss/css/plugins6da2.css?v=2.2')}}"/>
     <!-- Main Styles -->
 
@@ -55,7 +56,7 @@
             <!-- Logo -->
             <div class="logo">
                 <a href="index.html">
-                  <img src="images/final.jpg" data-second-logo="images/finalOld.jpg" alt="Quadra Logo">
+                  <img src="images/final.jpg" data-second-logo="images/finalOld.jpg" alt="Zipship Logo">
 
                     <img src="images/final.jpg" style="border-radius:50px"  data-second-logo="images/finalOld.jpg"  class="retina-logo" alt="ZipShip Logo">
                 </a>

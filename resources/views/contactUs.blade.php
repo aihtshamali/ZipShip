@@ -62,10 +62,6 @@
         <!-- End Columns -->
     </nav>
     <!-- END NAVIGATION -->
-
-
-
-
     <!-- Fixed Elemeent - you can add .right class -->
     <div class="fixed-element hide-on-home">
         <div class="visible-lg">

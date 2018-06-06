@@ -14,14 +14,27 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/home', function () {
+    return view('home');
+});
 Route::get('/contact', function () {
     return view('contactUs');
 });
 
 Route::get('/aboutUs', function () {
     return view('aboutUs');
-});
+})->name('aboutUs');
 
 Auth::routes();
+// Route::get('/getCity',function(){
+//   return view('ajax.cities')->render();
+// })->name('getCity');
+Route::group(['middleware' => ['auth']],function(){
 
-Route::get('/home', 'HomeController@index')->name('home');
+  Route::get('getCity', [
+     'as' => 'getCity',
+     'uses' => 'AJAXController@getCities'
+  ]);
+  Route::resource('chat','ChatController');
+  Route::resource('post','UserPostController');
+});

@@ -121,9 +121,11 @@
 	.team-type-2 .member .member-description h2{ font-size: 17px; font-weight: 900; text-transform: capitalize;}
 	.team-type-2 .member .member-description h4{ text-transform: capitalize; }
 
+
 /*attiq*/
 
     .margintop10{margin-top: 4%;margin-bottom: 4%;}
+    .margin10px{margin:10px}
         img {
       max-width: 100%;
     }
@@ -144,16 +146,134 @@
     .marginLefRigZero{margin-left: 0px !important;margin-right: 0px !important;padding: 3px !important}
     .SmallHeight img{max-height: 160px !important;min-height: 155px !important;}
     .fullimagewidth{width: 100% !important;}
+    .halfwidth{width: 50% !important;}
+    .fullwidth{width: 100% !important;}
+    .width70{width: 70% !important;}
+    .width68{width: 68% !important;}
+    .width30{width: 30% !important;}
+    .width40{width: 40% !important;}
+    .width20{width: 20% !important;}
     .halfimagewidthleft{width: 49% !important;float: left;margin: 0.5% 0.5% 0% 0%; }
     .halfimagewidthright{width: 49% !important;float: right;margin: 0.5% 0% 0% 0.5%; }
     .BigHeight img{width: 100% !important;max-height: 320px !important;min-height: 315px !important;}
-    .ctrl {
-	position: absolute;
-	top: 75%; left: 50%;
-	font: 1.5em/1.13 Verdana, sans-serif;
-	transition: .5s;
+    .curveFirstfour{border-radius: 30px 0px 0px 0px !important;margin-top: -2px;}
+    .syd_wali li{padding: 4% !important;}
+    .marginrigh{margin-right: 3% !important;}
+    .marginLef{margin-left: 3% !important;}
+    .marginLef1{margin-left: 1% !important;}
+    .marginper{margin: 1%;}
+    h1, h2, h3, h4, h5, h6{text-transform: capitalize; font-weight: 600 !important;}
+    .capitalize{text-transform: capitalize;}
+    .close:hover{box-shadow: 10px 10px 100px #777;border:1px solid #800080;}
+    #pagetop .left>a{width: fit-content !important;}
+    .border{border:1px solid #77777724;}
+    .profile{padding: 1%;height: 100%;position: relative;}
+    .left{float: left}
+    .right{float: right}
+    .halfWidth{width: 50%}
+    .fullWidth{width: 100%}
+    .boldName{font-weight: 900;font-size: 27px;text-transform: capitalize;color: #000;margin: : 3% 0% 3% 0%;}
+    .clear{clear: both !important;}
+    .borderRad10px{border-radius: 10px;padding: 1%;margin: 2% 0% 2% 0%;}
+    .borderRad7px{border-radius: 7px;padding: 1%;margin: 2% 0% 2% 0%;}
+    .backgrounpurple{background-color: #800080bf !important;}
+    .nopad-nomar{padding: 0% !important;margin:0% !important;}
+    .widthfitcon{width: fit-content;}
+    /*.pad-mar{padding: 0% !important;margin:0% !important;}*/
+    .backgrounpurpleopp{background-color: #80008038 !important;}
+    .backgrounwhite{background-color: #fff !important;}
+    .textpurple{color: #800080bf;}
+    .noborder{border:none !important;}
+    .backgrounpurple span{border-right: 1px solid #fff;color: #d2c8c8;padding: 0% 1% 0% 1%;}
+    .grayee{color: #777}
+    .black{color: #000}
+    .white{color: #fff;}
+    .button{background-color: #f8f8f8;margin: 10px 0px 10px 0px;padding:  10px 70px 10px 70px;color: #716c71; width: 50%}
+    .button:hover{cursor: pointer;color: #a040a0;box-shadow: 10px 10px 100px #777;}
+    .button i{margin-right: 7%;}
+    .menuOrders{text-transform: capitalize;padding: 7% 0% 0% 0%}
+    .menuOrders span{text-transform: capitalize;color: #777;padding: 0% 7% 0% 0%;text-align: center;cursor: pointer;transition: all 1s ease;}
+    .menuOrders span:hover b{color: #800080;border-bottom: 1px solid #800080;transition: all 1s ease;}
+    #in_transite_box, #recieved_box, #inactive_box{display: none;}
+    .animate-left{position:relative;animation:animateleft 0.5s}@keyframes animateleft{from{left:-300px;opacity:0} to{left:0;opacity:1}}
+    .paddingLef3per{padding-left: 3%;}
+    .paddingLef2per{padding-left: 2%;}
+    .paddingLef1per{padding-left: 1%;}
+    .padding3per{padding: 3%;}
+    .padding2per{padding: 2%;}
+    .padding1per{padding: 1%;}
+    .marginTopTen{margin-top:10px !important;clear: both !important;}
+    .pointer{cursor: pointer;}
+    .hoverColor{cursor: pointer;color: #a040a0 !important;}
+    .dropdown-menu li a:hover{cursor: pointer;color: #a040a0 !important;}
+    .dropdown-menu{margin: 0% !important;padding: 0% !important;box-shadow: 3px 3px 10px #777;border-radius: 7px !important;}
+    .dropdown-menu li{padding: 0% !important;margin: 0% !important;}
+    .dropdown-menu li a{padding: 6% 3% 6% 3% !important;margin: 0% !important;}
+    .small_div{width: 21%;border-radius: 6px;background: #fff;}
+    .big_div{width: 75%;border-radius: 6px;background: #fff;}
+    .headingAside li{color:#777;text-transform: capitalize;padding: 7% 0% 7% 0%;cursor: pointer;font-weight: 900;font-size: 14px;border-bottom: 1px solid #77777754;}
+    /*.headingAside li:first-child{color: #a040a0;border-bottom: 1px solid #800080;}*/
+    .headingAside li:hover{color: #a040a0;border-bottom: 1px solid #800080;}
+    .circle{border-radius: 50%;}
+    .marginauto{margin: auto;}
+    /*swith*/
+	    .switch {
+	  position: relative;
+	  display: inline-block;
+	  width: 60px;
+	  height: 34px;float: right;
+	}
 
- }
+	.switch input {display:none;}
+
+	.slider {
+	  position: absolute;
+	  cursor: pointer;
+	  top: 0;
+	  left: 0;
+	  right: 0;
+	  bottom: 0;
+	  background-color: #ccc;
+	  -webkit-transition: .4s;
+	  transition: .4s;
+	}
+
+	.slider:before {
+	  position: absolute;
+	  content: "";
+	  height: 26px;
+	  width: 26px;
+	  left: 4px;
+	  bottom: 4px;
+	  background-color: white;
+	  -webkit-transition: .4s;
+	  transition: .4s;
+	}
+
+	input:checked + .slider {
+	  background-color: #9c57b8;
+	}
+
+	input:focus + .slider {
+	  box-shadow: 0 0 1px #9c57b8;
+	}
+
+	input:checked + .slider:before {
+	  -webkit-transform: translateX(26px);
+	  -ms-transform: translateX(26px);
+	  transform: translateX(26px);
+	}
+
+	/* Rounded sliders */
+	.slider.round {
+	  border-radius: 34px;
+	}
+
+	.slider.round:before {
+	  border-radius: 50%;
+	}
+    /*end switch*/
+    .review{padding: 3%; background-color: #f8f8f8; color: #716c71;min-height: 325px;position: relative;}
     @media only screen and (max-width: 640px){
 			.margintop10 img{margin-top: 4% !important;margin-bottom: 4% !important;}
 		}

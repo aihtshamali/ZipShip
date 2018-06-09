@@ -1,11 +1,12 @@
 <?php
-
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
-use App\Flight;
-use Session;
 use Auth;
-class FlightController extends Controller
+use App\Post;
+use App\Flight;
+use DB;
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +15,6 @@ class FlightController extends Controller
      */
     public function index()
     {
-        $flights=Flight::where('user_id',Auth::user()->id)
-                ->whereDate('date','>=',date('Y-m-d'))
-                ->get();
-        return view('flights.index',['flights'=>$flights]);
     }
 
     /**
@@ -27,7 +24,7 @@ class FlightController extends Controller
      */
     public function create()
     {
-        return view('flights.create');
+        //
     }
 
     /**
@@ -38,17 +35,7 @@ class FlightController extends Controller
      */
     public function store(Request $request)
     {
-        $flight=new Flight();
-        $flight->source_country=$request->from_country;
-        $flight->source_city=$request->from_city;
-        $flight->destination_city=$request->to_city;
-        $flight->destination_country=$request->to_country;
-        $flight->date=$request->date;
-        $flight->user()->associate(Auth::user());
-        $flight->save();
-        Session::flash('message', 'Inserted Successfully!');
-        Session::flash('alert-class', 'alert-success');
-        return redirect()->route('flight.index');
+
     }
 
     /**

@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -70,7 +70,7 @@
 "use strict";
 
 
-var bind = __webpack_require__(3);
+var bind = __webpack_require__(4);
 var isBuffer = __webpack_require__(19);
 
 /*global toString:true*/
@@ -424,10 +424,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(5);
+    adapter = __webpack_require__(6);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(5);
+    adapter = __webpack_require__(6);
   }
   return adapter;
 }
@@ -498,10 +498,10381 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+ * jQuery JavaScript Library v3.3.1
+ * https://jquery.com/
+ *
+ * Includes Sizzle.js
+ * https://sizzlejs.com/
+ *
+ * Copyright JS Foundation and other contributors
+ * Released under the MIT license
+ * https://jquery.org/license
+ *
+ * Date: 2018-01-20T17:24Z
+ */
+( function( global, factory ) {
+
+	"use strict";
+
+	if ( typeof module === "object" && typeof module.exports === "object" ) {
+
+		// For CommonJS and CommonJS-like environments where a proper `window`
+		// is present, execute the factory and get jQuery.
+		// For environments that do not have a `window` with a `document`
+		// (such as Node.js), expose a factory as module.exports.
+		// This accentuates the need for the creation of a real `window`.
+		// e.g. var jQuery = require("jquery")(window);
+		// See ticket #14549 for more info.
+		module.exports = global.document ?
+			factory( global, true ) :
+			function( w ) {
+				if ( !w.document ) {
+					throw new Error( "jQuery requires a window with a document" );
+				}
+				return factory( w );
+			};
+	} else {
+		factory( global );
+	}
+
+// Pass this if window is not defined yet
+} )( typeof window !== "undefined" ? window : this, function( window, noGlobal ) {
+
+// Edge <= 12 - 13+, Firefox <=18 - 45+, IE 10 - 11, Safari 5.1 - 9+, iOS 6 - 9.1
+// throw exceptions when non-strict code (e.g., ASP.NET 4.5) accesses strict mode
+// arguments.callee.caller (trac-13335). But as of jQuery 3.0 (2016), strict mode should be common
+// enough that all such attempts are guarded in a try block.
+"use strict";
+
+var arr = [];
+
+var document = window.document;
+
+var getProto = Object.getPrototypeOf;
+
+var slice = arr.slice;
+
+var concat = arr.concat;
+
+var push = arr.push;
+
+var indexOf = arr.indexOf;
+
+var class2type = {};
+
+var toString = class2type.toString;
+
+var hasOwn = class2type.hasOwnProperty;
+
+var fnToString = hasOwn.toString;
+
+var ObjectFunctionString = fnToString.call( Object );
+
+var support = {};
+
+var isFunction = function isFunction( obj ) {
+
+      // Support: Chrome <=57, Firefox <=52
+      // In some browsers, typeof returns "function" for HTML <object> elements
+      // (i.e., `typeof document.createElement( "object" ) === "function"`).
+      // We don't want to classify *any* DOM node as a function.
+      return typeof obj === "function" && typeof obj.nodeType !== "number";
+  };
+
+
+var isWindow = function isWindow( obj ) {
+		return obj != null && obj === obj.window;
+	};
+
+
+
+
+	var preservedScriptAttributes = {
+		type: true,
+		src: true,
+		noModule: true
+	};
+
+	function DOMEval( code, doc, node ) {
+		doc = doc || document;
+
+		var i,
+			script = doc.createElement( "script" );
+
+		script.text = code;
+		if ( node ) {
+			for ( i in preservedScriptAttributes ) {
+				if ( node[ i ] ) {
+					script[ i ] = node[ i ];
+				}
+			}
+		}
+		doc.head.appendChild( script ).parentNode.removeChild( script );
+	}
+
+
+function toType( obj ) {
+	if ( obj == null ) {
+		return obj + "";
+	}
+
+	// Support: Android <=2.3 only (functionish RegExp)
+	return typeof obj === "object" || typeof obj === "function" ?
+		class2type[ toString.call( obj ) ] || "object" :
+		typeof obj;
+}
+/* global Symbol */
+// Defining this global in .eslintrc.json would create a danger of using the global
+// unguarded in another place, it seems safer to define global only for this module
+
+
+
+var
+	version = "3.3.1",
+
+	// Define a local copy of jQuery
+	jQuery = function( selector, context ) {
+
+		// The jQuery object is actually just the init constructor 'enhanced'
+		// Need init if jQuery is called (just allow error to be thrown if not included)
+		return new jQuery.fn.init( selector, context );
+	},
+
+	// Support: Android <=4.0 only
+	// Make sure we trim BOM and NBSP
+	rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
+
+jQuery.fn = jQuery.prototype = {
+
+	// The current version of jQuery being used
+	jquery: version,
+
+	constructor: jQuery,
+
+	// The default length of a jQuery object is 0
+	length: 0,
+
+	toArray: function() {
+		return slice.call( this );
+	},
+
+	// Get the Nth element in the matched element set OR
+	// Get the whole matched element set as a clean array
+	get: function( num ) {
+
+		// Return all the elements in a clean array
+		if ( num == null ) {
+			return slice.call( this );
+		}
+
+		// Return just the one element from the set
+		return num < 0 ? this[ num + this.length ] : this[ num ];
+	},
+
+	// Take an array of elements and push it onto the stack
+	// (returning the new matched element set)
+	pushStack: function( elems ) {
+
+		// Build a new jQuery matched element set
+		var ret = jQuery.merge( this.constructor(), elems );
+
+		// Add the old object onto the stack (as a reference)
+		ret.prevObject = this;
+
+		// Return the newly-formed element set
+		return ret;
+	},
+
+	// Execute a callback for every element in the matched set.
+	each: function( callback ) {
+		return jQuery.each( this, callback );
+	},
+
+	map: function( callback ) {
+		return this.pushStack( jQuery.map( this, function( elem, i ) {
+			return callback.call( elem, i, elem );
+		} ) );
+	},
+
+	slice: function() {
+		return this.pushStack( slice.apply( this, arguments ) );
+	},
+
+	first: function() {
+		return this.eq( 0 );
+	},
+
+	last: function() {
+		return this.eq( -1 );
+	},
+
+	eq: function( i ) {
+		var len = this.length,
+			j = +i + ( i < 0 ? len : 0 );
+		return this.pushStack( j >= 0 && j < len ? [ this[ j ] ] : [] );
+	},
+
+	end: function() {
+		return this.prevObject || this.constructor();
+	},
+
+	// For internal use only.
+	// Behaves like an Array's method, not like a jQuery method.
+	push: push,
+	sort: arr.sort,
+	splice: arr.splice
+};
+
+jQuery.extend = jQuery.fn.extend = function() {
+	var options, name, src, copy, copyIsArray, clone,
+		target = arguments[ 0 ] || {},
+		i = 1,
+		length = arguments.length,
+		deep = false;
+
+	// Handle a deep copy situation
+	if ( typeof target === "boolean" ) {
+		deep = target;
+
+		// Skip the boolean and the target
+		target = arguments[ i ] || {};
+		i++;
+	}
+
+	// Handle case when target is a string or something (possible in deep copy)
+	if ( typeof target !== "object" && !isFunction( target ) ) {
+		target = {};
+	}
+
+	// Extend jQuery itself if only one argument is passed
+	if ( i === length ) {
+		target = this;
+		i--;
+	}
+
+	for ( ; i < length; i++ ) {
+
+		// Only deal with non-null/undefined values
+		if ( ( options = arguments[ i ] ) != null ) {
+
+			// Extend the base object
+			for ( name in options ) {
+				src = target[ name ];
+				copy = options[ name ];
+
+				// Prevent never-ending loop
+				if ( target === copy ) {
+					continue;
+				}
+
+				// Recurse if we're merging plain objects or arrays
+				if ( deep && copy && ( jQuery.isPlainObject( copy ) ||
+					( copyIsArray = Array.isArray( copy ) ) ) ) {
+
+					if ( copyIsArray ) {
+						copyIsArray = false;
+						clone = src && Array.isArray( src ) ? src : [];
+
+					} else {
+						clone = src && jQuery.isPlainObject( src ) ? src : {};
+					}
+
+					// Never move original objects, clone them
+					target[ name ] = jQuery.extend( deep, clone, copy );
+
+				// Don't bring in undefined values
+				} else if ( copy !== undefined ) {
+					target[ name ] = copy;
+				}
+			}
+		}
+	}
+
+	// Return the modified object
+	return target;
+};
+
+jQuery.extend( {
+
+	// Unique for each copy of jQuery on the page
+	expando: "jQuery" + ( version + Math.random() ).replace( /\D/g, "" ),
+
+	// Assume jQuery is ready without the ready module
+	isReady: true,
+
+	error: function( msg ) {
+		throw new Error( msg );
+	},
+
+	noop: function() {},
+
+	isPlainObject: function( obj ) {
+		var proto, Ctor;
+
+		// Detect obvious negatives
+		// Use toString instead of jQuery.type to catch host objects
+		if ( !obj || toString.call( obj ) !== "[object Object]" ) {
+			return false;
+		}
+
+		proto = getProto( obj );
+
+		// Objects with no prototype (e.g., `Object.create( null )`) are plain
+		if ( !proto ) {
+			return true;
+		}
+
+		// Objects with prototype are plain iff they were constructed by a global Object function
+		Ctor = hasOwn.call( proto, "constructor" ) && proto.constructor;
+		return typeof Ctor === "function" && fnToString.call( Ctor ) === ObjectFunctionString;
+	},
+
+	isEmptyObject: function( obj ) {
+
+		/* eslint-disable no-unused-vars */
+		// See https://github.com/eslint/eslint/issues/6125
+		var name;
+
+		for ( name in obj ) {
+			return false;
+		}
+		return true;
+	},
+
+	// Evaluates a script in a global context
+	globalEval: function( code ) {
+		DOMEval( code );
+	},
+
+	each: function( obj, callback ) {
+		var length, i = 0;
+
+		if ( isArrayLike( obj ) ) {
+			length = obj.length;
+			for ( ; i < length; i++ ) {
+				if ( callback.call( obj[ i ], i, obj[ i ] ) === false ) {
+					break;
+				}
+			}
+		} else {
+			for ( i in obj ) {
+				if ( callback.call( obj[ i ], i, obj[ i ] ) === false ) {
+					break;
+				}
+			}
+		}
+
+		return obj;
+	},
+
+	// Support: Android <=4.0 only
+	trim: function( text ) {
+		return text == null ?
+			"" :
+			( text + "" ).replace( rtrim, "" );
+	},
+
+	// results is for internal usage only
+	makeArray: function( arr, results ) {
+		var ret = results || [];
+
+		if ( arr != null ) {
+			if ( isArrayLike( Object( arr ) ) ) {
+				jQuery.merge( ret,
+					typeof arr === "string" ?
+					[ arr ] : arr
+				);
+			} else {
+				push.call( ret, arr );
+			}
+		}
+
+		return ret;
+	},
+
+	inArray: function( elem, arr, i ) {
+		return arr == null ? -1 : indexOf.call( arr, elem, i );
+	},
+
+	// Support: Android <=4.0 only, PhantomJS 1 only
+	// push.apply(_, arraylike) throws on ancient WebKit
+	merge: function( first, second ) {
+		var len = +second.length,
+			j = 0,
+			i = first.length;
+
+		for ( ; j < len; j++ ) {
+			first[ i++ ] = second[ j ];
+		}
+
+		first.length = i;
+
+		return first;
+	},
+
+	grep: function( elems, callback, invert ) {
+		var callbackInverse,
+			matches = [],
+			i = 0,
+			length = elems.length,
+			callbackExpect = !invert;
+
+		// Go through the array, only saving the items
+		// that pass the validator function
+		for ( ; i < length; i++ ) {
+			callbackInverse = !callback( elems[ i ], i );
+			if ( callbackInverse !== callbackExpect ) {
+				matches.push( elems[ i ] );
+			}
+		}
+
+		return matches;
+	},
+
+	// arg is for internal usage only
+	map: function( elems, callback, arg ) {
+		var length, value,
+			i = 0,
+			ret = [];
+
+		// Go through the array, translating each of the items to their new values
+		if ( isArrayLike( elems ) ) {
+			length = elems.length;
+			for ( ; i < length; i++ ) {
+				value = callback( elems[ i ], i, arg );
+
+				if ( value != null ) {
+					ret.push( value );
+				}
+			}
+
+		// Go through every key on the object,
+		} else {
+			for ( i in elems ) {
+				value = callback( elems[ i ], i, arg );
+
+				if ( value != null ) {
+					ret.push( value );
+				}
+			}
+		}
+
+		// Flatten any nested arrays
+		return concat.apply( [], ret );
+	},
+
+	// A global GUID counter for objects
+	guid: 1,
+
+	// jQuery.support is not used in Core but other projects attach their
+	// properties to it so it needs to exist.
+	support: support
+} );
+
+if ( typeof Symbol === "function" ) {
+	jQuery.fn[ Symbol.iterator ] = arr[ Symbol.iterator ];
+}
+
+// Populate the class2type map
+jQuery.each( "Boolean Number String Function Array Date RegExp Object Error Symbol".split( " " ),
+function( i, name ) {
+	class2type[ "[object " + name + "]" ] = name.toLowerCase();
+} );
+
+function isArrayLike( obj ) {
+
+	// Support: real iOS 8.2 only (not reproducible in simulator)
+	// `in` check used to prevent JIT error (gh-2145)
+	// hasOwn isn't used here due to false negatives
+	// regarding Nodelist length in IE
+	var length = !!obj && "length" in obj && obj.length,
+		type = toType( obj );
+
+	if ( isFunction( obj ) || isWindow( obj ) ) {
+		return false;
+	}
+
+	return type === "array" || length === 0 ||
+		typeof length === "number" && length > 0 && ( length - 1 ) in obj;
+}
+var Sizzle =
+/*!
+ * Sizzle CSS Selector Engine v2.3.3
+ * https://sizzlejs.com/
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license
+ * http://jquery.org/license
+ *
+ * Date: 2016-08-08
+ */
+(function( window ) {
+
+var i,
+	support,
+	Expr,
+	getText,
+	isXML,
+	tokenize,
+	compile,
+	select,
+	outermostContext,
+	sortInput,
+	hasDuplicate,
+
+	// Local document vars
+	setDocument,
+	document,
+	docElem,
+	documentIsHTML,
+	rbuggyQSA,
+	rbuggyMatches,
+	matches,
+	contains,
+
+	// Instance-specific data
+	expando = "sizzle" + 1 * new Date(),
+	preferredDoc = window.document,
+	dirruns = 0,
+	done = 0,
+	classCache = createCache(),
+	tokenCache = createCache(),
+	compilerCache = createCache(),
+	sortOrder = function( a, b ) {
+		if ( a === b ) {
+			hasDuplicate = true;
+		}
+		return 0;
+	},
+
+	// Instance methods
+	hasOwn = ({}).hasOwnProperty,
+	arr = [],
+	pop = arr.pop,
+	push_native = arr.push,
+	push = arr.push,
+	slice = arr.slice,
+	// Use a stripped-down indexOf as it's faster than native
+	// https://jsperf.com/thor-indexof-vs-for/5
+	indexOf = function( list, elem ) {
+		var i = 0,
+			len = list.length;
+		for ( ; i < len; i++ ) {
+			if ( list[i] === elem ) {
+				return i;
+			}
+		}
+		return -1;
+	},
+
+	booleans = "checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|ismap|loop|multiple|open|readonly|required|scoped",
+
+	// Regular expressions
+
+	// http://www.w3.org/TR/css3-selectors/#whitespace
+	whitespace = "[\\x20\\t\\r\\n\\f]",
+
+	// http://www.w3.org/TR/CSS21/syndata.html#value-def-identifier
+	identifier = "(?:\\\\.|[\\w-]|[^\0-\\xa0])+",
+
+	// Attribute selectors: http://www.w3.org/TR/selectors/#attribute-selectors
+	attributes = "\\[" + whitespace + "*(" + identifier + ")(?:" + whitespace +
+		// Operator (capture 2)
+		"*([*^$|!~]?=)" + whitespace +
+		// "Attribute values must be CSS identifiers [capture 5] or strings [capture 3 or capture 4]"
+		"*(?:'((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\"|(" + identifier + "))|)" + whitespace +
+		"*\\]",
+
+	pseudos = ":(" + identifier + ")(?:\\((" +
+		// To reduce the number of selectors needing tokenize in the preFilter, prefer arguments:
+		// 1. quoted (capture 3; capture 4 or capture 5)
+		"('((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\")|" +
+		// 2. simple (capture 6)
+		"((?:\\\\.|[^\\\\()[\\]]|" + attributes + ")*)|" +
+		// 3. anything else (capture 2)
+		".*" +
+		")\\)|)",
+
+	// Leading and non-escaped trailing whitespace, capturing some non-whitespace characters preceding the latter
+	rwhitespace = new RegExp( whitespace + "+", "g" ),
+	rtrim = new RegExp( "^" + whitespace + "+|((?:^|[^\\\\])(?:\\\\.)*)" + whitespace + "+$", "g" ),
+
+	rcomma = new RegExp( "^" + whitespace + "*," + whitespace + "*" ),
+	rcombinators = new RegExp( "^" + whitespace + "*([>+~]|" + whitespace + ")" + whitespace + "*" ),
+
+	rattributeQuotes = new RegExp( "=" + whitespace + "*([^\\]'\"]*?)" + whitespace + "*\\]", "g" ),
+
+	rpseudo = new RegExp( pseudos ),
+	ridentifier = new RegExp( "^" + identifier + "$" ),
+
+	matchExpr = {
+		"ID": new RegExp( "^#(" + identifier + ")" ),
+		"CLASS": new RegExp( "^\\.(" + identifier + ")" ),
+		"TAG": new RegExp( "^(" + identifier + "|[*])" ),
+		"ATTR": new RegExp( "^" + attributes ),
+		"PSEUDO": new RegExp( "^" + pseudos ),
+		"CHILD": new RegExp( "^:(only|first|last|nth|nth-last)-(child|of-type)(?:\\(" + whitespace +
+			"*(even|odd|(([+-]|)(\\d*)n|)" + whitespace + "*(?:([+-]|)" + whitespace +
+			"*(\\d+)|))" + whitespace + "*\\)|)", "i" ),
+		"bool": new RegExp( "^(?:" + booleans + ")$", "i" ),
+		// For use in libraries implementing .is()
+		// We use this for POS matching in `select`
+		"needsContext": new RegExp( "^" + whitespace + "*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\\(" +
+			whitespace + "*((?:-\\d)?\\d*)" + whitespace + "*\\)|)(?=[^-]|$)", "i" )
+	},
+
+	rinputs = /^(?:input|select|textarea|button)$/i,
+	rheader = /^h\d$/i,
+
+	rnative = /^[^{]+\{\s*\[native \w/,
+
+	// Easily-parseable/retrievable ID or TAG or CLASS selectors
+	rquickExpr = /^(?:#([\w-]+)|(\w+)|\.([\w-]+))$/,
+
+	rsibling = /[+~]/,
+
+	// CSS escapes
+	// http://www.w3.org/TR/CSS21/syndata.html#escaped-characters
+	runescape = new RegExp( "\\\\([\\da-f]{1,6}" + whitespace + "?|(" + whitespace + ")|.)", "ig" ),
+	funescape = function( _, escaped, escapedWhitespace ) {
+		var high = "0x" + escaped - 0x10000;
+		// NaN means non-codepoint
+		// Support: Firefox<24
+		// Workaround erroneous numeric interpretation of +"0x"
+		return high !== high || escapedWhitespace ?
+			escaped :
+			high < 0 ?
+				// BMP codepoint
+				String.fromCharCode( high + 0x10000 ) :
+				// Supplemental Plane codepoint (surrogate pair)
+				String.fromCharCode( high >> 10 | 0xD800, high & 0x3FF | 0xDC00 );
+	},
+
+	// CSS string/identifier serialization
+	// https://drafts.csswg.org/cssom/#common-serializing-idioms
+	rcssescape = /([\0-\x1f\x7f]|^-?\d)|^-$|[^\0-\x1f\x7f-\uFFFF\w-]/g,
+	fcssescape = function( ch, asCodePoint ) {
+		if ( asCodePoint ) {
+
+			// U+0000 NULL becomes U+FFFD REPLACEMENT CHARACTER
+			if ( ch === "\0" ) {
+				return "\uFFFD";
+			}
+
+			// Control characters and (dependent upon position) numbers get escaped as code points
+			return ch.slice( 0, -1 ) + "\\" + ch.charCodeAt( ch.length - 1 ).toString( 16 ) + " ";
+		}
+
+		// Other potentially-special ASCII characters get backslash-escaped
+		return "\\" + ch;
+	},
+
+	// Used for iframes
+	// See setDocument()
+	// Removing the function wrapper causes a "Permission Denied"
+	// error in IE
+	unloadHandler = function() {
+		setDocument();
+	},
+
+	disabledAncestor = addCombinator(
+		function( elem ) {
+			return elem.disabled === true && ("form" in elem || "label" in elem);
+		},
+		{ dir: "parentNode", next: "legend" }
+	);
+
+// Optimize for push.apply( _, NodeList )
+try {
+	push.apply(
+		(arr = slice.call( preferredDoc.childNodes )),
+		preferredDoc.childNodes
+	);
+	// Support: Android<4.0
+	// Detect silently failing push.apply
+	arr[ preferredDoc.childNodes.length ].nodeType;
+} catch ( e ) {
+	push = { apply: arr.length ?
+
+		// Leverage slice if possible
+		function( target, els ) {
+			push_native.apply( target, slice.call(els) );
+		} :
+
+		// Support: IE<9
+		// Otherwise append directly
+		function( target, els ) {
+			var j = target.length,
+				i = 0;
+			// Can't trust NodeList.length
+			while ( (target[j++] = els[i++]) ) {}
+			target.length = j - 1;
+		}
+	};
+}
+
+function Sizzle( selector, context, results, seed ) {
+	var m, i, elem, nid, match, groups, newSelector,
+		newContext = context && context.ownerDocument,
+
+		// nodeType defaults to 9, since context defaults to document
+		nodeType = context ? context.nodeType : 9;
+
+	results = results || [];
+
+	// Return early from calls with invalid selector or context
+	if ( typeof selector !== "string" || !selector ||
+		nodeType !== 1 && nodeType !== 9 && nodeType !== 11 ) {
+
+		return results;
+	}
+
+	// Try to shortcut find operations (as opposed to filters) in HTML documents
+	if ( !seed ) {
+
+		if ( ( context ? context.ownerDocument || context : preferredDoc ) !== document ) {
+			setDocument( context );
+		}
+		context = context || document;
+
+		if ( documentIsHTML ) {
+
+			// If the selector is sufficiently simple, try using a "get*By*" DOM method
+			// (excepting DocumentFragment context, where the methods don't exist)
+			if ( nodeType !== 11 && (match = rquickExpr.exec( selector )) ) {
+
+				// ID selector
+				if ( (m = match[1]) ) {
+
+					// Document context
+					if ( nodeType === 9 ) {
+						if ( (elem = context.getElementById( m )) ) {
+
+							// Support: IE, Opera, Webkit
+							// TODO: identify versions
+							// getElementById can match elements by name instead of ID
+							if ( elem.id === m ) {
+								results.push( elem );
+								return results;
+							}
+						} else {
+							return results;
+						}
+
+					// Element context
+					} else {
+
+						// Support: IE, Opera, Webkit
+						// TODO: identify versions
+						// getElementById can match elements by name instead of ID
+						if ( newContext && (elem = newContext.getElementById( m )) &&
+							contains( context, elem ) &&
+							elem.id === m ) {
+
+							results.push( elem );
+							return results;
+						}
+					}
+
+				// Type selector
+				} else if ( match[2] ) {
+					push.apply( results, context.getElementsByTagName( selector ) );
+					return results;
+
+				// Class selector
+				} else if ( (m = match[3]) && support.getElementsByClassName &&
+					context.getElementsByClassName ) {
+
+					push.apply( results, context.getElementsByClassName( m ) );
+					return results;
+				}
+			}
+
+			// Take advantage of querySelectorAll
+			if ( support.qsa &&
+				!compilerCache[ selector + " " ] &&
+				(!rbuggyQSA || !rbuggyQSA.test( selector )) ) {
+
+				if ( nodeType !== 1 ) {
+					newContext = context;
+					newSelector = selector;
+
+				// qSA looks outside Element context, which is not what we want
+				// Thanks to Andrew Dupont for this workaround technique
+				// Support: IE <=8
+				// Exclude object elements
+				} else if ( context.nodeName.toLowerCase() !== "object" ) {
+
+					// Capture the context ID, setting it first if necessary
+					if ( (nid = context.getAttribute( "id" )) ) {
+						nid = nid.replace( rcssescape, fcssescape );
+					} else {
+						context.setAttribute( "id", (nid = expando) );
+					}
+
+					// Prefix every selector in the list
+					groups = tokenize( selector );
+					i = groups.length;
+					while ( i-- ) {
+						groups[i] = "#" + nid + " " + toSelector( groups[i] );
+					}
+					newSelector = groups.join( "," );
+
+					// Expand context for sibling selectors
+					newContext = rsibling.test( selector ) && testContext( context.parentNode ) ||
+						context;
+				}
+
+				if ( newSelector ) {
+					try {
+						push.apply( results,
+							newContext.querySelectorAll( newSelector )
+						);
+						return results;
+					} catch ( qsaError ) {
+					} finally {
+						if ( nid === expando ) {
+							context.removeAttribute( "id" );
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// All others
+	return select( selector.replace( rtrim, "$1" ), context, results, seed );
+}
+
+/**
+ * Create key-value caches of limited size
+ * @returns {function(string, object)} Returns the Object data after storing it on itself with
+ *	property name the (space-suffixed) string and (if the cache is larger than Expr.cacheLength)
+ *	deleting the oldest entry
+ */
+function createCache() {
+	var keys = [];
+
+	function cache( key, value ) {
+		// Use (key + " ") to avoid collision with native prototype properties (see Issue #157)
+		if ( keys.push( key + " " ) > Expr.cacheLength ) {
+			// Only keep the most recent entries
+			delete cache[ keys.shift() ];
+		}
+		return (cache[ key + " " ] = value);
+	}
+	return cache;
+}
+
+/**
+ * Mark a function for special use by Sizzle
+ * @param {Function} fn The function to mark
+ */
+function markFunction( fn ) {
+	fn[ expando ] = true;
+	return fn;
+}
+
+/**
+ * Support testing using an element
+ * @param {Function} fn Passed the created element and returns a boolean result
+ */
+function assert( fn ) {
+	var el = document.createElement("fieldset");
+
+	try {
+		return !!fn( el );
+	} catch (e) {
+		return false;
+	} finally {
+		// Remove from its parent by default
+		if ( el.parentNode ) {
+			el.parentNode.removeChild( el );
+		}
+		// release memory in IE
+		el = null;
+	}
+}
+
+/**
+ * Adds the same handler for all of the specified attrs
+ * @param {String} attrs Pipe-separated list of attributes
+ * @param {Function} handler The method that will be applied
+ */
+function addHandle( attrs, handler ) {
+	var arr = attrs.split("|"),
+		i = arr.length;
+
+	while ( i-- ) {
+		Expr.attrHandle[ arr[i] ] = handler;
+	}
+}
+
+/**
+ * Checks document order of two siblings
+ * @param {Element} a
+ * @param {Element} b
+ * @returns {Number} Returns less than 0 if a precedes b, greater than 0 if a follows b
+ */
+function siblingCheck( a, b ) {
+	var cur = b && a,
+		diff = cur && a.nodeType === 1 && b.nodeType === 1 &&
+			a.sourceIndex - b.sourceIndex;
+
+	// Use IE sourceIndex if available on both nodes
+	if ( diff ) {
+		return diff;
+	}
+
+	// Check if b follows a
+	if ( cur ) {
+		while ( (cur = cur.nextSibling) ) {
+			if ( cur === b ) {
+				return -1;
+			}
+		}
+	}
+
+	return a ? 1 : -1;
+}
+
+/**
+ * Returns a function to use in pseudos for input types
+ * @param {String} type
+ */
+function createInputPseudo( type ) {
+	return function( elem ) {
+		var name = elem.nodeName.toLowerCase();
+		return name === "input" && elem.type === type;
+	};
+}
+
+/**
+ * Returns a function to use in pseudos for buttons
+ * @param {String} type
+ */
+function createButtonPseudo( type ) {
+	return function( elem ) {
+		var name = elem.nodeName.toLowerCase();
+		return (name === "input" || name === "button") && elem.type === type;
+	};
+}
+
+/**
+ * Returns a function to use in pseudos for :enabled/:disabled
+ * @param {Boolean} disabled true for :disabled; false for :enabled
+ */
+function createDisabledPseudo( disabled ) {
+
+	// Known :disabled false positives: fieldset[disabled] > legend:nth-of-type(n+2) :can-disable
+	return function( elem ) {
+
+		// Only certain elements can match :enabled or :disabled
+		// https://html.spec.whatwg.org/multipage/scripting.html#selector-enabled
+		// https://html.spec.whatwg.org/multipage/scripting.html#selector-disabled
+		if ( "form" in elem ) {
+
+			// Check for inherited disabledness on relevant non-disabled elements:
+			// * listed form-associated elements in a disabled fieldset
+			//   https://html.spec.whatwg.org/multipage/forms.html#category-listed
+			//   https://html.spec.whatwg.org/multipage/forms.html#concept-fe-disabled
+			// * option elements in a disabled optgroup
+			//   https://html.spec.whatwg.org/multipage/forms.html#concept-option-disabled
+			// All such elements have a "form" property.
+			if ( elem.parentNode && elem.disabled === false ) {
+
+				// Option elements defer to a parent optgroup if present
+				if ( "label" in elem ) {
+					if ( "label" in elem.parentNode ) {
+						return elem.parentNode.disabled === disabled;
+					} else {
+						return elem.disabled === disabled;
+					}
+				}
+
+				// Support: IE 6 - 11
+				// Use the isDisabled shortcut property to check for disabled fieldset ancestors
+				return elem.isDisabled === disabled ||
+
+					// Where there is no isDisabled, check manually
+					/* jshint -W018 */
+					elem.isDisabled !== !disabled &&
+						disabledAncestor( elem ) === disabled;
+			}
+
+			return elem.disabled === disabled;
+
+		// Try to winnow out elements that can't be disabled before trusting the disabled property.
+		// Some victims get caught in our net (label, legend, menu, track), but it shouldn't
+		// even exist on them, let alone have a boolean value.
+		} else if ( "label" in elem ) {
+			return elem.disabled === disabled;
+		}
+
+		// Remaining elements are neither :enabled nor :disabled
+		return false;
+	};
+}
+
+/**
+ * Returns a function to use in pseudos for positionals
+ * @param {Function} fn
+ */
+function createPositionalPseudo( fn ) {
+	return markFunction(function( argument ) {
+		argument = +argument;
+		return markFunction(function( seed, matches ) {
+			var j,
+				matchIndexes = fn( [], seed.length, argument ),
+				i = matchIndexes.length;
+
+			// Match elements found at the specified indexes
+			while ( i-- ) {
+				if ( seed[ (j = matchIndexes[i]) ] ) {
+					seed[j] = !(matches[j] = seed[j]);
+				}
+			}
+		});
+	});
+}
+
+/**
+ * Checks a node for validity as a Sizzle context
+ * @param {Element|Object=} context
+ * @returns {Element|Object|Boolean} The input node if acceptable, otherwise a falsy value
+ */
+function testContext( context ) {
+	return context && typeof context.getElementsByTagName !== "undefined" && context;
+}
+
+// Expose support vars for convenience
+support = Sizzle.support = {};
+
+/**
+ * Detects XML nodes
+ * @param {Element|Object} elem An element or a document
+ * @returns {Boolean} True iff elem is a non-HTML XML node
+ */
+isXML = Sizzle.isXML = function( elem ) {
+	// documentElement is verified for cases where it doesn't yet exist
+	// (such as loading iframes in IE - #4833)
+	var documentElement = elem && (elem.ownerDocument || elem).documentElement;
+	return documentElement ? documentElement.nodeName !== "HTML" : false;
+};
+
+/**
+ * Sets document-related variables once based on the current document
+ * @param {Element|Object} [doc] An element or document object to use to set the document
+ * @returns {Object} Returns the current document
+ */
+setDocument = Sizzle.setDocument = function( node ) {
+	var hasCompare, subWindow,
+		doc = node ? node.ownerDocument || node : preferredDoc;
+
+	// Return early if doc is invalid or already selected
+	if ( doc === document || doc.nodeType !== 9 || !doc.documentElement ) {
+		return document;
+	}
+
+	// Update global variables
+	document = doc;
+	docElem = document.documentElement;
+	documentIsHTML = !isXML( document );
+
+	// Support: IE 9-11, Edge
+	// Accessing iframe documents after unload throws "permission denied" errors (jQuery #13936)
+	if ( preferredDoc !== document &&
+		(subWindow = document.defaultView) && subWindow.top !== subWindow ) {
+
+		// Support: IE 11, Edge
+		if ( subWindow.addEventListener ) {
+			subWindow.addEventListener( "unload", unloadHandler, false );
+
+		// Support: IE 9 - 10 only
+		} else if ( subWindow.attachEvent ) {
+			subWindow.attachEvent( "onunload", unloadHandler );
+		}
+	}
+
+	/* Attributes
+	---------------------------------------------------------------------- */
+
+	// Support: IE<8
+	// Verify that getAttribute really returns attributes and not properties
+	// (excepting IE8 booleans)
+	support.attributes = assert(function( el ) {
+		el.className = "i";
+		return !el.getAttribute("className");
+	});
+
+	/* getElement(s)By*
+	---------------------------------------------------------------------- */
+
+	// Check if getElementsByTagName("*") returns only elements
+	support.getElementsByTagName = assert(function( el ) {
+		el.appendChild( document.createComment("") );
+		return !el.getElementsByTagName("*").length;
+	});
+
+	// Support: IE<9
+	support.getElementsByClassName = rnative.test( document.getElementsByClassName );
+
+	// Support: IE<10
+	// Check if getElementById returns elements by name
+	// The broken getElementById methods don't pick up programmatically-set names,
+	// so use a roundabout getElementsByName test
+	support.getById = assert(function( el ) {
+		docElem.appendChild( el ).id = expando;
+		return !document.getElementsByName || !document.getElementsByName( expando ).length;
+	});
+
+	// ID filter and find
+	if ( support.getById ) {
+		Expr.filter["ID"] = function( id ) {
+			var attrId = id.replace( runescape, funescape );
+			return function( elem ) {
+				return elem.getAttribute("id") === attrId;
+			};
+		};
+		Expr.find["ID"] = function( id, context ) {
+			if ( typeof context.getElementById !== "undefined" && documentIsHTML ) {
+				var elem = context.getElementById( id );
+				return elem ? [ elem ] : [];
+			}
+		};
+	} else {
+		Expr.filter["ID"] =  function( id ) {
+			var attrId = id.replace( runescape, funescape );
+			return function( elem ) {
+				var node = typeof elem.getAttributeNode !== "undefined" &&
+					elem.getAttributeNode("id");
+				return node && node.value === attrId;
+			};
+		};
+
+		// Support: IE 6 - 7 only
+		// getElementById is not reliable as a find shortcut
+		Expr.find["ID"] = function( id, context ) {
+			if ( typeof context.getElementById !== "undefined" && documentIsHTML ) {
+				var node, i, elems,
+					elem = context.getElementById( id );
+
+				if ( elem ) {
+
+					// Verify the id attribute
+					node = elem.getAttributeNode("id");
+					if ( node && node.value === id ) {
+						return [ elem ];
+					}
+
+					// Fall back on getElementsByName
+					elems = context.getElementsByName( id );
+					i = 0;
+					while ( (elem = elems[i++]) ) {
+						node = elem.getAttributeNode("id");
+						if ( node && node.value === id ) {
+							return [ elem ];
+						}
+					}
+				}
+
+				return [];
+			}
+		};
+	}
+
+	// Tag
+	Expr.find["TAG"] = support.getElementsByTagName ?
+		function( tag, context ) {
+			if ( typeof context.getElementsByTagName !== "undefined" ) {
+				return context.getElementsByTagName( tag );
+
+			// DocumentFragment nodes don't have gEBTN
+			} else if ( support.qsa ) {
+				return context.querySelectorAll( tag );
+			}
+		} :
+
+		function( tag, context ) {
+			var elem,
+				tmp = [],
+				i = 0,
+				// By happy coincidence, a (broken) gEBTN appears on DocumentFragment nodes too
+				results = context.getElementsByTagName( tag );
+
+			// Filter out possible comments
+			if ( tag === "*" ) {
+				while ( (elem = results[i++]) ) {
+					if ( elem.nodeType === 1 ) {
+						tmp.push( elem );
+					}
+				}
+
+				return tmp;
+			}
+			return results;
+		};
+
+	// Class
+	Expr.find["CLASS"] = support.getElementsByClassName && function( className, context ) {
+		if ( typeof context.getElementsByClassName !== "undefined" && documentIsHTML ) {
+			return context.getElementsByClassName( className );
+		}
+	};
+
+	/* QSA/matchesSelector
+	---------------------------------------------------------------------- */
+
+	// QSA and matchesSelector support
+
+	// matchesSelector(:active) reports false when true (IE9/Opera 11.5)
+	rbuggyMatches = [];
+
+	// qSa(:focus) reports false when true (Chrome 21)
+	// We allow this because of a bug in IE8/9 that throws an error
+	// whenever `document.activeElement` is accessed on an iframe
+	// So, we allow :focus to pass through QSA all the time to avoid the IE error
+	// See https://bugs.jquery.com/ticket/13378
+	rbuggyQSA = [];
+
+	if ( (support.qsa = rnative.test( document.querySelectorAll )) ) {
+		// Build QSA regex
+		// Regex strategy adopted from Diego Perini
+		assert(function( el ) {
+			// Select is set to empty string on purpose
+			// This is to test IE's treatment of not explicitly
+			// setting a boolean content attribute,
+			// since its presence should be enough
+			// https://bugs.jquery.com/ticket/12359
+			docElem.appendChild( el ).innerHTML = "<a id='" + expando + "'></a>" +
+				"<select id='" + expando + "-\r\\' msallowcapture=''>" +
+				"<option selected=''></option></select>";
+
+			// Support: IE8, Opera 11-12.16
+			// Nothing should be selected when empty strings follow ^= or $= or *=
+			// The test attribute must be unknown in Opera but "safe" for WinRT
+			// https://msdn.microsoft.com/en-us/library/ie/hh465388.aspx#attribute_section
+			if ( el.querySelectorAll("[msallowcapture^='']").length ) {
+				rbuggyQSA.push( "[*^$]=" + whitespace + "*(?:''|\"\")" );
+			}
+
+			// Support: IE8
+			// Boolean attributes and "value" are not treated correctly
+			if ( !el.querySelectorAll("[selected]").length ) {
+				rbuggyQSA.push( "\\[" + whitespace + "*(?:value|" + booleans + ")" );
+			}
+
+			// Support: Chrome<29, Android<4.4, Safari<7.0+, iOS<7.0+, PhantomJS<1.9.8+
+			if ( !el.querySelectorAll( "[id~=" + expando + "-]" ).length ) {
+				rbuggyQSA.push("~=");
+			}
+
+			// Webkit/Opera - :checked should return selected option elements
+			// http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
+			// IE8 throws error here and will not see later tests
+			if ( !el.querySelectorAll(":checked").length ) {
+				rbuggyQSA.push(":checked");
+			}
+
+			// Support: Safari 8+, iOS 8+
+			// https://bugs.webkit.org/show_bug.cgi?id=136851
+			// In-page `selector#id sibling-combinator selector` fails
+			if ( !el.querySelectorAll( "a#" + expando + "+*" ).length ) {
+				rbuggyQSA.push(".#.+[+~]");
+			}
+		});
+
+		assert(function( el ) {
+			el.innerHTML = "<a href='' disabled='disabled'></a>" +
+				"<select disabled='disabled'><option/></select>";
+
+			// Support: Windows 8 Native Apps
+			// The type and name attributes are restricted during .innerHTML assignment
+			var input = document.createElement("input");
+			input.setAttribute( "type", "hidden" );
+			el.appendChild( input ).setAttribute( "name", "D" );
+
+			// Support: IE8
+			// Enforce case-sensitivity of name attribute
+			if ( el.querySelectorAll("[name=d]").length ) {
+				rbuggyQSA.push( "name" + whitespace + "*[*^$|!~]?=" );
+			}
+
+			// FF 3.5 - :enabled/:disabled and hidden elements (hidden elements are still enabled)
+			// IE8 throws error here and will not see later tests
+			if ( el.querySelectorAll(":enabled").length !== 2 ) {
+				rbuggyQSA.push( ":enabled", ":disabled" );
+			}
+
+			// Support: IE9-11+
+			// IE's :disabled selector does not pick up the children of disabled fieldsets
+			docElem.appendChild( el ).disabled = true;
+			if ( el.querySelectorAll(":disabled").length !== 2 ) {
+				rbuggyQSA.push( ":enabled", ":disabled" );
+			}
+
+			// Opera 10-11 does not throw on post-comma invalid pseudos
+			el.querySelectorAll("*,:x");
+			rbuggyQSA.push(",.*:");
+		});
+	}
+
+	if ( (support.matchesSelector = rnative.test( (matches = docElem.matches ||
+		docElem.webkitMatchesSelector ||
+		docElem.mozMatchesSelector ||
+		docElem.oMatchesSelector ||
+		docElem.msMatchesSelector) )) ) {
+
+		assert(function( el ) {
+			// Check to see if it's possible to do matchesSelector
+			// on a disconnected node (IE 9)
+			support.disconnectedMatch = matches.call( el, "*" );
+
+			// This should fail with an exception
+			// Gecko does not error, returns false instead
+			matches.call( el, "[s!='']:x" );
+			rbuggyMatches.push( "!=", pseudos );
+		});
+	}
+
+	rbuggyQSA = rbuggyQSA.length && new RegExp( rbuggyQSA.join("|") );
+	rbuggyMatches = rbuggyMatches.length && new RegExp( rbuggyMatches.join("|") );
+
+	/* Contains
+	---------------------------------------------------------------------- */
+	hasCompare = rnative.test( docElem.compareDocumentPosition );
+
+	// Element contains another
+	// Purposefully self-exclusive
+	// As in, an element does not contain itself
+	contains = hasCompare || rnative.test( docElem.contains ) ?
+		function( a, b ) {
+			var adown = a.nodeType === 9 ? a.documentElement : a,
+				bup = b && b.parentNode;
+			return a === bup || !!( bup && bup.nodeType === 1 && (
+				adown.contains ?
+					adown.contains( bup ) :
+					a.compareDocumentPosition && a.compareDocumentPosition( bup ) & 16
+			));
+		} :
+		function( a, b ) {
+			if ( b ) {
+				while ( (b = b.parentNode) ) {
+					if ( b === a ) {
+						return true;
+					}
+				}
+			}
+			return false;
+		};
+
+	/* Sorting
+	---------------------------------------------------------------------- */
+
+	// Document order sorting
+	sortOrder = hasCompare ?
+	function( a, b ) {
+
+		// Flag for duplicate removal
+		if ( a === b ) {
+			hasDuplicate = true;
+			return 0;
+		}
+
+		// Sort on method existence if only one input has compareDocumentPosition
+		var compare = !a.compareDocumentPosition - !b.compareDocumentPosition;
+		if ( compare ) {
+			return compare;
+		}
+
+		// Calculate position if both inputs belong to the same document
+		compare = ( a.ownerDocument || a ) === ( b.ownerDocument || b ) ?
+			a.compareDocumentPosition( b ) :
+
+			// Otherwise we know they are disconnected
+			1;
+
+		// Disconnected nodes
+		if ( compare & 1 ||
+			(!support.sortDetached && b.compareDocumentPosition( a ) === compare) ) {
+
+			// Choose the first element that is related to our preferred document
+			if ( a === document || a.ownerDocument === preferredDoc && contains(preferredDoc, a) ) {
+				return -1;
+			}
+			if ( b === document || b.ownerDocument === preferredDoc && contains(preferredDoc, b) ) {
+				return 1;
+			}
+
+			// Maintain original order
+			return sortInput ?
+				( indexOf( sortInput, a ) - indexOf( sortInput, b ) ) :
+				0;
+		}
+
+		return compare & 4 ? -1 : 1;
+	} :
+	function( a, b ) {
+		// Exit early if the nodes are identical
+		if ( a === b ) {
+			hasDuplicate = true;
+			return 0;
+		}
+
+		var cur,
+			i = 0,
+			aup = a.parentNode,
+			bup = b.parentNode,
+			ap = [ a ],
+			bp = [ b ];
+
+		// Parentless nodes are either documents or disconnected
+		if ( !aup || !bup ) {
+			return a === document ? -1 :
+				b === document ? 1 :
+				aup ? -1 :
+				bup ? 1 :
+				sortInput ?
+				( indexOf( sortInput, a ) - indexOf( sortInput, b ) ) :
+				0;
+
+		// If the nodes are siblings, we can do a quick check
+		} else if ( aup === bup ) {
+			return siblingCheck( a, b );
+		}
+
+		// Otherwise we need full lists of their ancestors for comparison
+		cur = a;
+		while ( (cur = cur.parentNode) ) {
+			ap.unshift( cur );
+		}
+		cur = b;
+		while ( (cur = cur.parentNode) ) {
+			bp.unshift( cur );
+		}
+
+		// Walk down the tree looking for a discrepancy
+		while ( ap[i] === bp[i] ) {
+			i++;
+		}
+
+		return i ?
+			// Do a sibling check if the nodes have a common ancestor
+			siblingCheck( ap[i], bp[i] ) :
+
+			// Otherwise nodes in our document sort first
+			ap[i] === preferredDoc ? -1 :
+			bp[i] === preferredDoc ? 1 :
+			0;
+	};
+
+	return document;
+};
+
+Sizzle.matches = function( expr, elements ) {
+	return Sizzle( expr, null, null, elements );
+};
+
+Sizzle.matchesSelector = function( elem, expr ) {
+	// Set document vars if needed
+	if ( ( elem.ownerDocument || elem ) !== document ) {
+		setDocument( elem );
+	}
+
+	// Make sure that attribute selectors are quoted
+	expr = expr.replace( rattributeQuotes, "='$1']" );
+
+	if ( support.matchesSelector && documentIsHTML &&
+		!compilerCache[ expr + " " ] &&
+		( !rbuggyMatches || !rbuggyMatches.test( expr ) ) &&
+		( !rbuggyQSA     || !rbuggyQSA.test( expr ) ) ) {
+
+		try {
+			var ret = matches.call( elem, expr );
+
+			// IE 9's matchesSelector returns false on disconnected nodes
+			if ( ret || support.disconnectedMatch ||
+					// As well, disconnected nodes are said to be in a document
+					// fragment in IE 9
+					elem.document && elem.document.nodeType !== 11 ) {
+				return ret;
+			}
+		} catch (e) {}
+	}
+
+	return Sizzle( expr, document, null, [ elem ] ).length > 0;
+};
+
+Sizzle.contains = function( context, elem ) {
+	// Set document vars if needed
+	if ( ( context.ownerDocument || context ) !== document ) {
+		setDocument( context );
+	}
+	return contains( context, elem );
+};
+
+Sizzle.attr = function( elem, name ) {
+	// Set document vars if needed
+	if ( ( elem.ownerDocument || elem ) !== document ) {
+		setDocument( elem );
+	}
+
+	var fn = Expr.attrHandle[ name.toLowerCase() ],
+		// Don't get fooled by Object.prototype properties (jQuery #13807)
+		val = fn && hasOwn.call( Expr.attrHandle, name.toLowerCase() ) ?
+			fn( elem, name, !documentIsHTML ) :
+			undefined;
+
+	return val !== undefined ?
+		val :
+		support.attributes || !documentIsHTML ?
+			elem.getAttribute( name ) :
+			(val = elem.getAttributeNode(name)) && val.specified ?
+				val.value :
+				null;
+};
+
+Sizzle.escape = function( sel ) {
+	return (sel + "").replace( rcssescape, fcssescape );
+};
+
+Sizzle.error = function( msg ) {
+	throw new Error( "Syntax error, unrecognized expression: " + msg );
+};
+
+/**
+ * Document sorting and removing duplicates
+ * @param {ArrayLike} results
+ */
+Sizzle.uniqueSort = function( results ) {
+	var elem,
+		duplicates = [],
+		j = 0,
+		i = 0;
+
+	// Unless we *know* we can detect duplicates, assume their presence
+	hasDuplicate = !support.detectDuplicates;
+	sortInput = !support.sortStable && results.slice( 0 );
+	results.sort( sortOrder );
+
+	if ( hasDuplicate ) {
+		while ( (elem = results[i++]) ) {
+			if ( elem === results[ i ] ) {
+				j = duplicates.push( i );
+			}
+		}
+		while ( j-- ) {
+			results.splice( duplicates[ j ], 1 );
+		}
+	}
+
+	// Clear input after sorting to release objects
+	// See https://github.com/jquery/sizzle/pull/225
+	sortInput = null;
+
+	return results;
+};
+
+/**
+ * Utility function for retrieving the text value of an array of DOM nodes
+ * @param {Array|Element} elem
+ */
+getText = Sizzle.getText = function( elem ) {
+	var node,
+		ret = "",
+		i = 0,
+		nodeType = elem.nodeType;
+
+	if ( !nodeType ) {
+		// If no nodeType, this is expected to be an array
+		while ( (node = elem[i++]) ) {
+			// Do not traverse comment nodes
+			ret += getText( node );
+		}
+	} else if ( nodeType === 1 || nodeType === 9 || nodeType === 11 ) {
+		// Use textContent for elements
+		// innerText usage removed for consistency of new lines (jQuery #11153)
+		if ( typeof elem.textContent === "string" ) {
+			return elem.textContent;
+		} else {
+			// Traverse its children
+			for ( elem = elem.firstChild; elem; elem = elem.nextSibling ) {
+				ret += getText( elem );
+			}
+		}
+	} else if ( nodeType === 3 || nodeType === 4 ) {
+		return elem.nodeValue;
+	}
+	// Do not include comment or processing instruction nodes
+
+	return ret;
+};
+
+Expr = Sizzle.selectors = {
+
+	// Can be adjusted by the user
+	cacheLength: 50,
+
+	createPseudo: markFunction,
+
+	match: matchExpr,
+
+	attrHandle: {},
+
+	find: {},
+
+	relative: {
+		">": { dir: "parentNode", first: true },
+		" ": { dir: "parentNode" },
+		"+": { dir: "previousSibling", first: true },
+		"~": { dir: "previousSibling" }
+	},
+
+	preFilter: {
+		"ATTR": function( match ) {
+			match[1] = match[1].replace( runescape, funescape );
+
+			// Move the given value to match[3] whether quoted or unquoted
+			match[3] = ( match[3] || match[4] || match[5] || "" ).replace( runescape, funescape );
+
+			if ( match[2] === "~=" ) {
+				match[3] = " " + match[3] + " ";
+			}
+
+			return match.slice( 0, 4 );
+		},
+
+		"CHILD": function( match ) {
+			/* matches from matchExpr["CHILD"]
+				1 type (only|nth|...)
+				2 what (child|of-type)
+				3 argument (even|odd|\d*|\d*n([+-]\d+)?|...)
+				4 xn-component of xn+y argument ([+-]?\d*n|)
+				5 sign of xn-component
+				6 x of xn-component
+				7 sign of y-component
+				8 y of y-component
+			*/
+			match[1] = match[1].toLowerCase();
+
+			if ( match[1].slice( 0, 3 ) === "nth" ) {
+				// nth-* requires argument
+				if ( !match[3] ) {
+					Sizzle.error( match[0] );
+				}
+
+				// numeric x and y parameters for Expr.filter.CHILD
+				// remember that false/true cast respectively to 0/1
+				match[4] = +( match[4] ? match[5] + (match[6] || 1) : 2 * ( match[3] === "even" || match[3] === "odd" ) );
+				match[5] = +( ( match[7] + match[8] ) || match[3] === "odd" );
+
+			// other types prohibit arguments
+			} else if ( match[3] ) {
+				Sizzle.error( match[0] );
+			}
+
+			return match;
+		},
+
+		"PSEUDO": function( match ) {
+			var excess,
+				unquoted = !match[6] && match[2];
+
+			if ( matchExpr["CHILD"].test( match[0] ) ) {
+				return null;
+			}
+
+			// Accept quoted arguments as-is
+			if ( match[3] ) {
+				match[2] = match[4] || match[5] || "";
+
+			// Strip excess characters from unquoted arguments
+			} else if ( unquoted && rpseudo.test( unquoted ) &&
+				// Get excess from tokenize (recursively)
+				(excess = tokenize( unquoted, true )) &&
+				// advance to the next closing parenthesis
+				(excess = unquoted.indexOf( ")", unquoted.length - excess ) - unquoted.length) ) {
+
+				// excess is a negative index
+				match[0] = match[0].slice( 0, excess );
+				match[2] = unquoted.slice( 0, excess );
+			}
+
+			// Return only captures needed by the pseudo filter method (type and argument)
+			return match.slice( 0, 3 );
+		}
+	},
+
+	filter: {
+
+		"TAG": function( nodeNameSelector ) {
+			var nodeName = nodeNameSelector.replace( runescape, funescape ).toLowerCase();
+			return nodeNameSelector === "*" ?
+				function() { return true; } :
+				function( elem ) {
+					return elem.nodeName && elem.nodeName.toLowerCase() === nodeName;
+				};
+		},
+
+		"CLASS": function( className ) {
+			var pattern = classCache[ className + " " ];
+
+			return pattern ||
+				(pattern = new RegExp( "(^|" + whitespace + ")" + className + "(" + whitespace + "|$)" )) &&
+				classCache( className, function( elem ) {
+					return pattern.test( typeof elem.className === "string" && elem.className || typeof elem.getAttribute !== "undefined" && elem.getAttribute("class") || "" );
+				});
+		},
+
+		"ATTR": function( name, operator, check ) {
+			return function( elem ) {
+				var result = Sizzle.attr( elem, name );
+
+				if ( result == null ) {
+					return operator === "!=";
+				}
+				if ( !operator ) {
+					return true;
+				}
+
+				result += "";
+
+				return operator === "=" ? result === check :
+					operator === "!=" ? result !== check :
+					operator === "^=" ? check && result.indexOf( check ) === 0 :
+					operator === "*=" ? check && result.indexOf( check ) > -1 :
+					operator === "$=" ? check && result.slice( -check.length ) === check :
+					operator === "~=" ? ( " " + result.replace( rwhitespace, " " ) + " " ).indexOf( check ) > -1 :
+					operator === "|=" ? result === check || result.slice( 0, check.length + 1 ) === check + "-" :
+					false;
+			};
+		},
+
+		"CHILD": function( type, what, argument, first, last ) {
+			var simple = type.slice( 0, 3 ) !== "nth",
+				forward = type.slice( -4 ) !== "last",
+				ofType = what === "of-type";
+
+			return first === 1 && last === 0 ?
+
+				// Shortcut for :nth-*(n)
+				function( elem ) {
+					return !!elem.parentNode;
+				} :
+
+				function( elem, context, xml ) {
+					var cache, uniqueCache, outerCache, node, nodeIndex, start,
+						dir = simple !== forward ? "nextSibling" : "previousSibling",
+						parent = elem.parentNode,
+						name = ofType && elem.nodeName.toLowerCase(),
+						useCache = !xml && !ofType,
+						diff = false;
+
+					if ( parent ) {
+
+						// :(first|last|only)-(child|of-type)
+						if ( simple ) {
+							while ( dir ) {
+								node = elem;
+								while ( (node = node[ dir ]) ) {
+									if ( ofType ?
+										node.nodeName.toLowerCase() === name :
+										node.nodeType === 1 ) {
+
+										return false;
+									}
+								}
+								// Reverse direction for :only-* (if we haven't yet done so)
+								start = dir = type === "only" && !start && "nextSibling";
+							}
+							return true;
+						}
+
+						start = [ forward ? parent.firstChild : parent.lastChild ];
+
+						// non-xml :nth-child(...) stores cache data on `parent`
+						if ( forward && useCache ) {
+
+							// Seek `elem` from a previously-cached index
+
+							// ...in a gzip-friendly way
+							node = parent;
+							outerCache = node[ expando ] || (node[ expando ] = {});
+
+							// Support: IE <9 only
+							// Defend against cloned attroperties (jQuery gh-1709)
+							uniqueCache = outerCache[ node.uniqueID ] ||
+								(outerCache[ node.uniqueID ] = {});
+
+							cache = uniqueCache[ type ] || [];
+							nodeIndex = cache[ 0 ] === dirruns && cache[ 1 ];
+							diff = nodeIndex && cache[ 2 ];
+							node = nodeIndex && parent.childNodes[ nodeIndex ];
+
+							while ( (node = ++nodeIndex && node && node[ dir ] ||
+
+								// Fallback to seeking `elem` from the start
+								(diff = nodeIndex = 0) || start.pop()) ) {
+
+								// When found, cache indexes on `parent` and break
+								if ( node.nodeType === 1 && ++diff && node === elem ) {
+									uniqueCache[ type ] = [ dirruns, nodeIndex, diff ];
+									break;
+								}
+							}
+
+						} else {
+							// Use previously-cached element index if available
+							if ( useCache ) {
+								// ...in a gzip-friendly way
+								node = elem;
+								outerCache = node[ expando ] || (node[ expando ] = {});
+
+								// Support: IE <9 only
+								// Defend against cloned attroperties (jQuery gh-1709)
+								uniqueCache = outerCache[ node.uniqueID ] ||
+									(outerCache[ node.uniqueID ] = {});
+
+								cache = uniqueCache[ type ] || [];
+								nodeIndex = cache[ 0 ] === dirruns && cache[ 1 ];
+								diff = nodeIndex;
+							}
+
+							// xml :nth-child(...)
+							// or :nth-last-child(...) or :nth(-last)?-of-type(...)
+							if ( diff === false ) {
+								// Use the same loop as above to seek `elem` from the start
+								while ( (node = ++nodeIndex && node && node[ dir ] ||
+									(diff = nodeIndex = 0) || start.pop()) ) {
+
+									if ( ( ofType ?
+										node.nodeName.toLowerCase() === name :
+										node.nodeType === 1 ) &&
+										++diff ) {
+
+										// Cache the index of each encountered element
+										if ( useCache ) {
+											outerCache = node[ expando ] || (node[ expando ] = {});
+
+											// Support: IE <9 only
+											// Defend against cloned attroperties (jQuery gh-1709)
+											uniqueCache = outerCache[ node.uniqueID ] ||
+												(outerCache[ node.uniqueID ] = {});
+
+											uniqueCache[ type ] = [ dirruns, diff ];
+										}
+
+										if ( node === elem ) {
+											break;
+										}
+									}
+								}
+							}
+						}
+
+						// Incorporate the offset, then check against cycle size
+						diff -= last;
+						return diff === first || ( diff % first === 0 && diff / first >= 0 );
+					}
+				};
+		},
+
+		"PSEUDO": function( pseudo, argument ) {
+			// pseudo-class names are case-insensitive
+			// http://www.w3.org/TR/selectors/#pseudo-classes
+			// Prioritize by case sensitivity in case custom pseudos are added with uppercase letters
+			// Remember that setFilters inherits from pseudos
+			var args,
+				fn = Expr.pseudos[ pseudo ] || Expr.setFilters[ pseudo.toLowerCase() ] ||
+					Sizzle.error( "unsupported pseudo: " + pseudo );
+
+			// The user may use createPseudo to indicate that
+			// arguments are needed to create the filter function
+			// just as Sizzle does
+			if ( fn[ expando ] ) {
+				return fn( argument );
+			}
+
+			// But maintain support for old signatures
+			if ( fn.length > 1 ) {
+				args = [ pseudo, pseudo, "", argument ];
+				return Expr.setFilters.hasOwnProperty( pseudo.toLowerCase() ) ?
+					markFunction(function( seed, matches ) {
+						var idx,
+							matched = fn( seed, argument ),
+							i = matched.length;
+						while ( i-- ) {
+							idx = indexOf( seed, matched[i] );
+							seed[ idx ] = !( matches[ idx ] = matched[i] );
+						}
+					}) :
+					function( elem ) {
+						return fn( elem, 0, args );
+					};
+			}
+
+			return fn;
+		}
+	},
+
+	pseudos: {
+		// Potentially complex pseudos
+		"not": markFunction(function( selector ) {
+			// Trim the selector passed to compile
+			// to avoid treating leading and trailing
+			// spaces as combinators
+			var input = [],
+				results = [],
+				matcher = compile( selector.replace( rtrim, "$1" ) );
+
+			return matcher[ expando ] ?
+				markFunction(function( seed, matches, context, xml ) {
+					var elem,
+						unmatched = matcher( seed, null, xml, [] ),
+						i = seed.length;
+
+					// Match elements unmatched by `matcher`
+					while ( i-- ) {
+						if ( (elem = unmatched[i]) ) {
+							seed[i] = !(matches[i] = elem);
+						}
+					}
+				}) :
+				function( elem, context, xml ) {
+					input[0] = elem;
+					matcher( input, null, xml, results );
+					// Don't keep the element (issue #299)
+					input[0] = null;
+					return !results.pop();
+				};
+		}),
+
+		"has": markFunction(function( selector ) {
+			return function( elem ) {
+				return Sizzle( selector, elem ).length > 0;
+			};
+		}),
+
+		"contains": markFunction(function( text ) {
+			text = text.replace( runescape, funescape );
+			return function( elem ) {
+				return ( elem.textContent || elem.innerText || getText( elem ) ).indexOf( text ) > -1;
+			};
+		}),
+
+		// "Whether an element is represented by a :lang() selector
+		// is based solely on the element's language value
+		// being equal to the identifier C,
+		// or beginning with the identifier C immediately followed by "-".
+		// The matching of C against the element's language value is performed case-insensitively.
+		// The identifier C does not have to be a valid language name."
+		// http://www.w3.org/TR/selectors/#lang-pseudo
+		"lang": markFunction( function( lang ) {
+			// lang value must be a valid identifier
+			if ( !ridentifier.test(lang || "") ) {
+				Sizzle.error( "unsupported lang: " + lang );
+			}
+			lang = lang.replace( runescape, funescape ).toLowerCase();
+			return function( elem ) {
+				var elemLang;
+				do {
+					if ( (elemLang = documentIsHTML ?
+						elem.lang :
+						elem.getAttribute("xml:lang") || elem.getAttribute("lang")) ) {
+
+						elemLang = elemLang.toLowerCase();
+						return elemLang === lang || elemLang.indexOf( lang + "-" ) === 0;
+					}
+				} while ( (elem = elem.parentNode) && elem.nodeType === 1 );
+				return false;
+			};
+		}),
+
+		// Miscellaneous
+		"target": function( elem ) {
+			var hash = window.location && window.location.hash;
+			return hash && hash.slice( 1 ) === elem.id;
+		},
+
+		"root": function( elem ) {
+			return elem === docElem;
+		},
+
+		"focus": function( elem ) {
+			return elem === document.activeElement && (!document.hasFocus || document.hasFocus()) && !!(elem.type || elem.href || ~elem.tabIndex);
+		},
+
+		// Boolean properties
+		"enabled": createDisabledPseudo( false ),
+		"disabled": createDisabledPseudo( true ),
+
+		"checked": function( elem ) {
+			// In CSS3, :checked should return both checked and selected elements
+			// http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
+			var nodeName = elem.nodeName.toLowerCase();
+			return (nodeName === "input" && !!elem.checked) || (nodeName === "option" && !!elem.selected);
+		},
+
+		"selected": function( elem ) {
+			// Accessing this property makes selected-by-default
+			// options in Safari work properly
+			if ( elem.parentNode ) {
+				elem.parentNode.selectedIndex;
+			}
+
+			return elem.selected === true;
+		},
+
+		// Contents
+		"empty": function( elem ) {
+			// http://www.w3.org/TR/selectors/#empty-pseudo
+			// :empty is negated by element (1) or content nodes (text: 3; cdata: 4; entity ref: 5),
+			//   but not by others (comment: 8; processing instruction: 7; etc.)
+			// nodeType < 6 works because attributes (2) do not appear as children
+			for ( elem = elem.firstChild; elem; elem = elem.nextSibling ) {
+				if ( elem.nodeType < 6 ) {
+					return false;
+				}
+			}
+			return true;
+		},
+
+		"parent": function( elem ) {
+			return !Expr.pseudos["empty"]( elem );
+		},
+
+		// Element/input types
+		"header": function( elem ) {
+			return rheader.test( elem.nodeName );
+		},
+
+		"input": function( elem ) {
+			return rinputs.test( elem.nodeName );
+		},
+
+		"button": function( elem ) {
+			var name = elem.nodeName.toLowerCase();
+			return name === "input" && elem.type === "button" || name === "button";
+		},
+
+		"text": function( elem ) {
+			var attr;
+			return elem.nodeName.toLowerCase() === "input" &&
+				elem.type === "text" &&
+
+				// Support: IE<8
+				// New HTML5 attribute values (e.g., "search") appear with elem.type === "text"
+				( (attr = elem.getAttribute("type")) == null || attr.toLowerCase() === "text" );
+		},
+
+		// Position-in-collection
+		"first": createPositionalPseudo(function() {
+			return [ 0 ];
+		}),
+
+		"last": createPositionalPseudo(function( matchIndexes, length ) {
+			return [ length - 1 ];
+		}),
+
+		"eq": createPositionalPseudo(function( matchIndexes, length, argument ) {
+			return [ argument < 0 ? argument + length : argument ];
+		}),
+
+		"even": createPositionalPseudo(function( matchIndexes, length ) {
+			var i = 0;
+			for ( ; i < length; i += 2 ) {
+				matchIndexes.push( i );
+			}
+			return matchIndexes;
+		}),
+
+		"odd": createPositionalPseudo(function( matchIndexes, length ) {
+			var i = 1;
+			for ( ; i < length; i += 2 ) {
+				matchIndexes.push( i );
+			}
+			return matchIndexes;
+		}),
+
+		"lt": createPositionalPseudo(function( matchIndexes, length, argument ) {
+			var i = argument < 0 ? argument + length : argument;
+			for ( ; --i >= 0; ) {
+				matchIndexes.push( i );
+			}
+			return matchIndexes;
+		}),
+
+		"gt": createPositionalPseudo(function( matchIndexes, length, argument ) {
+			var i = argument < 0 ? argument + length : argument;
+			for ( ; ++i < length; ) {
+				matchIndexes.push( i );
+			}
+			return matchIndexes;
+		})
+	}
+};
+
+Expr.pseudos["nth"] = Expr.pseudos["eq"];
+
+// Add button/input type pseudos
+for ( i in { radio: true, checkbox: true, file: true, password: true, image: true } ) {
+	Expr.pseudos[ i ] = createInputPseudo( i );
+}
+for ( i in { submit: true, reset: true } ) {
+	Expr.pseudos[ i ] = createButtonPseudo( i );
+}
+
+// Easy API for creating new setFilters
+function setFilters() {}
+setFilters.prototype = Expr.filters = Expr.pseudos;
+Expr.setFilters = new setFilters();
+
+tokenize = Sizzle.tokenize = function( selector, parseOnly ) {
+	var matched, match, tokens, type,
+		soFar, groups, preFilters,
+		cached = tokenCache[ selector + " " ];
+
+	if ( cached ) {
+		return parseOnly ? 0 : cached.slice( 0 );
+	}
+
+	soFar = selector;
+	groups = [];
+	preFilters = Expr.preFilter;
+
+	while ( soFar ) {
+
+		// Comma and first run
+		if ( !matched || (match = rcomma.exec( soFar )) ) {
+			if ( match ) {
+				// Don't consume trailing commas as valid
+				soFar = soFar.slice( match[0].length ) || soFar;
+			}
+			groups.push( (tokens = []) );
+		}
+
+		matched = false;
+
+		// Combinators
+		if ( (match = rcombinators.exec( soFar )) ) {
+			matched = match.shift();
+			tokens.push({
+				value: matched,
+				// Cast descendant combinators to space
+				type: match[0].replace( rtrim, " " )
+			});
+			soFar = soFar.slice( matched.length );
+		}
+
+		// Filters
+		for ( type in Expr.filter ) {
+			if ( (match = matchExpr[ type ].exec( soFar )) && (!preFilters[ type ] ||
+				(match = preFilters[ type ]( match ))) ) {
+				matched = match.shift();
+				tokens.push({
+					value: matched,
+					type: type,
+					matches: match
+				});
+				soFar = soFar.slice( matched.length );
+			}
+		}
+
+		if ( !matched ) {
+			break;
+		}
+	}
+
+	// Return the length of the invalid excess
+	// if we're just parsing
+	// Otherwise, throw an error or return tokens
+	return parseOnly ?
+		soFar.length :
+		soFar ?
+			Sizzle.error( selector ) :
+			// Cache the tokens
+			tokenCache( selector, groups ).slice( 0 );
+};
+
+function toSelector( tokens ) {
+	var i = 0,
+		len = tokens.length,
+		selector = "";
+	for ( ; i < len; i++ ) {
+		selector += tokens[i].value;
+	}
+	return selector;
+}
+
+function addCombinator( matcher, combinator, base ) {
+	var dir = combinator.dir,
+		skip = combinator.next,
+		key = skip || dir,
+		checkNonElements = base && key === "parentNode",
+		doneName = done++;
+
+	return combinator.first ?
+		// Check against closest ancestor/preceding element
+		function( elem, context, xml ) {
+			while ( (elem = elem[ dir ]) ) {
+				if ( elem.nodeType === 1 || checkNonElements ) {
+					return matcher( elem, context, xml );
+				}
+			}
+			return false;
+		} :
+
+		// Check against all ancestor/preceding elements
+		function( elem, context, xml ) {
+			var oldCache, uniqueCache, outerCache,
+				newCache = [ dirruns, doneName ];
+
+			// We can't set arbitrary data on XML nodes, so they don't benefit from combinator caching
+			if ( xml ) {
+				while ( (elem = elem[ dir ]) ) {
+					if ( elem.nodeType === 1 || checkNonElements ) {
+						if ( matcher( elem, context, xml ) ) {
+							return true;
+						}
+					}
+				}
+			} else {
+				while ( (elem = elem[ dir ]) ) {
+					if ( elem.nodeType === 1 || checkNonElements ) {
+						outerCache = elem[ expando ] || (elem[ expando ] = {});
+
+						// Support: IE <9 only
+						// Defend against cloned attroperties (jQuery gh-1709)
+						uniqueCache = outerCache[ elem.uniqueID ] || (outerCache[ elem.uniqueID ] = {});
+
+						if ( skip && skip === elem.nodeName.toLowerCase() ) {
+							elem = elem[ dir ] || elem;
+						} else if ( (oldCache = uniqueCache[ key ]) &&
+							oldCache[ 0 ] === dirruns && oldCache[ 1 ] === doneName ) {
+
+							// Assign to newCache so results back-propagate to previous elements
+							return (newCache[ 2 ] = oldCache[ 2 ]);
+						} else {
+							// Reuse newcache so results back-propagate to previous elements
+							uniqueCache[ key ] = newCache;
+
+							// A match means we're done; a fail means we have to keep checking
+							if ( (newCache[ 2 ] = matcher( elem, context, xml )) ) {
+								return true;
+							}
+						}
+					}
+				}
+			}
+			return false;
+		};
+}
+
+function elementMatcher( matchers ) {
+	return matchers.length > 1 ?
+		function( elem, context, xml ) {
+			var i = matchers.length;
+			while ( i-- ) {
+				if ( !matchers[i]( elem, context, xml ) ) {
+					return false;
+				}
+			}
+			return true;
+		} :
+		matchers[0];
+}
+
+function multipleContexts( selector, contexts, results ) {
+	var i = 0,
+		len = contexts.length;
+	for ( ; i < len; i++ ) {
+		Sizzle( selector, contexts[i], results );
+	}
+	return results;
+}
+
+function condense( unmatched, map, filter, context, xml ) {
+	var elem,
+		newUnmatched = [],
+		i = 0,
+		len = unmatched.length,
+		mapped = map != null;
+
+	for ( ; i < len; i++ ) {
+		if ( (elem = unmatched[i]) ) {
+			if ( !filter || filter( elem, context, xml ) ) {
+				newUnmatched.push( elem );
+				if ( mapped ) {
+					map.push( i );
+				}
+			}
+		}
+	}
+
+	return newUnmatched;
+}
+
+function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postSelector ) {
+	if ( postFilter && !postFilter[ expando ] ) {
+		postFilter = setMatcher( postFilter );
+	}
+	if ( postFinder && !postFinder[ expando ] ) {
+		postFinder = setMatcher( postFinder, postSelector );
+	}
+	return markFunction(function( seed, results, context, xml ) {
+		var temp, i, elem,
+			preMap = [],
+			postMap = [],
+			preexisting = results.length,
+
+			// Get initial elements from seed or context
+			elems = seed || multipleContexts( selector || "*", context.nodeType ? [ context ] : context, [] ),
+
+			// Prefilter to get matcher input, preserving a map for seed-results synchronization
+			matcherIn = preFilter && ( seed || !selector ) ?
+				condense( elems, preMap, preFilter, context, xml ) :
+				elems,
+
+			matcherOut = matcher ?
+				// If we have a postFinder, or filtered seed, or non-seed postFilter or preexisting results,
+				postFinder || ( seed ? preFilter : preexisting || postFilter ) ?
+
+					// ...intermediate processing is necessary
+					[] :
+
+					// ...otherwise use results directly
+					results :
+				matcherIn;
+
+		// Find primary matches
+		if ( matcher ) {
+			matcher( matcherIn, matcherOut, context, xml );
+		}
+
+		// Apply postFilter
+		if ( postFilter ) {
+			temp = condense( matcherOut, postMap );
+			postFilter( temp, [], context, xml );
+
+			// Un-match failing elements by moving them back to matcherIn
+			i = temp.length;
+			while ( i-- ) {
+				if ( (elem = temp[i]) ) {
+					matcherOut[ postMap[i] ] = !(matcherIn[ postMap[i] ] = elem);
+				}
+			}
+		}
+
+		if ( seed ) {
+			if ( postFinder || preFilter ) {
+				if ( postFinder ) {
+					// Get the final matcherOut by condensing this intermediate into postFinder contexts
+					temp = [];
+					i = matcherOut.length;
+					while ( i-- ) {
+						if ( (elem = matcherOut[i]) ) {
+							// Restore matcherIn since elem is not yet a final match
+							temp.push( (matcherIn[i] = elem) );
+						}
+					}
+					postFinder( null, (matcherOut = []), temp, xml );
+				}
+
+				// Move matched elements from seed to results to keep them synchronized
+				i = matcherOut.length;
+				while ( i-- ) {
+					if ( (elem = matcherOut[i]) &&
+						(temp = postFinder ? indexOf( seed, elem ) : preMap[i]) > -1 ) {
+
+						seed[temp] = !(results[temp] = elem);
+					}
+				}
+			}
+
+		// Add elements to results, through postFinder if defined
+		} else {
+			matcherOut = condense(
+				matcherOut === results ?
+					matcherOut.splice( preexisting, matcherOut.length ) :
+					matcherOut
+			);
+			if ( postFinder ) {
+				postFinder( null, results, matcherOut, xml );
+			} else {
+				push.apply( results, matcherOut );
+			}
+		}
+	});
+}
+
+function matcherFromTokens( tokens ) {
+	var checkContext, matcher, j,
+		len = tokens.length,
+		leadingRelative = Expr.relative[ tokens[0].type ],
+		implicitRelative = leadingRelative || Expr.relative[" "],
+		i = leadingRelative ? 1 : 0,
+
+		// The foundational matcher ensures that elements are reachable from top-level context(s)
+		matchContext = addCombinator( function( elem ) {
+			return elem === checkContext;
+		}, implicitRelative, true ),
+		matchAnyContext = addCombinator( function( elem ) {
+			return indexOf( checkContext, elem ) > -1;
+		}, implicitRelative, true ),
+		matchers = [ function( elem, context, xml ) {
+			var ret = ( !leadingRelative && ( xml || context !== outermostContext ) ) || (
+				(checkContext = context).nodeType ?
+					matchContext( elem, context, xml ) :
+					matchAnyContext( elem, context, xml ) );
+			// Avoid hanging onto element (issue #299)
+			checkContext = null;
+			return ret;
+		} ];
+
+	for ( ; i < len; i++ ) {
+		if ( (matcher = Expr.relative[ tokens[i].type ]) ) {
+			matchers = [ addCombinator(elementMatcher( matchers ), matcher) ];
+		} else {
+			matcher = Expr.filter[ tokens[i].type ].apply( null, tokens[i].matches );
+
+			// Return special upon seeing a positional matcher
+			if ( matcher[ expando ] ) {
+				// Find the next relative operator (if any) for proper handling
+				j = ++i;
+				for ( ; j < len; j++ ) {
+					if ( Expr.relative[ tokens[j].type ] ) {
+						break;
+					}
+				}
+				return setMatcher(
+					i > 1 && elementMatcher( matchers ),
+					i > 1 && toSelector(
+						// If the preceding token was a descendant combinator, insert an implicit any-element `*`
+						tokens.slice( 0, i - 1 ).concat({ value: tokens[ i - 2 ].type === " " ? "*" : "" })
+					).replace( rtrim, "$1" ),
+					matcher,
+					i < j && matcherFromTokens( tokens.slice( i, j ) ),
+					j < len && matcherFromTokens( (tokens = tokens.slice( j )) ),
+					j < len && toSelector( tokens )
+				);
+			}
+			matchers.push( matcher );
+		}
+	}
+
+	return elementMatcher( matchers );
+}
+
+function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
+	var bySet = setMatchers.length > 0,
+		byElement = elementMatchers.length > 0,
+		superMatcher = function( seed, context, xml, results, outermost ) {
+			var elem, j, matcher,
+				matchedCount = 0,
+				i = "0",
+				unmatched = seed && [],
+				setMatched = [],
+				contextBackup = outermostContext,
+				// We must always have either seed elements or outermost context
+				elems = seed || byElement && Expr.find["TAG"]( "*", outermost ),
+				// Use integer dirruns iff this is the outermost matcher
+				dirrunsUnique = (dirruns += contextBackup == null ? 1 : Math.random() || 0.1),
+				len = elems.length;
+
+			if ( outermost ) {
+				outermostContext = context === document || context || outermost;
+			}
+
+			// Add elements passing elementMatchers directly to results
+			// Support: IE<9, Safari
+			// Tolerate NodeList properties (IE: "length"; Safari: <number>) matching elements by id
+			for ( ; i !== len && (elem = elems[i]) != null; i++ ) {
+				if ( byElement && elem ) {
+					j = 0;
+					if ( !context && elem.ownerDocument !== document ) {
+						setDocument( elem );
+						xml = !documentIsHTML;
+					}
+					while ( (matcher = elementMatchers[j++]) ) {
+						if ( matcher( elem, context || document, xml) ) {
+							results.push( elem );
+							break;
+						}
+					}
+					if ( outermost ) {
+						dirruns = dirrunsUnique;
+					}
+				}
+
+				// Track unmatched elements for set filters
+				if ( bySet ) {
+					// They will have gone through all possible matchers
+					if ( (elem = !matcher && elem) ) {
+						matchedCount--;
+					}
+
+					// Lengthen the array for every element, matched or not
+					if ( seed ) {
+						unmatched.push( elem );
+					}
+				}
+			}
+
+			// `i` is now the count of elements visited above, and adding it to `matchedCount`
+			// makes the latter nonnegative.
+			matchedCount += i;
+
+			// Apply set filters to unmatched elements
+			// NOTE: This can be skipped if there are no unmatched elements (i.e., `matchedCount`
+			// equals `i`), unless we didn't visit _any_ elements in the above loop because we have
+			// no element matchers and no seed.
+			// Incrementing an initially-string "0" `i` allows `i` to remain a string only in that
+			// case, which will result in a "00" `matchedCount` that differs from `i` but is also
+			// numerically zero.
+			if ( bySet && i !== matchedCount ) {
+				j = 0;
+				while ( (matcher = setMatchers[j++]) ) {
+					matcher( unmatched, setMatched, context, xml );
+				}
+
+				if ( seed ) {
+					// Reintegrate element matches to eliminate the need for sorting
+					if ( matchedCount > 0 ) {
+						while ( i-- ) {
+							if ( !(unmatched[i] || setMatched[i]) ) {
+								setMatched[i] = pop.call( results );
+							}
+						}
+					}
+
+					// Discard index placeholder values to get only actual matches
+					setMatched = condense( setMatched );
+				}
+
+				// Add matches to results
+				push.apply( results, setMatched );
+
+				// Seedless set matches succeeding multiple successful matchers stipulate sorting
+				if ( outermost && !seed && setMatched.length > 0 &&
+					( matchedCount + setMatchers.length ) > 1 ) {
+
+					Sizzle.uniqueSort( results );
+				}
+			}
+
+			// Override manipulation of globals by nested matchers
+			if ( outermost ) {
+				dirruns = dirrunsUnique;
+				outermostContext = contextBackup;
+			}
+
+			return unmatched;
+		};
+
+	return bySet ?
+		markFunction( superMatcher ) :
+		superMatcher;
+}
+
+compile = Sizzle.compile = function( selector, match /* Internal Use Only */ ) {
+	var i,
+		setMatchers = [],
+		elementMatchers = [],
+		cached = compilerCache[ selector + " " ];
+
+	if ( !cached ) {
+		// Generate a function of recursive functions that can be used to check each element
+		if ( !match ) {
+			match = tokenize( selector );
+		}
+		i = match.length;
+		while ( i-- ) {
+			cached = matcherFromTokens( match[i] );
+			if ( cached[ expando ] ) {
+				setMatchers.push( cached );
+			} else {
+				elementMatchers.push( cached );
+			}
+		}
+
+		// Cache the compiled function
+		cached = compilerCache( selector, matcherFromGroupMatchers( elementMatchers, setMatchers ) );
+
+		// Save selector and tokenization
+		cached.selector = selector;
+	}
+	return cached;
+};
+
+/**
+ * A low-level selection function that works with Sizzle's compiled
+ *  selector functions
+ * @param {String|Function} selector A selector or a pre-compiled
+ *  selector function built with Sizzle.compile
+ * @param {Element} context
+ * @param {Array} [results]
+ * @param {Array} [seed] A set of elements to match against
+ */
+select = Sizzle.select = function( selector, context, results, seed ) {
+	var i, tokens, token, type, find,
+		compiled = typeof selector === "function" && selector,
+		match = !seed && tokenize( (selector = compiled.selector || selector) );
+
+	results = results || [];
+
+	// Try to minimize operations if there is only one selector in the list and no seed
+	// (the latter of which guarantees us context)
+	if ( match.length === 1 ) {
+
+		// Reduce context if the leading compound selector is an ID
+		tokens = match[0] = match[0].slice( 0 );
+		if ( tokens.length > 2 && (token = tokens[0]).type === "ID" &&
+				context.nodeType === 9 && documentIsHTML && Expr.relative[ tokens[1].type ] ) {
+
+			context = ( Expr.find["ID"]( token.matches[0].replace(runescape, funescape), context ) || [] )[0];
+			if ( !context ) {
+				return results;
+
+			// Precompiled matchers will still verify ancestry, so step up a level
+			} else if ( compiled ) {
+				context = context.parentNode;
+			}
+
+			selector = selector.slice( tokens.shift().value.length );
+		}
+
+		// Fetch a seed set for right-to-left matching
+		i = matchExpr["needsContext"].test( selector ) ? 0 : tokens.length;
+		while ( i-- ) {
+			token = tokens[i];
+
+			// Abort if we hit a combinator
+			if ( Expr.relative[ (type = token.type) ] ) {
+				break;
+			}
+			if ( (find = Expr.find[ type ]) ) {
+				// Search, expanding context for leading sibling combinators
+				if ( (seed = find(
+					token.matches[0].replace( runescape, funescape ),
+					rsibling.test( tokens[0].type ) && testContext( context.parentNode ) || context
+				)) ) {
+
+					// If seed is empty or no tokens remain, we can return early
+					tokens.splice( i, 1 );
+					selector = seed.length && toSelector( tokens );
+					if ( !selector ) {
+						push.apply( results, seed );
+						return results;
+					}
+
+					break;
+				}
+			}
+		}
+	}
+
+	// Compile and execute a filtering function if one is not provided
+	// Provide `match` to avoid retokenization if we modified the selector above
+	( compiled || compile( selector, match ) )(
+		seed,
+		context,
+		!documentIsHTML,
+		results,
+		!context || rsibling.test( selector ) && testContext( context.parentNode ) || context
+	);
+	return results;
+};
+
+// One-time assignments
+
+// Sort stability
+support.sortStable = expando.split("").sort( sortOrder ).join("") === expando;
+
+// Support: Chrome 14-35+
+// Always assume duplicates if they aren't passed to the comparison function
+support.detectDuplicates = !!hasDuplicate;
+
+// Initialize against the default document
+setDocument();
+
+// Support: Webkit<537.32 - Safari 6.0.3/Chrome 25 (fixed in Chrome 27)
+// Detached nodes confoundingly follow *each other*
+support.sortDetached = assert(function( el ) {
+	// Should return 1, but returns 4 (following)
+	return el.compareDocumentPosition( document.createElement("fieldset") ) & 1;
+});
+
+// Support: IE<8
+// Prevent attribute/property "interpolation"
+// https://msdn.microsoft.com/en-us/library/ms536429%28VS.85%29.aspx
+if ( !assert(function( el ) {
+	el.innerHTML = "<a href='#'></a>";
+	return el.firstChild.getAttribute("href") === "#" ;
+}) ) {
+	addHandle( "type|href|height|width", function( elem, name, isXML ) {
+		if ( !isXML ) {
+			return elem.getAttribute( name, name.toLowerCase() === "type" ? 1 : 2 );
+		}
+	});
+}
+
+// Support: IE<9
+// Use defaultValue in place of getAttribute("value")
+if ( !support.attributes || !assert(function( el ) {
+	el.innerHTML = "<input/>";
+	el.firstChild.setAttribute( "value", "" );
+	return el.firstChild.getAttribute( "value" ) === "";
+}) ) {
+	addHandle( "value", function( elem, name, isXML ) {
+		if ( !isXML && elem.nodeName.toLowerCase() === "input" ) {
+			return elem.defaultValue;
+		}
+	});
+}
+
+// Support: IE<9
+// Use getAttributeNode to fetch booleans when getAttribute lies
+if ( !assert(function( el ) {
+	return el.getAttribute("disabled") == null;
+}) ) {
+	addHandle( booleans, function( elem, name, isXML ) {
+		var val;
+		if ( !isXML ) {
+			return elem[ name ] === true ? name.toLowerCase() :
+					(val = elem.getAttributeNode( name )) && val.specified ?
+					val.value :
+				null;
+		}
+	});
+}
+
+return Sizzle;
+
+})( window );
+
+
+
+jQuery.find = Sizzle;
+jQuery.expr = Sizzle.selectors;
+
+// Deprecated
+jQuery.expr[ ":" ] = jQuery.expr.pseudos;
+jQuery.uniqueSort = jQuery.unique = Sizzle.uniqueSort;
+jQuery.text = Sizzle.getText;
+jQuery.isXMLDoc = Sizzle.isXML;
+jQuery.contains = Sizzle.contains;
+jQuery.escapeSelector = Sizzle.escape;
+
+
+
+
+var dir = function( elem, dir, until ) {
+	var matched = [],
+		truncate = until !== undefined;
+
+	while ( ( elem = elem[ dir ] ) && elem.nodeType !== 9 ) {
+		if ( elem.nodeType === 1 ) {
+			if ( truncate && jQuery( elem ).is( until ) ) {
+				break;
+			}
+			matched.push( elem );
+		}
+	}
+	return matched;
+};
+
+
+var siblings = function( n, elem ) {
+	var matched = [];
+
+	for ( ; n; n = n.nextSibling ) {
+		if ( n.nodeType === 1 && n !== elem ) {
+			matched.push( n );
+		}
+	}
+
+	return matched;
+};
+
+
+var rneedsContext = jQuery.expr.match.needsContext;
+
+
+
+function nodeName( elem, name ) {
+
+  return elem.nodeName && elem.nodeName.toLowerCase() === name.toLowerCase();
+
+};
+var rsingleTag = ( /^<([a-z][^\/\0>:\x20\t\r\n\f]*)[\x20\t\r\n\f]*\/?>(?:<\/\1>|)$/i );
+
+
+
+// Implement the identical functionality for filter and not
+function winnow( elements, qualifier, not ) {
+	if ( isFunction( qualifier ) ) {
+		return jQuery.grep( elements, function( elem, i ) {
+			return !!qualifier.call( elem, i, elem ) !== not;
+		} );
+	}
+
+	// Single element
+	if ( qualifier.nodeType ) {
+		return jQuery.grep( elements, function( elem ) {
+			return ( elem === qualifier ) !== not;
+		} );
+	}
+
+	// Arraylike of elements (jQuery, arguments, Array)
+	if ( typeof qualifier !== "string" ) {
+		return jQuery.grep( elements, function( elem ) {
+			return ( indexOf.call( qualifier, elem ) > -1 ) !== not;
+		} );
+	}
+
+	// Filtered directly for both simple and complex selectors
+	return jQuery.filter( qualifier, elements, not );
+}
+
+jQuery.filter = function( expr, elems, not ) {
+	var elem = elems[ 0 ];
+
+	if ( not ) {
+		expr = ":not(" + expr + ")";
+	}
+
+	if ( elems.length === 1 && elem.nodeType === 1 ) {
+		return jQuery.find.matchesSelector( elem, expr ) ? [ elem ] : [];
+	}
+
+	return jQuery.find.matches( expr, jQuery.grep( elems, function( elem ) {
+		return elem.nodeType === 1;
+	} ) );
+};
+
+jQuery.fn.extend( {
+	find: function( selector ) {
+		var i, ret,
+			len = this.length,
+			self = this;
+
+		if ( typeof selector !== "string" ) {
+			return this.pushStack( jQuery( selector ).filter( function() {
+				for ( i = 0; i < len; i++ ) {
+					if ( jQuery.contains( self[ i ], this ) ) {
+						return true;
+					}
+				}
+			} ) );
+		}
+
+		ret = this.pushStack( [] );
+
+		for ( i = 0; i < len; i++ ) {
+			jQuery.find( selector, self[ i ], ret );
+		}
+
+		return len > 1 ? jQuery.uniqueSort( ret ) : ret;
+	},
+	filter: function( selector ) {
+		return this.pushStack( winnow( this, selector || [], false ) );
+	},
+	not: function( selector ) {
+		return this.pushStack( winnow( this, selector || [], true ) );
+	},
+	is: function( selector ) {
+		return !!winnow(
+			this,
+
+			// If this is a positional/relative selector, check membership in the returned set
+			// so $("p:first").is("p:last") won't return true for a doc with two "p".
+			typeof selector === "string" && rneedsContext.test( selector ) ?
+				jQuery( selector ) :
+				selector || [],
+			false
+		).length;
+	}
+} );
+
+
+// Initialize a jQuery object
+
+
+// A central reference to the root jQuery(document)
+var rootjQuery,
+
+	// A simple way to check for HTML strings
+	// Prioritize #id over <tag> to avoid XSS via location.hash (#9521)
+	// Strict HTML recognition (#11290: must start with <)
+	// Shortcut simple #id case for speed
+	rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]+))$/,
+
+	init = jQuery.fn.init = function( selector, context, root ) {
+		var match, elem;
+
+		// HANDLE: $(""), $(null), $(undefined), $(false)
+		if ( !selector ) {
+			return this;
+		}
+
+		// Method init() accepts an alternate rootjQuery
+		// so migrate can support jQuery.sub (gh-2101)
+		root = root || rootjQuery;
+
+		// Handle HTML strings
+		if ( typeof selector === "string" ) {
+			if ( selector[ 0 ] === "<" &&
+				selector[ selector.length - 1 ] === ">" &&
+				selector.length >= 3 ) {
+
+				// Assume that strings that start and end with <> are HTML and skip the regex check
+				match = [ null, selector, null ];
+
+			} else {
+				match = rquickExpr.exec( selector );
+			}
+
+			// Match html or make sure no context is specified for #id
+			if ( match && ( match[ 1 ] || !context ) ) {
+
+				// HANDLE: $(html) -> $(array)
+				if ( match[ 1 ] ) {
+					context = context instanceof jQuery ? context[ 0 ] : context;
+
+					// Option to run scripts is true for back-compat
+					// Intentionally let the error be thrown if parseHTML is not present
+					jQuery.merge( this, jQuery.parseHTML(
+						match[ 1 ],
+						context && context.nodeType ? context.ownerDocument || context : document,
+						true
+					) );
+
+					// HANDLE: $(html, props)
+					if ( rsingleTag.test( match[ 1 ] ) && jQuery.isPlainObject( context ) ) {
+						for ( match in context ) {
+
+							// Properties of context are called as methods if possible
+							if ( isFunction( this[ match ] ) ) {
+								this[ match ]( context[ match ] );
+
+							// ...and otherwise set as attributes
+							} else {
+								this.attr( match, context[ match ] );
+							}
+						}
+					}
+
+					return this;
+
+				// HANDLE: $(#id)
+				} else {
+					elem = document.getElementById( match[ 2 ] );
+
+					if ( elem ) {
+
+						// Inject the element directly into the jQuery object
+						this[ 0 ] = elem;
+						this.length = 1;
+					}
+					return this;
+				}
+
+			// HANDLE: $(expr, $(...))
+			} else if ( !context || context.jquery ) {
+				return ( context || root ).find( selector );
+
+			// HANDLE: $(expr, context)
+			// (which is just equivalent to: $(context).find(expr)
+			} else {
+				return this.constructor( context ).find( selector );
+			}
+
+		// HANDLE: $(DOMElement)
+		} else if ( selector.nodeType ) {
+			this[ 0 ] = selector;
+			this.length = 1;
+			return this;
+
+		// HANDLE: $(function)
+		// Shortcut for document ready
+		} else if ( isFunction( selector ) ) {
+			return root.ready !== undefined ?
+				root.ready( selector ) :
+
+				// Execute immediately if ready is not present
+				selector( jQuery );
+		}
+
+		return jQuery.makeArray( selector, this );
+	};
+
+// Give the init function the jQuery prototype for later instantiation
+init.prototype = jQuery.fn;
+
+// Initialize central reference
+rootjQuery = jQuery( document );
+
+
+var rparentsprev = /^(?:parents|prev(?:Until|All))/,
+
+	// Methods guaranteed to produce a unique set when starting from a unique set
+	guaranteedUnique = {
+		children: true,
+		contents: true,
+		next: true,
+		prev: true
+	};
+
+jQuery.fn.extend( {
+	has: function( target ) {
+		var targets = jQuery( target, this ),
+			l = targets.length;
+
+		return this.filter( function() {
+			var i = 0;
+			for ( ; i < l; i++ ) {
+				if ( jQuery.contains( this, targets[ i ] ) ) {
+					return true;
+				}
+			}
+		} );
+	},
+
+	closest: function( selectors, context ) {
+		var cur,
+			i = 0,
+			l = this.length,
+			matched = [],
+			targets = typeof selectors !== "string" && jQuery( selectors );
+
+		// Positional selectors never match, since there's no _selection_ context
+		if ( !rneedsContext.test( selectors ) ) {
+			for ( ; i < l; i++ ) {
+				for ( cur = this[ i ]; cur && cur !== context; cur = cur.parentNode ) {
+
+					// Always skip document fragments
+					if ( cur.nodeType < 11 && ( targets ?
+						targets.index( cur ) > -1 :
+
+						// Don't pass non-elements to Sizzle
+						cur.nodeType === 1 &&
+							jQuery.find.matchesSelector( cur, selectors ) ) ) {
+
+						matched.push( cur );
+						break;
+					}
+				}
+			}
+		}
+
+		return this.pushStack( matched.length > 1 ? jQuery.uniqueSort( matched ) : matched );
+	},
+
+	// Determine the position of an element within the set
+	index: function( elem ) {
+
+		// No argument, return index in parent
+		if ( !elem ) {
+			return ( this[ 0 ] && this[ 0 ].parentNode ) ? this.first().prevAll().length : -1;
+		}
+
+		// Index in selector
+		if ( typeof elem === "string" ) {
+			return indexOf.call( jQuery( elem ), this[ 0 ] );
+		}
+
+		// Locate the position of the desired element
+		return indexOf.call( this,
+
+			// If it receives a jQuery object, the first element is used
+			elem.jquery ? elem[ 0 ] : elem
+		);
+	},
+
+	add: function( selector, context ) {
+		return this.pushStack(
+			jQuery.uniqueSort(
+				jQuery.merge( this.get(), jQuery( selector, context ) )
+			)
+		);
+	},
+
+	addBack: function( selector ) {
+		return this.add( selector == null ?
+			this.prevObject : this.prevObject.filter( selector )
+		);
+	}
+} );
+
+function sibling( cur, dir ) {
+	while ( ( cur = cur[ dir ] ) && cur.nodeType !== 1 ) {}
+	return cur;
+}
+
+jQuery.each( {
+	parent: function( elem ) {
+		var parent = elem.parentNode;
+		return parent && parent.nodeType !== 11 ? parent : null;
+	},
+	parents: function( elem ) {
+		return dir( elem, "parentNode" );
+	},
+	parentsUntil: function( elem, i, until ) {
+		return dir( elem, "parentNode", until );
+	},
+	next: function( elem ) {
+		return sibling( elem, "nextSibling" );
+	},
+	prev: function( elem ) {
+		return sibling( elem, "previousSibling" );
+	},
+	nextAll: function( elem ) {
+		return dir( elem, "nextSibling" );
+	},
+	prevAll: function( elem ) {
+		return dir( elem, "previousSibling" );
+	},
+	nextUntil: function( elem, i, until ) {
+		return dir( elem, "nextSibling", until );
+	},
+	prevUntil: function( elem, i, until ) {
+		return dir( elem, "previousSibling", until );
+	},
+	siblings: function( elem ) {
+		return siblings( ( elem.parentNode || {} ).firstChild, elem );
+	},
+	children: function( elem ) {
+		return siblings( elem.firstChild );
+	},
+	contents: function( elem ) {
+        if ( nodeName( elem, "iframe" ) ) {
+            return elem.contentDocument;
+        }
+
+        // Support: IE 9 - 11 only, iOS 7 only, Android Browser <=4.3 only
+        // Treat the template element as a regular one in browsers that
+        // don't support it.
+        if ( nodeName( elem, "template" ) ) {
+            elem = elem.content || elem;
+        }
+
+        return jQuery.merge( [], elem.childNodes );
+	}
+}, function( name, fn ) {
+	jQuery.fn[ name ] = function( until, selector ) {
+		var matched = jQuery.map( this, fn, until );
+
+		if ( name.slice( -5 ) !== "Until" ) {
+			selector = until;
+		}
+
+		if ( selector && typeof selector === "string" ) {
+			matched = jQuery.filter( selector, matched );
+		}
+
+		if ( this.length > 1 ) {
+
+			// Remove duplicates
+			if ( !guaranteedUnique[ name ] ) {
+				jQuery.uniqueSort( matched );
+			}
+
+			// Reverse order for parents* and prev-derivatives
+			if ( rparentsprev.test( name ) ) {
+				matched.reverse();
+			}
+		}
+
+		return this.pushStack( matched );
+	};
+} );
+var rnothtmlwhite = ( /[^\x20\t\r\n\f]+/g );
+
+
+
+// Convert String-formatted options into Object-formatted ones
+function createOptions( options ) {
+	var object = {};
+	jQuery.each( options.match( rnothtmlwhite ) || [], function( _, flag ) {
+		object[ flag ] = true;
+	} );
+	return object;
+}
+
+/*
+ * Create a callback list using the following parameters:
+ *
+ *	options: an optional list of space-separated options that will change how
+ *			the callback list behaves or a more traditional option object
+ *
+ * By default a callback list will act like an event callback list and can be
+ * "fired" multiple times.
+ *
+ * Possible options:
+ *
+ *	once:			will ensure the callback list can only be fired once (like a Deferred)
+ *
+ *	memory:			will keep track of previous values and will call any callback added
+ *					after the list has been fired right away with the latest "memorized"
+ *					values (like a Deferred)
+ *
+ *	unique:			will ensure a callback can only be added once (no duplicate in the list)
+ *
+ *	stopOnFalse:	interrupt callings when a callback returns false
+ *
+ */
+jQuery.Callbacks = function( options ) {
+
+	// Convert options from String-formatted to Object-formatted if needed
+	// (we check in cache first)
+	options = typeof options === "string" ?
+		createOptions( options ) :
+		jQuery.extend( {}, options );
+
+	var // Flag to know if list is currently firing
+		firing,
+
+		// Last fire value for non-forgettable lists
+		memory,
+
+		// Flag to know if list was already fired
+		fired,
+
+		// Flag to prevent firing
+		locked,
+
+		// Actual callback list
+		list = [],
+
+		// Queue of execution data for repeatable lists
+		queue = [],
+
+		// Index of currently firing callback (modified by add/remove as needed)
+		firingIndex = -1,
+
+		// Fire callbacks
+		fire = function() {
+
+			// Enforce single-firing
+			locked = locked || options.once;
+
+			// Execute callbacks for all pending executions,
+			// respecting firingIndex overrides and runtime changes
+			fired = firing = true;
+			for ( ; queue.length; firingIndex = -1 ) {
+				memory = queue.shift();
+				while ( ++firingIndex < list.length ) {
+
+					// Run callback and check for early termination
+					if ( list[ firingIndex ].apply( memory[ 0 ], memory[ 1 ] ) === false &&
+						options.stopOnFalse ) {
+
+						// Jump to end and forget the data so .add doesn't re-fire
+						firingIndex = list.length;
+						memory = false;
+					}
+				}
+			}
+
+			// Forget the data if we're done with it
+			if ( !options.memory ) {
+				memory = false;
+			}
+
+			firing = false;
+
+			// Clean up if we're done firing for good
+			if ( locked ) {
+
+				// Keep an empty list if we have data for future add calls
+				if ( memory ) {
+					list = [];
+
+				// Otherwise, this object is spent
+				} else {
+					list = "";
+				}
+			}
+		},
+
+		// Actual Callbacks object
+		self = {
+
+			// Add a callback or a collection of callbacks to the list
+			add: function() {
+				if ( list ) {
+
+					// If we have memory from a past run, we should fire after adding
+					if ( memory && !firing ) {
+						firingIndex = list.length - 1;
+						queue.push( memory );
+					}
+
+					( function add( args ) {
+						jQuery.each( args, function( _, arg ) {
+							if ( isFunction( arg ) ) {
+								if ( !options.unique || !self.has( arg ) ) {
+									list.push( arg );
+								}
+							} else if ( arg && arg.length && toType( arg ) !== "string" ) {
+
+								// Inspect recursively
+								add( arg );
+							}
+						} );
+					} )( arguments );
+
+					if ( memory && !firing ) {
+						fire();
+					}
+				}
+				return this;
+			},
+
+			// Remove a callback from the list
+			remove: function() {
+				jQuery.each( arguments, function( _, arg ) {
+					var index;
+					while ( ( index = jQuery.inArray( arg, list, index ) ) > -1 ) {
+						list.splice( index, 1 );
+
+						// Handle firing indexes
+						if ( index <= firingIndex ) {
+							firingIndex--;
+						}
+					}
+				} );
+				return this;
+			},
+
+			// Check if a given callback is in the list.
+			// If no argument is given, return whether or not list has callbacks attached.
+			has: function( fn ) {
+				return fn ?
+					jQuery.inArray( fn, list ) > -1 :
+					list.length > 0;
+			},
+
+			// Remove all callbacks from the list
+			empty: function() {
+				if ( list ) {
+					list = [];
+				}
+				return this;
+			},
+
+			// Disable .fire and .add
+			// Abort any current/pending executions
+			// Clear all callbacks and values
+			disable: function() {
+				locked = queue = [];
+				list = memory = "";
+				return this;
+			},
+			disabled: function() {
+				return !list;
+			},
+
+			// Disable .fire
+			// Also disable .add unless we have memory (since it would have no effect)
+			// Abort any pending executions
+			lock: function() {
+				locked = queue = [];
+				if ( !memory && !firing ) {
+					list = memory = "";
+				}
+				return this;
+			},
+			locked: function() {
+				return !!locked;
+			},
+
+			// Call all callbacks with the given context and arguments
+			fireWith: function( context, args ) {
+				if ( !locked ) {
+					args = args || [];
+					args = [ context, args.slice ? args.slice() : args ];
+					queue.push( args );
+					if ( !firing ) {
+						fire();
+					}
+				}
+				return this;
+			},
+
+			// Call all the callbacks with the given arguments
+			fire: function() {
+				self.fireWith( this, arguments );
+				return this;
+			},
+
+			// To know if the callbacks have already been called at least once
+			fired: function() {
+				return !!fired;
+			}
+		};
+
+	return self;
+};
+
+
+function Identity( v ) {
+	return v;
+}
+function Thrower( ex ) {
+	throw ex;
+}
+
+function adoptValue( value, resolve, reject, noValue ) {
+	var method;
+
+	try {
+
+		// Check for promise aspect first to privilege synchronous behavior
+		if ( value && isFunction( ( method = value.promise ) ) ) {
+			method.call( value ).done( resolve ).fail( reject );
+
+		// Other thenables
+		} else if ( value && isFunction( ( method = value.then ) ) ) {
+			method.call( value, resolve, reject );
+
+		// Other non-thenables
+		} else {
+
+			// Control `resolve` arguments by letting Array#slice cast boolean `noValue` to integer:
+			// * false: [ value ].slice( 0 ) => resolve( value )
+			// * true: [ value ].slice( 1 ) => resolve()
+			resolve.apply( undefined, [ value ].slice( noValue ) );
+		}
+
+	// For Promises/A+, convert exceptions into rejections
+	// Since jQuery.when doesn't unwrap thenables, we can skip the extra checks appearing in
+	// Deferred#then to conditionally suppress rejection.
+	} catch ( value ) {
+
+		// Support: Android 4.0 only
+		// Strict mode functions invoked without .call/.apply get global-object context
+		reject.apply( undefined, [ value ] );
+	}
+}
+
+jQuery.extend( {
+
+	Deferred: function( func ) {
+		var tuples = [
+
+				// action, add listener, callbacks,
+				// ... .then handlers, argument index, [final state]
+				[ "notify", "progress", jQuery.Callbacks( "memory" ),
+					jQuery.Callbacks( "memory" ), 2 ],
+				[ "resolve", "done", jQuery.Callbacks( "once memory" ),
+					jQuery.Callbacks( "once memory" ), 0, "resolved" ],
+				[ "reject", "fail", jQuery.Callbacks( "once memory" ),
+					jQuery.Callbacks( "once memory" ), 1, "rejected" ]
+			],
+			state = "pending",
+			promise = {
+				state: function() {
+					return state;
+				},
+				always: function() {
+					deferred.done( arguments ).fail( arguments );
+					return this;
+				},
+				"catch": function( fn ) {
+					return promise.then( null, fn );
+				},
+
+				// Keep pipe for back-compat
+				pipe: function( /* fnDone, fnFail, fnProgress */ ) {
+					var fns = arguments;
+
+					return jQuery.Deferred( function( newDefer ) {
+						jQuery.each( tuples, function( i, tuple ) {
+
+							// Map tuples (progress, done, fail) to arguments (done, fail, progress)
+							var fn = isFunction( fns[ tuple[ 4 ] ] ) && fns[ tuple[ 4 ] ];
+
+							// deferred.progress(function() { bind to newDefer or newDefer.notify })
+							// deferred.done(function() { bind to newDefer or newDefer.resolve })
+							// deferred.fail(function() { bind to newDefer or newDefer.reject })
+							deferred[ tuple[ 1 ] ]( function() {
+								var returned = fn && fn.apply( this, arguments );
+								if ( returned && isFunction( returned.promise ) ) {
+									returned.promise()
+										.progress( newDefer.notify )
+										.done( newDefer.resolve )
+										.fail( newDefer.reject );
+								} else {
+									newDefer[ tuple[ 0 ] + "With" ](
+										this,
+										fn ? [ returned ] : arguments
+									);
+								}
+							} );
+						} );
+						fns = null;
+					} ).promise();
+				},
+				then: function( onFulfilled, onRejected, onProgress ) {
+					var maxDepth = 0;
+					function resolve( depth, deferred, handler, special ) {
+						return function() {
+							var that = this,
+								args = arguments,
+								mightThrow = function() {
+									var returned, then;
+
+									// Support: Promises/A+ section 2.3.3.3.3
+									// https://promisesaplus.com/#point-59
+									// Ignore double-resolution attempts
+									if ( depth < maxDepth ) {
+										return;
+									}
+
+									returned = handler.apply( that, args );
+
+									// Support: Promises/A+ section 2.3.1
+									// https://promisesaplus.com/#point-48
+									if ( returned === deferred.promise() ) {
+										throw new TypeError( "Thenable self-resolution" );
+									}
+
+									// Support: Promises/A+ sections 2.3.3.1, 3.5
+									// https://promisesaplus.com/#point-54
+									// https://promisesaplus.com/#point-75
+									// Retrieve `then` only once
+									then = returned &&
+
+										// Support: Promises/A+ section 2.3.4
+										// https://promisesaplus.com/#point-64
+										// Only check objects and functions for thenability
+										( typeof returned === "object" ||
+											typeof returned === "function" ) &&
+										returned.then;
+
+									// Handle a returned thenable
+									if ( isFunction( then ) ) {
+
+										// Special processors (notify) just wait for resolution
+										if ( special ) {
+											then.call(
+												returned,
+												resolve( maxDepth, deferred, Identity, special ),
+												resolve( maxDepth, deferred, Thrower, special )
+											);
+
+										// Normal processors (resolve) also hook into progress
+										} else {
+
+											// ...and disregard older resolution values
+											maxDepth++;
+
+											then.call(
+												returned,
+												resolve( maxDepth, deferred, Identity, special ),
+												resolve( maxDepth, deferred, Thrower, special ),
+												resolve( maxDepth, deferred, Identity,
+													deferred.notifyWith )
+											);
+										}
+
+									// Handle all other returned values
+									} else {
+
+										// Only substitute handlers pass on context
+										// and multiple values (non-spec behavior)
+										if ( handler !== Identity ) {
+											that = undefined;
+											args = [ returned ];
+										}
+
+										// Process the value(s)
+										// Default process is resolve
+										( special || deferred.resolveWith )( that, args );
+									}
+								},
+
+								// Only normal processors (resolve) catch and reject exceptions
+								process = special ?
+									mightThrow :
+									function() {
+										try {
+											mightThrow();
+										} catch ( e ) {
+
+											if ( jQuery.Deferred.exceptionHook ) {
+												jQuery.Deferred.exceptionHook( e,
+													process.stackTrace );
+											}
+
+											// Support: Promises/A+ section 2.3.3.3.4.1
+											// https://promisesaplus.com/#point-61
+											// Ignore post-resolution exceptions
+											if ( depth + 1 >= maxDepth ) {
+
+												// Only substitute handlers pass on context
+												// and multiple values (non-spec behavior)
+												if ( handler !== Thrower ) {
+													that = undefined;
+													args = [ e ];
+												}
+
+												deferred.rejectWith( that, args );
+											}
+										}
+									};
+
+							// Support: Promises/A+ section 2.3.3.3.1
+							// https://promisesaplus.com/#point-57
+							// Re-resolve promises immediately to dodge false rejection from
+							// subsequent errors
+							if ( depth ) {
+								process();
+							} else {
+
+								// Call an optional hook to record the stack, in case of exception
+								// since it's otherwise lost when execution goes async
+								if ( jQuery.Deferred.getStackHook ) {
+									process.stackTrace = jQuery.Deferred.getStackHook();
+								}
+								window.setTimeout( process );
+							}
+						};
+					}
+
+					return jQuery.Deferred( function( newDefer ) {
+
+						// progress_handlers.add( ... )
+						tuples[ 0 ][ 3 ].add(
+							resolve(
+								0,
+								newDefer,
+								isFunction( onProgress ) ?
+									onProgress :
+									Identity,
+								newDefer.notifyWith
+							)
+						);
+
+						// fulfilled_handlers.add( ... )
+						tuples[ 1 ][ 3 ].add(
+							resolve(
+								0,
+								newDefer,
+								isFunction( onFulfilled ) ?
+									onFulfilled :
+									Identity
+							)
+						);
+
+						// rejected_handlers.add( ... )
+						tuples[ 2 ][ 3 ].add(
+							resolve(
+								0,
+								newDefer,
+								isFunction( onRejected ) ?
+									onRejected :
+									Thrower
+							)
+						);
+					} ).promise();
+				},
+
+				// Get a promise for this deferred
+				// If obj is provided, the promise aspect is added to the object
+				promise: function( obj ) {
+					return obj != null ? jQuery.extend( obj, promise ) : promise;
+				}
+			},
+			deferred = {};
+
+		// Add list-specific methods
+		jQuery.each( tuples, function( i, tuple ) {
+			var list = tuple[ 2 ],
+				stateString = tuple[ 5 ];
+
+			// promise.progress = list.add
+			// promise.done = list.add
+			// promise.fail = list.add
+			promise[ tuple[ 1 ] ] = list.add;
+
+			// Handle state
+			if ( stateString ) {
+				list.add(
+					function() {
+
+						// state = "resolved" (i.e., fulfilled)
+						// state = "rejected"
+						state = stateString;
+					},
+
+					// rejected_callbacks.disable
+					// fulfilled_callbacks.disable
+					tuples[ 3 - i ][ 2 ].disable,
+
+					// rejected_handlers.disable
+					// fulfilled_handlers.disable
+					tuples[ 3 - i ][ 3 ].disable,
+
+					// progress_callbacks.lock
+					tuples[ 0 ][ 2 ].lock,
+
+					// progress_handlers.lock
+					tuples[ 0 ][ 3 ].lock
+				);
+			}
+
+			// progress_handlers.fire
+			// fulfilled_handlers.fire
+			// rejected_handlers.fire
+			list.add( tuple[ 3 ].fire );
+
+			// deferred.notify = function() { deferred.notifyWith(...) }
+			// deferred.resolve = function() { deferred.resolveWith(...) }
+			// deferred.reject = function() { deferred.rejectWith(...) }
+			deferred[ tuple[ 0 ] ] = function() {
+				deferred[ tuple[ 0 ] + "With" ]( this === deferred ? undefined : this, arguments );
+				return this;
+			};
+
+			// deferred.notifyWith = list.fireWith
+			// deferred.resolveWith = list.fireWith
+			// deferred.rejectWith = list.fireWith
+			deferred[ tuple[ 0 ] + "With" ] = list.fireWith;
+		} );
+
+		// Make the deferred a promise
+		promise.promise( deferred );
+
+		// Call given func if any
+		if ( func ) {
+			func.call( deferred, deferred );
+		}
+
+		// All done!
+		return deferred;
+	},
+
+	// Deferred helper
+	when: function( singleValue ) {
+		var
+
+			// count of uncompleted subordinates
+			remaining = arguments.length,
+
+			// count of unprocessed arguments
+			i = remaining,
+
+			// subordinate fulfillment data
+			resolveContexts = Array( i ),
+			resolveValues = slice.call( arguments ),
+
+			// the master Deferred
+			master = jQuery.Deferred(),
+
+			// subordinate callback factory
+			updateFunc = function( i ) {
+				return function( value ) {
+					resolveContexts[ i ] = this;
+					resolveValues[ i ] = arguments.length > 1 ? slice.call( arguments ) : value;
+					if ( !( --remaining ) ) {
+						master.resolveWith( resolveContexts, resolveValues );
+					}
+				};
+			};
+
+		// Single- and empty arguments are adopted like Promise.resolve
+		if ( remaining <= 1 ) {
+			adoptValue( singleValue, master.done( updateFunc( i ) ).resolve, master.reject,
+				!remaining );
+
+			// Use .then() to unwrap secondary thenables (cf. gh-3000)
+			if ( master.state() === "pending" ||
+				isFunction( resolveValues[ i ] && resolveValues[ i ].then ) ) {
+
+				return master.then();
+			}
+		}
+
+		// Multiple arguments are aggregated like Promise.all array elements
+		while ( i-- ) {
+			adoptValue( resolveValues[ i ], updateFunc( i ), master.reject );
+		}
+
+		return master.promise();
+	}
+} );
+
+
+// These usually indicate a programmer mistake during development,
+// warn about them ASAP rather than swallowing them by default.
+var rerrorNames = /^(Eval|Internal|Range|Reference|Syntax|Type|URI)Error$/;
+
+jQuery.Deferred.exceptionHook = function( error, stack ) {
+
+	// Support: IE 8 - 9 only
+	// Console exists when dev tools are open, which can happen at any time
+	if ( window.console && window.console.warn && error && rerrorNames.test( error.name ) ) {
+		window.console.warn( "jQuery.Deferred exception: " + error.message, error.stack, stack );
+	}
+};
+
+
+
+
+jQuery.readyException = function( error ) {
+	window.setTimeout( function() {
+		throw error;
+	} );
+};
+
+
+
+
+// The deferred used on DOM ready
+var readyList = jQuery.Deferred();
+
+jQuery.fn.ready = function( fn ) {
+
+	readyList
+		.then( fn )
+
+		// Wrap jQuery.readyException in a function so that the lookup
+		// happens at the time of error handling instead of callback
+		// registration.
+		.catch( function( error ) {
+			jQuery.readyException( error );
+		} );
+
+	return this;
+};
+
+jQuery.extend( {
+
+	// Is the DOM ready to be used? Set to true once it occurs.
+	isReady: false,
+
+	// A counter to track how many items to wait for before
+	// the ready event fires. See #6781
+	readyWait: 1,
+
+	// Handle when the DOM is ready
+	ready: function( wait ) {
+
+		// Abort if there are pending holds or we're already ready
+		if ( wait === true ? --jQuery.readyWait : jQuery.isReady ) {
+			return;
+		}
+
+		// Remember that the DOM is ready
+		jQuery.isReady = true;
+
+		// If a normal DOM Ready event fired, decrement, and wait if need be
+		if ( wait !== true && --jQuery.readyWait > 0 ) {
+			return;
+		}
+
+		// If there are functions bound, to execute
+		readyList.resolveWith( document, [ jQuery ] );
+	}
+} );
+
+jQuery.ready.then = readyList.then;
+
+// The ready event handler and self cleanup method
+function completed() {
+	document.removeEventListener( "DOMContentLoaded", completed );
+	window.removeEventListener( "load", completed );
+	jQuery.ready();
+}
+
+// Catch cases where $(document).ready() is called
+// after the browser event has already occurred.
+// Support: IE <=9 - 10 only
+// Older IE sometimes signals "interactive" too soon
+if ( document.readyState === "complete" ||
+	( document.readyState !== "loading" && !document.documentElement.doScroll ) ) {
+
+	// Handle it asynchronously to allow scripts the opportunity to delay ready
+	window.setTimeout( jQuery.ready );
+
+} else {
+
+	// Use the handy event callback
+	document.addEventListener( "DOMContentLoaded", completed );
+
+	// A fallback to window.onload, that will always work
+	window.addEventListener( "load", completed );
+}
+
+
+
+
+// Multifunctional method to get and set values of a collection
+// The value/s can optionally be executed if it's a function
+var access = function( elems, fn, key, value, chainable, emptyGet, raw ) {
+	var i = 0,
+		len = elems.length,
+		bulk = key == null;
+
+	// Sets many values
+	if ( toType( key ) === "object" ) {
+		chainable = true;
+		for ( i in key ) {
+			access( elems, fn, i, key[ i ], true, emptyGet, raw );
+		}
+
+	// Sets one value
+	} else if ( value !== undefined ) {
+		chainable = true;
+
+		if ( !isFunction( value ) ) {
+			raw = true;
+		}
+
+		if ( bulk ) {
+
+			// Bulk operations run against the entire set
+			if ( raw ) {
+				fn.call( elems, value );
+				fn = null;
+
+			// ...except when executing function values
+			} else {
+				bulk = fn;
+				fn = function( elem, key, value ) {
+					return bulk.call( jQuery( elem ), value );
+				};
+			}
+		}
+
+		if ( fn ) {
+			for ( ; i < len; i++ ) {
+				fn(
+					elems[ i ], key, raw ?
+					value :
+					value.call( elems[ i ], i, fn( elems[ i ], key ) )
+				);
+			}
+		}
+	}
+
+	if ( chainable ) {
+		return elems;
+	}
+
+	// Gets
+	if ( bulk ) {
+		return fn.call( elems );
+	}
+
+	return len ? fn( elems[ 0 ], key ) : emptyGet;
+};
+
+
+// Matches dashed string for camelizing
+var rmsPrefix = /^-ms-/,
+	rdashAlpha = /-([a-z])/g;
+
+// Used by camelCase as callback to replace()
+function fcamelCase( all, letter ) {
+	return letter.toUpperCase();
+}
+
+// Convert dashed to camelCase; used by the css and data modules
+// Support: IE <=9 - 11, Edge 12 - 15
+// Microsoft forgot to hump their vendor prefix (#9572)
+function camelCase( string ) {
+	return string.replace( rmsPrefix, "ms-" ).replace( rdashAlpha, fcamelCase );
+}
+var acceptData = function( owner ) {
+
+	// Accepts only:
+	//  - Node
+	//    - Node.ELEMENT_NODE
+	//    - Node.DOCUMENT_NODE
+	//  - Object
+	//    - Any
+	return owner.nodeType === 1 || owner.nodeType === 9 || !( +owner.nodeType );
+};
+
+
+
+
+function Data() {
+	this.expando = jQuery.expando + Data.uid++;
+}
+
+Data.uid = 1;
+
+Data.prototype = {
+
+	cache: function( owner ) {
+
+		// Check if the owner object already has a cache
+		var value = owner[ this.expando ];
+
+		// If not, create one
+		if ( !value ) {
+			value = {};
+
+			// We can accept data for non-element nodes in modern browsers,
+			// but we should not, see #8335.
+			// Always return an empty object.
+			if ( acceptData( owner ) ) {
+
+				// If it is a node unlikely to be stringify-ed or looped over
+				// use plain assignment
+				if ( owner.nodeType ) {
+					owner[ this.expando ] = value;
+
+				// Otherwise secure it in a non-enumerable property
+				// configurable must be true to allow the property to be
+				// deleted when data is removed
+				} else {
+					Object.defineProperty( owner, this.expando, {
+						value: value,
+						configurable: true
+					} );
+				}
+			}
+		}
+
+		return value;
+	},
+	set: function( owner, data, value ) {
+		var prop,
+			cache = this.cache( owner );
+
+		// Handle: [ owner, key, value ] args
+		// Always use camelCase key (gh-2257)
+		if ( typeof data === "string" ) {
+			cache[ camelCase( data ) ] = value;
+
+		// Handle: [ owner, { properties } ] args
+		} else {
+
+			// Copy the properties one-by-one to the cache object
+			for ( prop in data ) {
+				cache[ camelCase( prop ) ] = data[ prop ];
+			}
+		}
+		return cache;
+	},
+	get: function( owner, key ) {
+		return key === undefined ?
+			this.cache( owner ) :
+
+			// Always use camelCase key (gh-2257)
+			owner[ this.expando ] && owner[ this.expando ][ camelCase( key ) ];
+	},
+	access: function( owner, key, value ) {
+
+		// In cases where either:
+		//
+		//   1. No key was specified
+		//   2. A string key was specified, but no value provided
+		//
+		// Take the "read" path and allow the get method to determine
+		// which value to return, respectively either:
+		//
+		//   1. The entire cache object
+		//   2. The data stored at the key
+		//
+		if ( key === undefined ||
+				( ( key && typeof key === "string" ) && value === undefined ) ) {
+
+			return this.get( owner, key );
+		}
+
+		// When the key is not a string, or both a key and value
+		// are specified, set or extend (existing objects) with either:
+		//
+		//   1. An object of properties
+		//   2. A key and value
+		//
+		this.set( owner, key, value );
+
+		// Since the "set" path can have two possible entry points
+		// return the expected data based on which path was taken[*]
+		return value !== undefined ? value : key;
+	},
+	remove: function( owner, key ) {
+		var i,
+			cache = owner[ this.expando ];
+
+		if ( cache === undefined ) {
+			return;
+		}
+
+		if ( key !== undefined ) {
+
+			// Support array or space separated string of keys
+			if ( Array.isArray( key ) ) {
+
+				// If key is an array of keys...
+				// We always set camelCase keys, so remove that.
+				key = key.map( camelCase );
+			} else {
+				key = camelCase( key );
+
+				// If a key with the spaces exists, use it.
+				// Otherwise, create an array by matching non-whitespace
+				key = key in cache ?
+					[ key ] :
+					( key.match( rnothtmlwhite ) || [] );
+			}
+
+			i = key.length;
+
+			while ( i-- ) {
+				delete cache[ key[ i ] ];
+			}
+		}
+
+		// Remove the expando if there's no more data
+		if ( key === undefined || jQuery.isEmptyObject( cache ) ) {
+
+			// Support: Chrome <=35 - 45
+			// Webkit & Blink performance suffers when deleting properties
+			// from DOM nodes, so set to undefined instead
+			// https://bugs.chromium.org/p/chromium/issues/detail?id=378607 (bug restricted)
+			if ( owner.nodeType ) {
+				owner[ this.expando ] = undefined;
+			} else {
+				delete owner[ this.expando ];
+			}
+		}
+	},
+	hasData: function( owner ) {
+		var cache = owner[ this.expando ];
+		return cache !== undefined && !jQuery.isEmptyObject( cache );
+	}
+};
+var dataPriv = new Data();
+
+var dataUser = new Data();
+
+
+
+//	Implementation Summary
+//
+//	1. Enforce API surface and semantic compatibility with 1.9.x branch
+//	2. Improve the module's maintainability by reducing the storage
+//		paths to a single mechanism.
+//	3. Use the same single mechanism to support "private" and "user" data.
+//	4. _Never_ expose "private" data to user code (TODO: Drop _data, _removeData)
+//	5. Avoid exposing implementation details on user objects (eg. expando properties)
+//	6. Provide a clear path for implementation upgrade to WeakMap in 2014
+
+var rbrace = /^(?:\{[\w\W]*\}|\[[\w\W]*\])$/,
+	rmultiDash = /[A-Z]/g;
+
+function getData( data ) {
+	if ( data === "true" ) {
+		return true;
+	}
+
+	if ( data === "false" ) {
+		return false;
+	}
+
+	if ( data === "null" ) {
+		return null;
+	}
+
+	// Only convert to a number if it doesn't change the string
+	if ( data === +data + "" ) {
+		return +data;
+	}
+
+	if ( rbrace.test( data ) ) {
+		return JSON.parse( data );
+	}
+
+	return data;
+}
+
+function dataAttr( elem, key, data ) {
+	var name;
+
+	// If nothing was found internally, try to fetch any
+	// data from the HTML5 data-* attribute
+	if ( data === undefined && elem.nodeType === 1 ) {
+		name = "data-" + key.replace( rmultiDash, "-$&" ).toLowerCase();
+		data = elem.getAttribute( name );
+
+		if ( typeof data === "string" ) {
+			try {
+				data = getData( data );
+			} catch ( e ) {}
+
+			// Make sure we set the data so it isn't changed later
+			dataUser.set( elem, key, data );
+		} else {
+			data = undefined;
+		}
+	}
+	return data;
+}
+
+jQuery.extend( {
+	hasData: function( elem ) {
+		return dataUser.hasData( elem ) || dataPriv.hasData( elem );
+	},
+
+	data: function( elem, name, data ) {
+		return dataUser.access( elem, name, data );
+	},
+
+	removeData: function( elem, name ) {
+		dataUser.remove( elem, name );
+	},
+
+	// TODO: Now that all calls to _data and _removeData have been replaced
+	// with direct calls to dataPriv methods, these can be deprecated.
+	_data: function( elem, name, data ) {
+		return dataPriv.access( elem, name, data );
+	},
+
+	_removeData: function( elem, name ) {
+		dataPriv.remove( elem, name );
+	}
+} );
+
+jQuery.fn.extend( {
+	data: function( key, value ) {
+		var i, name, data,
+			elem = this[ 0 ],
+			attrs = elem && elem.attributes;
+
+		// Gets all values
+		if ( key === undefined ) {
+			if ( this.length ) {
+				data = dataUser.get( elem );
+
+				if ( elem.nodeType === 1 && !dataPriv.get( elem, "hasDataAttrs" ) ) {
+					i = attrs.length;
+					while ( i-- ) {
+
+						// Support: IE 11 only
+						// The attrs elements can be null (#14894)
+						if ( attrs[ i ] ) {
+							name = attrs[ i ].name;
+							if ( name.indexOf( "data-" ) === 0 ) {
+								name = camelCase( name.slice( 5 ) );
+								dataAttr( elem, name, data[ name ] );
+							}
+						}
+					}
+					dataPriv.set( elem, "hasDataAttrs", true );
+				}
+			}
+
+			return data;
+		}
+
+		// Sets multiple values
+		if ( typeof key === "object" ) {
+			return this.each( function() {
+				dataUser.set( this, key );
+			} );
+		}
+
+		return access( this, function( value ) {
+			var data;
+
+			// The calling jQuery object (element matches) is not empty
+			// (and therefore has an element appears at this[ 0 ]) and the
+			// `value` parameter was not undefined. An empty jQuery object
+			// will result in `undefined` for elem = this[ 0 ] which will
+			// throw an exception if an attempt to read a data cache is made.
+			if ( elem && value === undefined ) {
+
+				// Attempt to get data from the cache
+				// The key will always be camelCased in Data
+				data = dataUser.get( elem, key );
+				if ( data !== undefined ) {
+					return data;
+				}
+
+				// Attempt to "discover" the data in
+				// HTML5 custom data-* attrs
+				data = dataAttr( elem, key );
+				if ( data !== undefined ) {
+					return data;
+				}
+
+				// We tried really hard, but the data doesn't exist.
+				return;
+			}
+
+			// Set the data...
+			this.each( function() {
+
+				// We always store the camelCased key
+				dataUser.set( this, key, value );
+			} );
+		}, null, value, arguments.length > 1, null, true );
+	},
+
+	removeData: function( key ) {
+		return this.each( function() {
+			dataUser.remove( this, key );
+		} );
+	}
+} );
+
+
+jQuery.extend( {
+	queue: function( elem, type, data ) {
+		var queue;
+
+		if ( elem ) {
+			type = ( type || "fx" ) + "queue";
+			queue = dataPriv.get( elem, type );
+
+			// Speed up dequeue by getting out quickly if this is just a lookup
+			if ( data ) {
+				if ( !queue || Array.isArray( data ) ) {
+					queue = dataPriv.access( elem, type, jQuery.makeArray( data ) );
+				} else {
+					queue.push( data );
+				}
+			}
+			return queue || [];
+		}
+	},
+
+	dequeue: function( elem, type ) {
+		type = type || "fx";
+
+		var queue = jQuery.queue( elem, type ),
+			startLength = queue.length,
+			fn = queue.shift(),
+			hooks = jQuery._queueHooks( elem, type ),
+			next = function() {
+				jQuery.dequeue( elem, type );
+			};
+
+		// If the fx queue is dequeued, always remove the progress sentinel
+		if ( fn === "inprogress" ) {
+			fn = queue.shift();
+			startLength--;
+		}
+
+		if ( fn ) {
+
+			// Add a progress sentinel to prevent the fx queue from being
+			// automatically dequeued
+			if ( type === "fx" ) {
+				queue.unshift( "inprogress" );
+			}
+
+			// Clear up the last queue stop function
+			delete hooks.stop;
+			fn.call( elem, next, hooks );
+		}
+
+		if ( !startLength && hooks ) {
+			hooks.empty.fire();
+		}
+	},
+
+	// Not public - generate a queueHooks object, or return the current one
+	_queueHooks: function( elem, type ) {
+		var key = type + "queueHooks";
+		return dataPriv.get( elem, key ) || dataPriv.access( elem, key, {
+			empty: jQuery.Callbacks( "once memory" ).add( function() {
+				dataPriv.remove( elem, [ type + "queue", key ] );
+			} )
+		} );
+	}
+} );
+
+jQuery.fn.extend( {
+	queue: function( type, data ) {
+		var setter = 2;
+
+		if ( typeof type !== "string" ) {
+			data = type;
+			type = "fx";
+			setter--;
+		}
+
+		if ( arguments.length < setter ) {
+			return jQuery.queue( this[ 0 ], type );
+		}
+
+		return data === undefined ?
+			this :
+			this.each( function() {
+				var queue = jQuery.queue( this, type, data );
+
+				// Ensure a hooks for this queue
+				jQuery._queueHooks( this, type );
+
+				if ( type === "fx" && queue[ 0 ] !== "inprogress" ) {
+					jQuery.dequeue( this, type );
+				}
+			} );
+	},
+	dequeue: function( type ) {
+		return this.each( function() {
+			jQuery.dequeue( this, type );
+		} );
+	},
+	clearQueue: function( type ) {
+		return this.queue( type || "fx", [] );
+	},
+
+	// Get a promise resolved when queues of a certain type
+	// are emptied (fx is the type by default)
+	promise: function( type, obj ) {
+		var tmp,
+			count = 1,
+			defer = jQuery.Deferred(),
+			elements = this,
+			i = this.length,
+			resolve = function() {
+				if ( !( --count ) ) {
+					defer.resolveWith( elements, [ elements ] );
+				}
+			};
+
+		if ( typeof type !== "string" ) {
+			obj = type;
+			type = undefined;
+		}
+		type = type || "fx";
+
+		while ( i-- ) {
+			tmp = dataPriv.get( elements[ i ], type + "queueHooks" );
+			if ( tmp && tmp.empty ) {
+				count++;
+				tmp.empty.add( resolve );
+			}
+		}
+		resolve();
+		return defer.promise( obj );
+	}
+} );
+var pnum = ( /[+-]?(?:\d*\.|)\d+(?:[eE][+-]?\d+|)/ ).source;
+
+var rcssNum = new RegExp( "^(?:([+-])=|)(" + pnum + ")([a-z%]*)$", "i" );
+
+
+var cssExpand = [ "Top", "Right", "Bottom", "Left" ];
+
+var isHiddenWithinTree = function( elem, el ) {
+
+		// isHiddenWithinTree might be called from jQuery#filter function;
+		// in that case, element will be second argument
+		elem = el || elem;
+
+		// Inline style trumps all
+		return elem.style.display === "none" ||
+			elem.style.display === "" &&
+
+			// Otherwise, check computed style
+			// Support: Firefox <=43 - 45
+			// Disconnected elements can have computed display: none, so first confirm that elem is
+			// in the document.
+			jQuery.contains( elem.ownerDocument, elem ) &&
+
+			jQuery.css( elem, "display" ) === "none";
+	};
+
+var swap = function( elem, options, callback, args ) {
+	var ret, name,
+		old = {};
+
+	// Remember the old values, and insert the new ones
+	for ( name in options ) {
+		old[ name ] = elem.style[ name ];
+		elem.style[ name ] = options[ name ];
+	}
+
+	ret = callback.apply( elem, args || [] );
+
+	// Revert the old values
+	for ( name in options ) {
+		elem.style[ name ] = old[ name ];
+	}
+
+	return ret;
+};
+
+
+
+
+function adjustCSS( elem, prop, valueParts, tween ) {
+	var adjusted, scale,
+		maxIterations = 20,
+		currentValue = tween ?
+			function() {
+				return tween.cur();
+			} :
+			function() {
+				return jQuery.css( elem, prop, "" );
+			},
+		initial = currentValue(),
+		unit = valueParts && valueParts[ 3 ] || ( jQuery.cssNumber[ prop ] ? "" : "px" ),
+
+		// Starting value computation is required for potential unit mismatches
+		initialInUnit = ( jQuery.cssNumber[ prop ] || unit !== "px" && +initial ) &&
+			rcssNum.exec( jQuery.css( elem, prop ) );
+
+	if ( initialInUnit && initialInUnit[ 3 ] !== unit ) {
+
+		// Support: Firefox <=54
+		// Halve the iteration target value to prevent interference from CSS upper bounds (gh-2144)
+		initial = initial / 2;
+
+		// Trust units reported by jQuery.css
+		unit = unit || initialInUnit[ 3 ];
+
+		// Iteratively approximate from a nonzero starting point
+		initialInUnit = +initial || 1;
+
+		while ( maxIterations-- ) {
+
+			// Evaluate and update our best guess (doubling guesses that zero out).
+			// Finish if the scale equals or crosses 1 (making the old*new product non-positive).
+			jQuery.style( elem, prop, initialInUnit + unit );
+			if ( ( 1 - scale ) * ( 1 - ( scale = currentValue() / initial || 0.5 ) ) <= 0 ) {
+				maxIterations = 0;
+			}
+			initialInUnit = initialInUnit / scale;
+
+		}
+
+		initialInUnit = initialInUnit * 2;
+		jQuery.style( elem, prop, initialInUnit + unit );
+
+		// Make sure we update the tween properties later on
+		valueParts = valueParts || [];
+	}
+
+	if ( valueParts ) {
+		initialInUnit = +initialInUnit || +initial || 0;
+
+		// Apply relative offset (+=/-=) if specified
+		adjusted = valueParts[ 1 ] ?
+			initialInUnit + ( valueParts[ 1 ] + 1 ) * valueParts[ 2 ] :
+			+valueParts[ 2 ];
+		if ( tween ) {
+			tween.unit = unit;
+			tween.start = initialInUnit;
+			tween.end = adjusted;
+		}
+	}
+	return adjusted;
+}
+
+
+var defaultDisplayMap = {};
+
+function getDefaultDisplay( elem ) {
+	var temp,
+		doc = elem.ownerDocument,
+		nodeName = elem.nodeName,
+		display = defaultDisplayMap[ nodeName ];
+
+	if ( display ) {
+		return display;
+	}
+
+	temp = doc.body.appendChild( doc.createElement( nodeName ) );
+	display = jQuery.css( temp, "display" );
+
+	temp.parentNode.removeChild( temp );
+
+	if ( display === "none" ) {
+		display = "block";
+	}
+	defaultDisplayMap[ nodeName ] = display;
+
+	return display;
+}
+
+function showHide( elements, show ) {
+	var display, elem,
+		values = [],
+		index = 0,
+		length = elements.length;
+
+	// Determine new display value for elements that need to change
+	for ( ; index < length; index++ ) {
+		elem = elements[ index ];
+		if ( !elem.style ) {
+			continue;
+		}
+
+		display = elem.style.display;
+		if ( show ) {
+
+			// Since we force visibility upon cascade-hidden elements, an immediate (and slow)
+			// check is required in this first loop unless we have a nonempty display value (either
+			// inline or about-to-be-restored)
+			if ( display === "none" ) {
+				values[ index ] = dataPriv.get( elem, "display" ) || null;
+				if ( !values[ index ] ) {
+					elem.style.display = "";
+				}
+			}
+			if ( elem.style.display === "" && isHiddenWithinTree( elem ) ) {
+				values[ index ] = getDefaultDisplay( elem );
+			}
+		} else {
+			if ( display !== "none" ) {
+				values[ index ] = "none";
+
+				// Remember what we're overwriting
+				dataPriv.set( elem, "display", display );
+			}
+		}
+	}
+
+	// Set the display of the elements in a second loop to avoid constant reflow
+	for ( index = 0; index < length; index++ ) {
+		if ( values[ index ] != null ) {
+			elements[ index ].style.display = values[ index ];
+		}
+	}
+
+	return elements;
+}
+
+jQuery.fn.extend( {
+	show: function() {
+		return showHide( this, true );
+	},
+	hide: function() {
+		return showHide( this );
+	},
+	toggle: function( state ) {
+		if ( typeof state === "boolean" ) {
+			return state ? this.show() : this.hide();
+		}
+
+		return this.each( function() {
+			if ( isHiddenWithinTree( this ) ) {
+				jQuery( this ).show();
+			} else {
+				jQuery( this ).hide();
+			}
+		} );
+	}
+} );
+var rcheckableType = ( /^(?:checkbox|radio)$/i );
+
+var rtagName = ( /<([a-z][^\/\0>\x20\t\r\n\f]+)/i );
+
+var rscriptType = ( /^$|^module$|\/(?:java|ecma)script/i );
+
+
+
+// We have to close these tags to support XHTML (#13200)
+var wrapMap = {
+
+	// Support: IE <=9 only
+	option: [ 1, "<select multiple='multiple'>", "</select>" ],
+
+	// XHTML parsers do not magically insert elements in the
+	// same way that tag soup parsers do. So we cannot shorten
+	// this by omitting <tbody> or other required elements.
+	thead: [ 1, "<table>", "</table>" ],
+	col: [ 2, "<table><colgroup>", "</colgroup></table>" ],
+	tr: [ 2, "<table><tbody>", "</tbody></table>" ],
+	td: [ 3, "<table><tbody><tr>", "</tr></tbody></table>" ],
+
+	_default: [ 0, "", "" ]
+};
+
+// Support: IE <=9 only
+wrapMap.optgroup = wrapMap.option;
+
+wrapMap.tbody = wrapMap.tfoot = wrapMap.colgroup = wrapMap.caption = wrapMap.thead;
+wrapMap.th = wrapMap.td;
+
+
+function getAll( context, tag ) {
+
+	// Support: IE <=9 - 11 only
+	// Use typeof to avoid zero-argument method invocation on host objects (#15151)
+	var ret;
+
+	if ( typeof context.getElementsByTagName !== "undefined" ) {
+		ret = context.getElementsByTagName( tag || "*" );
+
+	} else if ( typeof context.querySelectorAll !== "undefined" ) {
+		ret = context.querySelectorAll( tag || "*" );
+
+	} else {
+		ret = [];
+	}
+
+	if ( tag === undefined || tag && nodeName( context, tag ) ) {
+		return jQuery.merge( [ context ], ret );
+	}
+
+	return ret;
+}
+
+
+// Mark scripts as having already been evaluated
+function setGlobalEval( elems, refElements ) {
+	var i = 0,
+		l = elems.length;
+
+	for ( ; i < l; i++ ) {
+		dataPriv.set(
+			elems[ i ],
+			"globalEval",
+			!refElements || dataPriv.get( refElements[ i ], "globalEval" )
+		);
+	}
+}
+
+
+var rhtml = /<|&#?\w+;/;
+
+function buildFragment( elems, context, scripts, selection, ignored ) {
+	var elem, tmp, tag, wrap, contains, j,
+		fragment = context.createDocumentFragment(),
+		nodes = [],
+		i = 0,
+		l = elems.length;
+
+	for ( ; i < l; i++ ) {
+		elem = elems[ i ];
+
+		if ( elem || elem === 0 ) {
+
+			// Add nodes directly
+			if ( toType( elem ) === "object" ) {
+
+				// Support: Android <=4.0 only, PhantomJS 1 only
+				// push.apply(_, arraylike) throws on ancient WebKit
+				jQuery.merge( nodes, elem.nodeType ? [ elem ] : elem );
+
+			// Convert non-html into a text node
+			} else if ( !rhtml.test( elem ) ) {
+				nodes.push( context.createTextNode( elem ) );
+
+			// Convert html into DOM nodes
+			} else {
+				tmp = tmp || fragment.appendChild( context.createElement( "div" ) );
+
+				// Deserialize a standard representation
+				tag = ( rtagName.exec( elem ) || [ "", "" ] )[ 1 ].toLowerCase();
+				wrap = wrapMap[ tag ] || wrapMap._default;
+				tmp.innerHTML = wrap[ 1 ] + jQuery.htmlPrefilter( elem ) + wrap[ 2 ];
+
+				// Descend through wrappers to the right content
+				j = wrap[ 0 ];
+				while ( j-- ) {
+					tmp = tmp.lastChild;
+				}
+
+				// Support: Android <=4.0 only, PhantomJS 1 only
+				// push.apply(_, arraylike) throws on ancient WebKit
+				jQuery.merge( nodes, tmp.childNodes );
+
+				// Remember the top-level container
+				tmp = fragment.firstChild;
+
+				// Ensure the created nodes are orphaned (#12392)
+				tmp.textContent = "";
+			}
+		}
+	}
+
+	// Remove wrapper from fragment
+	fragment.textContent = "";
+
+	i = 0;
+	while ( ( elem = nodes[ i++ ] ) ) {
+
+		// Skip elements already in the context collection (trac-4087)
+		if ( selection && jQuery.inArray( elem, selection ) > -1 ) {
+			if ( ignored ) {
+				ignored.push( elem );
+			}
+			continue;
+		}
+
+		contains = jQuery.contains( elem.ownerDocument, elem );
+
+		// Append to fragment
+		tmp = getAll( fragment.appendChild( elem ), "script" );
+
+		// Preserve script evaluation history
+		if ( contains ) {
+			setGlobalEval( tmp );
+		}
+
+		// Capture executables
+		if ( scripts ) {
+			j = 0;
+			while ( ( elem = tmp[ j++ ] ) ) {
+				if ( rscriptType.test( elem.type || "" ) ) {
+					scripts.push( elem );
+				}
+			}
+		}
+	}
+
+	return fragment;
+}
+
+
+( function() {
+	var fragment = document.createDocumentFragment(),
+		div = fragment.appendChild( document.createElement( "div" ) ),
+		input = document.createElement( "input" );
+
+	// Support: Android 4.0 - 4.3 only
+	// Check state lost if the name is set (#11217)
+	// Support: Windows Web Apps (WWA)
+	// `name` and `type` must use .setAttribute for WWA (#14901)
+	input.setAttribute( "type", "radio" );
+	input.setAttribute( "checked", "checked" );
+	input.setAttribute( "name", "t" );
+
+	div.appendChild( input );
+
+	// Support: Android <=4.1 only
+	// Older WebKit doesn't clone checked state correctly in fragments
+	support.checkClone = div.cloneNode( true ).cloneNode( true ).lastChild.checked;
+
+	// Support: IE <=11 only
+	// Make sure textarea (and checkbox) defaultValue is properly cloned
+	div.innerHTML = "<textarea>x</textarea>";
+	support.noCloneChecked = !!div.cloneNode( true ).lastChild.defaultValue;
+} )();
+var documentElement = document.documentElement;
+
+
+
+var
+	rkeyEvent = /^key/,
+	rmouseEvent = /^(?:mouse|pointer|contextmenu|drag|drop)|click/,
+	rtypenamespace = /^([^.]*)(?:\.(.+)|)/;
+
+function returnTrue() {
+	return true;
+}
+
+function returnFalse() {
+	return false;
+}
+
+// Support: IE <=9 only
+// See #13393 for more info
+function safeActiveElement() {
+	try {
+		return document.activeElement;
+	} catch ( err ) { }
+}
+
+function on( elem, types, selector, data, fn, one ) {
+	var origFn, type;
+
+	// Types can be a map of types/handlers
+	if ( typeof types === "object" ) {
+
+		// ( types-Object, selector, data )
+		if ( typeof selector !== "string" ) {
+
+			// ( types-Object, data )
+			data = data || selector;
+			selector = undefined;
+		}
+		for ( type in types ) {
+			on( elem, type, selector, data, types[ type ], one );
+		}
+		return elem;
+	}
+
+	if ( data == null && fn == null ) {
+
+		// ( types, fn )
+		fn = selector;
+		data = selector = undefined;
+	} else if ( fn == null ) {
+		if ( typeof selector === "string" ) {
+
+			// ( types, selector, fn )
+			fn = data;
+			data = undefined;
+		} else {
+
+			// ( types, data, fn )
+			fn = data;
+			data = selector;
+			selector = undefined;
+		}
+	}
+	if ( fn === false ) {
+		fn = returnFalse;
+	} else if ( !fn ) {
+		return elem;
+	}
+
+	if ( one === 1 ) {
+		origFn = fn;
+		fn = function( event ) {
+
+			// Can use an empty set, since event contains the info
+			jQuery().off( event );
+			return origFn.apply( this, arguments );
+		};
+
+		// Use same guid so caller can remove using origFn
+		fn.guid = origFn.guid || ( origFn.guid = jQuery.guid++ );
+	}
+	return elem.each( function() {
+		jQuery.event.add( this, types, fn, data, selector );
+	} );
+}
+
+/*
+ * Helper functions for managing events -- not part of the public interface.
+ * Props to Dean Edwards' addEvent library for many of the ideas.
+ */
+jQuery.event = {
+
+	global: {},
+
+	add: function( elem, types, handler, data, selector ) {
+
+		var handleObjIn, eventHandle, tmp,
+			events, t, handleObj,
+			special, handlers, type, namespaces, origType,
+			elemData = dataPriv.get( elem );
+
+		// Don't attach events to noData or text/comment nodes (but allow plain objects)
+		if ( !elemData ) {
+			return;
+		}
+
+		// Caller can pass in an object of custom data in lieu of the handler
+		if ( handler.handler ) {
+			handleObjIn = handler;
+			handler = handleObjIn.handler;
+			selector = handleObjIn.selector;
+		}
+
+		// Ensure that invalid selectors throw exceptions at attach time
+		// Evaluate against documentElement in case elem is a non-element node (e.g., document)
+		if ( selector ) {
+			jQuery.find.matchesSelector( documentElement, selector );
+		}
+
+		// Make sure that the handler has a unique ID, used to find/remove it later
+		if ( !handler.guid ) {
+			handler.guid = jQuery.guid++;
+		}
+
+		// Init the element's event structure and main handler, if this is the first
+		if ( !( events = elemData.events ) ) {
+			events = elemData.events = {};
+		}
+		if ( !( eventHandle = elemData.handle ) ) {
+			eventHandle = elemData.handle = function( e ) {
+
+				// Discard the second event of a jQuery.event.trigger() and
+				// when an event is called after a page has unloaded
+				return typeof jQuery !== "undefined" && jQuery.event.triggered !== e.type ?
+					jQuery.event.dispatch.apply( elem, arguments ) : undefined;
+			};
+		}
+
+		// Handle multiple events separated by a space
+		types = ( types || "" ).match( rnothtmlwhite ) || [ "" ];
+		t = types.length;
+		while ( t-- ) {
+			tmp = rtypenamespace.exec( types[ t ] ) || [];
+			type = origType = tmp[ 1 ];
+			namespaces = ( tmp[ 2 ] || "" ).split( "." ).sort();
+
+			// There *must* be a type, no attaching namespace-only handlers
+			if ( !type ) {
+				continue;
+			}
+
+			// If event changes its type, use the special event handlers for the changed type
+			special = jQuery.event.special[ type ] || {};
+
+			// If selector defined, determine special event api type, otherwise given type
+			type = ( selector ? special.delegateType : special.bindType ) || type;
+
+			// Update special based on newly reset type
+			special = jQuery.event.special[ type ] || {};
+
+			// handleObj is passed to all event handlers
+			handleObj = jQuery.extend( {
+				type: type,
+				origType: origType,
+				data: data,
+				handler: handler,
+				guid: handler.guid,
+				selector: selector,
+				needsContext: selector && jQuery.expr.match.needsContext.test( selector ),
+				namespace: namespaces.join( "." )
+			}, handleObjIn );
+
+			// Init the event handler queue if we're the first
+			if ( !( handlers = events[ type ] ) ) {
+				handlers = events[ type ] = [];
+				handlers.delegateCount = 0;
+
+				// Only use addEventListener if the special events handler returns false
+				if ( !special.setup ||
+					special.setup.call( elem, data, namespaces, eventHandle ) === false ) {
+
+					if ( elem.addEventListener ) {
+						elem.addEventListener( type, eventHandle );
+					}
+				}
+			}
+
+			if ( special.add ) {
+				special.add.call( elem, handleObj );
+
+				if ( !handleObj.handler.guid ) {
+					handleObj.handler.guid = handler.guid;
+				}
+			}
+
+			// Add to the element's handler list, delegates in front
+			if ( selector ) {
+				handlers.splice( handlers.delegateCount++, 0, handleObj );
+			} else {
+				handlers.push( handleObj );
+			}
+
+			// Keep track of which events have ever been used, for event optimization
+			jQuery.event.global[ type ] = true;
+		}
+
+	},
+
+	// Detach an event or set of events from an element
+	remove: function( elem, types, handler, selector, mappedTypes ) {
+
+		var j, origCount, tmp,
+			events, t, handleObj,
+			special, handlers, type, namespaces, origType,
+			elemData = dataPriv.hasData( elem ) && dataPriv.get( elem );
+
+		if ( !elemData || !( events = elemData.events ) ) {
+			return;
+		}
+
+		// Once for each type.namespace in types; type may be omitted
+		types = ( types || "" ).match( rnothtmlwhite ) || [ "" ];
+		t = types.length;
+		while ( t-- ) {
+			tmp = rtypenamespace.exec( types[ t ] ) || [];
+			type = origType = tmp[ 1 ];
+			namespaces = ( tmp[ 2 ] || "" ).split( "." ).sort();
+
+			// Unbind all events (on this namespace, if provided) for the element
+			if ( !type ) {
+				for ( type in events ) {
+					jQuery.event.remove( elem, type + types[ t ], handler, selector, true );
+				}
+				continue;
+			}
+
+			special = jQuery.event.special[ type ] || {};
+			type = ( selector ? special.delegateType : special.bindType ) || type;
+			handlers = events[ type ] || [];
+			tmp = tmp[ 2 ] &&
+				new RegExp( "(^|\\.)" + namespaces.join( "\\.(?:.*\\.|)" ) + "(\\.|$)" );
+
+			// Remove matching events
+			origCount = j = handlers.length;
+			while ( j-- ) {
+				handleObj = handlers[ j ];
+
+				if ( ( mappedTypes || origType === handleObj.origType ) &&
+					( !handler || handler.guid === handleObj.guid ) &&
+					( !tmp || tmp.test( handleObj.namespace ) ) &&
+					( !selector || selector === handleObj.selector ||
+						selector === "**" && handleObj.selector ) ) {
+					handlers.splice( j, 1 );
+
+					if ( handleObj.selector ) {
+						handlers.delegateCount--;
+					}
+					if ( special.remove ) {
+						special.remove.call( elem, handleObj );
+					}
+				}
+			}
+
+			// Remove generic event handler if we removed something and no more handlers exist
+			// (avoids potential for endless recursion during removal of special event handlers)
+			if ( origCount && !handlers.length ) {
+				if ( !special.teardown ||
+					special.teardown.call( elem, namespaces, elemData.handle ) === false ) {
+
+					jQuery.removeEvent( elem, type, elemData.handle );
+				}
+
+				delete events[ type ];
+			}
+		}
+
+		// Remove data and the expando if it's no longer used
+		if ( jQuery.isEmptyObject( events ) ) {
+			dataPriv.remove( elem, "handle events" );
+		}
+	},
+
+	dispatch: function( nativeEvent ) {
+
+		// Make a writable jQuery.Event from the native event object
+		var event = jQuery.event.fix( nativeEvent );
+
+		var i, j, ret, matched, handleObj, handlerQueue,
+			args = new Array( arguments.length ),
+			handlers = ( dataPriv.get( this, "events" ) || {} )[ event.type ] || [],
+			special = jQuery.event.special[ event.type ] || {};
+
+		// Use the fix-ed jQuery.Event rather than the (read-only) native event
+		args[ 0 ] = event;
+
+		for ( i = 1; i < arguments.length; i++ ) {
+			args[ i ] = arguments[ i ];
+		}
+
+		event.delegateTarget = this;
+
+		// Call the preDispatch hook for the mapped type, and let it bail if desired
+		if ( special.preDispatch && special.preDispatch.call( this, event ) === false ) {
+			return;
+		}
+
+		// Determine handlers
+		handlerQueue = jQuery.event.handlers.call( this, event, handlers );
+
+		// Run delegates first; they may want to stop propagation beneath us
+		i = 0;
+		while ( ( matched = handlerQueue[ i++ ] ) && !event.isPropagationStopped() ) {
+			event.currentTarget = matched.elem;
+
+			j = 0;
+			while ( ( handleObj = matched.handlers[ j++ ] ) &&
+				!event.isImmediatePropagationStopped() ) {
+
+				// Triggered event must either 1) have no namespace, or 2) have namespace(s)
+				// a subset or equal to those in the bound event (both can have no namespace).
+				if ( !event.rnamespace || event.rnamespace.test( handleObj.namespace ) ) {
+
+					event.handleObj = handleObj;
+					event.data = handleObj.data;
+
+					ret = ( ( jQuery.event.special[ handleObj.origType ] || {} ).handle ||
+						handleObj.handler ).apply( matched.elem, args );
+
+					if ( ret !== undefined ) {
+						if ( ( event.result = ret ) === false ) {
+							event.preventDefault();
+							event.stopPropagation();
+						}
+					}
+				}
+			}
+		}
+
+		// Call the postDispatch hook for the mapped type
+		if ( special.postDispatch ) {
+			special.postDispatch.call( this, event );
+		}
+
+		return event.result;
+	},
+
+	handlers: function( event, handlers ) {
+		var i, handleObj, sel, matchedHandlers, matchedSelectors,
+			handlerQueue = [],
+			delegateCount = handlers.delegateCount,
+			cur = event.target;
+
+		// Find delegate handlers
+		if ( delegateCount &&
+
+			// Support: IE <=9
+			// Black-hole SVG <use> instance trees (trac-13180)
+			cur.nodeType &&
+
+			// Support: Firefox <=42
+			// Suppress spec-violating clicks indicating a non-primary pointer button (trac-3861)
+			// https://www.w3.org/TR/DOM-Level-3-Events/#event-type-click
+			// Support: IE 11 only
+			// ...but not arrow key "clicks" of radio inputs, which can have `button` -1 (gh-2343)
+			!( event.type === "click" && event.button >= 1 ) ) {
+
+			for ( ; cur !== this; cur = cur.parentNode || this ) {
+
+				// Don't check non-elements (#13208)
+				// Don't process clicks on disabled elements (#6911, #8165, #11382, #11764)
+				if ( cur.nodeType === 1 && !( event.type === "click" && cur.disabled === true ) ) {
+					matchedHandlers = [];
+					matchedSelectors = {};
+					for ( i = 0; i < delegateCount; i++ ) {
+						handleObj = handlers[ i ];
+
+						// Don't conflict with Object.prototype properties (#13203)
+						sel = handleObj.selector + " ";
+
+						if ( matchedSelectors[ sel ] === undefined ) {
+							matchedSelectors[ sel ] = handleObj.needsContext ?
+								jQuery( sel, this ).index( cur ) > -1 :
+								jQuery.find( sel, this, null, [ cur ] ).length;
+						}
+						if ( matchedSelectors[ sel ] ) {
+							matchedHandlers.push( handleObj );
+						}
+					}
+					if ( matchedHandlers.length ) {
+						handlerQueue.push( { elem: cur, handlers: matchedHandlers } );
+					}
+				}
+			}
+		}
+
+		// Add the remaining (directly-bound) handlers
+		cur = this;
+		if ( delegateCount < handlers.length ) {
+			handlerQueue.push( { elem: cur, handlers: handlers.slice( delegateCount ) } );
+		}
+
+		return handlerQueue;
+	},
+
+	addProp: function( name, hook ) {
+		Object.defineProperty( jQuery.Event.prototype, name, {
+			enumerable: true,
+			configurable: true,
+
+			get: isFunction( hook ) ?
+				function() {
+					if ( this.originalEvent ) {
+							return hook( this.originalEvent );
+					}
+				} :
+				function() {
+					if ( this.originalEvent ) {
+							return this.originalEvent[ name ];
+					}
+				},
+
+			set: function( value ) {
+				Object.defineProperty( this, name, {
+					enumerable: true,
+					configurable: true,
+					writable: true,
+					value: value
+				} );
+			}
+		} );
+	},
+
+	fix: function( originalEvent ) {
+		return originalEvent[ jQuery.expando ] ?
+			originalEvent :
+			new jQuery.Event( originalEvent );
+	},
+
+	special: {
+		load: {
+
+			// Prevent triggered image.load events from bubbling to window.load
+			noBubble: true
+		},
+		focus: {
+
+			// Fire native event if possible so blur/focus sequence is correct
+			trigger: function() {
+				if ( this !== safeActiveElement() && this.focus ) {
+					this.focus();
+					return false;
+				}
+			},
+			delegateType: "focusin"
+		},
+		blur: {
+			trigger: function() {
+				if ( this === safeActiveElement() && this.blur ) {
+					this.blur();
+					return false;
+				}
+			},
+			delegateType: "focusout"
+		},
+		click: {
+
+			// For checkbox, fire native event so checked state will be right
+			trigger: function() {
+				if ( this.type === "checkbox" && this.click && nodeName( this, "input" ) ) {
+					this.click();
+					return false;
+				}
+			},
+
+			// For cross-browser consistency, don't fire native .click() on links
+			_default: function( event ) {
+				return nodeName( event.target, "a" );
+			}
+		},
+
+		beforeunload: {
+			postDispatch: function( event ) {
+
+				// Support: Firefox 20+
+				// Firefox doesn't alert if the returnValue field is not set.
+				if ( event.result !== undefined && event.originalEvent ) {
+					event.originalEvent.returnValue = event.result;
+				}
+			}
+		}
+	}
+};
+
+jQuery.removeEvent = function( elem, type, handle ) {
+
+	// This "if" is needed for plain objects
+	if ( elem.removeEventListener ) {
+		elem.removeEventListener( type, handle );
+	}
+};
+
+jQuery.Event = function( src, props ) {
+
+	// Allow instantiation without the 'new' keyword
+	if ( !( this instanceof jQuery.Event ) ) {
+		return new jQuery.Event( src, props );
+	}
+
+	// Event object
+	if ( src && src.type ) {
+		this.originalEvent = src;
+		this.type = src.type;
+
+		// Events bubbling up the document may have been marked as prevented
+		// by a handler lower down the tree; reflect the correct value.
+		this.isDefaultPrevented = src.defaultPrevented ||
+				src.defaultPrevented === undefined &&
+
+				// Support: Android <=2.3 only
+				src.returnValue === false ?
+			returnTrue :
+			returnFalse;
+
+		// Create target properties
+		// Support: Safari <=6 - 7 only
+		// Target should not be a text node (#504, #13143)
+		this.target = ( src.target && src.target.nodeType === 3 ) ?
+			src.target.parentNode :
+			src.target;
+
+		this.currentTarget = src.currentTarget;
+		this.relatedTarget = src.relatedTarget;
+
+	// Event type
+	} else {
+		this.type = src;
+	}
+
+	// Put explicitly provided properties onto the event object
+	if ( props ) {
+		jQuery.extend( this, props );
+	}
+
+	// Create a timestamp if incoming event doesn't have one
+	this.timeStamp = src && src.timeStamp || Date.now();
+
+	// Mark it as fixed
+	this[ jQuery.expando ] = true;
+};
+
+// jQuery.Event is based on DOM3 Events as specified by the ECMAScript Language Binding
+// https://www.w3.org/TR/2003/WD-DOM-Level-3-Events-20030331/ecma-script-binding.html
+jQuery.Event.prototype = {
+	constructor: jQuery.Event,
+	isDefaultPrevented: returnFalse,
+	isPropagationStopped: returnFalse,
+	isImmediatePropagationStopped: returnFalse,
+	isSimulated: false,
+
+	preventDefault: function() {
+		var e = this.originalEvent;
+
+		this.isDefaultPrevented = returnTrue;
+
+		if ( e && !this.isSimulated ) {
+			e.preventDefault();
+		}
+	},
+	stopPropagation: function() {
+		var e = this.originalEvent;
+
+		this.isPropagationStopped = returnTrue;
+
+		if ( e && !this.isSimulated ) {
+			e.stopPropagation();
+		}
+	},
+	stopImmediatePropagation: function() {
+		var e = this.originalEvent;
+
+		this.isImmediatePropagationStopped = returnTrue;
+
+		if ( e && !this.isSimulated ) {
+			e.stopImmediatePropagation();
+		}
+
+		this.stopPropagation();
+	}
+};
+
+// Includes all common event props including KeyEvent and MouseEvent specific props
+jQuery.each( {
+	altKey: true,
+	bubbles: true,
+	cancelable: true,
+	changedTouches: true,
+	ctrlKey: true,
+	detail: true,
+	eventPhase: true,
+	metaKey: true,
+	pageX: true,
+	pageY: true,
+	shiftKey: true,
+	view: true,
+	"char": true,
+	charCode: true,
+	key: true,
+	keyCode: true,
+	button: true,
+	buttons: true,
+	clientX: true,
+	clientY: true,
+	offsetX: true,
+	offsetY: true,
+	pointerId: true,
+	pointerType: true,
+	screenX: true,
+	screenY: true,
+	targetTouches: true,
+	toElement: true,
+	touches: true,
+
+	which: function( event ) {
+		var button = event.button;
+
+		// Add which for key events
+		if ( event.which == null && rkeyEvent.test( event.type ) ) {
+			return event.charCode != null ? event.charCode : event.keyCode;
+		}
+
+		// Add which for click: 1 === left; 2 === middle; 3 === right
+		if ( !event.which && button !== undefined && rmouseEvent.test( event.type ) ) {
+			if ( button & 1 ) {
+				return 1;
+			}
+
+			if ( button & 2 ) {
+				return 3;
+			}
+
+			if ( button & 4 ) {
+				return 2;
+			}
+
+			return 0;
+		}
+
+		return event.which;
+	}
+}, jQuery.event.addProp );
+
+// Create mouseenter/leave events using mouseover/out and event-time checks
+// so that event delegation works in jQuery.
+// Do the same for pointerenter/pointerleave and pointerover/pointerout
+//
+// Support: Safari 7 only
+// Safari sends mouseenter too often; see:
+// https://bugs.chromium.org/p/chromium/issues/detail?id=470258
+// for the description of the bug (it existed in older Chrome versions as well).
+jQuery.each( {
+	mouseenter: "mouseover",
+	mouseleave: "mouseout",
+	pointerenter: "pointerover",
+	pointerleave: "pointerout"
+}, function( orig, fix ) {
+	jQuery.event.special[ orig ] = {
+		delegateType: fix,
+		bindType: fix,
+
+		handle: function( event ) {
+			var ret,
+				target = this,
+				related = event.relatedTarget,
+				handleObj = event.handleObj;
+
+			// For mouseenter/leave call the handler if related is outside the target.
+			// NB: No relatedTarget if the mouse left/entered the browser window
+			if ( !related || ( related !== target && !jQuery.contains( target, related ) ) ) {
+				event.type = handleObj.origType;
+				ret = handleObj.handler.apply( this, arguments );
+				event.type = fix;
+			}
+			return ret;
+		}
+	};
+} );
+
+jQuery.fn.extend( {
+
+	on: function( types, selector, data, fn ) {
+		return on( this, types, selector, data, fn );
+	},
+	one: function( types, selector, data, fn ) {
+		return on( this, types, selector, data, fn, 1 );
+	},
+	off: function( types, selector, fn ) {
+		var handleObj, type;
+		if ( types && types.preventDefault && types.handleObj ) {
+
+			// ( event )  dispatched jQuery.Event
+			handleObj = types.handleObj;
+			jQuery( types.delegateTarget ).off(
+				handleObj.namespace ?
+					handleObj.origType + "." + handleObj.namespace :
+					handleObj.origType,
+				handleObj.selector,
+				handleObj.handler
+			);
+			return this;
+		}
+		if ( typeof types === "object" ) {
+
+			// ( types-object [, selector] )
+			for ( type in types ) {
+				this.off( type, selector, types[ type ] );
+			}
+			return this;
+		}
+		if ( selector === false || typeof selector === "function" ) {
+
+			// ( types [, fn] )
+			fn = selector;
+			selector = undefined;
+		}
+		if ( fn === false ) {
+			fn = returnFalse;
+		}
+		return this.each( function() {
+			jQuery.event.remove( this, types, fn, selector );
+		} );
+	}
+} );
+
+
+var
+
+	/* eslint-disable max-len */
+
+	// See https://github.com/eslint/eslint/issues/3229
+	rxhtmlTag = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([a-z][^\/\0>\x20\t\r\n\f]*)[^>]*)\/>/gi,
+
+	/* eslint-enable */
+
+	// Support: IE <=10 - 11, Edge 12 - 13 only
+	// In IE/Edge using regex groups here causes severe slowdowns.
+	// See https://connect.microsoft.com/IE/feedback/details/1736512/
+	rnoInnerhtml = /<script|<style|<link/i,
+
+	// checked="checked" or checked
+	rchecked = /checked\s*(?:[^=]|=\s*.checked.)/i,
+	rcleanScript = /^\s*<!(?:\[CDATA\[|--)|(?:\]\]|--)>\s*$/g;
+
+// Prefer a tbody over its parent table for containing new rows
+function manipulationTarget( elem, content ) {
+	if ( nodeName( elem, "table" ) &&
+		nodeName( content.nodeType !== 11 ? content : content.firstChild, "tr" ) ) {
+
+		return jQuery( elem ).children( "tbody" )[ 0 ] || elem;
+	}
+
+	return elem;
+}
+
+// Replace/restore the type attribute of script elements for safe DOM manipulation
+function disableScript( elem ) {
+	elem.type = ( elem.getAttribute( "type" ) !== null ) + "/" + elem.type;
+	return elem;
+}
+function restoreScript( elem ) {
+	if ( ( elem.type || "" ).slice( 0, 5 ) === "true/" ) {
+		elem.type = elem.type.slice( 5 );
+	} else {
+		elem.removeAttribute( "type" );
+	}
+
+	return elem;
+}
+
+function cloneCopyEvent( src, dest ) {
+	var i, l, type, pdataOld, pdataCur, udataOld, udataCur, events;
+
+	if ( dest.nodeType !== 1 ) {
+		return;
+	}
+
+	// 1. Copy private data: events, handlers, etc.
+	if ( dataPriv.hasData( src ) ) {
+		pdataOld = dataPriv.access( src );
+		pdataCur = dataPriv.set( dest, pdataOld );
+		events = pdataOld.events;
+
+		if ( events ) {
+			delete pdataCur.handle;
+			pdataCur.events = {};
+
+			for ( type in events ) {
+				for ( i = 0, l = events[ type ].length; i < l; i++ ) {
+					jQuery.event.add( dest, type, events[ type ][ i ] );
+				}
+			}
+		}
+	}
+
+	// 2. Copy user data
+	if ( dataUser.hasData( src ) ) {
+		udataOld = dataUser.access( src );
+		udataCur = jQuery.extend( {}, udataOld );
+
+		dataUser.set( dest, udataCur );
+	}
+}
+
+// Fix IE bugs, see support tests
+function fixInput( src, dest ) {
+	var nodeName = dest.nodeName.toLowerCase();
+
+	// Fails to persist the checked state of a cloned checkbox or radio button.
+	if ( nodeName === "input" && rcheckableType.test( src.type ) ) {
+		dest.checked = src.checked;
+
+	// Fails to return the selected option to the default selected state when cloning options
+	} else if ( nodeName === "input" || nodeName === "textarea" ) {
+		dest.defaultValue = src.defaultValue;
+	}
+}
+
+function domManip( collection, args, callback, ignored ) {
+
+	// Flatten any nested arrays
+	args = concat.apply( [], args );
+
+	var fragment, first, scripts, hasScripts, node, doc,
+		i = 0,
+		l = collection.length,
+		iNoClone = l - 1,
+		value = args[ 0 ],
+		valueIsFunction = isFunction( value );
+
+	// We can't cloneNode fragments that contain checked, in WebKit
+	if ( valueIsFunction ||
+			( l > 1 && typeof value === "string" &&
+				!support.checkClone && rchecked.test( value ) ) ) {
+		return collection.each( function( index ) {
+			var self = collection.eq( index );
+			if ( valueIsFunction ) {
+				args[ 0 ] = value.call( this, index, self.html() );
+			}
+			domManip( self, args, callback, ignored );
+		} );
+	}
+
+	if ( l ) {
+		fragment = buildFragment( args, collection[ 0 ].ownerDocument, false, collection, ignored );
+		first = fragment.firstChild;
+
+		if ( fragment.childNodes.length === 1 ) {
+			fragment = first;
+		}
+
+		// Require either new content or an interest in ignored elements to invoke the callback
+		if ( first || ignored ) {
+			scripts = jQuery.map( getAll( fragment, "script" ), disableScript );
+			hasScripts = scripts.length;
+
+			// Use the original fragment for the last item
+			// instead of the first because it can end up
+			// being emptied incorrectly in certain situations (#8070).
+			for ( ; i < l; i++ ) {
+				node = fragment;
+
+				if ( i !== iNoClone ) {
+					node = jQuery.clone( node, true, true );
+
+					// Keep references to cloned scripts for later restoration
+					if ( hasScripts ) {
+
+						// Support: Android <=4.0 only, PhantomJS 1 only
+						// push.apply(_, arraylike) throws on ancient WebKit
+						jQuery.merge( scripts, getAll( node, "script" ) );
+					}
+				}
+
+				callback.call( collection[ i ], node, i );
+			}
+
+			if ( hasScripts ) {
+				doc = scripts[ scripts.length - 1 ].ownerDocument;
+
+				// Reenable scripts
+				jQuery.map( scripts, restoreScript );
+
+				// Evaluate executable scripts on first document insertion
+				for ( i = 0; i < hasScripts; i++ ) {
+					node = scripts[ i ];
+					if ( rscriptType.test( node.type || "" ) &&
+						!dataPriv.access( node, "globalEval" ) &&
+						jQuery.contains( doc, node ) ) {
+
+						if ( node.src && ( node.type || "" ).toLowerCase()  !== "module" ) {
+
+							// Optional AJAX dependency, but won't run scripts if not present
+							if ( jQuery._evalUrl ) {
+								jQuery._evalUrl( node.src );
+							}
+						} else {
+							DOMEval( node.textContent.replace( rcleanScript, "" ), doc, node );
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return collection;
+}
+
+function remove( elem, selector, keepData ) {
+	var node,
+		nodes = selector ? jQuery.filter( selector, elem ) : elem,
+		i = 0;
+
+	for ( ; ( node = nodes[ i ] ) != null; i++ ) {
+		if ( !keepData && node.nodeType === 1 ) {
+			jQuery.cleanData( getAll( node ) );
+		}
+
+		if ( node.parentNode ) {
+			if ( keepData && jQuery.contains( node.ownerDocument, node ) ) {
+				setGlobalEval( getAll( node, "script" ) );
+			}
+			node.parentNode.removeChild( node );
+		}
+	}
+
+	return elem;
+}
+
+jQuery.extend( {
+	htmlPrefilter: function( html ) {
+		return html.replace( rxhtmlTag, "<$1></$2>" );
+	},
+
+	clone: function( elem, dataAndEvents, deepDataAndEvents ) {
+		var i, l, srcElements, destElements,
+			clone = elem.cloneNode( true ),
+			inPage = jQuery.contains( elem.ownerDocument, elem );
+
+		// Fix IE cloning issues
+		if ( !support.noCloneChecked && ( elem.nodeType === 1 || elem.nodeType === 11 ) &&
+				!jQuery.isXMLDoc( elem ) ) {
+
+			// We eschew Sizzle here for performance reasons: https://jsperf.com/getall-vs-sizzle/2
+			destElements = getAll( clone );
+			srcElements = getAll( elem );
+
+			for ( i = 0, l = srcElements.length; i < l; i++ ) {
+				fixInput( srcElements[ i ], destElements[ i ] );
+			}
+		}
+
+		// Copy the events from the original to the clone
+		if ( dataAndEvents ) {
+			if ( deepDataAndEvents ) {
+				srcElements = srcElements || getAll( elem );
+				destElements = destElements || getAll( clone );
+
+				for ( i = 0, l = srcElements.length; i < l; i++ ) {
+					cloneCopyEvent( srcElements[ i ], destElements[ i ] );
+				}
+			} else {
+				cloneCopyEvent( elem, clone );
+			}
+		}
+
+		// Preserve script evaluation history
+		destElements = getAll( clone, "script" );
+		if ( destElements.length > 0 ) {
+			setGlobalEval( destElements, !inPage && getAll( elem, "script" ) );
+		}
+
+		// Return the cloned set
+		return clone;
+	},
+
+	cleanData: function( elems ) {
+		var data, elem, type,
+			special = jQuery.event.special,
+			i = 0;
+
+		for ( ; ( elem = elems[ i ] ) !== undefined; i++ ) {
+			if ( acceptData( elem ) ) {
+				if ( ( data = elem[ dataPriv.expando ] ) ) {
+					if ( data.events ) {
+						for ( type in data.events ) {
+							if ( special[ type ] ) {
+								jQuery.event.remove( elem, type );
+
+							// This is a shortcut to avoid jQuery.event.remove's overhead
+							} else {
+								jQuery.removeEvent( elem, type, data.handle );
+							}
+						}
+					}
+
+					// Support: Chrome <=35 - 45+
+					// Assign undefined instead of using delete, see Data#remove
+					elem[ dataPriv.expando ] = undefined;
+				}
+				if ( elem[ dataUser.expando ] ) {
+
+					// Support: Chrome <=35 - 45+
+					// Assign undefined instead of using delete, see Data#remove
+					elem[ dataUser.expando ] = undefined;
+				}
+			}
+		}
+	}
+} );
+
+jQuery.fn.extend( {
+	detach: function( selector ) {
+		return remove( this, selector, true );
+	},
+
+	remove: function( selector ) {
+		return remove( this, selector );
+	},
+
+	text: function( value ) {
+		return access( this, function( value ) {
+			return value === undefined ?
+				jQuery.text( this ) :
+				this.empty().each( function() {
+					if ( this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9 ) {
+						this.textContent = value;
+					}
+				} );
+		}, null, value, arguments.length );
+	},
+
+	append: function() {
+		return domManip( this, arguments, function( elem ) {
+			if ( this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9 ) {
+				var target = manipulationTarget( this, elem );
+				target.appendChild( elem );
+			}
+		} );
+	},
+
+	prepend: function() {
+		return domManip( this, arguments, function( elem ) {
+			if ( this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9 ) {
+				var target = manipulationTarget( this, elem );
+				target.insertBefore( elem, target.firstChild );
+			}
+		} );
+	},
+
+	before: function() {
+		return domManip( this, arguments, function( elem ) {
+			if ( this.parentNode ) {
+				this.parentNode.insertBefore( elem, this );
+			}
+		} );
+	},
+
+	after: function() {
+		return domManip( this, arguments, function( elem ) {
+			if ( this.parentNode ) {
+				this.parentNode.insertBefore( elem, this.nextSibling );
+			}
+		} );
+	},
+
+	empty: function() {
+		var elem,
+			i = 0;
+
+		for ( ; ( elem = this[ i ] ) != null; i++ ) {
+			if ( elem.nodeType === 1 ) {
+
+				// Prevent memory leaks
+				jQuery.cleanData( getAll( elem, false ) );
+
+				// Remove any remaining nodes
+				elem.textContent = "";
+			}
+		}
+
+		return this;
+	},
+
+	clone: function( dataAndEvents, deepDataAndEvents ) {
+		dataAndEvents = dataAndEvents == null ? false : dataAndEvents;
+		deepDataAndEvents = deepDataAndEvents == null ? dataAndEvents : deepDataAndEvents;
+
+		return this.map( function() {
+			return jQuery.clone( this, dataAndEvents, deepDataAndEvents );
+		} );
+	},
+
+	html: function( value ) {
+		return access( this, function( value ) {
+			var elem = this[ 0 ] || {},
+				i = 0,
+				l = this.length;
+
+			if ( value === undefined && elem.nodeType === 1 ) {
+				return elem.innerHTML;
+			}
+
+			// See if we can take a shortcut and just use innerHTML
+			if ( typeof value === "string" && !rnoInnerhtml.test( value ) &&
+				!wrapMap[ ( rtagName.exec( value ) || [ "", "" ] )[ 1 ].toLowerCase() ] ) {
+
+				value = jQuery.htmlPrefilter( value );
+
+				try {
+					for ( ; i < l; i++ ) {
+						elem = this[ i ] || {};
+
+						// Remove element nodes and prevent memory leaks
+						if ( elem.nodeType === 1 ) {
+							jQuery.cleanData( getAll( elem, false ) );
+							elem.innerHTML = value;
+						}
+					}
+
+					elem = 0;
+
+				// If using innerHTML throws an exception, use the fallback method
+				} catch ( e ) {}
+			}
+
+			if ( elem ) {
+				this.empty().append( value );
+			}
+		}, null, value, arguments.length );
+	},
+
+	replaceWith: function() {
+		var ignored = [];
+
+		// Make the changes, replacing each non-ignored context element with the new content
+		return domManip( this, arguments, function( elem ) {
+			var parent = this.parentNode;
+
+			if ( jQuery.inArray( this, ignored ) < 0 ) {
+				jQuery.cleanData( getAll( this ) );
+				if ( parent ) {
+					parent.replaceChild( elem, this );
+				}
+			}
+
+		// Force callback invocation
+		}, ignored );
+	}
+} );
+
+jQuery.each( {
+	appendTo: "append",
+	prependTo: "prepend",
+	insertBefore: "before",
+	insertAfter: "after",
+	replaceAll: "replaceWith"
+}, function( name, original ) {
+	jQuery.fn[ name ] = function( selector ) {
+		var elems,
+			ret = [],
+			insert = jQuery( selector ),
+			last = insert.length - 1,
+			i = 0;
+
+		for ( ; i <= last; i++ ) {
+			elems = i === last ? this : this.clone( true );
+			jQuery( insert[ i ] )[ original ]( elems );
+
+			// Support: Android <=4.0 only, PhantomJS 1 only
+			// .get() because push.apply(_, arraylike) throws on ancient WebKit
+			push.apply( ret, elems.get() );
+		}
+
+		return this.pushStack( ret );
+	};
+} );
+var rnumnonpx = new RegExp( "^(" + pnum + ")(?!px)[a-z%]+$", "i" );
+
+var getStyles = function( elem ) {
+
+		// Support: IE <=11 only, Firefox <=30 (#15098, #14150)
+		// IE throws on elements created in popups
+		// FF meanwhile throws on frame elements through "defaultView.getComputedStyle"
+		var view = elem.ownerDocument.defaultView;
+
+		if ( !view || !view.opener ) {
+			view = window;
+		}
+
+		return view.getComputedStyle( elem );
+	};
+
+var rboxStyle = new RegExp( cssExpand.join( "|" ), "i" );
+
+
+
+( function() {
+
+	// Executing both pixelPosition & boxSizingReliable tests require only one layout
+	// so they're executed at the same time to save the second computation.
+	function computeStyleTests() {
+
+		// This is a singleton, we need to execute it only once
+		if ( !div ) {
+			return;
+		}
+
+		container.style.cssText = "position:absolute;left:-11111px;width:60px;" +
+			"margin-top:1px;padding:0;border:0";
+		div.style.cssText =
+			"position:relative;display:block;box-sizing:border-box;overflow:scroll;" +
+			"margin:auto;border:1px;padding:1px;" +
+			"width:60%;top:1%";
+		documentElement.appendChild( container ).appendChild( div );
+
+		var divStyle = window.getComputedStyle( div );
+		pixelPositionVal = divStyle.top !== "1%";
+
+		// Support: Android 4.0 - 4.3 only, Firefox <=3 - 44
+		reliableMarginLeftVal = roundPixelMeasures( divStyle.marginLeft ) === 12;
+
+		// Support: Android 4.0 - 4.3 only, Safari <=9.1 - 10.1, iOS <=7.0 - 9.3
+		// Some styles come back with percentage values, even though they shouldn't
+		div.style.right = "60%";
+		pixelBoxStylesVal = roundPixelMeasures( divStyle.right ) === 36;
+
+		// Support: IE 9 - 11 only
+		// Detect misreporting of content dimensions for box-sizing:border-box elements
+		boxSizingReliableVal = roundPixelMeasures( divStyle.width ) === 36;
+
+		// Support: IE 9 only
+		// Detect overflow:scroll screwiness (gh-3699)
+		div.style.position = "absolute";
+		scrollboxSizeVal = div.offsetWidth === 36 || "absolute";
+
+		documentElement.removeChild( container );
+
+		// Nullify the div so it wouldn't be stored in the memory and
+		// it will also be a sign that checks already performed
+		div = null;
+	}
+
+	function roundPixelMeasures( measure ) {
+		return Math.round( parseFloat( measure ) );
+	}
+
+	var pixelPositionVal, boxSizingReliableVal, scrollboxSizeVal, pixelBoxStylesVal,
+		reliableMarginLeftVal,
+		container = document.createElement( "div" ),
+		div = document.createElement( "div" );
+
+	// Finish early in limited (non-browser) environments
+	if ( !div.style ) {
+		return;
+	}
+
+	// Support: IE <=9 - 11 only
+	// Style of cloned element affects source element cloned (#8908)
+	div.style.backgroundClip = "content-box";
+	div.cloneNode( true ).style.backgroundClip = "";
+	support.clearCloneStyle = div.style.backgroundClip === "content-box";
+
+	jQuery.extend( support, {
+		boxSizingReliable: function() {
+			computeStyleTests();
+			return boxSizingReliableVal;
+		},
+		pixelBoxStyles: function() {
+			computeStyleTests();
+			return pixelBoxStylesVal;
+		},
+		pixelPosition: function() {
+			computeStyleTests();
+			return pixelPositionVal;
+		},
+		reliableMarginLeft: function() {
+			computeStyleTests();
+			return reliableMarginLeftVal;
+		},
+		scrollboxSize: function() {
+			computeStyleTests();
+			return scrollboxSizeVal;
+		}
+	} );
+} )();
+
+
+function curCSS( elem, name, computed ) {
+	var width, minWidth, maxWidth, ret,
+
+		// Support: Firefox 51+
+		// Retrieving style before computed somehow
+		// fixes an issue with getting wrong values
+		// on detached elements
+		style = elem.style;
+
+	computed = computed || getStyles( elem );
+
+	// getPropertyValue is needed for:
+	//   .css('filter') (IE 9 only, #12537)
+	//   .css('--customProperty) (#3144)
+	if ( computed ) {
+		ret = computed.getPropertyValue( name ) || computed[ name ];
+
+		if ( ret === "" && !jQuery.contains( elem.ownerDocument, elem ) ) {
+			ret = jQuery.style( elem, name );
+		}
+
+		// A tribute to the "awesome hack by Dean Edwards"
+		// Android Browser returns percentage for some values,
+		// but width seems to be reliably pixels.
+		// This is against the CSSOM draft spec:
+		// https://drafts.csswg.org/cssom/#resolved-values
+		if ( !support.pixelBoxStyles() && rnumnonpx.test( ret ) && rboxStyle.test( name ) ) {
+
+			// Remember the original values
+			width = style.width;
+			minWidth = style.minWidth;
+			maxWidth = style.maxWidth;
+
+			// Put in the new values to get a computed value out
+			style.minWidth = style.maxWidth = style.width = ret;
+			ret = computed.width;
+
+			// Revert the changed values
+			style.width = width;
+			style.minWidth = minWidth;
+			style.maxWidth = maxWidth;
+		}
+	}
+
+	return ret !== undefined ?
+
+		// Support: IE <=9 - 11 only
+		// IE returns zIndex value as an integer.
+		ret + "" :
+		ret;
+}
+
+
+function addGetHookIf( conditionFn, hookFn ) {
+
+	// Define the hook, we'll check on the first run if it's really needed.
+	return {
+		get: function() {
+			if ( conditionFn() ) {
+
+				// Hook not needed (or it's not possible to use it due
+				// to missing dependency), remove it.
+				delete this.get;
+				return;
+			}
+
+			// Hook needed; redefine it so that the support test is not executed again.
+			return ( this.get = hookFn ).apply( this, arguments );
+		}
+	};
+}
+
+
+var
+
+	// Swappable if display is none or starts with table
+	// except "table", "table-cell", or "table-caption"
+	// See here for display values: https://developer.mozilla.org/en-US/docs/CSS/display
+	rdisplayswap = /^(none|table(?!-c[ea]).+)/,
+	rcustomProp = /^--/,
+	cssShow = { position: "absolute", visibility: "hidden", display: "block" },
+	cssNormalTransform = {
+		letterSpacing: "0",
+		fontWeight: "400"
+	},
+
+	cssPrefixes = [ "Webkit", "Moz", "ms" ],
+	emptyStyle = document.createElement( "div" ).style;
+
+// Return a css property mapped to a potentially vendor prefixed property
+function vendorPropName( name ) {
+
+	// Shortcut for names that are not vendor prefixed
+	if ( name in emptyStyle ) {
+		return name;
+	}
+
+	// Check for vendor prefixed names
+	var capName = name[ 0 ].toUpperCase() + name.slice( 1 ),
+		i = cssPrefixes.length;
+
+	while ( i-- ) {
+		name = cssPrefixes[ i ] + capName;
+		if ( name in emptyStyle ) {
+			return name;
+		}
+	}
+}
+
+// Return a property mapped along what jQuery.cssProps suggests or to
+// a vendor prefixed property.
+function finalPropName( name ) {
+	var ret = jQuery.cssProps[ name ];
+	if ( !ret ) {
+		ret = jQuery.cssProps[ name ] = vendorPropName( name ) || name;
+	}
+	return ret;
+}
+
+function setPositiveNumber( elem, value, subtract ) {
+
+	// Any relative (+/-) values have already been
+	// normalized at this point
+	var matches = rcssNum.exec( value );
+	return matches ?
+
+		// Guard against undefined "subtract", e.g., when used as in cssHooks
+		Math.max( 0, matches[ 2 ] - ( subtract || 0 ) ) + ( matches[ 3 ] || "px" ) :
+		value;
+}
+
+function boxModelAdjustment( elem, dimension, box, isBorderBox, styles, computedVal ) {
+	var i = dimension === "width" ? 1 : 0,
+		extra = 0,
+		delta = 0;
+
+	// Adjustment may not be necessary
+	if ( box === ( isBorderBox ? "border" : "content" ) ) {
+		return 0;
+	}
+
+	for ( ; i < 4; i += 2 ) {
+
+		// Both box models exclude margin
+		if ( box === "margin" ) {
+			delta += jQuery.css( elem, box + cssExpand[ i ], true, styles );
+		}
+
+		// If we get here with a content-box, we're seeking "padding" or "border" or "margin"
+		if ( !isBorderBox ) {
+
+			// Add padding
+			delta += jQuery.css( elem, "padding" + cssExpand[ i ], true, styles );
+
+			// For "border" or "margin", add border
+			if ( box !== "padding" ) {
+				delta += jQuery.css( elem, "border" + cssExpand[ i ] + "Width", true, styles );
+
+			// But still keep track of it otherwise
+			} else {
+				extra += jQuery.css( elem, "border" + cssExpand[ i ] + "Width", true, styles );
+			}
+
+		// If we get here with a border-box (content + padding + border), we're seeking "content" or
+		// "padding" or "margin"
+		} else {
+
+			// For "content", subtract padding
+			if ( box === "content" ) {
+				delta -= jQuery.css( elem, "padding" + cssExpand[ i ], true, styles );
+			}
+
+			// For "content" or "padding", subtract border
+			if ( box !== "margin" ) {
+				delta -= jQuery.css( elem, "border" + cssExpand[ i ] + "Width", true, styles );
+			}
+		}
+	}
+
+	// Account for positive content-box scroll gutter when requested by providing computedVal
+	if ( !isBorderBox && computedVal >= 0 ) {
+
+		// offsetWidth/offsetHeight is a rounded sum of content, padding, scroll gutter, and border
+		// Assuming integer scroll gutter, subtract the rest and round down
+		delta += Math.max( 0, Math.ceil(
+			elem[ "offset" + dimension[ 0 ].toUpperCase() + dimension.slice( 1 ) ] -
+			computedVal -
+			delta -
+			extra -
+			0.5
+		) );
+	}
+
+	return delta;
+}
+
+function getWidthOrHeight( elem, dimension, extra ) {
+
+	// Start with computed style
+	var styles = getStyles( elem ),
+		val = curCSS( elem, dimension, styles ),
+		isBorderBox = jQuery.css( elem, "boxSizing", false, styles ) === "border-box",
+		valueIsBorderBox = isBorderBox;
+
+	// Support: Firefox <=54
+	// Return a confounding non-pixel value or feign ignorance, as appropriate.
+	if ( rnumnonpx.test( val ) ) {
+		if ( !extra ) {
+			return val;
+		}
+		val = "auto";
+	}
+
+	// Check for style in case a browser which returns unreliable values
+	// for getComputedStyle silently falls back to the reliable elem.style
+	valueIsBorderBox = valueIsBorderBox &&
+		( support.boxSizingReliable() || val === elem.style[ dimension ] );
+
+	// Fall back to offsetWidth/offsetHeight when value is "auto"
+	// This happens for inline elements with no explicit setting (gh-3571)
+	// Support: Android <=4.1 - 4.3 only
+	// Also use offsetWidth/offsetHeight for misreported inline dimensions (gh-3602)
+	if ( val === "auto" ||
+		!parseFloat( val ) && jQuery.css( elem, "display", false, styles ) === "inline" ) {
+
+		val = elem[ "offset" + dimension[ 0 ].toUpperCase() + dimension.slice( 1 ) ];
+
+		// offsetWidth/offsetHeight provide border-box values
+		valueIsBorderBox = true;
+	}
+
+	// Normalize "" and auto
+	val = parseFloat( val ) || 0;
+
+	// Adjust for the element's box model
+	return ( val +
+		boxModelAdjustment(
+			elem,
+			dimension,
+			extra || ( isBorderBox ? "border" : "content" ),
+			valueIsBorderBox,
+			styles,
+
+			// Provide the current computed size to request scroll gutter calculation (gh-3589)
+			val
+		)
+	) + "px";
+}
+
+jQuery.extend( {
+
+	// Add in style property hooks for overriding the default
+	// behavior of getting and setting a style property
+	cssHooks: {
+		opacity: {
+			get: function( elem, computed ) {
+				if ( computed ) {
+
+					// We should always get a number back from opacity
+					var ret = curCSS( elem, "opacity" );
+					return ret === "" ? "1" : ret;
+				}
+			}
+		}
+	},
+
+	// Don't automatically add "px" to these possibly-unitless properties
+	cssNumber: {
+		"animationIterationCount": true,
+		"columnCount": true,
+		"fillOpacity": true,
+		"flexGrow": true,
+		"flexShrink": true,
+		"fontWeight": true,
+		"lineHeight": true,
+		"opacity": true,
+		"order": true,
+		"orphans": true,
+		"widows": true,
+		"zIndex": true,
+		"zoom": true
+	},
+
+	// Add in properties whose names you wish to fix before
+	// setting or getting the value
+	cssProps: {},
+
+	// Get and set the style property on a DOM Node
+	style: function( elem, name, value, extra ) {
+
+		// Don't set styles on text and comment nodes
+		if ( !elem || elem.nodeType === 3 || elem.nodeType === 8 || !elem.style ) {
+			return;
+		}
+
+		// Make sure that we're working with the right name
+		var ret, type, hooks,
+			origName = camelCase( name ),
+			isCustomProp = rcustomProp.test( name ),
+			style = elem.style;
+
+		// Make sure that we're working with the right name. We don't
+		// want to query the value if it is a CSS custom property
+		// since they are user-defined.
+		if ( !isCustomProp ) {
+			name = finalPropName( origName );
+		}
+
+		// Gets hook for the prefixed version, then unprefixed version
+		hooks = jQuery.cssHooks[ name ] || jQuery.cssHooks[ origName ];
+
+		// Check if we're setting a value
+		if ( value !== undefined ) {
+			type = typeof value;
+
+			// Convert "+=" or "-=" to relative numbers (#7345)
+			if ( type === "string" && ( ret = rcssNum.exec( value ) ) && ret[ 1 ] ) {
+				value = adjustCSS( elem, name, ret );
+
+				// Fixes bug #9237
+				type = "number";
+			}
+
+			// Make sure that null and NaN values aren't set (#7116)
+			if ( value == null || value !== value ) {
+				return;
+			}
+
+			// If a number was passed in, add the unit (except for certain CSS properties)
+			if ( type === "number" ) {
+				value += ret && ret[ 3 ] || ( jQuery.cssNumber[ origName ] ? "" : "px" );
+			}
+
+			// background-* props affect original clone's values
+			if ( !support.clearCloneStyle && value === "" && name.indexOf( "background" ) === 0 ) {
+				style[ name ] = "inherit";
+			}
+
+			// If a hook was provided, use that value, otherwise just set the specified value
+			if ( !hooks || !( "set" in hooks ) ||
+				( value = hooks.set( elem, value, extra ) ) !== undefined ) {
+
+				if ( isCustomProp ) {
+					style.setProperty( name, value );
+				} else {
+					style[ name ] = value;
+				}
+			}
+
+		} else {
+
+			// If a hook was provided get the non-computed value from there
+			if ( hooks && "get" in hooks &&
+				( ret = hooks.get( elem, false, extra ) ) !== undefined ) {
+
+				return ret;
+			}
+
+			// Otherwise just get the value from the style object
+			return style[ name ];
+		}
+	},
+
+	css: function( elem, name, extra, styles ) {
+		var val, num, hooks,
+			origName = camelCase( name ),
+			isCustomProp = rcustomProp.test( name );
+
+		// Make sure that we're working with the right name. We don't
+		// want to modify the value if it is a CSS custom property
+		// since they are user-defined.
+		if ( !isCustomProp ) {
+			name = finalPropName( origName );
+		}
+
+		// Try prefixed name followed by the unprefixed name
+		hooks = jQuery.cssHooks[ name ] || jQuery.cssHooks[ origName ];
+
+		// If a hook was provided get the computed value from there
+		if ( hooks && "get" in hooks ) {
+			val = hooks.get( elem, true, extra );
+		}
+
+		// Otherwise, if a way to get the computed value exists, use that
+		if ( val === undefined ) {
+			val = curCSS( elem, name, styles );
+		}
+
+		// Convert "normal" to computed value
+		if ( val === "normal" && name in cssNormalTransform ) {
+			val = cssNormalTransform[ name ];
+		}
+
+		// Make numeric if forced or a qualifier was provided and val looks numeric
+		if ( extra === "" || extra ) {
+			num = parseFloat( val );
+			return extra === true || isFinite( num ) ? num || 0 : val;
+		}
+
+		return val;
+	}
+} );
+
+jQuery.each( [ "height", "width" ], function( i, dimension ) {
+	jQuery.cssHooks[ dimension ] = {
+		get: function( elem, computed, extra ) {
+			if ( computed ) {
+
+				// Certain elements can have dimension info if we invisibly show them
+				// but it must have a current display style that would benefit
+				return rdisplayswap.test( jQuery.css( elem, "display" ) ) &&
+
+					// Support: Safari 8+
+					// Table columns in Safari have non-zero offsetWidth & zero
+					// getBoundingClientRect().width unless display is changed.
+					// Support: IE <=11 only
+					// Running getBoundingClientRect on a disconnected node
+					// in IE throws an error.
+					( !elem.getClientRects().length || !elem.getBoundingClientRect().width ) ?
+						swap( elem, cssShow, function() {
+							return getWidthOrHeight( elem, dimension, extra );
+						} ) :
+						getWidthOrHeight( elem, dimension, extra );
+			}
+		},
+
+		set: function( elem, value, extra ) {
+			var matches,
+				styles = getStyles( elem ),
+				isBorderBox = jQuery.css( elem, "boxSizing", false, styles ) === "border-box",
+				subtract = extra && boxModelAdjustment(
+					elem,
+					dimension,
+					extra,
+					isBorderBox,
+					styles
+				);
+
+			// Account for unreliable border-box dimensions by comparing offset* to computed and
+			// faking a content-box to get border and padding (gh-3699)
+			if ( isBorderBox && support.scrollboxSize() === styles.position ) {
+				subtract -= Math.ceil(
+					elem[ "offset" + dimension[ 0 ].toUpperCase() + dimension.slice( 1 ) ] -
+					parseFloat( styles[ dimension ] ) -
+					boxModelAdjustment( elem, dimension, "border", false, styles ) -
+					0.5
+				);
+			}
+
+			// Convert to pixels if value adjustment is needed
+			if ( subtract && ( matches = rcssNum.exec( value ) ) &&
+				( matches[ 3 ] || "px" ) !== "px" ) {
+
+				elem.style[ dimension ] = value;
+				value = jQuery.css( elem, dimension );
+			}
+
+			return setPositiveNumber( elem, value, subtract );
+		}
+	};
+} );
+
+jQuery.cssHooks.marginLeft = addGetHookIf( support.reliableMarginLeft,
+	function( elem, computed ) {
+		if ( computed ) {
+			return ( parseFloat( curCSS( elem, "marginLeft" ) ) ||
+				elem.getBoundingClientRect().left -
+					swap( elem, { marginLeft: 0 }, function() {
+						return elem.getBoundingClientRect().left;
+					} )
+				) + "px";
+		}
+	}
+);
+
+// These hooks are used by animate to expand properties
+jQuery.each( {
+	margin: "",
+	padding: "",
+	border: "Width"
+}, function( prefix, suffix ) {
+	jQuery.cssHooks[ prefix + suffix ] = {
+		expand: function( value ) {
+			var i = 0,
+				expanded = {},
+
+				// Assumes a single number if not a string
+				parts = typeof value === "string" ? value.split( " " ) : [ value ];
+
+			for ( ; i < 4; i++ ) {
+				expanded[ prefix + cssExpand[ i ] + suffix ] =
+					parts[ i ] || parts[ i - 2 ] || parts[ 0 ];
+			}
+
+			return expanded;
+		}
+	};
+
+	if ( prefix !== "margin" ) {
+		jQuery.cssHooks[ prefix + suffix ].set = setPositiveNumber;
+	}
+} );
+
+jQuery.fn.extend( {
+	css: function( name, value ) {
+		return access( this, function( elem, name, value ) {
+			var styles, len,
+				map = {},
+				i = 0;
+
+			if ( Array.isArray( name ) ) {
+				styles = getStyles( elem );
+				len = name.length;
+
+				for ( ; i < len; i++ ) {
+					map[ name[ i ] ] = jQuery.css( elem, name[ i ], false, styles );
+				}
+
+				return map;
+			}
+
+			return value !== undefined ?
+				jQuery.style( elem, name, value ) :
+				jQuery.css( elem, name );
+		}, name, value, arguments.length > 1 );
+	}
+} );
+
+
+function Tween( elem, options, prop, end, easing ) {
+	return new Tween.prototype.init( elem, options, prop, end, easing );
+}
+jQuery.Tween = Tween;
+
+Tween.prototype = {
+	constructor: Tween,
+	init: function( elem, options, prop, end, easing, unit ) {
+		this.elem = elem;
+		this.prop = prop;
+		this.easing = easing || jQuery.easing._default;
+		this.options = options;
+		this.start = this.now = this.cur();
+		this.end = end;
+		this.unit = unit || ( jQuery.cssNumber[ prop ] ? "" : "px" );
+	},
+	cur: function() {
+		var hooks = Tween.propHooks[ this.prop ];
+
+		return hooks && hooks.get ?
+			hooks.get( this ) :
+			Tween.propHooks._default.get( this );
+	},
+	run: function( percent ) {
+		var eased,
+			hooks = Tween.propHooks[ this.prop ];
+
+		if ( this.options.duration ) {
+			this.pos = eased = jQuery.easing[ this.easing ](
+				percent, this.options.duration * percent, 0, 1, this.options.duration
+			);
+		} else {
+			this.pos = eased = percent;
+		}
+		this.now = ( this.end - this.start ) * eased + this.start;
+
+		if ( this.options.step ) {
+			this.options.step.call( this.elem, this.now, this );
+		}
+
+		if ( hooks && hooks.set ) {
+			hooks.set( this );
+		} else {
+			Tween.propHooks._default.set( this );
+		}
+		return this;
+	}
+};
+
+Tween.prototype.init.prototype = Tween.prototype;
+
+Tween.propHooks = {
+	_default: {
+		get: function( tween ) {
+			var result;
+
+			// Use a property on the element directly when it is not a DOM element,
+			// or when there is no matching style property that exists.
+			if ( tween.elem.nodeType !== 1 ||
+				tween.elem[ tween.prop ] != null && tween.elem.style[ tween.prop ] == null ) {
+				return tween.elem[ tween.prop ];
+			}
+
+			// Passing an empty string as a 3rd parameter to .css will automatically
+			// attempt a parseFloat and fallback to a string if the parse fails.
+			// Simple values such as "10px" are parsed to Float;
+			// complex values such as "rotate(1rad)" are returned as-is.
+			result = jQuery.css( tween.elem, tween.prop, "" );
+
+			// Empty strings, null, undefined and "auto" are converted to 0.
+			return !result || result === "auto" ? 0 : result;
+		},
+		set: function( tween ) {
+
+			// Use step hook for back compat.
+			// Use cssHook if its there.
+			// Use .style if available and use plain properties where available.
+			if ( jQuery.fx.step[ tween.prop ] ) {
+				jQuery.fx.step[ tween.prop ]( tween );
+			} else if ( tween.elem.nodeType === 1 &&
+				( tween.elem.style[ jQuery.cssProps[ tween.prop ] ] != null ||
+					jQuery.cssHooks[ tween.prop ] ) ) {
+				jQuery.style( tween.elem, tween.prop, tween.now + tween.unit );
+			} else {
+				tween.elem[ tween.prop ] = tween.now;
+			}
+		}
+	}
+};
+
+// Support: IE <=9 only
+// Panic based approach to setting things on disconnected nodes
+Tween.propHooks.scrollTop = Tween.propHooks.scrollLeft = {
+	set: function( tween ) {
+		if ( tween.elem.nodeType && tween.elem.parentNode ) {
+			tween.elem[ tween.prop ] = tween.now;
+		}
+	}
+};
+
+jQuery.easing = {
+	linear: function( p ) {
+		return p;
+	},
+	swing: function( p ) {
+		return 0.5 - Math.cos( p * Math.PI ) / 2;
+	},
+	_default: "swing"
+};
+
+jQuery.fx = Tween.prototype.init;
+
+// Back compat <1.8 extension point
+jQuery.fx.step = {};
+
+
+
+
+var
+	fxNow, inProgress,
+	rfxtypes = /^(?:toggle|show|hide)$/,
+	rrun = /queueHooks$/;
+
+function schedule() {
+	if ( inProgress ) {
+		if ( document.hidden === false && window.requestAnimationFrame ) {
+			window.requestAnimationFrame( schedule );
+		} else {
+			window.setTimeout( schedule, jQuery.fx.interval );
+		}
+
+		jQuery.fx.tick();
+	}
+}
+
+// Animations created synchronously will run synchronously
+function createFxNow() {
+	window.setTimeout( function() {
+		fxNow = undefined;
+	} );
+	return ( fxNow = Date.now() );
+}
+
+// Generate parameters to create a standard animation
+function genFx( type, includeWidth ) {
+	var which,
+		i = 0,
+		attrs = { height: type };
+
+	// If we include width, step value is 1 to do all cssExpand values,
+	// otherwise step value is 2 to skip over Left and Right
+	includeWidth = includeWidth ? 1 : 0;
+	for ( ; i < 4; i += 2 - includeWidth ) {
+		which = cssExpand[ i ];
+		attrs[ "margin" + which ] = attrs[ "padding" + which ] = type;
+	}
+
+	if ( includeWidth ) {
+		attrs.opacity = attrs.width = type;
+	}
+
+	return attrs;
+}
+
+function createTween( value, prop, animation ) {
+	var tween,
+		collection = ( Animation.tweeners[ prop ] || [] ).concat( Animation.tweeners[ "*" ] ),
+		index = 0,
+		length = collection.length;
+	for ( ; index < length; index++ ) {
+		if ( ( tween = collection[ index ].call( animation, prop, value ) ) ) {
+
+			// We're done with this property
+			return tween;
+		}
+	}
+}
+
+function defaultPrefilter( elem, props, opts ) {
+	var prop, value, toggle, hooks, oldfire, propTween, restoreDisplay, display,
+		isBox = "width" in props || "height" in props,
+		anim = this,
+		orig = {},
+		style = elem.style,
+		hidden = elem.nodeType && isHiddenWithinTree( elem ),
+		dataShow = dataPriv.get( elem, "fxshow" );
+
+	// Queue-skipping animations hijack the fx hooks
+	if ( !opts.queue ) {
+		hooks = jQuery._queueHooks( elem, "fx" );
+		if ( hooks.unqueued == null ) {
+			hooks.unqueued = 0;
+			oldfire = hooks.empty.fire;
+			hooks.empty.fire = function() {
+				if ( !hooks.unqueued ) {
+					oldfire();
+				}
+			};
+		}
+		hooks.unqueued++;
+
+		anim.always( function() {
+
+			// Ensure the complete handler is called before this completes
+			anim.always( function() {
+				hooks.unqueued--;
+				if ( !jQuery.queue( elem, "fx" ).length ) {
+					hooks.empty.fire();
+				}
+			} );
+		} );
+	}
+
+	// Detect show/hide animations
+	for ( prop in props ) {
+		value = props[ prop ];
+		if ( rfxtypes.test( value ) ) {
+			delete props[ prop ];
+			toggle = toggle || value === "toggle";
+			if ( value === ( hidden ? "hide" : "show" ) ) {
+
+				// Pretend to be hidden if this is a "show" and
+				// there is still data from a stopped show/hide
+				if ( value === "show" && dataShow && dataShow[ prop ] !== undefined ) {
+					hidden = true;
+
+				// Ignore all other no-op show/hide data
+				} else {
+					continue;
+				}
+			}
+			orig[ prop ] = dataShow && dataShow[ prop ] || jQuery.style( elem, prop );
+		}
+	}
+
+	// Bail out if this is a no-op like .hide().hide()
+	propTween = !jQuery.isEmptyObject( props );
+	if ( !propTween && jQuery.isEmptyObject( orig ) ) {
+		return;
+	}
+
+	// Restrict "overflow" and "display" styles during box animations
+	if ( isBox && elem.nodeType === 1 ) {
+
+		// Support: IE <=9 - 11, Edge 12 - 15
+		// Record all 3 overflow attributes because IE does not infer the shorthand
+		// from identically-valued overflowX and overflowY and Edge just mirrors
+		// the overflowX value there.
+		opts.overflow = [ style.overflow, style.overflowX, style.overflowY ];
+
+		// Identify a display type, preferring old show/hide data over the CSS cascade
+		restoreDisplay = dataShow && dataShow.display;
+		if ( restoreDisplay == null ) {
+			restoreDisplay = dataPriv.get( elem, "display" );
+		}
+		display = jQuery.css( elem, "display" );
+		if ( display === "none" ) {
+			if ( restoreDisplay ) {
+				display = restoreDisplay;
+			} else {
+
+				// Get nonempty value(s) by temporarily forcing visibility
+				showHide( [ elem ], true );
+				restoreDisplay = elem.style.display || restoreDisplay;
+				display = jQuery.css( elem, "display" );
+				showHide( [ elem ] );
+			}
+		}
+
+		// Animate inline elements as inline-block
+		if ( display === "inline" || display === "inline-block" && restoreDisplay != null ) {
+			if ( jQuery.css( elem, "float" ) === "none" ) {
+
+				// Restore the original display value at the end of pure show/hide animations
+				if ( !propTween ) {
+					anim.done( function() {
+						style.display = restoreDisplay;
+					} );
+					if ( restoreDisplay == null ) {
+						display = style.display;
+						restoreDisplay = display === "none" ? "" : display;
+					}
+				}
+				style.display = "inline-block";
+			}
+		}
+	}
+
+	if ( opts.overflow ) {
+		style.overflow = "hidden";
+		anim.always( function() {
+			style.overflow = opts.overflow[ 0 ];
+			style.overflowX = opts.overflow[ 1 ];
+			style.overflowY = opts.overflow[ 2 ];
+		} );
+	}
+
+	// Implement show/hide animations
+	propTween = false;
+	for ( prop in orig ) {
+
+		// General show/hide setup for this element animation
+		if ( !propTween ) {
+			if ( dataShow ) {
+				if ( "hidden" in dataShow ) {
+					hidden = dataShow.hidden;
+				}
+			} else {
+				dataShow = dataPriv.access( elem, "fxshow", { display: restoreDisplay } );
+			}
+
+			// Store hidden/visible for toggle so `.stop().toggle()` "reverses"
+			if ( toggle ) {
+				dataShow.hidden = !hidden;
+			}
+
+			// Show elements before animating them
+			if ( hidden ) {
+				showHide( [ elem ], true );
+			}
+
+			/* eslint-disable no-loop-func */
+
+			anim.done( function() {
+
+			/* eslint-enable no-loop-func */
+
+				// The final step of a "hide" animation is actually hiding the element
+				if ( !hidden ) {
+					showHide( [ elem ] );
+				}
+				dataPriv.remove( elem, "fxshow" );
+				for ( prop in orig ) {
+					jQuery.style( elem, prop, orig[ prop ] );
+				}
+			} );
+		}
+
+		// Per-property setup
+		propTween = createTween( hidden ? dataShow[ prop ] : 0, prop, anim );
+		if ( !( prop in dataShow ) ) {
+			dataShow[ prop ] = propTween.start;
+			if ( hidden ) {
+				propTween.end = propTween.start;
+				propTween.start = 0;
+			}
+		}
+	}
+}
+
+function propFilter( props, specialEasing ) {
+	var index, name, easing, value, hooks;
+
+	// camelCase, specialEasing and expand cssHook pass
+	for ( index in props ) {
+		name = camelCase( index );
+		easing = specialEasing[ name ];
+		value = props[ index ];
+		if ( Array.isArray( value ) ) {
+			easing = value[ 1 ];
+			value = props[ index ] = value[ 0 ];
+		}
+
+		if ( index !== name ) {
+			props[ name ] = value;
+			delete props[ index ];
+		}
+
+		hooks = jQuery.cssHooks[ name ];
+		if ( hooks && "expand" in hooks ) {
+			value = hooks.expand( value );
+			delete props[ name ];
+
+			// Not quite $.extend, this won't overwrite existing keys.
+			// Reusing 'index' because we have the correct "name"
+			for ( index in value ) {
+				if ( !( index in props ) ) {
+					props[ index ] = value[ index ];
+					specialEasing[ index ] = easing;
+				}
+			}
+		} else {
+			specialEasing[ name ] = easing;
+		}
+	}
+}
+
+function Animation( elem, properties, options ) {
+	var result,
+		stopped,
+		index = 0,
+		length = Animation.prefilters.length,
+		deferred = jQuery.Deferred().always( function() {
+
+			// Don't match elem in the :animated selector
+			delete tick.elem;
+		} ),
+		tick = function() {
+			if ( stopped ) {
+				return false;
+			}
+			var currentTime = fxNow || createFxNow(),
+				remaining = Math.max( 0, animation.startTime + animation.duration - currentTime ),
+
+				// Support: Android 2.3 only
+				// Archaic crash bug won't allow us to use `1 - ( 0.5 || 0 )` (#12497)
+				temp = remaining / animation.duration || 0,
+				percent = 1 - temp,
+				index = 0,
+				length = animation.tweens.length;
+
+			for ( ; index < length; index++ ) {
+				animation.tweens[ index ].run( percent );
+			}
+
+			deferred.notifyWith( elem, [ animation, percent, remaining ] );
+
+			// If there's more to do, yield
+			if ( percent < 1 && length ) {
+				return remaining;
+			}
+
+			// If this was an empty animation, synthesize a final progress notification
+			if ( !length ) {
+				deferred.notifyWith( elem, [ animation, 1, 0 ] );
+			}
+
+			// Resolve the animation and report its conclusion
+			deferred.resolveWith( elem, [ animation ] );
+			return false;
+		},
+		animation = deferred.promise( {
+			elem: elem,
+			props: jQuery.extend( {}, properties ),
+			opts: jQuery.extend( true, {
+				specialEasing: {},
+				easing: jQuery.easing._default
+			}, options ),
+			originalProperties: properties,
+			originalOptions: options,
+			startTime: fxNow || createFxNow(),
+			duration: options.duration,
+			tweens: [],
+			createTween: function( prop, end ) {
+				var tween = jQuery.Tween( elem, animation.opts, prop, end,
+						animation.opts.specialEasing[ prop ] || animation.opts.easing );
+				animation.tweens.push( tween );
+				return tween;
+			},
+			stop: function( gotoEnd ) {
+				var index = 0,
+
+					// If we are going to the end, we want to run all the tweens
+					// otherwise we skip this part
+					length = gotoEnd ? animation.tweens.length : 0;
+				if ( stopped ) {
+					return this;
+				}
+				stopped = true;
+				for ( ; index < length; index++ ) {
+					animation.tweens[ index ].run( 1 );
+				}
+
+				// Resolve when we played the last frame; otherwise, reject
+				if ( gotoEnd ) {
+					deferred.notifyWith( elem, [ animation, 1, 0 ] );
+					deferred.resolveWith( elem, [ animation, gotoEnd ] );
+				} else {
+					deferred.rejectWith( elem, [ animation, gotoEnd ] );
+				}
+				return this;
+			}
+		} ),
+		props = animation.props;
+
+	propFilter( props, animation.opts.specialEasing );
+
+	for ( ; index < length; index++ ) {
+		result = Animation.prefilters[ index ].call( animation, elem, props, animation.opts );
+		if ( result ) {
+			if ( isFunction( result.stop ) ) {
+				jQuery._queueHooks( animation.elem, animation.opts.queue ).stop =
+					result.stop.bind( result );
+			}
+			return result;
+		}
+	}
+
+	jQuery.map( props, createTween, animation );
+
+	if ( isFunction( animation.opts.start ) ) {
+		animation.opts.start.call( elem, animation );
+	}
+
+	// Attach callbacks from options
+	animation
+		.progress( animation.opts.progress )
+		.done( animation.opts.done, animation.opts.complete )
+		.fail( animation.opts.fail )
+		.always( animation.opts.always );
+
+	jQuery.fx.timer(
+		jQuery.extend( tick, {
+			elem: elem,
+			anim: animation,
+			queue: animation.opts.queue
+		} )
+	);
+
+	return animation;
+}
+
+jQuery.Animation = jQuery.extend( Animation, {
+
+	tweeners: {
+		"*": [ function( prop, value ) {
+			var tween = this.createTween( prop, value );
+			adjustCSS( tween.elem, prop, rcssNum.exec( value ), tween );
+			return tween;
+		} ]
+	},
+
+	tweener: function( props, callback ) {
+		if ( isFunction( props ) ) {
+			callback = props;
+			props = [ "*" ];
+		} else {
+			props = props.match( rnothtmlwhite );
+		}
+
+		var prop,
+			index = 0,
+			length = props.length;
+
+		for ( ; index < length; index++ ) {
+			prop = props[ index ];
+			Animation.tweeners[ prop ] = Animation.tweeners[ prop ] || [];
+			Animation.tweeners[ prop ].unshift( callback );
+		}
+	},
+
+	prefilters: [ defaultPrefilter ],
+
+	prefilter: function( callback, prepend ) {
+		if ( prepend ) {
+			Animation.prefilters.unshift( callback );
+		} else {
+			Animation.prefilters.push( callback );
+		}
+	}
+} );
+
+jQuery.speed = function( speed, easing, fn ) {
+	var opt = speed && typeof speed === "object" ? jQuery.extend( {}, speed ) : {
+		complete: fn || !fn && easing ||
+			isFunction( speed ) && speed,
+		duration: speed,
+		easing: fn && easing || easing && !isFunction( easing ) && easing
+	};
+
+	// Go to the end state if fx are off
+	if ( jQuery.fx.off ) {
+		opt.duration = 0;
+
+	} else {
+		if ( typeof opt.duration !== "number" ) {
+			if ( opt.duration in jQuery.fx.speeds ) {
+				opt.duration = jQuery.fx.speeds[ opt.duration ];
+
+			} else {
+				opt.duration = jQuery.fx.speeds._default;
+			}
+		}
+	}
+
+	// Normalize opt.queue - true/undefined/null -> "fx"
+	if ( opt.queue == null || opt.queue === true ) {
+		opt.queue = "fx";
+	}
+
+	// Queueing
+	opt.old = opt.complete;
+
+	opt.complete = function() {
+		if ( isFunction( opt.old ) ) {
+			opt.old.call( this );
+		}
+
+		if ( opt.queue ) {
+			jQuery.dequeue( this, opt.queue );
+		}
+	};
+
+	return opt;
+};
+
+jQuery.fn.extend( {
+	fadeTo: function( speed, to, easing, callback ) {
+
+		// Show any hidden elements after setting opacity to 0
+		return this.filter( isHiddenWithinTree ).css( "opacity", 0 ).show()
+
+			// Animate to the value specified
+			.end().animate( { opacity: to }, speed, easing, callback );
+	},
+	animate: function( prop, speed, easing, callback ) {
+		var empty = jQuery.isEmptyObject( prop ),
+			optall = jQuery.speed( speed, easing, callback ),
+			doAnimation = function() {
+
+				// Operate on a copy of prop so per-property easing won't be lost
+				var anim = Animation( this, jQuery.extend( {}, prop ), optall );
+
+				// Empty animations, or finishing resolves immediately
+				if ( empty || dataPriv.get( this, "finish" ) ) {
+					anim.stop( true );
+				}
+			};
+			doAnimation.finish = doAnimation;
+
+		return empty || optall.queue === false ?
+			this.each( doAnimation ) :
+			this.queue( optall.queue, doAnimation );
+	},
+	stop: function( type, clearQueue, gotoEnd ) {
+		var stopQueue = function( hooks ) {
+			var stop = hooks.stop;
+			delete hooks.stop;
+			stop( gotoEnd );
+		};
+
+		if ( typeof type !== "string" ) {
+			gotoEnd = clearQueue;
+			clearQueue = type;
+			type = undefined;
+		}
+		if ( clearQueue && type !== false ) {
+			this.queue( type || "fx", [] );
+		}
+
+		return this.each( function() {
+			var dequeue = true,
+				index = type != null && type + "queueHooks",
+				timers = jQuery.timers,
+				data = dataPriv.get( this );
+
+			if ( index ) {
+				if ( data[ index ] && data[ index ].stop ) {
+					stopQueue( data[ index ] );
+				}
+			} else {
+				for ( index in data ) {
+					if ( data[ index ] && data[ index ].stop && rrun.test( index ) ) {
+						stopQueue( data[ index ] );
+					}
+				}
+			}
+
+			for ( index = timers.length; index--; ) {
+				if ( timers[ index ].elem === this &&
+					( type == null || timers[ index ].queue === type ) ) {
+
+					timers[ index ].anim.stop( gotoEnd );
+					dequeue = false;
+					timers.splice( index, 1 );
+				}
+			}
+
+			// Start the next in the queue if the last step wasn't forced.
+			// Timers currently will call their complete callbacks, which
+			// will dequeue but only if they were gotoEnd.
+			if ( dequeue || !gotoEnd ) {
+				jQuery.dequeue( this, type );
+			}
+		} );
+	},
+	finish: function( type ) {
+		if ( type !== false ) {
+			type = type || "fx";
+		}
+		return this.each( function() {
+			var index,
+				data = dataPriv.get( this ),
+				queue = data[ type + "queue" ],
+				hooks = data[ type + "queueHooks" ],
+				timers = jQuery.timers,
+				length = queue ? queue.length : 0;
+
+			// Enable finishing flag on private data
+			data.finish = true;
+
+			// Empty the queue first
+			jQuery.queue( this, type, [] );
+
+			if ( hooks && hooks.stop ) {
+				hooks.stop.call( this, true );
+			}
+
+			// Look for any active animations, and finish them
+			for ( index = timers.length; index--; ) {
+				if ( timers[ index ].elem === this && timers[ index ].queue === type ) {
+					timers[ index ].anim.stop( true );
+					timers.splice( index, 1 );
+				}
+			}
+
+			// Look for any animations in the old queue and finish them
+			for ( index = 0; index < length; index++ ) {
+				if ( queue[ index ] && queue[ index ].finish ) {
+					queue[ index ].finish.call( this );
+				}
+			}
+
+			// Turn off finishing flag
+			delete data.finish;
+		} );
+	}
+} );
+
+jQuery.each( [ "toggle", "show", "hide" ], function( i, name ) {
+	var cssFn = jQuery.fn[ name ];
+	jQuery.fn[ name ] = function( speed, easing, callback ) {
+		return speed == null || typeof speed === "boolean" ?
+			cssFn.apply( this, arguments ) :
+			this.animate( genFx( name, true ), speed, easing, callback );
+	};
+} );
+
+// Generate shortcuts for custom animations
+jQuery.each( {
+	slideDown: genFx( "show" ),
+	slideUp: genFx( "hide" ),
+	slideToggle: genFx( "toggle" ),
+	fadeIn: { opacity: "show" },
+	fadeOut: { opacity: "hide" },
+	fadeToggle: { opacity: "toggle" }
+}, function( name, props ) {
+	jQuery.fn[ name ] = function( speed, easing, callback ) {
+		return this.animate( props, speed, easing, callback );
+	};
+} );
+
+jQuery.timers = [];
+jQuery.fx.tick = function() {
+	var timer,
+		i = 0,
+		timers = jQuery.timers;
+
+	fxNow = Date.now();
+
+	for ( ; i < timers.length; i++ ) {
+		timer = timers[ i ];
+
+		// Run the timer and safely remove it when done (allowing for external removal)
+		if ( !timer() && timers[ i ] === timer ) {
+			timers.splice( i--, 1 );
+		}
+	}
+
+	if ( !timers.length ) {
+		jQuery.fx.stop();
+	}
+	fxNow = undefined;
+};
+
+jQuery.fx.timer = function( timer ) {
+	jQuery.timers.push( timer );
+	jQuery.fx.start();
+};
+
+jQuery.fx.interval = 13;
+jQuery.fx.start = function() {
+	if ( inProgress ) {
+		return;
+	}
+
+	inProgress = true;
+	schedule();
+};
+
+jQuery.fx.stop = function() {
+	inProgress = null;
+};
+
+jQuery.fx.speeds = {
+	slow: 600,
+	fast: 200,
+
+	// Default speed
+	_default: 400
+};
+
+
+// Based off of the plugin by Clint Helfers, with permission.
+// https://web.archive.org/web/20100324014747/http://blindsignals.com/index.php/2009/07/jquery-delay/
+jQuery.fn.delay = function( time, type ) {
+	time = jQuery.fx ? jQuery.fx.speeds[ time ] || time : time;
+	type = type || "fx";
+
+	return this.queue( type, function( next, hooks ) {
+		var timeout = window.setTimeout( next, time );
+		hooks.stop = function() {
+			window.clearTimeout( timeout );
+		};
+	} );
+};
+
+
+( function() {
+	var input = document.createElement( "input" ),
+		select = document.createElement( "select" ),
+		opt = select.appendChild( document.createElement( "option" ) );
+
+	input.type = "checkbox";
+
+	// Support: Android <=4.3 only
+	// Default value for a checkbox should be "on"
+	support.checkOn = input.value !== "";
+
+	// Support: IE <=11 only
+	// Must access selectedIndex to make default options select
+	support.optSelected = opt.selected;
+
+	// Support: IE <=11 only
+	// An input loses its value after becoming a radio
+	input = document.createElement( "input" );
+	input.value = "t";
+	input.type = "radio";
+	support.radioValue = input.value === "t";
+} )();
+
+
+var boolHook,
+	attrHandle = jQuery.expr.attrHandle;
+
+jQuery.fn.extend( {
+	attr: function( name, value ) {
+		return access( this, jQuery.attr, name, value, arguments.length > 1 );
+	},
+
+	removeAttr: function( name ) {
+		return this.each( function() {
+			jQuery.removeAttr( this, name );
+		} );
+	}
+} );
+
+jQuery.extend( {
+	attr: function( elem, name, value ) {
+		var ret, hooks,
+			nType = elem.nodeType;
+
+		// Don't get/set attributes on text, comment and attribute nodes
+		if ( nType === 3 || nType === 8 || nType === 2 ) {
+			return;
+		}
+
+		// Fallback to prop when attributes are not supported
+		if ( typeof elem.getAttribute === "undefined" ) {
+			return jQuery.prop( elem, name, value );
+		}
+
+		// Attribute hooks are determined by the lowercase version
+		// Grab necessary hook if one is defined
+		if ( nType !== 1 || !jQuery.isXMLDoc( elem ) ) {
+			hooks = jQuery.attrHooks[ name.toLowerCase() ] ||
+				( jQuery.expr.match.bool.test( name ) ? boolHook : undefined );
+		}
+
+		if ( value !== undefined ) {
+			if ( value === null ) {
+				jQuery.removeAttr( elem, name );
+				return;
+			}
+
+			if ( hooks && "set" in hooks &&
+				( ret = hooks.set( elem, value, name ) ) !== undefined ) {
+				return ret;
+			}
+
+			elem.setAttribute( name, value + "" );
+			return value;
+		}
+
+		if ( hooks && "get" in hooks && ( ret = hooks.get( elem, name ) ) !== null ) {
+			return ret;
+		}
+
+		ret = jQuery.find.attr( elem, name );
+
+		// Non-existent attributes return null, we normalize to undefined
+		return ret == null ? undefined : ret;
+	},
+
+	attrHooks: {
+		type: {
+			set: function( elem, value ) {
+				if ( !support.radioValue && value === "radio" &&
+					nodeName( elem, "input" ) ) {
+					var val = elem.value;
+					elem.setAttribute( "type", value );
+					if ( val ) {
+						elem.value = val;
+					}
+					return value;
+				}
+			}
+		}
+	},
+
+	removeAttr: function( elem, value ) {
+		var name,
+			i = 0,
+
+			// Attribute names can contain non-HTML whitespace characters
+			// https://html.spec.whatwg.org/multipage/syntax.html#attributes-2
+			attrNames = value && value.match( rnothtmlwhite );
+
+		if ( attrNames && elem.nodeType === 1 ) {
+			while ( ( name = attrNames[ i++ ] ) ) {
+				elem.removeAttribute( name );
+			}
+		}
+	}
+} );
+
+// Hooks for boolean attributes
+boolHook = {
+	set: function( elem, value, name ) {
+		if ( value === false ) {
+
+			// Remove boolean attributes when set to false
+			jQuery.removeAttr( elem, name );
+		} else {
+			elem.setAttribute( name, name );
+		}
+		return name;
+	}
+};
+
+jQuery.each( jQuery.expr.match.bool.source.match( /\w+/g ), function( i, name ) {
+	var getter = attrHandle[ name ] || jQuery.find.attr;
+
+	attrHandle[ name ] = function( elem, name, isXML ) {
+		var ret, handle,
+			lowercaseName = name.toLowerCase();
+
+		if ( !isXML ) {
+
+			// Avoid an infinite loop by temporarily removing this function from the getter
+			handle = attrHandle[ lowercaseName ];
+			attrHandle[ lowercaseName ] = ret;
+			ret = getter( elem, name, isXML ) != null ?
+				lowercaseName :
+				null;
+			attrHandle[ lowercaseName ] = handle;
+		}
+		return ret;
+	};
+} );
+
+
+
+
+var rfocusable = /^(?:input|select|textarea|button)$/i,
+	rclickable = /^(?:a|area)$/i;
+
+jQuery.fn.extend( {
+	prop: function( name, value ) {
+		return access( this, jQuery.prop, name, value, arguments.length > 1 );
+	},
+
+	removeProp: function( name ) {
+		return this.each( function() {
+			delete this[ jQuery.propFix[ name ] || name ];
+		} );
+	}
+} );
+
+jQuery.extend( {
+	prop: function( elem, name, value ) {
+		var ret, hooks,
+			nType = elem.nodeType;
+
+		// Don't get/set properties on text, comment and attribute nodes
+		if ( nType === 3 || nType === 8 || nType === 2 ) {
+			return;
+		}
+
+		if ( nType !== 1 || !jQuery.isXMLDoc( elem ) ) {
+
+			// Fix name and attach hooks
+			name = jQuery.propFix[ name ] || name;
+			hooks = jQuery.propHooks[ name ];
+		}
+
+		if ( value !== undefined ) {
+			if ( hooks && "set" in hooks &&
+				( ret = hooks.set( elem, value, name ) ) !== undefined ) {
+				return ret;
+			}
+
+			return ( elem[ name ] = value );
+		}
+
+		if ( hooks && "get" in hooks && ( ret = hooks.get( elem, name ) ) !== null ) {
+			return ret;
+		}
+
+		return elem[ name ];
+	},
+
+	propHooks: {
+		tabIndex: {
+			get: function( elem ) {
+
+				// Support: IE <=9 - 11 only
+				// elem.tabIndex doesn't always return the
+				// correct value when it hasn't been explicitly set
+				// https://web.archive.org/web/20141116233347/http://fluidproject.org/blog/2008/01/09/getting-setting-and-removing-tabindex-values-with-javascript/
+				// Use proper attribute retrieval(#12072)
+				var tabindex = jQuery.find.attr( elem, "tabindex" );
+
+				if ( tabindex ) {
+					return parseInt( tabindex, 10 );
+				}
+
+				if (
+					rfocusable.test( elem.nodeName ) ||
+					rclickable.test( elem.nodeName ) &&
+					elem.href
+				) {
+					return 0;
+				}
+
+				return -1;
+			}
+		}
+	},
+
+	propFix: {
+		"for": "htmlFor",
+		"class": "className"
+	}
+} );
+
+// Support: IE <=11 only
+// Accessing the selectedIndex property
+// forces the browser to respect setting selected
+// on the option
+// The getter ensures a default option is selected
+// when in an optgroup
+// eslint rule "no-unused-expressions" is disabled for this code
+// since it considers such accessions noop
+if ( !support.optSelected ) {
+	jQuery.propHooks.selected = {
+		get: function( elem ) {
+
+			/* eslint no-unused-expressions: "off" */
+
+			var parent = elem.parentNode;
+			if ( parent && parent.parentNode ) {
+				parent.parentNode.selectedIndex;
+			}
+			return null;
+		},
+		set: function( elem ) {
+
+			/* eslint no-unused-expressions: "off" */
+
+			var parent = elem.parentNode;
+			if ( parent ) {
+				parent.selectedIndex;
+
+				if ( parent.parentNode ) {
+					parent.parentNode.selectedIndex;
+				}
+			}
+		}
+	};
+}
+
+jQuery.each( [
+	"tabIndex",
+	"readOnly",
+	"maxLength",
+	"cellSpacing",
+	"cellPadding",
+	"rowSpan",
+	"colSpan",
+	"useMap",
+	"frameBorder",
+	"contentEditable"
+], function() {
+	jQuery.propFix[ this.toLowerCase() ] = this;
+} );
+
+
+
+
+	// Strip and collapse whitespace according to HTML spec
+	// https://infra.spec.whatwg.org/#strip-and-collapse-ascii-whitespace
+	function stripAndCollapse( value ) {
+		var tokens = value.match( rnothtmlwhite ) || [];
+		return tokens.join( " " );
+	}
+
+
+function getClass( elem ) {
+	return elem.getAttribute && elem.getAttribute( "class" ) || "";
+}
+
+function classesToArray( value ) {
+	if ( Array.isArray( value ) ) {
+		return value;
+	}
+	if ( typeof value === "string" ) {
+		return value.match( rnothtmlwhite ) || [];
+	}
+	return [];
+}
+
+jQuery.fn.extend( {
+	addClass: function( value ) {
+		var classes, elem, cur, curValue, clazz, j, finalValue,
+			i = 0;
+
+		if ( isFunction( value ) ) {
+			return this.each( function( j ) {
+				jQuery( this ).addClass( value.call( this, j, getClass( this ) ) );
+			} );
+		}
+
+		classes = classesToArray( value );
+
+		if ( classes.length ) {
+			while ( ( elem = this[ i++ ] ) ) {
+				curValue = getClass( elem );
+				cur = elem.nodeType === 1 && ( " " + stripAndCollapse( curValue ) + " " );
+
+				if ( cur ) {
+					j = 0;
+					while ( ( clazz = classes[ j++ ] ) ) {
+						if ( cur.indexOf( " " + clazz + " " ) < 0 ) {
+							cur += clazz + " ";
+						}
+					}
+
+					// Only assign if different to avoid unneeded rendering.
+					finalValue = stripAndCollapse( cur );
+					if ( curValue !== finalValue ) {
+						elem.setAttribute( "class", finalValue );
+					}
+				}
+			}
+		}
+
+		return this;
+	},
+
+	removeClass: function( value ) {
+		var classes, elem, cur, curValue, clazz, j, finalValue,
+			i = 0;
+
+		if ( isFunction( value ) ) {
+			return this.each( function( j ) {
+				jQuery( this ).removeClass( value.call( this, j, getClass( this ) ) );
+			} );
+		}
+
+		if ( !arguments.length ) {
+			return this.attr( "class", "" );
+		}
+
+		classes = classesToArray( value );
+
+		if ( classes.length ) {
+			while ( ( elem = this[ i++ ] ) ) {
+				curValue = getClass( elem );
+
+				// This expression is here for better compressibility (see addClass)
+				cur = elem.nodeType === 1 && ( " " + stripAndCollapse( curValue ) + " " );
+
+				if ( cur ) {
+					j = 0;
+					while ( ( clazz = classes[ j++ ] ) ) {
+
+						// Remove *all* instances
+						while ( cur.indexOf( " " + clazz + " " ) > -1 ) {
+							cur = cur.replace( " " + clazz + " ", " " );
+						}
+					}
+
+					// Only assign if different to avoid unneeded rendering.
+					finalValue = stripAndCollapse( cur );
+					if ( curValue !== finalValue ) {
+						elem.setAttribute( "class", finalValue );
+					}
+				}
+			}
+		}
+
+		return this;
+	},
+
+	toggleClass: function( value, stateVal ) {
+		var type = typeof value,
+			isValidValue = type === "string" || Array.isArray( value );
+
+		if ( typeof stateVal === "boolean" && isValidValue ) {
+			return stateVal ? this.addClass( value ) : this.removeClass( value );
+		}
+
+		if ( isFunction( value ) ) {
+			return this.each( function( i ) {
+				jQuery( this ).toggleClass(
+					value.call( this, i, getClass( this ), stateVal ),
+					stateVal
+				);
+			} );
+		}
+
+		return this.each( function() {
+			var className, i, self, classNames;
+
+			if ( isValidValue ) {
+
+				// Toggle individual class names
+				i = 0;
+				self = jQuery( this );
+				classNames = classesToArray( value );
+
+				while ( ( className = classNames[ i++ ] ) ) {
+
+					// Check each className given, space separated list
+					if ( self.hasClass( className ) ) {
+						self.removeClass( className );
+					} else {
+						self.addClass( className );
+					}
+				}
+
+			// Toggle whole class name
+			} else if ( value === undefined || type === "boolean" ) {
+				className = getClass( this );
+				if ( className ) {
+
+					// Store className if set
+					dataPriv.set( this, "__className__", className );
+				}
+
+				// If the element has a class name or if we're passed `false`,
+				// then remove the whole classname (if there was one, the above saved it).
+				// Otherwise bring back whatever was previously saved (if anything),
+				// falling back to the empty string if nothing was stored.
+				if ( this.setAttribute ) {
+					this.setAttribute( "class",
+						className || value === false ?
+						"" :
+						dataPriv.get( this, "__className__" ) || ""
+					);
+				}
+			}
+		} );
+	},
+
+	hasClass: function( selector ) {
+		var className, elem,
+			i = 0;
+
+		className = " " + selector + " ";
+		while ( ( elem = this[ i++ ] ) ) {
+			if ( elem.nodeType === 1 &&
+				( " " + stripAndCollapse( getClass( elem ) ) + " " ).indexOf( className ) > -1 ) {
+					return true;
+			}
+		}
+
+		return false;
+	}
+} );
+
+
+
+
+var rreturn = /\r/g;
+
+jQuery.fn.extend( {
+	val: function( value ) {
+		var hooks, ret, valueIsFunction,
+			elem = this[ 0 ];
+
+		if ( !arguments.length ) {
+			if ( elem ) {
+				hooks = jQuery.valHooks[ elem.type ] ||
+					jQuery.valHooks[ elem.nodeName.toLowerCase() ];
+
+				if ( hooks &&
+					"get" in hooks &&
+					( ret = hooks.get( elem, "value" ) ) !== undefined
+				) {
+					return ret;
+				}
+
+				ret = elem.value;
+
+				// Handle most common string cases
+				if ( typeof ret === "string" ) {
+					return ret.replace( rreturn, "" );
+				}
+
+				// Handle cases where value is null/undef or number
+				return ret == null ? "" : ret;
+			}
+
+			return;
+		}
+
+		valueIsFunction = isFunction( value );
+
+		return this.each( function( i ) {
+			var val;
+
+			if ( this.nodeType !== 1 ) {
+				return;
+			}
+
+			if ( valueIsFunction ) {
+				val = value.call( this, i, jQuery( this ).val() );
+			} else {
+				val = value;
+			}
+
+			// Treat null/undefined as ""; convert numbers to string
+			if ( val == null ) {
+				val = "";
+
+			} else if ( typeof val === "number" ) {
+				val += "";
+
+			} else if ( Array.isArray( val ) ) {
+				val = jQuery.map( val, function( value ) {
+					return value == null ? "" : value + "";
+				} );
+			}
+
+			hooks = jQuery.valHooks[ this.type ] || jQuery.valHooks[ this.nodeName.toLowerCase() ];
+
+			// If set returns undefined, fall back to normal setting
+			if ( !hooks || !( "set" in hooks ) || hooks.set( this, val, "value" ) === undefined ) {
+				this.value = val;
+			}
+		} );
+	}
+} );
+
+jQuery.extend( {
+	valHooks: {
+		option: {
+			get: function( elem ) {
+
+				var val = jQuery.find.attr( elem, "value" );
+				return val != null ?
+					val :
+
+					// Support: IE <=10 - 11 only
+					// option.text throws exceptions (#14686, #14858)
+					// Strip and collapse whitespace
+					// https://html.spec.whatwg.org/#strip-and-collapse-whitespace
+					stripAndCollapse( jQuery.text( elem ) );
+			}
+		},
+		select: {
+			get: function( elem ) {
+				var value, option, i,
+					options = elem.options,
+					index = elem.selectedIndex,
+					one = elem.type === "select-one",
+					values = one ? null : [],
+					max = one ? index + 1 : options.length;
+
+				if ( index < 0 ) {
+					i = max;
+
+				} else {
+					i = one ? index : 0;
+				}
+
+				// Loop through all the selected options
+				for ( ; i < max; i++ ) {
+					option = options[ i ];
+
+					// Support: IE <=9 only
+					// IE8-9 doesn't update selected after form reset (#2551)
+					if ( ( option.selected || i === index ) &&
+
+							// Don't return options that are disabled or in a disabled optgroup
+							!option.disabled &&
+							( !option.parentNode.disabled ||
+								!nodeName( option.parentNode, "optgroup" ) ) ) {
+
+						// Get the specific value for the option
+						value = jQuery( option ).val();
+
+						// We don't need an array for one selects
+						if ( one ) {
+							return value;
+						}
+
+						// Multi-Selects return an array
+						values.push( value );
+					}
+				}
+
+				return values;
+			},
+
+			set: function( elem, value ) {
+				var optionSet, option,
+					options = elem.options,
+					values = jQuery.makeArray( value ),
+					i = options.length;
+
+				while ( i-- ) {
+					option = options[ i ];
+
+					/* eslint-disable no-cond-assign */
+
+					if ( option.selected =
+						jQuery.inArray( jQuery.valHooks.option.get( option ), values ) > -1
+					) {
+						optionSet = true;
+					}
+
+					/* eslint-enable no-cond-assign */
+				}
+
+				// Force browsers to behave consistently when non-matching value is set
+				if ( !optionSet ) {
+					elem.selectedIndex = -1;
+				}
+				return values;
+			}
+		}
+	}
+} );
+
+// Radios and checkboxes getter/setter
+jQuery.each( [ "radio", "checkbox" ], function() {
+	jQuery.valHooks[ this ] = {
+		set: function( elem, value ) {
+			if ( Array.isArray( value ) ) {
+				return ( elem.checked = jQuery.inArray( jQuery( elem ).val(), value ) > -1 );
+			}
+		}
+	};
+	if ( !support.checkOn ) {
+		jQuery.valHooks[ this ].get = function( elem ) {
+			return elem.getAttribute( "value" ) === null ? "on" : elem.value;
+		};
+	}
+} );
+
+
+
+
+// Return jQuery for attributes-only inclusion
+
+
+support.focusin = "onfocusin" in window;
+
+
+var rfocusMorph = /^(?:focusinfocus|focusoutblur)$/,
+	stopPropagationCallback = function( e ) {
+		e.stopPropagation();
+	};
+
+jQuery.extend( jQuery.event, {
+
+	trigger: function( event, data, elem, onlyHandlers ) {
+
+		var i, cur, tmp, bubbleType, ontype, handle, special, lastElement,
+			eventPath = [ elem || document ],
+			type = hasOwn.call( event, "type" ) ? event.type : event,
+			namespaces = hasOwn.call( event, "namespace" ) ? event.namespace.split( "." ) : [];
+
+		cur = lastElement = tmp = elem = elem || document;
+
+		// Don't do events on text and comment nodes
+		if ( elem.nodeType === 3 || elem.nodeType === 8 ) {
+			return;
+		}
+
+		// focus/blur morphs to focusin/out; ensure we're not firing them right now
+		if ( rfocusMorph.test( type + jQuery.event.triggered ) ) {
+			return;
+		}
+
+		if ( type.indexOf( "." ) > -1 ) {
+
+			// Namespaced trigger; create a regexp to match event type in handle()
+			namespaces = type.split( "." );
+			type = namespaces.shift();
+			namespaces.sort();
+		}
+		ontype = type.indexOf( ":" ) < 0 && "on" + type;
+
+		// Caller can pass in a jQuery.Event object, Object, or just an event type string
+		event = event[ jQuery.expando ] ?
+			event :
+			new jQuery.Event( type, typeof event === "object" && event );
+
+		// Trigger bitmask: & 1 for native handlers; & 2 for jQuery (always true)
+		event.isTrigger = onlyHandlers ? 2 : 3;
+		event.namespace = namespaces.join( "." );
+		event.rnamespace = event.namespace ?
+			new RegExp( "(^|\\.)" + namespaces.join( "\\.(?:.*\\.|)" ) + "(\\.|$)" ) :
+			null;
+
+		// Clean up the event in case it is being reused
+		event.result = undefined;
+		if ( !event.target ) {
+			event.target = elem;
+		}
+
+		// Clone any incoming data and prepend the event, creating the handler arg list
+		data = data == null ?
+			[ event ] :
+			jQuery.makeArray( data, [ event ] );
+
+		// Allow special events to draw outside the lines
+		special = jQuery.event.special[ type ] || {};
+		if ( !onlyHandlers && special.trigger && special.trigger.apply( elem, data ) === false ) {
+			return;
+		}
+
+		// Determine event propagation path in advance, per W3C events spec (#9951)
+		// Bubble up to document, then to window; watch for a global ownerDocument var (#9724)
+		if ( !onlyHandlers && !special.noBubble && !isWindow( elem ) ) {
+
+			bubbleType = special.delegateType || type;
+			if ( !rfocusMorph.test( bubbleType + type ) ) {
+				cur = cur.parentNode;
+			}
+			for ( ; cur; cur = cur.parentNode ) {
+				eventPath.push( cur );
+				tmp = cur;
+			}
+
+			// Only add window if we got to document (e.g., not plain obj or detached DOM)
+			if ( tmp === ( elem.ownerDocument || document ) ) {
+				eventPath.push( tmp.defaultView || tmp.parentWindow || window );
+			}
+		}
+
+		// Fire handlers on the event path
+		i = 0;
+		while ( ( cur = eventPath[ i++ ] ) && !event.isPropagationStopped() ) {
+			lastElement = cur;
+			event.type = i > 1 ?
+				bubbleType :
+				special.bindType || type;
+
+			// jQuery handler
+			handle = ( dataPriv.get( cur, "events" ) || {} )[ event.type ] &&
+				dataPriv.get( cur, "handle" );
+			if ( handle ) {
+				handle.apply( cur, data );
+			}
+
+			// Native handler
+			handle = ontype && cur[ ontype ];
+			if ( handle && handle.apply && acceptData( cur ) ) {
+				event.result = handle.apply( cur, data );
+				if ( event.result === false ) {
+					event.preventDefault();
+				}
+			}
+		}
+		event.type = type;
+
+		// If nobody prevented the default action, do it now
+		if ( !onlyHandlers && !event.isDefaultPrevented() ) {
+
+			if ( ( !special._default ||
+				special._default.apply( eventPath.pop(), data ) === false ) &&
+				acceptData( elem ) ) {
+
+				// Call a native DOM method on the target with the same name as the event.
+				// Don't do default actions on window, that's where global variables be (#6170)
+				if ( ontype && isFunction( elem[ type ] ) && !isWindow( elem ) ) {
+
+					// Don't re-trigger an onFOO event when we call its FOO() method
+					tmp = elem[ ontype ];
+
+					if ( tmp ) {
+						elem[ ontype ] = null;
+					}
+
+					// Prevent re-triggering of the same event, since we already bubbled it above
+					jQuery.event.triggered = type;
+
+					if ( event.isPropagationStopped() ) {
+						lastElement.addEventListener( type, stopPropagationCallback );
+					}
+
+					elem[ type ]();
+
+					if ( event.isPropagationStopped() ) {
+						lastElement.removeEventListener( type, stopPropagationCallback );
+					}
+
+					jQuery.event.triggered = undefined;
+
+					if ( tmp ) {
+						elem[ ontype ] = tmp;
+					}
+				}
+			}
+		}
+
+		return event.result;
+	},
+
+	// Piggyback on a donor event to simulate a different one
+	// Used only for `focus(in | out)` events
+	simulate: function( type, elem, event ) {
+		var e = jQuery.extend(
+			new jQuery.Event(),
+			event,
+			{
+				type: type,
+				isSimulated: true
+			}
+		);
+
+		jQuery.event.trigger( e, null, elem );
+	}
+
+} );
+
+jQuery.fn.extend( {
+
+	trigger: function( type, data ) {
+		return this.each( function() {
+			jQuery.event.trigger( type, data, this );
+		} );
+	},
+	triggerHandler: function( type, data ) {
+		var elem = this[ 0 ];
+		if ( elem ) {
+			return jQuery.event.trigger( type, data, elem, true );
+		}
+	}
+} );
+
+
+// Support: Firefox <=44
+// Firefox doesn't have focus(in | out) events
+// Related ticket - https://bugzilla.mozilla.org/show_bug.cgi?id=687787
+//
+// Support: Chrome <=48 - 49, Safari <=9.0 - 9.1
+// focus(in | out) events fire after focus & blur events,
+// which is spec violation - http://www.w3.org/TR/DOM-Level-3-Events/#events-focusevent-event-order
+// Related ticket - https://bugs.chromium.org/p/chromium/issues/detail?id=449857
+if ( !support.focusin ) {
+	jQuery.each( { focus: "focusin", blur: "focusout" }, function( orig, fix ) {
+
+		// Attach a single capturing handler on the document while someone wants focusin/focusout
+		var handler = function( event ) {
+			jQuery.event.simulate( fix, event.target, jQuery.event.fix( event ) );
+		};
+
+		jQuery.event.special[ fix ] = {
+			setup: function() {
+				var doc = this.ownerDocument || this,
+					attaches = dataPriv.access( doc, fix );
+
+				if ( !attaches ) {
+					doc.addEventListener( orig, handler, true );
+				}
+				dataPriv.access( doc, fix, ( attaches || 0 ) + 1 );
+			},
+			teardown: function() {
+				var doc = this.ownerDocument || this,
+					attaches = dataPriv.access( doc, fix ) - 1;
+
+				if ( !attaches ) {
+					doc.removeEventListener( orig, handler, true );
+					dataPriv.remove( doc, fix );
+
+				} else {
+					dataPriv.access( doc, fix, attaches );
+				}
+			}
+		};
+	} );
+}
+var location = window.location;
+
+var nonce = Date.now();
+
+var rquery = ( /\?/ );
+
+
+
+// Cross-browser xml parsing
+jQuery.parseXML = function( data ) {
+	var xml;
+	if ( !data || typeof data !== "string" ) {
+		return null;
+	}
+
+	// Support: IE 9 - 11 only
+	// IE throws on parseFromString with invalid input.
+	try {
+		xml = ( new window.DOMParser() ).parseFromString( data, "text/xml" );
+	} catch ( e ) {
+		xml = undefined;
+	}
+
+	if ( !xml || xml.getElementsByTagName( "parsererror" ).length ) {
+		jQuery.error( "Invalid XML: " + data );
+	}
+	return xml;
+};
+
+
+var
+	rbracket = /\[\]$/,
+	rCRLF = /\r?\n/g,
+	rsubmitterTypes = /^(?:submit|button|image|reset|file)$/i,
+	rsubmittable = /^(?:input|select|textarea|keygen)/i;
+
+function buildParams( prefix, obj, traditional, add ) {
+	var name;
+
+	if ( Array.isArray( obj ) ) {
+
+		// Serialize array item.
+		jQuery.each( obj, function( i, v ) {
+			if ( traditional || rbracket.test( prefix ) ) {
+
+				// Treat each array item as a scalar.
+				add( prefix, v );
+
+			} else {
+
+				// Item is non-scalar (array or object), encode its numeric index.
+				buildParams(
+					prefix + "[" + ( typeof v === "object" && v != null ? i : "" ) + "]",
+					v,
+					traditional,
+					add
+				);
+			}
+		} );
+
+	} else if ( !traditional && toType( obj ) === "object" ) {
+
+		// Serialize object item.
+		for ( name in obj ) {
+			buildParams( prefix + "[" + name + "]", obj[ name ], traditional, add );
+		}
+
+	} else {
+
+		// Serialize scalar item.
+		add( prefix, obj );
+	}
+}
+
+// Serialize an array of form elements or a set of
+// key/values into a query string
+jQuery.param = function( a, traditional ) {
+	var prefix,
+		s = [],
+		add = function( key, valueOrFunction ) {
+
+			// If value is a function, invoke it and use its return value
+			var value = isFunction( valueOrFunction ) ?
+				valueOrFunction() :
+				valueOrFunction;
+
+			s[ s.length ] = encodeURIComponent( key ) + "=" +
+				encodeURIComponent( value == null ? "" : value );
+		};
+
+	// If an array was passed in, assume that it is an array of form elements.
+	if ( Array.isArray( a ) || ( a.jquery && !jQuery.isPlainObject( a ) ) ) {
+
+		// Serialize the form elements
+		jQuery.each( a, function() {
+			add( this.name, this.value );
+		} );
+
+	} else {
+
+		// If traditional, encode the "old" way (the way 1.3.2 or older
+		// did it), otherwise encode params recursively.
+		for ( prefix in a ) {
+			buildParams( prefix, a[ prefix ], traditional, add );
+		}
+	}
+
+	// Return the resulting serialization
+	return s.join( "&" );
+};
+
+jQuery.fn.extend( {
+	serialize: function() {
+		return jQuery.param( this.serializeArray() );
+	},
+	serializeArray: function() {
+		return this.map( function() {
+
+			// Can add propHook for "elements" to filter or add form elements
+			var elements = jQuery.prop( this, "elements" );
+			return elements ? jQuery.makeArray( elements ) : this;
+		} )
+		.filter( function() {
+			var type = this.type;
+
+			// Use .is( ":disabled" ) so that fieldset[disabled] works
+			return this.name && !jQuery( this ).is( ":disabled" ) &&
+				rsubmittable.test( this.nodeName ) && !rsubmitterTypes.test( type ) &&
+				( this.checked || !rcheckableType.test( type ) );
+		} )
+		.map( function( i, elem ) {
+			var val = jQuery( this ).val();
+
+			if ( val == null ) {
+				return null;
+			}
+
+			if ( Array.isArray( val ) ) {
+				return jQuery.map( val, function( val ) {
+					return { name: elem.name, value: val.replace( rCRLF, "\r\n" ) };
+				} );
+			}
+
+			return { name: elem.name, value: val.replace( rCRLF, "\r\n" ) };
+		} ).get();
+	}
+} );
+
+
+var
+	r20 = /%20/g,
+	rhash = /#.*$/,
+	rantiCache = /([?&])_=[^&]*/,
+	rheaders = /^(.*?):[ \t]*([^\r\n]*)$/mg,
+
+	// #7653, #8125, #8152: local protocol detection
+	rlocalProtocol = /^(?:about|app|app-storage|.+-extension|file|res|widget):$/,
+	rnoContent = /^(?:GET|HEAD)$/,
+	rprotocol = /^\/\//,
+
+	/* Prefilters
+	 * 1) They are useful to introduce custom dataTypes (see ajax/jsonp.js for an example)
+	 * 2) These are called:
+	 *    - BEFORE asking for a transport
+	 *    - AFTER param serialization (s.data is a string if s.processData is true)
+	 * 3) key is the dataType
+	 * 4) the catchall symbol "*" can be used
+	 * 5) execution will start with transport dataType and THEN continue down to "*" if needed
+	 */
+	prefilters = {},
+
+	/* Transports bindings
+	 * 1) key is the dataType
+	 * 2) the catchall symbol "*" can be used
+	 * 3) selection will start with transport dataType and THEN go to "*" if needed
+	 */
+	transports = {},
+
+	// Avoid comment-prolog char sequence (#10098); must appease lint and evade compression
+	allTypes = "*/".concat( "*" ),
+
+	// Anchor tag for parsing the document origin
+	originAnchor = document.createElement( "a" );
+	originAnchor.href = location.href;
+
+// Base "constructor" for jQuery.ajaxPrefilter and jQuery.ajaxTransport
+function addToPrefiltersOrTransports( structure ) {
+
+	// dataTypeExpression is optional and defaults to "*"
+	return function( dataTypeExpression, func ) {
+
+		if ( typeof dataTypeExpression !== "string" ) {
+			func = dataTypeExpression;
+			dataTypeExpression = "*";
+		}
+
+		var dataType,
+			i = 0,
+			dataTypes = dataTypeExpression.toLowerCase().match( rnothtmlwhite ) || [];
+
+		if ( isFunction( func ) ) {
+
+			// For each dataType in the dataTypeExpression
+			while ( ( dataType = dataTypes[ i++ ] ) ) {
+
+				// Prepend if requested
+				if ( dataType[ 0 ] === "+" ) {
+					dataType = dataType.slice( 1 ) || "*";
+					( structure[ dataType ] = structure[ dataType ] || [] ).unshift( func );
+
+				// Otherwise append
+				} else {
+					( structure[ dataType ] = structure[ dataType ] || [] ).push( func );
+				}
+			}
+		}
+	};
+}
+
+// Base inspection function for prefilters and transports
+function inspectPrefiltersOrTransports( structure, options, originalOptions, jqXHR ) {
+
+	var inspected = {},
+		seekingTransport = ( structure === transports );
+
+	function inspect( dataType ) {
+		var selected;
+		inspected[ dataType ] = true;
+		jQuery.each( structure[ dataType ] || [], function( _, prefilterOrFactory ) {
+			var dataTypeOrTransport = prefilterOrFactory( options, originalOptions, jqXHR );
+			if ( typeof dataTypeOrTransport === "string" &&
+				!seekingTransport && !inspected[ dataTypeOrTransport ] ) {
+
+				options.dataTypes.unshift( dataTypeOrTransport );
+				inspect( dataTypeOrTransport );
+				return false;
+			} else if ( seekingTransport ) {
+				return !( selected = dataTypeOrTransport );
+			}
+		} );
+		return selected;
+	}
+
+	return inspect( options.dataTypes[ 0 ] ) || !inspected[ "*" ] && inspect( "*" );
+}
+
+// A special extend for ajax options
+// that takes "flat" options (not to be deep extended)
+// Fixes #9887
+function ajaxExtend( target, src ) {
+	var key, deep,
+		flatOptions = jQuery.ajaxSettings.flatOptions || {};
+
+	for ( key in src ) {
+		if ( src[ key ] !== undefined ) {
+			( flatOptions[ key ] ? target : ( deep || ( deep = {} ) ) )[ key ] = src[ key ];
+		}
+	}
+	if ( deep ) {
+		jQuery.extend( true, target, deep );
+	}
+
+	return target;
+}
+
+/* Handles responses to an ajax request:
+ * - finds the right dataType (mediates between content-type and expected dataType)
+ * - returns the corresponding response
+ */
+function ajaxHandleResponses( s, jqXHR, responses ) {
+
+	var ct, type, finalDataType, firstDataType,
+		contents = s.contents,
+		dataTypes = s.dataTypes;
+
+	// Remove auto dataType and get content-type in the process
+	while ( dataTypes[ 0 ] === "*" ) {
+		dataTypes.shift();
+		if ( ct === undefined ) {
+			ct = s.mimeType || jqXHR.getResponseHeader( "Content-Type" );
+		}
+	}
+
+	// Check if we're dealing with a known content-type
+	if ( ct ) {
+		for ( type in contents ) {
+			if ( contents[ type ] && contents[ type ].test( ct ) ) {
+				dataTypes.unshift( type );
+				break;
+			}
+		}
+	}
+
+	// Check to see if we have a response for the expected dataType
+	if ( dataTypes[ 0 ] in responses ) {
+		finalDataType = dataTypes[ 0 ];
+	} else {
+
+		// Try convertible dataTypes
+		for ( type in responses ) {
+			if ( !dataTypes[ 0 ] || s.converters[ type + " " + dataTypes[ 0 ] ] ) {
+				finalDataType = type;
+				break;
+			}
+			if ( !firstDataType ) {
+				firstDataType = type;
+			}
+		}
+
+		// Or just use first one
+		finalDataType = finalDataType || firstDataType;
+	}
+
+	// If we found a dataType
+	// We add the dataType to the list if needed
+	// and return the corresponding response
+	if ( finalDataType ) {
+		if ( finalDataType !== dataTypes[ 0 ] ) {
+			dataTypes.unshift( finalDataType );
+		}
+		return responses[ finalDataType ];
+	}
+}
+
+/* Chain conversions given the request and the original response
+ * Also sets the responseXXX fields on the jqXHR instance
+ */
+function ajaxConvert( s, response, jqXHR, isSuccess ) {
+	var conv2, current, conv, tmp, prev,
+		converters = {},
+
+		// Work with a copy of dataTypes in case we need to modify it for conversion
+		dataTypes = s.dataTypes.slice();
+
+	// Create converters map with lowercased keys
+	if ( dataTypes[ 1 ] ) {
+		for ( conv in s.converters ) {
+			converters[ conv.toLowerCase() ] = s.converters[ conv ];
+		}
+	}
+
+	current = dataTypes.shift();
+
+	// Convert to each sequential dataType
+	while ( current ) {
+
+		if ( s.responseFields[ current ] ) {
+			jqXHR[ s.responseFields[ current ] ] = response;
+		}
+
+		// Apply the dataFilter if provided
+		if ( !prev && isSuccess && s.dataFilter ) {
+			response = s.dataFilter( response, s.dataType );
+		}
+
+		prev = current;
+		current = dataTypes.shift();
+
+		if ( current ) {
+
+			// There's only work to do if current dataType is non-auto
+			if ( current === "*" ) {
+
+				current = prev;
+
+			// Convert response if prev dataType is non-auto and differs from current
+			} else if ( prev !== "*" && prev !== current ) {
+
+				// Seek a direct converter
+				conv = converters[ prev + " " + current ] || converters[ "* " + current ];
+
+				// If none found, seek a pair
+				if ( !conv ) {
+					for ( conv2 in converters ) {
+
+						// If conv2 outputs current
+						tmp = conv2.split( " " );
+						if ( tmp[ 1 ] === current ) {
+
+							// If prev can be converted to accepted input
+							conv = converters[ prev + " " + tmp[ 0 ] ] ||
+								converters[ "* " + tmp[ 0 ] ];
+							if ( conv ) {
+
+								// Condense equivalence converters
+								if ( conv === true ) {
+									conv = converters[ conv2 ];
+
+								// Otherwise, insert the intermediate dataType
+								} else if ( converters[ conv2 ] !== true ) {
+									current = tmp[ 0 ];
+									dataTypes.unshift( tmp[ 1 ] );
+								}
+								break;
+							}
+						}
+					}
+				}
+
+				// Apply converter (if not an equivalence)
+				if ( conv !== true ) {
+
+					// Unless errors are allowed to bubble, catch and return them
+					if ( conv && s.throws ) {
+						response = conv( response );
+					} else {
+						try {
+							response = conv( response );
+						} catch ( e ) {
+							return {
+								state: "parsererror",
+								error: conv ? e : "No conversion from " + prev + " to " + current
+							};
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return { state: "success", data: response };
+}
+
+jQuery.extend( {
+
+	// Counter for holding the number of active queries
+	active: 0,
+
+	// Last-Modified header cache for next request
+	lastModified: {},
+	etag: {},
+
+	ajaxSettings: {
+		url: location.href,
+		type: "GET",
+		isLocal: rlocalProtocol.test( location.protocol ),
+		global: true,
+		processData: true,
+		async: true,
+		contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+
+		/*
+		timeout: 0,
+		data: null,
+		dataType: null,
+		username: null,
+		password: null,
+		cache: null,
+		throws: false,
+		traditional: false,
+		headers: {},
+		*/
+
+		accepts: {
+			"*": allTypes,
+			text: "text/plain",
+			html: "text/html",
+			xml: "application/xml, text/xml",
+			json: "application/json, text/javascript"
+		},
+
+		contents: {
+			xml: /\bxml\b/,
+			html: /\bhtml/,
+			json: /\bjson\b/
+		},
+
+		responseFields: {
+			xml: "responseXML",
+			text: "responseText",
+			json: "responseJSON"
+		},
+
+		// Data converters
+		// Keys separate source (or catchall "*") and destination types with a single space
+		converters: {
+
+			// Convert anything to text
+			"* text": String,
+
+			// Text to html (true = no transformation)
+			"text html": true,
+
+			// Evaluate text as a json expression
+			"text json": JSON.parse,
+
+			// Parse text as xml
+			"text xml": jQuery.parseXML
+		},
+
+		// For options that shouldn't be deep extended:
+		// you can add your own custom options here if
+		// and when you create one that shouldn't be
+		// deep extended (see ajaxExtend)
+		flatOptions: {
+			url: true,
+			context: true
+		}
+	},
+
+	// Creates a full fledged settings object into target
+	// with both ajaxSettings and settings fields.
+	// If target is omitted, writes into ajaxSettings.
+	ajaxSetup: function( target, settings ) {
+		return settings ?
+
+			// Building a settings object
+			ajaxExtend( ajaxExtend( target, jQuery.ajaxSettings ), settings ) :
+
+			// Extending ajaxSettings
+			ajaxExtend( jQuery.ajaxSettings, target );
+	},
+
+	ajaxPrefilter: addToPrefiltersOrTransports( prefilters ),
+	ajaxTransport: addToPrefiltersOrTransports( transports ),
+
+	// Main method
+	ajax: function( url, options ) {
+
+		// If url is an object, simulate pre-1.5 signature
+		if ( typeof url === "object" ) {
+			options = url;
+			url = undefined;
+		}
+
+		// Force options to be an object
+		options = options || {};
+
+		var transport,
+
+			// URL without anti-cache param
+			cacheURL,
+
+			// Response headers
+			responseHeadersString,
+			responseHeaders,
+
+			// timeout handle
+			timeoutTimer,
+
+			// Url cleanup var
+			urlAnchor,
+
+			// Request state (becomes false upon send and true upon completion)
+			completed,
+
+			// To know if global events are to be dispatched
+			fireGlobals,
+
+			// Loop variable
+			i,
+
+			// uncached part of the url
+			uncached,
+
+			// Create the final options object
+			s = jQuery.ajaxSetup( {}, options ),
+
+			// Callbacks context
+			callbackContext = s.context || s,
+
+			// Context for global events is callbackContext if it is a DOM node or jQuery collection
+			globalEventContext = s.context &&
+				( callbackContext.nodeType || callbackContext.jquery ) ?
+					jQuery( callbackContext ) :
+					jQuery.event,
+
+			// Deferreds
+			deferred = jQuery.Deferred(),
+			completeDeferred = jQuery.Callbacks( "once memory" ),
+
+			// Status-dependent callbacks
+			statusCode = s.statusCode || {},
+
+			// Headers (they are sent all at once)
+			requestHeaders = {},
+			requestHeadersNames = {},
+
+			// Default abort message
+			strAbort = "canceled",
+
+			// Fake xhr
+			jqXHR = {
+				readyState: 0,
+
+				// Builds headers hashtable if needed
+				getResponseHeader: function( key ) {
+					var match;
+					if ( completed ) {
+						if ( !responseHeaders ) {
+							responseHeaders = {};
+							while ( ( match = rheaders.exec( responseHeadersString ) ) ) {
+								responseHeaders[ match[ 1 ].toLowerCase() ] = match[ 2 ];
+							}
+						}
+						match = responseHeaders[ key.toLowerCase() ];
+					}
+					return match == null ? null : match;
+				},
+
+				// Raw string
+				getAllResponseHeaders: function() {
+					return completed ? responseHeadersString : null;
+				},
+
+				// Caches the header
+				setRequestHeader: function( name, value ) {
+					if ( completed == null ) {
+						name = requestHeadersNames[ name.toLowerCase() ] =
+							requestHeadersNames[ name.toLowerCase() ] || name;
+						requestHeaders[ name ] = value;
+					}
+					return this;
+				},
+
+				// Overrides response content-type header
+				overrideMimeType: function( type ) {
+					if ( completed == null ) {
+						s.mimeType = type;
+					}
+					return this;
+				},
+
+				// Status-dependent callbacks
+				statusCode: function( map ) {
+					var code;
+					if ( map ) {
+						if ( completed ) {
+
+							// Execute the appropriate callbacks
+							jqXHR.always( map[ jqXHR.status ] );
+						} else {
+
+							// Lazy-add the new callbacks in a way that preserves old ones
+							for ( code in map ) {
+								statusCode[ code ] = [ statusCode[ code ], map[ code ] ];
+							}
+						}
+					}
+					return this;
+				},
+
+				// Cancel the request
+				abort: function( statusText ) {
+					var finalText = statusText || strAbort;
+					if ( transport ) {
+						transport.abort( finalText );
+					}
+					done( 0, finalText );
+					return this;
+				}
+			};
+
+		// Attach deferreds
+		deferred.promise( jqXHR );
+
+		// Add protocol if not provided (prefilters might expect it)
+		// Handle falsy url in the settings object (#10093: consistency with old signature)
+		// We also use the url parameter if available
+		s.url = ( ( url || s.url || location.href ) + "" )
+			.replace( rprotocol, location.protocol + "//" );
+
+		// Alias method option to type as per ticket #12004
+		s.type = options.method || options.type || s.method || s.type;
+
+		// Extract dataTypes list
+		s.dataTypes = ( s.dataType || "*" ).toLowerCase().match( rnothtmlwhite ) || [ "" ];
+
+		// A cross-domain request is in order when the origin doesn't match the current origin.
+		if ( s.crossDomain == null ) {
+			urlAnchor = document.createElement( "a" );
+
+			// Support: IE <=8 - 11, Edge 12 - 15
+			// IE throws exception on accessing the href property if url is malformed,
+			// e.g. http://example.com:80x/
+			try {
+				urlAnchor.href = s.url;
+
+				// Support: IE <=8 - 11 only
+				// Anchor's host property isn't correctly set when s.url is relative
+				urlAnchor.href = urlAnchor.href;
+				s.crossDomain = originAnchor.protocol + "//" + originAnchor.host !==
+					urlAnchor.protocol + "//" + urlAnchor.host;
+			} catch ( e ) {
+
+				// If there is an error parsing the URL, assume it is crossDomain,
+				// it can be rejected by the transport if it is invalid
+				s.crossDomain = true;
+			}
+		}
+
+		// Convert data if not already a string
+		if ( s.data && s.processData && typeof s.data !== "string" ) {
+			s.data = jQuery.param( s.data, s.traditional );
+		}
+
+		// Apply prefilters
+		inspectPrefiltersOrTransports( prefilters, s, options, jqXHR );
+
+		// If request was aborted inside a prefilter, stop there
+		if ( completed ) {
+			return jqXHR;
+		}
+
+		// We can fire global events as of now if asked to
+		// Don't fire events if jQuery.event is undefined in an AMD-usage scenario (#15118)
+		fireGlobals = jQuery.event && s.global;
+
+		// Watch for a new set of requests
+		if ( fireGlobals && jQuery.active++ === 0 ) {
+			jQuery.event.trigger( "ajaxStart" );
+		}
+
+		// Uppercase the type
+		s.type = s.type.toUpperCase();
+
+		// Determine if request has content
+		s.hasContent = !rnoContent.test( s.type );
+
+		// Save the URL in case we're toying with the If-Modified-Since
+		// and/or If-None-Match header later on
+		// Remove hash to simplify url manipulation
+		cacheURL = s.url.replace( rhash, "" );
+
+		// More options handling for requests with no content
+		if ( !s.hasContent ) {
+
+			// Remember the hash so we can put it back
+			uncached = s.url.slice( cacheURL.length );
+
+			// If data is available and should be processed, append data to url
+			if ( s.data && ( s.processData || typeof s.data === "string" ) ) {
+				cacheURL += ( rquery.test( cacheURL ) ? "&" : "?" ) + s.data;
+
+				// #9682: remove data so that it's not used in an eventual retry
+				delete s.data;
+			}
+
+			// Add or update anti-cache param if needed
+			if ( s.cache === false ) {
+				cacheURL = cacheURL.replace( rantiCache, "$1" );
+				uncached = ( rquery.test( cacheURL ) ? "&" : "?" ) + "_=" + ( nonce++ ) + uncached;
+			}
+
+			// Put hash and anti-cache on the URL that will be requested (gh-1732)
+			s.url = cacheURL + uncached;
+
+		// Change '%20' to '+' if this is encoded form body content (gh-2658)
+		} else if ( s.data && s.processData &&
+			( s.contentType || "" ).indexOf( "application/x-www-form-urlencoded" ) === 0 ) {
+			s.data = s.data.replace( r20, "+" );
+		}
+
+		// Set the If-Modified-Since and/or If-None-Match header, if in ifModified mode.
+		if ( s.ifModified ) {
+			if ( jQuery.lastModified[ cacheURL ] ) {
+				jqXHR.setRequestHeader( "If-Modified-Since", jQuery.lastModified[ cacheURL ] );
+			}
+			if ( jQuery.etag[ cacheURL ] ) {
+				jqXHR.setRequestHeader( "If-None-Match", jQuery.etag[ cacheURL ] );
+			}
+		}
+
+		// Set the correct header, if data is being sent
+		if ( s.data && s.hasContent && s.contentType !== false || options.contentType ) {
+			jqXHR.setRequestHeader( "Content-Type", s.contentType );
+		}
+
+		// Set the Accepts header for the server, depending on the dataType
+		jqXHR.setRequestHeader(
+			"Accept",
+			s.dataTypes[ 0 ] && s.accepts[ s.dataTypes[ 0 ] ] ?
+				s.accepts[ s.dataTypes[ 0 ] ] +
+					( s.dataTypes[ 0 ] !== "*" ? ", " + allTypes + "; q=0.01" : "" ) :
+				s.accepts[ "*" ]
+		);
+
+		// Check for headers option
+		for ( i in s.headers ) {
+			jqXHR.setRequestHeader( i, s.headers[ i ] );
+		}
+
+		// Allow custom headers/mimetypes and early abort
+		if ( s.beforeSend &&
+			( s.beforeSend.call( callbackContext, jqXHR, s ) === false || completed ) ) {
+
+			// Abort if not done already and return
+			return jqXHR.abort();
+		}
+
+		// Aborting is no longer a cancellation
+		strAbort = "abort";
+
+		// Install callbacks on deferreds
+		completeDeferred.add( s.complete );
+		jqXHR.done( s.success );
+		jqXHR.fail( s.error );
+
+		// Get transport
+		transport = inspectPrefiltersOrTransports( transports, s, options, jqXHR );
+
+		// If no transport, we auto-abort
+		if ( !transport ) {
+			done( -1, "No Transport" );
+		} else {
+			jqXHR.readyState = 1;
+
+			// Send global event
+			if ( fireGlobals ) {
+				globalEventContext.trigger( "ajaxSend", [ jqXHR, s ] );
+			}
+
+			// If request was aborted inside ajaxSend, stop there
+			if ( completed ) {
+				return jqXHR;
+			}
+
+			// Timeout
+			if ( s.async && s.timeout > 0 ) {
+				timeoutTimer = window.setTimeout( function() {
+					jqXHR.abort( "timeout" );
+				}, s.timeout );
+			}
+
+			try {
+				completed = false;
+				transport.send( requestHeaders, done );
+			} catch ( e ) {
+
+				// Rethrow post-completion exceptions
+				if ( completed ) {
+					throw e;
+				}
+
+				// Propagate others as results
+				done( -1, e );
+			}
+		}
+
+		// Callback for when everything is done
+		function done( status, nativeStatusText, responses, headers ) {
+			var isSuccess, success, error, response, modified,
+				statusText = nativeStatusText;
+
+			// Ignore repeat invocations
+			if ( completed ) {
+				return;
+			}
+
+			completed = true;
+
+			// Clear timeout if it exists
+			if ( timeoutTimer ) {
+				window.clearTimeout( timeoutTimer );
+			}
+
+			// Dereference transport for early garbage collection
+			// (no matter how long the jqXHR object will be used)
+			transport = undefined;
+
+			// Cache response headers
+			responseHeadersString = headers || "";
+
+			// Set readyState
+			jqXHR.readyState = status > 0 ? 4 : 0;
+
+			// Determine if successful
+			isSuccess = status >= 200 && status < 300 || status === 304;
+
+			// Get response data
+			if ( responses ) {
+				response = ajaxHandleResponses( s, jqXHR, responses );
+			}
+
+			// Convert no matter what (that way responseXXX fields are always set)
+			response = ajaxConvert( s, response, jqXHR, isSuccess );
+
+			// If successful, handle type chaining
+			if ( isSuccess ) {
+
+				// Set the If-Modified-Since and/or If-None-Match header, if in ifModified mode.
+				if ( s.ifModified ) {
+					modified = jqXHR.getResponseHeader( "Last-Modified" );
+					if ( modified ) {
+						jQuery.lastModified[ cacheURL ] = modified;
+					}
+					modified = jqXHR.getResponseHeader( "etag" );
+					if ( modified ) {
+						jQuery.etag[ cacheURL ] = modified;
+					}
+				}
+
+				// if no content
+				if ( status === 204 || s.type === "HEAD" ) {
+					statusText = "nocontent";
+
+				// if not modified
+				} else if ( status === 304 ) {
+					statusText = "notmodified";
+
+				// If we have data, let's convert it
+				} else {
+					statusText = response.state;
+					success = response.data;
+					error = response.error;
+					isSuccess = !error;
+				}
+			} else {
+
+				// Extract error from statusText and normalize for non-aborts
+				error = statusText;
+				if ( status || !statusText ) {
+					statusText = "error";
+					if ( status < 0 ) {
+						status = 0;
+					}
+				}
+			}
+
+			// Set data for the fake xhr object
+			jqXHR.status = status;
+			jqXHR.statusText = ( nativeStatusText || statusText ) + "";
+
+			// Success/Error
+			if ( isSuccess ) {
+				deferred.resolveWith( callbackContext, [ success, statusText, jqXHR ] );
+			} else {
+				deferred.rejectWith( callbackContext, [ jqXHR, statusText, error ] );
+			}
+
+			// Status-dependent callbacks
+			jqXHR.statusCode( statusCode );
+			statusCode = undefined;
+
+			if ( fireGlobals ) {
+				globalEventContext.trigger( isSuccess ? "ajaxSuccess" : "ajaxError",
+					[ jqXHR, s, isSuccess ? success : error ] );
+			}
+
+			// Complete
+			completeDeferred.fireWith( callbackContext, [ jqXHR, statusText ] );
+
+			if ( fireGlobals ) {
+				globalEventContext.trigger( "ajaxComplete", [ jqXHR, s ] );
+
+				// Handle the global AJAX counter
+				if ( !( --jQuery.active ) ) {
+					jQuery.event.trigger( "ajaxStop" );
+				}
+			}
+		}
+
+		return jqXHR;
+	},
+
+	getJSON: function( url, data, callback ) {
+		return jQuery.get( url, data, callback, "json" );
+	},
+
+	getScript: function( url, callback ) {
+		return jQuery.get( url, undefined, callback, "script" );
+	}
+} );
+
+jQuery.each( [ "get", "post" ], function( i, method ) {
+	jQuery[ method ] = function( url, data, callback, type ) {
+
+		// Shift arguments if data argument was omitted
+		if ( isFunction( data ) ) {
+			type = type || callback;
+			callback = data;
+			data = undefined;
+		}
+
+		// The url can be an options object (which then must have .url)
+		return jQuery.ajax( jQuery.extend( {
+			url: url,
+			type: method,
+			dataType: type,
+			data: data,
+			success: callback
+		}, jQuery.isPlainObject( url ) && url ) );
+	};
+} );
+
+
+jQuery._evalUrl = function( url ) {
+	return jQuery.ajax( {
+		url: url,
+
+		// Make this explicit, since user can override this through ajaxSetup (#11264)
+		type: "GET",
+		dataType: "script",
+		cache: true,
+		async: false,
+		global: false,
+		"throws": true
+	} );
+};
+
+
+jQuery.fn.extend( {
+	wrapAll: function( html ) {
+		var wrap;
+
+		if ( this[ 0 ] ) {
+			if ( isFunction( html ) ) {
+				html = html.call( this[ 0 ] );
+			}
+
+			// The elements to wrap the target around
+			wrap = jQuery( html, this[ 0 ].ownerDocument ).eq( 0 ).clone( true );
+
+			if ( this[ 0 ].parentNode ) {
+				wrap.insertBefore( this[ 0 ] );
+			}
+
+			wrap.map( function() {
+				var elem = this;
+
+				while ( elem.firstElementChild ) {
+					elem = elem.firstElementChild;
+				}
+
+				return elem;
+			} ).append( this );
+		}
+
+		return this;
+	},
+
+	wrapInner: function( html ) {
+		if ( isFunction( html ) ) {
+			return this.each( function( i ) {
+				jQuery( this ).wrapInner( html.call( this, i ) );
+			} );
+		}
+
+		return this.each( function() {
+			var self = jQuery( this ),
+				contents = self.contents();
+
+			if ( contents.length ) {
+				contents.wrapAll( html );
+
+			} else {
+				self.append( html );
+			}
+		} );
+	},
+
+	wrap: function( html ) {
+		var htmlIsFunction = isFunction( html );
+
+		return this.each( function( i ) {
+			jQuery( this ).wrapAll( htmlIsFunction ? html.call( this, i ) : html );
+		} );
+	},
+
+	unwrap: function( selector ) {
+		this.parent( selector ).not( "body" ).each( function() {
+			jQuery( this ).replaceWith( this.childNodes );
+		} );
+		return this;
+	}
+} );
+
+
+jQuery.expr.pseudos.hidden = function( elem ) {
+	return !jQuery.expr.pseudos.visible( elem );
+};
+jQuery.expr.pseudos.visible = function( elem ) {
+	return !!( elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length );
+};
+
+
+
+
+jQuery.ajaxSettings.xhr = function() {
+	try {
+		return new window.XMLHttpRequest();
+	} catch ( e ) {}
+};
+
+var xhrSuccessStatus = {
+
+		// File protocol always yields status code 0, assume 200
+		0: 200,
+
+		// Support: IE <=9 only
+		// #1450: sometimes IE returns 1223 when it should be 204
+		1223: 204
+	},
+	xhrSupported = jQuery.ajaxSettings.xhr();
+
+support.cors = !!xhrSupported && ( "withCredentials" in xhrSupported );
+support.ajax = xhrSupported = !!xhrSupported;
+
+jQuery.ajaxTransport( function( options ) {
+	var callback, errorCallback;
+
+	// Cross domain only allowed if supported through XMLHttpRequest
+	if ( support.cors || xhrSupported && !options.crossDomain ) {
+		return {
+			send: function( headers, complete ) {
+				var i,
+					xhr = options.xhr();
+
+				xhr.open(
+					options.type,
+					options.url,
+					options.async,
+					options.username,
+					options.password
+				);
+
+				// Apply custom fields if provided
+				if ( options.xhrFields ) {
+					for ( i in options.xhrFields ) {
+						xhr[ i ] = options.xhrFields[ i ];
+					}
+				}
+
+				// Override mime type if needed
+				if ( options.mimeType && xhr.overrideMimeType ) {
+					xhr.overrideMimeType( options.mimeType );
+				}
+
+				// X-Requested-With header
+				// For cross-domain requests, seeing as conditions for a preflight are
+				// akin to a jigsaw puzzle, we simply never set it to be sure.
+				// (it can always be set on a per-request basis or even using ajaxSetup)
+				// For same-domain requests, won't change header if already provided.
+				if ( !options.crossDomain && !headers[ "X-Requested-With" ] ) {
+					headers[ "X-Requested-With" ] = "XMLHttpRequest";
+				}
+
+				// Set headers
+				for ( i in headers ) {
+					xhr.setRequestHeader( i, headers[ i ] );
+				}
+
+				// Callback
+				callback = function( type ) {
+					return function() {
+						if ( callback ) {
+							callback = errorCallback = xhr.onload =
+								xhr.onerror = xhr.onabort = xhr.ontimeout =
+									xhr.onreadystatechange = null;
+
+							if ( type === "abort" ) {
+								xhr.abort();
+							} else if ( type === "error" ) {
+
+								// Support: IE <=9 only
+								// On a manual native abort, IE9 throws
+								// errors on any property access that is not readyState
+								if ( typeof xhr.status !== "number" ) {
+									complete( 0, "error" );
+								} else {
+									complete(
+
+										// File: protocol always yields status 0; see #8605, #14207
+										xhr.status,
+										xhr.statusText
+									);
+								}
+							} else {
+								complete(
+									xhrSuccessStatus[ xhr.status ] || xhr.status,
+									xhr.statusText,
+
+									// Support: IE <=9 only
+									// IE9 has no XHR2 but throws on binary (trac-11426)
+									// For XHR2 non-text, let the caller handle it (gh-2498)
+									( xhr.responseType || "text" ) !== "text"  ||
+									typeof xhr.responseText !== "string" ?
+										{ binary: xhr.response } :
+										{ text: xhr.responseText },
+									xhr.getAllResponseHeaders()
+								);
+							}
+						}
+					};
+				};
+
+				// Listen to events
+				xhr.onload = callback();
+				errorCallback = xhr.onerror = xhr.ontimeout = callback( "error" );
+
+				// Support: IE 9 only
+				// Use onreadystatechange to replace onabort
+				// to handle uncaught aborts
+				if ( xhr.onabort !== undefined ) {
+					xhr.onabort = errorCallback;
+				} else {
+					xhr.onreadystatechange = function() {
+
+						// Check readyState before timeout as it changes
+						if ( xhr.readyState === 4 ) {
+
+							// Allow onerror to be called first,
+							// but that will not handle a native abort
+							// Also, save errorCallback to a variable
+							// as xhr.onerror cannot be accessed
+							window.setTimeout( function() {
+								if ( callback ) {
+									errorCallback();
+								}
+							} );
+						}
+					};
+				}
+
+				// Create the abort callback
+				callback = callback( "abort" );
+
+				try {
+
+					// Do send the request (this may raise an exception)
+					xhr.send( options.hasContent && options.data || null );
+				} catch ( e ) {
+
+					// #14683: Only rethrow if this hasn't been notified as an error yet
+					if ( callback ) {
+						throw e;
+					}
+				}
+			},
+
+			abort: function() {
+				if ( callback ) {
+					callback();
+				}
+			}
+		};
+	}
+} );
+
+
+
+
+// Prevent auto-execution of scripts when no explicit dataType was provided (See gh-2432)
+jQuery.ajaxPrefilter( function( s ) {
+	if ( s.crossDomain ) {
+		s.contents.script = false;
+	}
+} );
+
+// Install script dataType
+jQuery.ajaxSetup( {
+	accepts: {
+		script: "text/javascript, application/javascript, " +
+			"application/ecmascript, application/x-ecmascript"
+	},
+	contents: {
+		script: /\b(?:java|ecma)script\b/
+	},
+	converters: {
+		"text script": function( text ) {
+			jQuery.globalEval( text );
+			return text;
+		}
+	}
+} );
+
+// Handle cache's special case and crossDomain
+jQuery.ajaxPrefilter( "script", function( s ) {
+	if ( s.cache === undefined ) {
+		s.cache = false;
+	}
+	if ( s.crossDomain ) {
+		s.type = "GET";
+	}
+} );
+
+// Bind script tag hack transport
+jQuery.ajaxTransport( "script", function( s ) {
+
+	// This transport only deals with cross domain requests
+	if ( s.crossDomain ) {
+		var script, callback;
+		return {
+			send: function( _, complete ) {
+				script = jQuery( "<script>" ).prop( {
+					charset: s.scriptCharset,
+					src: s.url
+				} ).on(
+					"load error",
+					callback = function( evt ) {
+						script.remove();
+						callback = null;
+						if ( evt ) {
+							complete( evt.type === "error" ? 404 : 200, evt.type );
+						}
+					}
+				);
+
+				// Use native DOM manipulation to avoid our domManip AJAX trickery
+				document.head.appendChild( script[ 0 ] );
+			},
+			abort: function() {
+				if ( callback ) {
+					callback();
+				}
+			}
+		};
+	}
+} );
+
+
+
+
+var oldCallbacks = [],
+	rjsonp = /(=)\?(?=&|$)|\?\?/;
+
+// Default jsonp settings
+jQuery.ajaxSetup( {
+	jsonp: "callback",
+	jsonpCallback: function() {
+		var callback = oldCallbacks.pop() || ( jQuery.expando + "_" + ( nonce++ ) );
+		this[ callback ] = true;
+		return callback;
+	}
+} );
+
+// Detect, normalize options and install callbacks for jsonp requests
+jQuery.ajaxPrefilter( "json jsonp", function( s, originalSettings, jqXHR ) {
+
+	var callbackName, overwritten, responseContainer,
+		jsonProp = s.jsonp !== false && ( rjsonp.test( s.url ) ?
+			"url" :
+			typeof s.data === "string" &&
+				( s.contentType || "" )
+					.indexOf( "application/x-www-form-urlencoded" ) === 0 &&
+				rjsonp.test( s.data ) && "data"
+		);
+
+	// Handle iff the expected data type is "jsonp" or we have a parameter to set
+	if ( jsonProp || s.dataTypes[ 0 ] === "jsonp" ) {
+
+		// Get callback name, remembering preexisting value associated with it
+		callbackName = s.jsonpCallback = isFunction( s.jsonpCallback ) ?
+			s.jsonpCallback() :
+			s.jsonpCallback;
+
+		// Insert callback into url or form data
+		if ( jsonProp ) {
+			s[ jsonProp ] = s[ jsonProp ].replace( rjsonp, "$1" + callbackName );
+		} else if ( s.jsonp !== false ) {
+			s.url += ( rquery.test( s.url ) ? "&" : "?" ) + s.jsonp + "=" + callbackName;
+		}
+
+		// Use data converter to retrieve json after script execution
+		s.converters[ "script json" ] = function() {
+			if ( !responseContainer ) {
+				jQuery.error( callbackName + " was not called" );
+			}
+			return responseContainer[ 0 ];
+		};
+
+		// Force json dataType
+		s.dataTypes[ 0 ] = "json";
+
+		// Install callback
+		overwritten = window[ callbackName ];
+		window[ callbackName ] = function() {
+			responseContainer = arguments;
+		};
+
+		// Clean-up function (fires after converters)
+		jqXHR.always( function() {
+
+			// If previous value didn't exist - remove it
+			if ( overwritten === undefined ) {
+				jQuery( window ).removeProp( callbackName );
+
+			// Otherwise restore preexisting value
+			} else {
+				window[ callbackName ] = overwritten;
+			}
+
+			// Save back as free
+			if ( s[ callbackName ] ) {
+
+				// Make sure that re-using the options doesn't screw things around
+				s.jsonpCallback = originalSettings.jsonpCallback;
+
+				// Save the callback name for future use
+				oldCallbacks.push( callbackName );
+			}
+
+			// Call if it was a function and we have a response
+			if ( responseContainer && isFunction( overwritten ) ) {
+				overwritten( responseContainer[ 0 ] );
+			}
+
+			responseContainer = overwritten = undefined;
+		} );
+
+		// Delegate to script
+		return "script";
+	}
+} );
+
+
+
+
+// Support: Safari 8 only
+// In Safari 8 documents created via document.implementation.createHTMLDocument
+// collapse sibling forms: the second one becomes a child of the first one.
+// Because of that, this security measure has to be disabled in Safari 8.
+// https://bugs.webkit.org/show_bug.cgi?id=137337
+support.createHTMLDocument = ( function() {
+	var body = document.implementation.createHTMLDocument( "" ).body;
+	body.innerHTML = "<form></form><form></form>";
+	return body.childNodes.length === 2;
+} )();
+
+
+// Argument "data" should be string of html
+// context (optional): If specified, the fragment will be created in this context,
+// defaults to document
+// keepScripts (optional): If true, will include scripts passed in the html string
+jQuery.parseHTML = function( data, context, keepScripts ) {
+	if ( typeof data !== "string" ) {
+		return [];
+	}
+	if ( typeof context === "boolean" ) {
+		keepScripts = context;
+		context = false;
+	}
+
+	var base, parsed, scripts;
+
+	if ( !context ) {
+
+		// Stop scripts or inline event handlers from being executed immediately
+		// by using document.implementation
+		if ( support.createHTMLDocument ) {
+			context = document.implementation.createHTMLDocument( "" );
+
+			// Set the base href for the created document
+			// so any parsed elements with URLs
+			// are based on the document's URL (gh-2965)
+			base = context.createElement( "base" );
+			base.href = document.location.href;
+			context.head.appendChild( base );
+		} else {
+			context = document;
+		}
+	}
+
+	parsed = rsingleTag.exec( data );
+	scripts = !keepScripts && [];
+
+	// Single tag
+	if ( parsed ) {
+		return [ context.createElement( parsed[ 1 ] ) ];
+	}
+
+	parsed = buildFragment( [ data ], context, scripts );
+
+	if ( scripts && scripts.length ) {
+		jQuery( scripts ).remove();
+	}
+
+	return jQuery.merge( [], parsed.childNodes );
+};
+
+
+/**
+ * Load a url into a page
+ */
+jQuery.fn.load = function( url, params, callback ) {
+	var selector, type, response,
+		self = this,
+		off = url.indexOf( " " );
+
+	if ( off > -1 ) {
+		selector = stripAndCollapse( url.slice( off ) );
+		url = url.slice( 0, off );
+	}
+
+	// If it's a function
+	if ( isFunction( params ) ) {
+
+		// We assume that it's the callback
+		callback = params;
+		params = undefined;
+
+	// Otherwise, build a param string
+	} else if ( params && typeof params === "object" ) {
+		type = "POST";
+	}
+
+	// If we have elements to modify, make the request
+	if ( self.length > 0 ) {
+		jQuery.ajax( {
+			url: url,
+
+			// If "type" variable is undefined, then "GET" method will be used.
+			// Make value of this field explicit since
+			// user can override it through ajaxSetup method
+			type: type || "GET",
+			dataType: "html",
+			data: params
+		} ).done( function( responseText ) {
+
+			// Save response for use in complete callback
+			response = arguments;
+
+			self.html( selector ?
+
+				// If a selector was specified, locate the right elements in a dummy div
+				// Exclude scripts to avoid IE 'Permission Denied' errors
+				jQuery( "<div>" ).append( jQuery.parseHTML( responseText ) ).find( selector ) :
+
+				// Otherwise use the full result
+				responseText );
+
+		// If the request succeeds, this function gets "data", "status", "jqXHR"
+		// but they are ignored because response was set above.
+		// If it fails, this function gets "jqXHR", "status", "error"
+		} ).always( callback && function( jqXHR, status ) {
+			self.each( function() {
+				callback.apply( this, response || [ jqXHR.responseText, status, jqXHR ] );
+			} );
+		} );
+	}
+
+	return this;
+};
+
+
+
+
+// Attach a bunch of functions for handling common AJAX events
+jQuery.each( [
+	"ajaxStart",
+	"ajaxStop",
+	"ajaxComplete",
+	"ajaxError",
+	"ajaxSuccess",
+	"ajaxSend"
+], function( i, type ) {
+	jQuery.fn[ type ] = function( fn ) {
+		return this.on( type, fn );
+	};
+} );
+
+
+
+
+jQuery.expr.pseudos.animated = function( elem ) {
+	return jQuery.grep( jQuery.timers, function( fn ) {
+		return elem === fn.elem;
+	} ).length;
+};
+
+
+
+
+jQuery.offset = {
+	setOffset: function( elem, options, i ) {
+		var curPosition, curLeft, curCSSTop, curTop, curOffset, curCSSLeft, calculatePosition,
+			position = jQuery.css( elem, "position" ),
+			curElem = jQuery( elem ),
+			props = {};
+
+		// Set position first, in-case top/left are set even on static elem
+		if ( position === "static" ) {
+			elem.style.position = "relative";
+		}
+
+		curOffset = curElem.offset();
+		curCSSTop = jQuery.css( elem, "top" );
+		curCSSLeft = jQuery.css( elem, "left" );
+		calculatePosition = ( position === "absolute" || position === "fixed" ) &&
+			( curCSSTop + curCSSLeft ).indexOf( "auto" ) > -1;
+
+		// Need to be able to calculate position if either
+		// top or left is auto and position is either absolute or fixed
+		if ( calculatePosition ) {
+			curPosition = curElem.position();
+			curTop = curPosition.top;
+			curLeft = curPosition.left;
+
+		} else {
+			curTop = parseFloat( curCSSTop ) || 0;
+			curLeft = parseFloat( curCSSLeft ) || 0;
+		}
+
+		if ( isFunction( options ) ) {
+
+			// Use jQuery.extend here to allow modification of coordinates argument (gh-1848)
+			options = options.call( elem, i, jQuery.extend( {}, curOffset ) );
+		}
+
+		if ( options.top != null ) {
+			props.top = ( options.top - curOffset.top ) + curTop;
+		}
+		if ( options.left != null ) {
+			props.left = ( options.left - curOffset.left ) + curLeft;
+		}
+
+		if ( "using" in options ) {
+			options.using.call( elem, props );
+
+		} else {
+			curElem.css( props );
+		}
+	}
+};
+
+jQuery.fn.extend( {
+
+	// offset() relates an element's border box to the document origin
+	offset: function( options ) {
+
+		// Preserve chaining for setter
+		if ( arguments.length ) {
+			return options === undefined ?
+				this :
+				this.each( function( i ) {
+					jQuery.offset.setOffset( this, options, i );
+				} );
+		}
+
+		var rect, win,
+			elem = this[ 0 ];
+
+		if ( !elem ) {
+			return;
+		}
+
+		// Return zeros for disconnected and hidden (display: none) elements (gh-2310)
+		// Support: IE <=11 only
+		// Running getBoundingClientRect on a
+		// disconnected node in IE throws an error
+		if ( !elem.getClientRects().length ) {
+			return { top: 0, left: 0 };
+		}
+
+		// Get document-relative position by adding viewport scroll to viewport-relative gBCR
+		rect = elem.getBoundingClientRect();
+		win = elem.ownerDocument.defaultView;
+		return {
+			top: rect.top + win.pageYOffset,
+			left: rect.left + win.pageXOffset
+		};
+	},
+
+	// position() relates an element's margin box to its offset parent's padding box
+	// This corresponds to the behavior of CSS absolute positioning
+	position: function() {
+		if ( !this[ 0 ] ) {
+			return;
+		}
+
+		var offsetParent, offset, doc,
+			elem = this[ 0 ],
+			parentOffset = { top: 0, left: 0 };
+
+		// position:fixed elements are offset from the viewport, which itself always has zero offset
+		if ( jQuery.css( elem, "position" ) === "fixed" ) {
+
+			// Assume position:fixed implies availability of getBoundingClientRect
+			offset = elem.getBoundingClientRect();
+
+		} else {
+			offset = this.offset();
+
+			// Account for the *real* offset parent, which can be the document or its root element
+			// when a statically positioned element is identified
+			doc = elem.ownerDocument;
+			offsetParent = elem.offsetParent || doc.documentElement;
+			while ( offsetParent &&
+				( offsetParent === doc.body || offsetParent === doc.documentElement ) &&
+				jQuery.css( offsetParent, "position" ) === "static" ) {
+
+				offsetParent = offsetParent.parentNode;
+			}
+			if ( offsetParent && offsetParent !== elem && offsetParent.nodeType === 1 ) {
+
+				// Incorporate borders into its offset, since they are outside its content origin
+				parentOffset = jQuery( offsetParent ).offset();
+				parentOffset.top += jQuery.css( offsetParent, "borderTopWidth", true );
+				parentOffset.left += jQuery.css( offsetParent, "borderLeftWidth", true );
+			}
+		}
+
+		// Subtract parent offsets and element margins
+		return {
+			top: offset.top - parentOffset.top - jQuery.css( elem, "marginTop", true ),
+			left: offset.left - parentOffset.left - jQuery.css( elem, "marginLeft", true )
+		};
+	},
+
+	// This method will return documentElement in the following cases:
+	// 1) For the element inside the iframe without offsetParent, this method will return
+	//    documentElement of the parent window
+	// 2) For the hidden or detached element
+	// 3) For body or html element, i.e. in case of the html node - it will return itself
+	//
+	// but those exceptions were never presented as a real life use-cases
+	// and might be considered as more preferable results.
+	//
+	// This logic, however, is not guaranteed and can change at any point in the future
+	offsetParent: function() {
+		return this.map( function() {
+			var offsetParent = this.offsetParent;
+
+			while ( offsetParent && jQuery.css( offsetParent, "position" ) === "static" ) {
+				offsetParent = offsetParent.offsetParent;
+			}
+
+			return offsetParent || documentElement;
+		} );
+	}
+} );
+
+// Create scrollLeft and scrollTop methods
+jQuery.each( { scrollLeft: "pageXOffset", scrollTop: "pageYOffset" }, function( method, prop ) {
+	var top = "pageYOffset" === prop;
+
+	jQuery.fn[ method ] = function( val ) {
+		return access( this, function( elem, method, val ) {
+
+			// Coalesce documents and windows
+			var win;
+			if ( isWindow( elem ) ) {
+				win = elem;
+			} else if ( elem.nodeType === 9 ) {
+				win = elem.defaultView;
+			}
+
+			if ( val === undefined ) {
+				return win ? win[ prop ] : elem[ method ];
+			}
+
+			if ( win ) {
+				win.scrollTo(
+					!top ? val : win.pageXOffset,
+					top ? val : win.pageYOffset
+				);
+
+			} else {
+				elem[ method ] = val;
+			}
+		}, method, val, arguments.length );
+	};
+} );
+
+// Support: Safari <=7 - 9.1, Chrome <=37 - 49
+// Add the top/left cssHooks using jQuery.fn.position
+// Webkit bug: https://bugs.webkit.org/show_bug.cgi?id=29084
+// Blink bug: https://bugs.chromium.org/p/chromium/issues/detail?id=589347
+// getComputedStyle returns percent when specified for top/left/bottom/right;
+// rather than make the css module depend on the offset module, just check for it here
+jQuery.each( [ "top", "left" ], function( i, prop ) {
+	jQuery.cssHooks[ prop ] = addGetHookIf( support.pixelPosition,
+		function( elem, computed ) {
+			if ( computed ) {
+				computed = curCSS( elem, prop );
+
+				// If curCSS returns percentage, fallback to offset
+				return rnumnonpx.test( computed ) ?
+					jQuery( elem ).position()[ prop ] + "px" :
+					computed;
+			}
+		}
+	);
+} );
+
+
+// Create innerHeight, innerWidth, height, width, outerHeight and outerWidth methods
+jQuery.each( { Height: "height", Width: "width" }, function( name, type ) {
+	jQuery.each( { padding: "inner" + name, content: type, "": "outer" + name },
+		function( defaultExtra, funcName ) {
+
+		// Margin is only for outerHeight, outerWidth
+		jQuery.fn[ funcName ] = function( margin, value ) {
+			var chainable = arguments.length && ( defaultExtra || typeof margin !== "boolean" ),
+				extra = defaultExtra || ( margin === true || value === true ? "margin" : "border" );
+
+			return access( this, function( elem, type, value ) {
+				var doc;
+
+				if ( isWindow( elem ) ) {
+
+					// $( window ).outerWidth/Height return w/h including scrollbars (gh-1729)
+					return funcName.indexOf( "outer" ) === 0 ?
+						elem[ "inner" + name ] :
+						elem.document.documentElement[ "client" + name ];
+				}
+
+				// Get document width or height
+				if ( elem.nodeType === 9 ) {
+					doc = elem.documentElement;
+
+					// Either scroll[Width/Height] or offset[Width/Height] or client[Width/Height],
+					// whichever is greatest
+					return Math.max(
+						elem.body[ "scroll" + name ], doc[ "scroll" + name ],
+						elem.body[ "offset" + name ], doc[ "offset" + name ],
+						doc[ "client" + name ]
+					);
+				}
+
+				return value === undefined ?
+
+					// Get width or height on the element, requesting but not forcing parseFloat
+					jQuery.css( elem, type, extra ) :
+
+					// Set width or height on the element
+					jQuery.style( elem, type, value, extra );
+			}, type, chainable ? margin : undefined, chainable );
+		};
+	} );
+} );
+
+
+jQuery.each( ( "blur focus focusin focusout resize scroll click dblclick " +
+	"mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave " +
+	"change select submit keydown keypress keyup contextmenu" ).split( " " ),
+	function( i, name ) {
+
+	// Handle event binding
+	jQuery.fn[ name ] = function( data, fn ) {
+		return arguments.length > 0 ?
+			this.on( name, null, data, fn ) :
+			this.trigger( name );
+	};
+} );
+
+jQuery.fn.extend( {
+	hover: function( fnOver, fnOut ) {
+		return this.mouseenter( fnOver ).mouseleave( fnOut || fnOver );
+	}
+} );
+
+
+
+
+jQuery.fn.extend( {
+
+	bind: function( types, data, fn ) {
+		return this.on( types, null, data, fn );
+	},
+	unbind: function( types, fn ) {
+		return this.off( types, null, fn );
+	},
+
+	delegate: function( selector, types, data, fn ) {
+		return this.on( types, selector, data, fn );
+	},
+	undelegate: function( selector, types, fn ) {
+
+		// ( namespace ) or ( selector, types [, fn] )
+		return arguments.length === 1 ?
+			this.off( selector, "**" ) :
+			this.off( types, selector || "**", fn );
+	}
+} );
+
+// Bind a function to a context, optionally partially applying any
+// arguments.
+// jQuery.proxy is deprecated to promote standards (specifically Function#bind)
+// However, it is not slated for removal any time soon
+jQuery.proxy = function( fn, context ) {
+	var tmp, args, proxy;
+
+	if ( typeof context === "string" ) {
+		tmp = fn[ context ];
+		context = fn;
+		fn = tmp;
+	}
+
+	// Quick check to determine if target is callable, in the spec
+	// this throws a TypeError, but we will just return undefined.
+	if ( !isFunction( fn ) ) {
+		return undefined;
+	}
+
+	// Simulated bind
+	args = slice.call( arguments, 2 );
+	proxy = function() {
+		return fn.apply( context || this, args.concat( slice.call( arguments ) ) );
+	};
+
+	// Set the guid of unique handler to the same of original handler, so it can be removed
+	proxy.guid = fn.guid = fn.guid || jQuery.guid++;
+
+	return proxy;
+};
+
+jQuery.holdReady = function( hold ) {
+	if ( hold ) {
+		jQuery.readyWait++;
+	} else {
+		jQuery.ready( true );
+	}
+};
+jQuery.isArray = Array.isArray;
+jQuery.parseJSON = JSON.parse;
+jQuery.nodeName = nodeName;
+jQuery.isFunction = isFunction;
+jQuery.isWindow = isWindow;
+jQuery.camelCase = camelCase;
+jQuery.type = toType;
+
+jQuery.now = Date.now;
+
+jQuery.isNumeric = function( obj ) {
+
+	// As of jQuery 3.0, isNumeric is limited to
+	// strings and numbers (primitives or objects)
+	// that can be coerced to finite numbers (gh-2662)
+	var type = jQuery.type( obj );
+	return ( type === "number" || type === "string" ) &&
+
+		// parseFloat NaNs numeric-cast false positives ("")
+		// ...but misinterprets leading-number strings, particularly hex literals ("0x...")
+		// subtraction forces infinities to NaN
+		!isNaN( obj - parseFloat( obj ) );
+};
+
+
+
+
+// Register as a named AMD module, since jQuery can be concatenated with other
+// files that may use define, but not via a proper concatenation script that
+// understands anonymous AMD modules. A named AMD is safest and most robust
+// way to register. Lowercase jquery is used because AMD module names are
+// derived from file names, and jQuery is normally delivered in a lowercase
+// file name. Do this after creating the global so that if an AMD module wants
+// to call noConflict to hide this version of jQuery, it will work.
+
+// Note that for maximum portability, libraries that are not jQuery should
+// declare themselves as anonymous modules, and avoid setting a global if an
+// AMD loader is present. jQuery is a special case. For more information, see
+// https://github.com/jrburke/requirejs/wiki/Updating-existing-libraries#wiki-anon
+
+if ( true ) {
+	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function() {
+		return jQuery;
+	}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+}
+
+
+
+
+var
+
+	// Map over jQuery in case of overwrite
+	_jQuery = window.jQuery,
+
+	// Map over the $ in case of overwrite
+	_$ = window.$;
+
+jQuery.noConflict = function( deep ) {
+	if ( window.$ === jQuery ) {
+		window.$ = _$;
+	}
+
+	if ( deep && window.jQuery === jQuery ) {
+		window.jQuery = _jQuery;
+	}
+
+	return jQuery;
+};
+
+// Expose jQuery and $ identifiers, even in AMD
+// (#7102#comment:10, https://github.com/jquery/jquery/pull/557)
+// and CommonJS for browser emulators (#13566)
+if ( !noGlobal ) {
+	window.jQuery = window.$ = jQuery;
+}
+
+
+
+
+return jQuery;
+} );
+
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -519,7 +10890,7 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -709,7 +11080,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -720,7 +11091,7 @@ var settle = __webpack_require__(22);
 var buildURL = __webpack_require__(24);
 var parseHeaders = __webpack_require__(25);
 var isURLSameOrigin = __webpack_require__(26);
-var createError = __webpack_require__(6);
+var createError = __webpack_require__(7);
 var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(27);
 
 module.exports = function xhrAdapter(config) {
@@ -896,7 +11267,7 @@ module.exports = function xhrAdapter(config) {
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -921,7 +11292,7 @@ module.exports = function createError(message, config, code, request, response) 
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -933,7 +11304,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -959,21 +11330,21 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
 module.exports = {"countries":{"Afghanistan":["Kabul","Achin","´Ali Khayl","Qandahar","Mazar-e Sharif","Balkh","Anar Darreh","Asha","Baghrami","Asmar","Jalalabad","Chahar Burjak","Baghran","Qal´eh-ye Panjeh","Aybak","Charikar","Herat","Mehtar Lam","Baglan","Bamiyan","Kuhestan","Baraki Barak","Chiras","Tir Pol","Nuristan","Karukh","Zendejan","Andarab","Mahmud-e Raqi","Qarabagh","Tagaw Bay","Bala Morghab","Azraw","Tawraghudi","Batsawul","Qarqin","Dasht-e Archa","Eshkamesh","Faizabad","Qal´eh-ye Naw","Qunduz","Ghardez","Chaghcharan","Khanabad","Maymanah","Pol-e Khumri","Kholm","Gazni","Shibarghan","Paghman","Farah","Andkhvoy","Lashkar Gah","Maydanshahr","Taloqan","Qalat-e Ghilzay","Zaranj","Hazart Imam","Ghurian","Qal´eh-ye Zal","Pol-e Alam","Sarawbi","Qil Qal´eh","Zarghun Shahr","Chah Ab","Nader Shah Kawt","Khawst","Sabzevar","Chakhansur","Qarchi Gak","Aqchah","Orgun","Tarin Kawt","Khwajeh Ghar","Emam Saheb","Khash","Mirabad","Rudbar","Sang-e Charak","Uruzgan","Marghi","Taywarah","Tokzar","Zareh Sharan","Taghab","Jabal-os-Saraj","Khandud","Sar-e Pul","Rostaq","Darwishan","Shahrak","Kushk","Gardan Diwal","Deh Shu","Dawlatabad","Eshkashem","Sangin","Shulgara","Awbeh","Lar Gerd","Eslam Qal´eh","Gereshk","Panjab","Yangi Qal´eh","Mir Bachchekut","Farkhar","Nahrin","Hugyani","Gaz Ab","Deh Rawud","Tash Gozar","Dahaneh-ye Ghawri","Darzi Ab","Jurm"],"Åland Islands":[],"Albania":["Tiranë","Bajram Curri","Elbasan","Durrës","Vlorë","Shkodër","Korçë","Fier","Sarandë","Bilisht","Rubik","Klos","Berat","Krujë","Tepelenë","Ballsh","Pukë","Vorë","Leskovik","Lushnjë","Kavajë","Gjirokastër","Kukës","Lezhë","Burrel","Çorovodë","Shijak","Librazhd","Gramsh","Përmet","Memaliaj","Rrogozhinë","Urë Vajgurore","Himarë","Delvinë","Koplik","Maliq","Përrenjas","Krumë","Libohovë","Orikum","Fushë-Arrëz","Shëngjin","Milot","Konispol","Këlcyrë","Krastë","Kërrabë","Kurbnesh","Fierzë","Ulzë","Pogradec","Laç","Nuevo Ideal","Kuçovë","Dibrë","Cërrik","Poliçan","Bulqizë","Fushë-Krujë","Kamzë","Mirditë","Mamurras","Ersekë","Peqin","Selenicë","Roskovec"],"Algeria":["al-Jaza´ir","'Ayn Arnat","Wahran","Satif","Annabah","Biskrah","´Abadlah","Batnah","Tizi Wazu","Jijili","Tiyarat","Mustaghanam","Tilimsan","Ghardayah","Milah","Akbu","´Aris","Blidah","Bijayah","Sidi ban-al-´Abbas","Tibissah","Sakikdah","Bab Azwar","Bir Murad Rais","Ziralda","at-Tarif","Ghalizan","Buirah","Aghrib","Tighzirt","´Ayn Biya","Sayda'","al-Hajirah","Didush Murad","al-Aghwat","´Ayn Bayda","al-Khurub","Firindah","Amjaz Adshish","Hassi Mas´ud","Ramadan Jamal","Hassi al-Raml","Ghazawat","al-Hajar","Bughni","Farjiwah","Mazunah","Dar-al-Bayda","Qustantinah","Sidi Ali","Jilfah","al-Buni","Midyah","Warqla","Khanshalah","´Ayn Samara","al-Wad","Fil Fila","Masilah","´Ayn Tadalas","Mars-al-Kabir","al-Miliyah","Bani Marad","al-Arba´a","Adrar","Mazaghran","Tibazah","Bufarik","Aflu","Bughar","Hammam Righa","´Ayn Malilah","Tamanghasat","Birkhadam","Arzu","Lakhdariyah","Tisamsilt","Azfun","Qasr Shillalah","Dariyan","al-Ansur","Winzah","Shiragha","Sharshar","Hajut","Ilizi","´Ayn Daflah","´Ayn Binyan","Bani Saf","Matlili","Milyanah","Wadi Zinati","al-Qal´ah","Tajananah","Maklah","Sibdu","Bumardas","al-Mansurah","Bu Nura","Hassi Bu Nif","al-Amriyah","ar-Ruwibah","Sabra","Hammam Dhala´a","Talagh","Hamman Awlad ´Ali","Jidiwiyah","Karkira","Sawlah","´Ayn Dhahab","Naghaus","Qamar","´Ayn-al-Hajal","Madawrush","Makuda","Tinyah","Miskyanah","Shiffa","´Ayn Kirshah","´Ayn-al-Milh","Amizur","Fariha","Maghra","al-Abyad Sidi Shaykh","Wadhiyah","Maqran","Issar","Awlad Salam","Ban Mahdi","Bani Tamu","Birin","Sidi Amran","Thizi Natlata","Wadi Sali","´Ayn Abid","Hassi Halifa","Shamini","Shillalah","Sidi ash-Shami","Awlad Haddaj","Barbasha","Tamalus","Tirmirtin","Tinduf","Sa´abat","´Ayn-al-Khabira","al-Ab´adiyah","Tazmalt","Bu Hanafis","Bu Qadir","Zaribat-al-Wad","Birrahhal","Bani Amran","Bujima","Dar Shiyukh","Ma´adid","Zahana","Tadma´it","Bani Mastar","Ruwashad","´Ayn Qazzan","Salah Bay","Sidi Marwan","Targhah","Wadi al-Allagh","al-Malah","Tizi Ghanif","Wanugha","al-Arba´a Tash","Dabilah","ash-Shalif","Farrawn","Rubbah","´Ayn Maran","Bashshar","Nasiriyah","Burj Bu Arririj","Sadduk","Tamasin","al-Ashir","Amir ´Abd-al-Qadar","Suq Ahras","Ammi Mussa","Bu Khanifiyah","Sidi Ukaskah","Qalmah","Ra's-al-´Ayun","al-´Ulmah","Burj-al-Kiffan","Abu al-Hassan","Bu Sa´adah","Bani Sikran","Baraki Barak","Sidi Bubkar","´Ayn Wissarah","Sidi Muhammad Ban ´Ali","Umm-al-Bawaghi","´Ayn-al-Ibil","Awlad Mussa","Muaskar"],"American Samoa":["Afono","Pago Pago","Tafuna","Leone","Fagasa","Alao","Nu'uuli","Ili'ili","Pava'ia'i","Faleniu","Aoloau","Taputimu","Vatia","Leloaloa","Amouli","Aoa","Faga'itua","Aunu'u","Tula","Aua","Fagatogo","Mapusagafou","Vaitogi","Malaeimi","Vailoatai","Faga'alu","Lauli'i","Futiga","Utulei","Malaeloa-Ituau","Malaeloa-Aitulagi","Mesepa","Alofau","Atu'u","Ofu"],"Andorra":["Andorra la Vella","Les Escaldes","Canillo","Encamp","Sant Julià de Lòria","La Massana","Ordino"],"Angola":["Luanda","Benguela","Bié","Cabinda","Caxito","Caála","Huambo","Namibe","Lubango","Uíge","Lucapa","Waku-Kungo","Sumbe","N'dalatando","Longonjo","Catabola","Camacupa","Lumeje","Caconda","Lobito","Malanje","M'banza-Kongo","Saurimo","Chissamba","Soyo","Menongue","Caluquembe","Catumbela","Luena","Luau","Catchiungo","Leúa","N'zeto","Camabatela","Cazaje","Ondjiva"],"Anguilla":["The Valley","Sandy Ground"],"Antarctica":["South Pole"],"Antigua and Barbuda":["Saint John's","All Saints","English Harbour","Bolands","Willikies","Old Road","Freetown","Cedar Grove","Carlisle","Falmouth","Liberta","Parham","Jennings","Codrington","Swetes"],"Argentina":["Buenos Aires","Córdoba","Santa Fé","Aguacaliente","Mendoza","Mar del Plata","La Plata","Bahía Blanca","Tucumán","El Rosario","San Carlos de Bariloche","Ushuaia","Comodoro Rivadavia","Neuquén","Corrientes","Río Gallegos","Paraná","Jujuy","Santa Rosa","Campana","San Juan","Resistencia","Posadas","Catamarca","Tandil","Río Cuarto","Trelew","Necochea","Rafaela","General Roca","Formosa","Zárate","Viedma","Puerto Madryn","Concepción del Uruguay","Azul","Venado Tuerto","Chacabuco","Pergamino","Tres Arroyos","Alta Gracia","Rawson","Mercedes","Villa María","Chivilcoy","Victoria","San Ramón de la Nueva Orán","Nueve de Julio","Santiago del Estero","Concórdia","La Rioja","San Rafael","Gualeguaychú","Luján","Villa Carlos Paz","General Pico","Chiautzingo","Rozavlea","Goya","Punta Alta","Tartagal","Río Tercero","Constitución","Bell Ville","Gualeguay","Veinticinco de Mayo","Azcatepec","Reconquista","Olavarría","San Vicente","Junín","Rivadavia","San Pedro","Eldorado","Cutral Có","Oberá","Libertador General San Martín","Lincoln","Ingeniero Maschwitz","Salta","Rosario","Huamantla","Presidencia Roque Sáenz Peña","Dolores"],"Armenia":["Yerevan","Abovyan","Hrazdan","Ararat","Gyumri","Vanadzor","Armavir","Stepanavan","Ijevan","Sisian","Masis","Jermuk","Tsaghkadzor","Arzni","Dar´a","Kapan","Gavar","Artashat","Charentsavan","Sevan","Alaverdi","Artik","Goris","Dilijan","Vardenis","Kajaran","Spitak","Yegheknadzor","Ashtarak","Varanda","Tashir","Angeghakot","Nubarashen","Talin","Meghri","Akhtala"],"Aruba":["Oranjestad","Buenos Aires"],"Australia":["Sydney","Melbourne","Brisbane","Perth","Adelaide","Gold Coast","Canberra","Newcastle","Hobart","Sunshine Coast","Geelong","Launceston","Wollongong","Toowoomba","Cairns","Townsville","Albury-Wodonga","Ballarat","Hervey Bay","Rockhampton","Byron Bay","Bendigo","Coffs Harbour","Bundaberg","Mackay","Caboolture","Mandurah","Wagga Wagga","Maroochydore-Mooloolaba","Bunbury","Port Macquarie","Cranbourne","Somerville","Bathurst","Shepparton-Mooroopna","Katoomba-Wentworth Falls","Lismore","Melton","Armidale","Victoria Point","Caloundra","Richmond-Windsor","Dubbo","Queanbeyan","Alice Springs","Morayfield","Pakenham","Burnie-Devonport","Mildura","Albany","Tamworth","Gympie","Murwillumbah","Sunbury","Coolum Beach","Wangaratta","Mount Barker","Buderim","Gladstone","Geraldton","Bowral","Burpengary","Warrnambool","Deception Bay","Healesville","Ballina","Sale","Bairnsdale","Batemans Bay","Taree","Grafton","Nambour","Cessnock","Tewantin-Noosa","Traralgon","Griffith","Warragul","Kingaroy","Kwinana","Warwick","Australind","Mount Gambier","Cairns Northern Beaches","Gawler","Craigieburn","Casino","Hastings","Kalgoorlie-Boulder","Nerang","Morwell","Castlemaine","Shoalhaven","Forster-Tuncurry","Singleton","Kiama","Lithgow","Broome","Bacchus Marsh","Dalby","Lawson-Hazelbrook","Emerald","Benalla","Nambucca Heads","Gatton","Goulburn","Helensvale","Horsham","Yeppoon","Nelson Bay","Victor Harbor","Young","Torquay","Mount Isa","Port Hedland","Busselton","Ayr","Cooma","Ararat","Northam","Roma","Howard Springs","Moe-Yallourn","Echuca-Moama","Raymond Terrace","Muswellbrook","Kempsey","Mudgee","Crib Point","Atherton","Portland","Ulladulla","Lakes Entrance","New Norfolk","Whyalla","Sawtell","Karratha","Katherine","Innisfail","Hamilton","Cowra","Wangi-Rathmines","Biloela","Humpty Doo-MacMinns Lagoon","Kurri Kurri","Kingston-Blackmans Bay","Bongaree","Colac","Gunnedah","Glenn Innes","Wonthaggi","Yarrawonga-Mulwala","Crafers-Bridgewater","Port Augusta","Murray Bridge","Ocean Grove-Barwon Heads","Swan Hill","Bavigne","Charters Towers","Espérance","Lara","Mareeba","Moranbah","Clifton Springs","Moss Vale","Tumut","Medowie","Wellington","Yulara","Avarua","Kawana Waters","Port Pirie","Parkes","Inverell","Moree","Ulverstone","Forbes","Collie","Bridgewater-Gagebrook","Leeton","Blackwater","Mittagong","Kununurra","Tennant Creek","Port Keats","Coonawarra","Deniliquin","Carnarvon","Narrabri","Stawell","Cootamundra","Camden Haven","Corowa-Wahgunyah","Leopold","Lemon Tree Passage","Ingham","Maningrida","Alyangula","Galiwinku","Milingimbi","Renmark"],"Austria":["Vienna","Innsbruck","Graz","Linz","Salzburg","Absam","Klagenfurt","Wiener Neustadt","Villach","Bregenz","Sankt Pölten","Feldkirch","Klosterneuburg","Baden","Bludenz","Zell am See","Wels","Dornbirn","Mödling","Kufstein","Tulln","Wiener Neudorf","Lienz","Velden am Wörthersee","Zwettl","Eisenstadt","Bischofshofen","Laa","Bad Gastein","Fürstenfeld","Nenzing","Hainburg","Leoben","Wolfsberg","Krems","Stockerau","Hollabrunn","Götzis","Voitsberg","Altmünster","Berndorf","Wolfurt","Zeltweg","Freistadt","Mattersburg","Pressbaum","Pinkafeld","Feldbach","Fischamend","Saalfelden","Ansfelden","Bad Ischl","Feldkirchen","Hohenems","Perchtoldsdorf","Bruck an der Mur","Sankt Veit","Ried","Hall","Völkermarkt","Rankweil","Neunkirchen","Korneuburg","Wals-Siezenheim","Enns","Mistelbach","Sankt Johann im Pongau","Weiz","Imst","Ebreichsdorf","Rum","Perg","Liezen","Arnoldstein","Leibnitz","Jenbach","Völs","Bad Hofgastein","Haelen","Hartberg","Eisenerz","Gloggnitz","Tamsweg","Mittersill","Neusiedl am See","Abtenau","Melk","Purgstall","Bad Aussee","Feldkirchen an der Donau","Gleisdorf","Ebbs","Bergheim","Bad Sankt Leonhard","Bad Hall","Bruck an der Großglocknerstraße","Sankt Jakob","Fügen","Großpetersdorf","Steyr","Traun","Lustenau","Hallein","Braunau","Traiskirchen","Spittal","Ternitz","Telfs","Gmunden","Schwaz","Knittelfeld","Vöcklabruck","Waidhofen","Hard","Marchtrenk","Bad Vöslau","Wörgl","Sankt Andrä","Köflach","Judenburg","Mürzzuschlag","Seekirchen","Laakirchen","Sankt Valentin","Lauterach","Kitzbühel","Gerasdorf","Guntramsdorf","Sierning","Fohnsdorf","Ebensee","Groß-Enzersdorf","Trofaiach","Gänserndorf","Finkenstein","Maria Enzersdorf","Sankt Johann in Tirol","Purkersdorf","Deutschlandsberg","Mariazell","Engerwitzdorf","Herzogenburg","Bad Goisern","Ferlach","Ebenthal","Landeck","Langenzersdorf","Neulengbach","Vorchdorf","Wattens","Hermagor","Bruck an der Leitha","Höchst","Strasshof","Deutsch-Wagram","Langenlois","Sieghartskirchen","Straßwalchen","Garsten","Kottingbrunn","Wilhelmsburg","Grödig","Kuchl","Oberwart","Sankt Andrä-Wördern","Gratkorn","Radentheim","Kremsmünster","Frohnleiten","Zirl","Hörbranz","Wolkersdorf","Frastanz","Paternion","Asten","Gallneukirchen","Pasching","Seeboden","Eberndorf","Pottendorf","Gmünd","Micheldorf","Altach","Kindberg","Reutte","Schrems","Timelkam","Poysdorf","Traismauer","Zistersdorf","Oberndorf","Sankt Florian","Ybbs","Himberg","Regau","Friesach","Rottenmann","Hopfgarten","Hörsching","Axams"],"Azerbaijan":["Baki","Agcabädi","Sumqayit","Balaxani","Bas Göynük","Bidzhov","Cäbrayil","Gäncä","Bakixanov","Säki","Yevlax","Mastaga","Buzovna","Quba","Siyäzän","Däväçi","Ucar","Saatli","Suraxani","Laçin","Xocavänd","Böyük Dähnä","Sigirli","Naftalan","Kälbäcär","Safaraliyev","Slavjanka","Varanda","Zängilän","Ivanovka","Danaçi","Juzhno-Sahalinsk","Puta","Qazanbulaq","Kizilgacili","Zirya","Goranboy","Särur","Oguz","Dälimämmädli","Istisu","Mingäçevir","Äli Bayramli","Naxçivan","Xankändi","Qarasuxur","Länkäran","Räsulzadä","Biläcäri","Hövsan","Göyçay","Bärdä","Salyan","Xaçmaz","Xirdalan","Agdam","Sämkir","Cälilabad","Imisli","Qarasu","Samaxi","Lökbatan","Qazimämmäd","Bina","Agdas","Beyläqan","Qazax","Biläsuvar","Sabirabad","Sabunçu","Zaqatala","Daskäsän","Xanlar","Füzuli","Kürdämir","Susa","Masalli","Sanqaçal","Agsu","Neftçala","Qusar","Tovuz","Qäbälä","Qaracämirli","Artyom","Astara","Tärtär","Amircan","Qax","Ismayilli","Xudat","Göytäpä","Agstafa","Haci Zeynalabdin","Kizilavar","Arçivan","Ordubad","Älät","Katex","Vladikavkaz","Asagi Ayipli","Culfa","Qobustan","Kovlar","Port-Iliç","Sädäräk","Zägam","Çardaxli","Dälilär","Mäxdili","Zärdab","Agdärä","Das Salaxli","Tapkarakoyunlu","Balakän","Kubalybalaoglan","Bilqäx","Çarxi","Märäzä","Gädäbäy"],"Bahamas":["Nassau","Freeport","Albert Town","Marsh Harbour","Andros Town","George Town","Rock Sound","Pirates Well","Freetown","High Rock","Clarence Town","Dunmore Town","Great Harbour","Nicholls Town","Sweeting Cay","Cockburn Town","Colonel Hill","Coopers Town","Arthur's Town","Alice Town","Matthew Town","Snug Corner","Duncan Town","Port Nelson"],"Bahrain":["al-Manamah","al-Muharraq","´Îsa","ar-Rifa´a","Jidd Hafs","Sitrah","Hidd"],"Bangladesh":["Dhaka","Chattagam","Abhaynagar","Silhat","Khulna","Gazipur","Rajshahi","Narayanganj","Rangpur","Maimansingh","Chuadanga","Feni","Raipur","Barisal","Tungi","Jessor","Brahman Bariya","Dinajpur","Kushtiya","Bagar Hat","Narsingdi","Pabna","Nawabganj","Tangayal","Faridpur","Kishorganj","Jaipur Hat","Maulvi Bazar","Bera","Bheramara","Dhamar","Bogora","Chandpur","Begamganj","Noakhali","Satkhira","Thakurgaon","Lakshmipur","Jhalakati","Meherpur","Gopalganj","Nalitabari","Mirzapur","Bandarban","Dhamrai","Komilla","Jamalpur","Koks Bazar","Ishurdi","Kaunia","Nator","Sherpur","Bhola","Jhanaydah","Habiganj","Laksham","Sunamganj","Rajbari","Rangamati","Pirojpur","Nageshwari","Naral","Adamighi","Parbatipur","Kaliganj","Sri Mangal","Nilphamari","Kotchandpur","Barguna","Bajitpur","Chhatak","Bhandaria","Bochanganj","Kutubdia","Naugaon","Sirajganj","Sa´idpur","Gaybanda","Munshiganj","Bhairab Bazar","Shahjadpur","Kurigram","Rupganj","Ramgati","Boalkhali","Alamdanga","Sarishabari","Mungla","Madaripur","Manikganj","Fulbaria","Patuakhali","Gopalpur","Kaptai","Netrakona","Lalmanir Hat","Damurhuda","Sarail","Breaza","Sandip","Satkaniya","Ramganj","Palang","Gurudaspur","Chilmari","Nesarabad","Patiya","Tungi Para","Hajiganj","Char Fasson","Gomastapur","Panchagarh","Fatikchhari","Ramu","Burhanuddin","Shibganj","Roypura","Trishal","Gaurnadi","Bhanga","Jhikargachha","Dohar","Lalmohan","Mehendiganj","Nalchiti","Teknaf","Khagrachari","Kalia","Phultala","Pangsha","Gafargaon","Shailkupa","Rangunia","Sakhipur","Sarankhola","Fulbari","Senbagh","Fakirhat","Chhagalnaiya","Badarganj","Baniachang","Ulipur","Char Bhadrasan","Pirganj","Bhaluka","Morrelganj","Nabinagar","Ramgarh","Mathbaria","Keshabpur","Lohagara","Itna","Ishwarganj","Raozan","Muktagachha","Manikchhari"],"Barbados":["Bridgetown","Bathsheba","Oistins","Speightstown","Holetown","Crab Hill","Greenland","Hillaby","Crane","Bulkeley","Blackmans"],"Belarus":["Minsk","Ashmjany","Homjel'","Vicebsk","Hrodna","Hancavichy","Orsha","Viljejka","Pruzhany","Byhau","Dobrush","Haradok","Drahichyn","Chausy","Chèrven'","Talachyn","Kleck","Mjory","Mahiljow","Mazyr","Lida","Polack","Svetlahorsk","Dzerzhyns'k","Marjina Horka","Luninjec","Pastavy","Ljepjel'","Klimavichy","Hlybokaje","Ivacevichy","Hojniki","Masty","Zhytkavichy","Shchuchyn","Kascjukovka","Shklov","Njasvizh","Novalukoml'","Ivanava","Smaljavichy","Stovbcy","Baran'","Kascjukovichy","Bjarèzina","Pjetrykav","Mstislav","Narovlja","Chashniki","Ljuban'","Staryja Darohi","Braslav","Zhabinka","Skidel'","Bjeloozersk","Ljahavichy","Valozhyn","Stolin","Zaslavje","Vjetka","Dubrovna","Chechersk","Malaryta","Jel'sk","Kapyl'","Buda Kosheljovo","Senno","Cherikov","Berjozovka","Mikashevichy","Kamjenec","Slaeuharad","David-Haradok","Verhnjadzvimsk","Dokshicy","Vasilevichy","Vysokoje","Kosava","Dishna","Brèst","Babrujsk","Baranavichy","Barisaw","Pinsk","Salihorsk","Navapolack","Maladzechna","Rèchyca","Zhlobin","Sluck","Zhodzina","Rahachow","Slonim","Kobryn","Vawkavysk","Kalinkavichy","Smarhon'","Asipovichy","Horki","Krychaw","Bjaroza","Navahrudak"],"Belgium":["Brussels","Antwerpen","Gent","Leuven","Aalst","Genk","Mechelen","Liège","Brugge","Mons","Kortrijk","Oostende","Sint-Niklaas","Namur","Turnhout","Charleroi","Ottignies-Louvain-la-Neuve","Tervuren","Sint-Truiden","Waterloo","Roeselare","Beringen","Asse","Arlon","Diepenbeek","Dendermonde","Grimbergen","Tongeren","Kontich","Tournai","Brecht","Overijse","Diest","Huy","Leopoldsburg","La Louvière","Dilbeek","Geel","Heusden-Zolder","Izegem","Lanaken","Lubbeek","Vilvoorde","Halle","Wavre","Tienen","Bilzen","Aarschot","Rixensart","Lochristi","Erpe-Mere","Meise","Zwijndrecht","Kortenberg","Lede","Lummen","Arendonk","Waregem","Deinze","Avelgem","Wetteren","Willebroek","Zele","Zoersel","Schilde","Zonhoven","Essen","Stekene","Neerpelt","Diksmuide","Moerbeke","Bredene","Aartselaar","Büllingen","Lasne","Jodoigne","Seraing","Enghien","Hechtel-Eksel","Heist-op-den-Berg","Maasmechelen","Ieper","Ninove","Knokke-Heist","Steenokkerzeel","Nieuwpoort","Lier","Chaumont-Gistoux","Binche","Mol","Geraardsbergen","Lommel","Sint-Pieters-Leeuw","Houthalen-Helchteren","Zaventem","Ardooie","Temse","Huldenberg","Hamme","Kapelle-op-den-Bos","Maldegem","Edegem","Dessel","Herenthout","Chaudfontaine","Koekelare","Koksijde","Kortessem","Lint","Braine-le-Comte","Poperinge","Eeklo","Torhout","Aalter","Antoing","Dilsen-Stokkem","Sint-Genesius-Rode","Wuustwezel","Kalmthout","Heers","Péruwelz","Lierde","Beerse","Puurs","Riemst","Peer","Lille","Walhain","Kruibeke","Rotselaar","Limbourg","Ternat","Hamont-Achel","Wezembeek-Oppem","Waremme","Wingene","Aubel","Keerbergen","Boechout","Brugelette","Herk-de-Stad","Gistel","Brasschaat","Lokeren","Profondeville","Melle","Borsbeek","Ath","Herentals","Opglabbeek","Mortsel","Zottegem","Nivelles","Villers-la-Ville","Zwevegem","Holsbeek","Fleurus","Westerlo","Grace-Hollogne","Lennik","Merelbeke","Halen","Oostkamp","Gembloux","Beauraing","Juprelle","Nijlen","La Bruyère","Merksplas","Boussu","Yvoir","Bornem","Silly","Jalhay","Gingelom","Herent","Quaregnon","Trooz","Zwalm","Morlanwelz","Sint-Amands","Kortenaken","Kasterlee","Oostrozebeke","Vorselaar","Eupen","Ranst","Floreffe","La Hulpe","Lessines","Wachtebeke","Sint-Gillis-Waas","Wellen","Zutendaal","Haaltert","Stavelot","Fontaine-l'Evêque","Middelkerke","Dour","Herne"],"Belize":["Belize","Belmopan","San Ignacio","Orange Walk","Benque Viejo","Punta Gorda","Corozal","San Pedro","Dangriga"],"Benin":["Cotonou","Abomey","Porto Novo","Ouidah","Nikki","Parakou","Djougou","Natitingou","Lokossa","Kouandé","Savalou","Savé","Malanville","Dogbo","Allada","Kétou","Batia","Zagnanado","Athiémé","Tanguiété","Boukombé","Bohicon","Kandi","Cové","Sakété","Pobé","Comé","Aplahoué","Dassa","Bembéréké","Tchaourou","Grand Popo"],"Bermuda":["Hamilton","Sfantu Gheorghe","Southampton"],"Bhutan":["Chhukha","Timphu","Phuntsholing","Ha","Punakha","Tongsa","Samdrup Jongkhar","Wangdiphodrang","Damphu","Gasa","Samchi","Geylegphug","Rinpung","Tashigang","Taga Dzong","Lhuntshi","Jakar","Pemagatsel","Mongar","Shemgang"],"Bolivia, Plurinational State of":["La Paz","Santa Cruz","Cochabamba","Oruro","A Guarda","Potosí","Montero","Trinidad","Riberalta","Cobija","San Ignacio","Villamontes","Puerto Suárez","Santa Fe","Santiago de Huari","Abapó","El Alto","Sucre","Tarija","Yacuíba","Guayaramerín","Llallagua","Villazón","Camiri","Bermejo","Tupiza","Warnes","San Borja","Huanuni","Cotoca","Yapacaní","Punata","Mineros","Santa Ana","Ascensión","Caranavi","El Torno","Portachuelo","Uyuni","El Carmen","Roboré","Patacamaya","Rurrenabaque","Puerto Quijarro","Chiapa","Valle Grande","Challapata","Achacachi","Cliza","Aiquile","Monteagudo","Pailón","Kino","San Julián","Los Reyes","Tarata","Uncía","Concepción","San Javier","San Matías","La Bélgica","Apaseo el Grande","Capinota","Camargo","San Miguel","Caracollo","Betanzos","Copacabana","Okinawa","Santa Rosa","Comarapa","Colquiri","Benito Juárez","Chimoré","Guanay","Mairana","Buena Vista","Colomi","Agustín Saavedra","Arani","San Joaquín","Jorochito","San Juan","Sipe Sipe","Lahuachaca","Limoncito","Samaipata","Urubichá","Boyuibe","Villa Serano","Chiautzingo","San Pedro","Padilla","Charagua","Chulumani","Irpa Irpa","Los Negros","Mizque","Tipuani","Emilio Carranza","Eucaliptus","Mapiri","Entre Ríos","Quime","Tarabuco","Puerto Pailas","Machacamarca","Coroico","Coripata","La Angostura","Santa Rita","Sorata","San Rafael","Atocha","Poopó","Colquechaca","Viloco","Totoral"],"Bonaire, Sint Eustatius and Saba":[],"Bosnia and Herzegovina":["Sarajevo","Banja Luka","Zenica","Tuzla","Mostar","Bosanska Dubica","Bihac","Brchko","Doboj","Bijeljina","Cazin","Velika Kladusha","Zavidovici","Bosanski Novi","Kladanj","Janja","Pecigrad","Prijedor","Travnik","Gorazhde","Bosanska Krupa","Focha","Gradachac","Bosanska Gradishka","Lukavac","Kakanj","Chapljina","Prnjavor","Teslic","Modricha","Bosansko Grahovo","Poshusje","Busovacha","Gornja Koprivna","Svodna","Priboj","Drinovci","Ilici","Pjanici","Olovo","Srebrenica","Stanari","Obudovac","Bugojno","Trebinje","Visoko","Konjic","Grachanica","Široki Brijeg","Sanski Most","Mrkonjic Grad","Zhivinice","Bileca","Livno","Derventa","Odzhak","Bosanski Brod","Novi Travnik","Shipovo","Jajce","Stijena","Prozor","Zvornik","Ljubushki","Todorovo","Vogoshca","Lishtica","Potoci","Donji Vakuf","Zhepche","Sokolac","Kiseljak","Mionica","Vitez","Kljuch","Milici","Fojnica","Banovici","Maglaj","Stolac","Trn","Hadzhici","Pale","Tomislavgrad","Visegrád","Teshanj","Varesh","Nevesinje","Srbac","Buzhim","Divichani","Hajdarevici","Knezhevo","Djurdjevik","Gornji Vakuf","Chelinac","Vrnograch","Ilijash","Srebrenik","Trzhachka Rashtela","Otoka","Podzvizd","Kotor Varosh","Laktashi","Tojshici","Varoshka Rijeka","Gostovici","Gromiljak","Kovachi","Jablanica","Omarska","Sanica","Rogatica","Shekovici","Mala Kladusha","Kalenderovci","Crnici","Zheljezno Polje","Bratunac","Podhum","Chitluk","Teshanjka","Blatnica","Donja Mahala","Donja Orahovica","Vlasenica","Ostrozhac","Rodoch","Jelah","Turbe","Coralici","Velagici","Bosanska Kostajnica","Mahale","Pazaric","Gornja Tuzla","Maslovare","Solina","Kachuni","Shturlic","Shumatac","Zborishte","Velika Obarska","Blagaj","Stupari","Ustikolina","Batkovici","Gornje Dubrave","Gornje Zhivinice","Knezhica","Glamoch","Grude","Bila Tserkva","Bosanski Shamac","Novi Sheher","Lamovita","Chajniche","Vitína","Jezerski","Liskovac","Orguz","Stjepan Polje","Han Pjesak","Podvelezh","Tolisha","Zabrishce","Hotonj","Ljubinje","Sladna","Izachic","Moshtre","Breza","Lukavica","Maglajani","Pajic Polje","Radishici","Brestovsko","Bronzani Majdan","Cim","Dobrinje","Gacko","Gnojnica","Mramor","Careva Cuprija","Drezhnica","Orashac","Orashje","Oshtra Luka","Vidoshi","Donja Dubica","Dubravica","Lokvine","Podbrdo","Chechava","Maleshici","Barice","Donja Medjidja","Donje Dubrave","Polje","Rumboci"],"Botswana":["Gaborone","Francistown","Artisia","Selibe Phikwe","Maun","Kanye","Mogoditshane","Tutume","Gabane","Molepolole","Serowe","Tonota","Jwaneng","Shoshong","Tati","Lentsweletau","Mathangwane","Hukuntsi","Sefophe","Kang","Moiyabana","Ramotswa Station-Taung","Ellisras","Pandamatenga","Tshesebe","Rakhuna","Dekar","Kalakamati","Mahalapye","Mochudi","Lobatse","Palapye","Tlokweng","Ramotswa","Thamaga","Moshupa","Letlhakane","Bobonong","Mmadinare","Ghanzi","Orapa","Kasane","Tsabong","Gumare","Letlhakeng","Kopong","Maitengwe","Otse","Tsienyane","Shakawe","Natá","Metsimotlhaba","Gweta","Bokaa","Mmopane","Ramokgonami","Mogoditshane Botswana Defence Force","Manyana","Maunatlala","Masunga","Mopipi","Pitsane","Chadibe","Sowa","Sebina","Radisele","Mandunyane","Lecheng","Mookane","Ratholo","Serule","Kalamare","Shashe Mooke","Machaneng","Khakhea","Mmathubudukwane","Werda","Dukwi","Khudumelapye","Mathathane","Mabeleapudi","Mogapi","Mokobeng","Tobane","Tsamaya","Kobojango","Lehututu","Mosetse","Mabule","Makwate","Nokaneng","Takatokwane","Ramokgwebana","Sehithwa","Nkoyaphiri","Matsiloje","Mogapinyana","Gaphatshwa","Kudumatse","Lokgwabe","Seolwane","Tsao","Mohembo West","Pilikwe","Topisi","Maape","Pilane","Magotlhawane","Matlhakola","Makaleng","Dibete","Dinokwe","Sekoma","Dutlwe","Tamasane","Makobo","Maokane","Botlhapatlou","Kachikau","Tshane","Birsk","Dumadumane","Boatlaname","Lephepe","Bonwapitse","Bokspits","Bogogobo","Makalamabedi"],"Bouvet Island":[],"Brazil":["São Paulo","Rio de Janeiro","Porto Alegre","Brasília","Abadiania","Florianópolis","Curitiba","Belo Horizonte","Recife","Fortaleza","Salvador","Manaus","Joinville","Goiania","Campinas","Santos","Niterói","Cuiabá","Maringá","Vitória","João Pessoa","São José dos Campos","Londrina","Blumenau","Criciúma","Natal","São Bernardo do Campo","Maceió","Porto Velho","Uberlandia","Paraná","Cascavel","Campo Grande","Goiana","Vila Velha","Juiz de Fora","Bauru","Volta Redonda","Ribeirão Preto","Santo André","Chapecó","Ipatinga","Americana","Belém de São Francisco","Tubarão","São José do Rio Preto","São José","Campina Grande","Anápolis","Itajaí","Limeira","Novo Hamburgo","Campos","Balneário Camboriú","Piracicaba","Jaraguá do Sul","Sorocaba","Aracaju","Rondonópolis","São Caetano do Sul","Macaé","Foz do Iguaçu","Teresina","Río Claro","Campo Murão","Ponta Grossa","Santa Bárbara d'Oeste","São Luís","Marília","Rio do Sul","Paraibano","Espírito Santo do Pinhal","Osasco","Presidente Prudente","Timbó","Goiás","Governador Valadares","Cachoeiro de Itapemirim","Lages","Palhoça","Olinda","Pato Branco","Guarapuava","Guarulhos","Ananindeua","Caxias do Sul","Pelotas","Petrópolis","Taguatinga","Jacareí","Xanxerê","Barra Mansa","Palmas","Nova Friburgo","Braço do Norte","Indaial","Jundiaí","Uberaba","Vitória da Conquista","Barueri","São Carlos","Rio Grande","Araraquara","Ceará-Mirim","Biguaçu","Cabo Frio","Içara","Araranguá","Toledo","Feira de Santana","Canoas","Franca","Capivari","Taubaté","Xique-Xique","Francisco Beltrão","Ji-Paraná","Coronel Fabriciano","Orléans","Timóteo","Taboão da Serra","Santarém","Teresópolis","Itapema","Primavera do Leste","Umuarama","Brusque","São Gonçalo","Imbituba","Guará","Cáceres","Sumaré","Itaboraí","Paranaíba","Tangará da Serra","Concórdia","Brasiléia","Guaramirim","Cubatão","Varginha","Botucatu","Atibaia","Araras","Guaratinguetá","Santa Cruz do Sul","Ourinhos","Porto Seguro","Duque de Caxias","Moji das Cruzes","Montes Claros","Guarujá","Río Branco","Boa Vista","Várzea Grande","Aparecida","Caruaru","São Francisco do Sul","Divinópolis","Indaiatuba","Dourados","Manga","Angra dos Reis","Itu","Pomerode","Mogi Guaçu","Bragança Paulista","Alagoinhas","Teixeira de Freitas","Catanduva","Cosmópolis","Linhares","Birigui","Jaboatão","Penha","Aparecida de Goiania","Paulista","Lins","Viçosa","Gravataí","São Leopoldo","Mandaguari","Peruíbe","Araçatuba","Zé Doca","Poços de Caldas","Barra do Garças","Vinhedo","Alagoinha","Itapetininga","Taquaritinga","Patos de Minas","Rolandia","Jaru","Goianésia","Resende","Xaxim","Mafra","São João de Meriti","Lorena","Diadema"],"British Indian Ocean Territory":[],"Brunei Darussalam":["Bandar Seri Begawan","Kuala Belait","Seria","Tutong","Bangar"],"Bulgaria":["Sofia","Varna","Plovdiv","Ruse","Ahtopol","Stara Zagora","Pleven","Burgas","Shumen","Jambol","Veliko Tarnovo","Pazardzhik","Lovech","Sliven","Blagoevgrad","Gabrovo","Vidin","Montana","Bansko","Beloslav","Carevo","Dobrich","Vraca","Kazanlak","Razgrad","Gorna Orjahovica","Velingrad","Sevlievo","Ajtos","Novi Pazar","Elhovo","Zlatograd","General-Toshevo","Simitli","Belogradchik","Belovo","Batanovci","Pernik","Haskovo","Asenovgrad","Kjustendil","Dupnica","Svishtov","Samokov","Botevgrad","Karnobat","Chirpan","Cherven Brjag","Razlog","Ihtiman","Balchik","Sopot","Trjavna","Ljaskovec","Krichim","Pirdop","Dulovo","Straldzha","Elena","Orjahovo","Pravec","Nedelino","Dragoman","Opaka","Plachkovci","Brezovo","Kaolinovo","Dimitrovgrad","Kardzhali","Silistra","Targovishte","Smoljan","Petrich","Lom","Leibnitz","Karlovo","Nova Zagora","Trojan","Harmanli","Peshtera","Goce Delchev","Panagjurishte","Popovo","Svilengrad","Rakovski","Radomir","Parvomaj","Berkovica","Kozloduj","Bjala Slatina","Provadija","Novi Iskar","Radnevo","Pomorie","Knezha","Pavlikeni","Stambolijski","Levski","Mezdra","Teteven","Kavarna","Kostinbrod","Etropole","Tutrakan","Bjala","Isperih","Lukovit","Kostenec","Belene","Sredec","Galabovo","Kubrat","Veliki Preslav","Septemvri","Drjanovo","Omurtag","Bankja","Hisarja","Devnja","Momchilgrad","Rakitovo","Slivnica","Ljubimec","Maricá","Bobovdol","Madan","Tervel","Kotel","Devin","Svoge","Dolni Chiflik","Varshec","Tvardica","Saedinenie","Topolovgrad","Jakoruda","Nesebar","Chepelare","Krumovgrad","Perushtica","Strazhica","Trashtenik","Kameno","Kojnare","Dolni Dabnik","Polski Trambesh","Zlatica","Dalgopol","Valchedram","Vetovo","Strelcha","Elin Pelin","Bracigovo","Godech","Slavjanovo","Debelec","Dolna Banja","Dve Mogili","Ivajlovgrad","Nikopol'","Suvorovo","Letnica","Smjadovo","Car Kalojan","Sapareva Banja","Breznik","Rudozem","Ardino","Mizija","Batak","Iskar","Shivachevo","Bozhurishte","Shabla","Kula","Guljanci","Kalofer","Kresna","Krivodol","Zavet","Maglizh","Sozopol","Aprilci","Dolna Mitropolija","Dolna Orjahovica","Sungurlare","Kaspichan","Valchi Dol","Varbica","Belica","Roman","Ugarchin","Bjala Cherkva","Buhovo","Dunavci","Rila","Bregovo","Gurkovo","Hadzhidimovo","Laki"],"Burkina Faso":["Ouagadougou","Aribinda","Bobo Dioulasso","Dori","Koudougou","Kaya","Yako","Koloko","Békuy","Ouahigouya","Banfora","Dédougou","Tenkodogo","Fada N'gourma","Réo","Houndé","Djibo","Léo","Po","Kongoussi","Koupéla","Zorgo","Kombissiri","Orodara","Boussé","Tougan","Nouna","Manga","Borama","Boulsa","Diébougou","Ziniaré","Sindou","Gourcy","Kantchari","Bogandé","Garango","Kamthi","Loropéni","Louta","Gao","Gaoua","Koalla","Pa","Dano","Gorom-Gorom","Diapaga","Pama","Gayéri","Batié"],"Burundi":["Bujumbura","Bubanza","Cibitoke","Kirundo","Gitega","Ruyigi","Karuzi","Cankuzo","Muyinga","Ngozi","Kayanza","Bururi","Rutana","Muramvya","Makamba"],"Cambodia":["Phnom Penh","Banlung","Siem Reap","Kampot","Bat Dambang","Preah Sihanouk","Kampóng Spoeu","Prey Veaeng","Kampóng Cham","Kandal","Pousat","Phumi Samraong","Svay Rieng","Senmonorom","Phumi Takaev","Kampóng Chhnang","Sisophon","Krachéh","Kampóng Thum","Dong Tong","Krong Kaeb","Stueng Traeng","Krong Pailin","Tbeng Mean Chey"],"Cameroon":["Douala","Yaoundé","Bamenda","Buéa","Abong Mbang","Kribi","Tiko","Kumba","Bafoussam","Kumbo","Garoua","Edéa","Muyuka","Bana","Mbalmayo","Mamfé","Ngaoundéré","Nkongsamba","Kaélé","Bafang","Lomié","Wum","Idenao","Obala","Djoum","Monatélé","Lolodorf","Mbengwi","Limbe","Kousséri","Maroua","Mokolo","Bertoua","Loum","Foumban","Garoafa","Ebolowa","Djang","Bafia","Yokadouma","Guider","Mbouda","Sangmélima","Yagoua","Mbanga","Moloundou","Yabassi","Bangangte","Akonolinga","Foumbot","Banyo","Dibombari","Eséka","Bogo","Nanga Eboko","Manjo","Batouri","Meiganga","Njinikom","Nkambe","Mindif","Bafut","Colón","Bali","Bonabéri","Mvangué","Lagdo","Bétaré Oya","Figuif","Tcholliré","Akom","Mfou","Tibati","Mme","Fontem","Saa","Ombésa","Doumé","Istanbul","Rey Bouba","Ambam","Méri","Tignère"],"Canada":["Toronto","Vancouver","Calgary","Montréal","Ottawa","Edmonton","North York","Mississauga","Winnipeg","Victoria","Burnaby","Surrey","Scarborough","Etobicoke","Brampton","Halifax","Richmond","Burlington","Oakville","North Vancouver","Coquitlam","Hamilton","Waterloo","Oshawa","Richmond Hill","Kitchener","Markham","London","York","Maple Ridge","Kelowna","Nepean","Saskatoon","East York","New Westminster","Thornhill","Langley","Guelph","Whitby","Barrie","Peterborough","Abbotsford","Fredericton","Gatineau","Nanaimo","Pickering","Fort McMurray","Regina","Delta","St Catharines","Ajax","Kanata","Port Coquitlam","Windsor","Laval","Sherwood Park","Red Deer","Chilliwack","Orangeville","Cambridge","Orléans","Airdrie","Moncton","Dartmouth","Newmarket","Port Moody","West Vancouver","St Albert","Verdun","Woodbridge","Saint-Laurent","Gloucester","Kamloops","Lethbridge","White Rock","Aurora","Kingston","Brantford","Dollard-des-Ormeaux","Pitt Meadows","Pierrefonds","Lasalle","Pointe-Claire","Québec","Brossard","Milton","Niagara Falls","Vernon","Grande Prairie","Mission","Saint John","Bowmanville","Westmount","Sudbury","Georgetown","Côte Saint-Luc","Concord","Saint-Léonard","Stoney Creek","Leduc","Longueuil","Duncan","Lachine","Dorval","Maple","Kirkland","Stittsville","Okotoks","Dundas","Prince George","Sarnia","St. John's","Aldergrove","Spruce Grove","Penticton","Medicine Hat","Thunder Bay","Outremont","Canmore","Beaconsfield","Welland","Campbell River","Courtice","Riverview","Vanier","Courtenay","Belleville","Bolton","North Bay","Charlottetown","Grimsby","Lower Sackville","Westbank","Brandon","Cornwall","Saint-Hubert","Stony Plain","Beaumont","Vaudreuil-Dorion","Sooke","Orillia","Cochrane","Sherbrooke","Montréal-Nord","Comox","Dieppe","Whistler","Salt Spring Island","Stratford","Cobourg","Terrace","Ancaster","Saint-Lazare","Thorold","Keswick","Chestermere","Cantley","Châteauguay","Innisfil","Nelson","Montréal-Ouest","Mont-Royal","St Thomas","Qualicum Beach","Moose Jaw","Bradford","Quesnel","Holland Landing","Sidney","Bedford","Stouffville","Waterdown","Woodstock","Anjou","Fort Saskatchewan","Camrose","Yellowknife","Mill Bay","Pembroke","Beamsville","Chatham","Sault Ste Marie","Saint-Lambert","Port Alberni","Powell River","Truro","Uxbridge","Squamish","Sydney","Lakefield","Lindsay","Greenfield Park","Whitehorse","High River","Morinville","Strathmore","Shawnigan Lake","Parksville","Edson","Trenton"],"Cape Verde":["Assomada","Praia","Mindelo","Sal","Vila do Maio","Tarrafal","Ponta do Sol","Barawe","Sal Rei","Pombas","Cuauhtenco","São Filipe","Porto Novo","Ribeira Brava","Mosteiros"],"Cayman Islands":["George Town","Bodden Town","West Bay"],"Central African Republic":["Alindao","Kembé","Bangui","Carnot","Bouar","Kaga-Bandoro","Bocaranga","Gambo","Zemio","Boali","Obo","Berbérati","Bambari","Bossangoa","Bria","Bimbo","Nola","Bozoum","Bangassou","Mbaiki","Sibut","Rafaï","Ippy","Bossembélé","Paoua","Batangafo","Boda","Kabo","Bouca","Dekoa","Grimari","Ndélé","Damara","Baboua","Yakolé","Ouango","Gamboula","Baoro","Kouango","Mongoumba","Mobaye","Birao","Ouadda"],"Chad":["N'Djaména","Abéché","Sarh","Bénoy","Å","Moundou","Kélo","Koumra","Pala","Am Timan","Bongor","Mongo","Doba","Ati","Laï","Oum Hadjer","Bitkine","Mahón","Massaguet","Dourbali","Léré","Kyabé","Daga","Moussoro","Béré","Bokoro","Bousso","Faya","Fianga","Bébidjia","Ngama","Adré","Guélengdeng","Moïssala","Biltine","Bol","Goundi","Gounou Gaya","Beinamar","Baïbokoum","Melfi","Béboto","Mangueigne","Massenya","Fada N'gourma","Abou Deia","Am Dam","Bardaï","Rig-Rig"],"Chile":["Santiago","Concepción","Temuco","Valparaíso","Viña del Mar","Antofagasta","Iquique","Arica","Chillán","Talca","Rancagua","Ancud","Valdivia","Puerto Montt","Puente Alto","Osorno","La Serena","Talcahuano","Quilpué","Punta Arenas","Villa Alemana","Coquimbo","Los Ángeles","Calama","Copiapó","Linares","Curicó","Coronel","Puerto Varas","San Antonio","San Bernardo Viento","Talagante","Chiguayante","Quillota","Los Andes","Castro","Angol","Melipilla","Coihaique","San Fernando","La Unión","Tomé","Villarica","Peñaflor","Ovalle","San Felipe","Calera","Santa Cruz","San Pedro de la Paz","Rengo","Curanilahue","Cañete","Illapel","Padre Hurtado","Machalí","Buin","Limache","Concón","Carahue","Colina","Vallenar","Cauquenes","Isla de Maipo","Collipulli","Padre las Casas","Constitución","Penco","Arauco","San Javier","Victoria","Salamanca","Taltal","Paine","Lota","San Vicente","Río Bueno","Lautaro","Graneros","Freire","Tocopilla","Coihueco","Bulnes","Traiguén","Nueva Imperial","Panguipulli","Chimbarongo","La Ligua","Longaví","El Monte","Puerto Aisén","Lebu","Vicuña","Loncoche","Vilcún","Pitrufquén","Yumbel","Purranque","Cabildo","Diego de Almagro","Lampa","Hidalgo","San Clemente","Calbuco","Nacimiento","Cabrero","Laja","Llaillay","Benito Juárez","Molina","Monte Patria","Mulchén","Teno"],"China":["Shanghai","Beijing","Acheng","Shenzhen","Guangzhou","Chengdu","Dalian","Xiamen","Nanjing","Hangzhou","Shenyang","Qingdao","Wuhan","Dongguan","Suzhou","Tianjin","Xian","Chongqing","Kunming","Changzhou","Zhuhai","Zhengzhou","Ningbo","Jinan","Wuxi","Gangdong","Changchun","Changsha","Wenzhou","Quanzhou","Honggang","Guilin","Yantai","Jiading","Harbin","Taiyuan","Fuzhou","Aomen","Shangrao","Shatin","Weifang","Haian","Ganzhou","Jinhua","Hanzhong","Shijiazhuang","Handan","Hongmei","Yangzhou","Baishishan","Foshan","Zunyi","Changde","Nantong","Zhangzhou","Fujin","Shangqiu","Laizhou","Korla","Lanzhou","Jilin","Aksu","Hefei","Fuxin","Hegang","Langfang","Anyang","Baoding","Dandong","Jiamusi","Xinxiang","Tunxi","Wuhu","Jinchang","Huangzhou","Bijie","Zhilong","Yichang","Gaozhou","Changzhi","Tangjiazhuang","Liaoyuan","Songhua","Hulan","Taonan","Anjiang","Changping","Anqing","Taian","Zhenjiang","Jingdezhen","Zhongshan","Dehui","Sucheng","Qinhuangdao","Zhucheng","Shahe","Xiongzhou","Zigong","Wuzhou","Linyi","Wucheng","Heze","Shaoguan","Weihai","Aojiang","Erenhot","Laohekou","Cangzhou","Xilinhaote","Hebi","Jiangmen","Zhoucheng","Guangkou","Shaoxing","Nanping","Caohe","Zaozhuang","Jingzhou","Baiyin","Fushan","Bianzhuang","Huanggang","Beipiao","Fuyang","Xiaogan","Shangzhi","Hongan","Dengzhou","Alihe","Choucheng","Hainan","Honghu","Jiulong","Xinzhou","Zhongshu","Quzhou","Nanning","Botou","Luoyang","Huaihua","Shanhetun","Huangshi","Anxiang","Jinzhou","Puqi","Hanting","Yigou","Yakeshi","Lushunkou","Baoshan","Hecun","Longkou","Toutunhe","Yingkou","Jiupu","Jinshi","Matian","Mudanjiang","Yongan","Jinxiang","Jincheng","Kaifeng","Dongshan","Suileng","Liaoyang","Pingxiang","Jishui","Jijiang","Sanmenxia","Nanhai","Tongshan","Hengyang","Yushu","Xucheng","Nancha","Shenxian","Yashan","Linchuan","Shilong","Fenyi","Dawukou","Shouguang","Yanliang","Fengcheng","Qixia","Mingyue","Daan","Bengbu","Jiaohe","Shulan","Xiangyin","Zhoucun","Xinhua","Xiangtan","Licheng","Rucheng","Haizhou","Zhuzhou","Dali"],"Christmas Island":[],"Cocos (Keeling) Islands":[],"Colombia":["Bogotá","Medellín","Cali","Barranquilla","Bucaramanga","Abaiang","Manizales","Cartagena","Antioquia","Colombia","Pereira","Armenia","Santa Marta","Popayán","Ibagué","Villavicencio","Cúcuta","Envigado","Puerto Rico","Barrancabermeja","Sogamoso","Tunja","Chía","Neiva","Montería","Fusagasugá","Piedecuesta","Ríonegro","San Gil","Caicedonia","Cajicá","Mocoa","Risaralda","Garagoa","Pasto","Valledupar","Tuluá","Yopal","Tenerife","Supía","Buenaventura","Girardot","Girón","Facatativá","Calarcá","Puerto Asís","Aracataca","Ayapel","Chaparral","Charalá","Toledo","Chinú","San Sebastián Villanueva","Aquitania","Urrao","Venecia","La Jagua Ibirico","Pueblorrico","San Antonio","Fresno","Ambalema","Bolívar","Pesca","Aguazul","Chiriguaná","Bugalagrande","Amagá","Marseille","Agua de Dios","Vélez","Majagual","Soacha","Itagüí","Necoclí","Floridablanca","Santa Rosa de Osos","Florencia","Buga","Calera","Moniquirá","Ríohacha","Duitama","Apartadó","Ocaña","Cajamarca","Yumbo","Calamar","Caldas","Pamplona","Pitalito","Yotoco","Madrid","Chiquinquirá","Lorica","La Ceja","Puerto Berrío","Cartagena del Chaira","Montelíbano","Cota","Sincé","Zarzal","Guateque","Rovira","Tame","Roldanillo","Puerto Boyacá","Tolú","Melgar","Anserma","Córdoba","La Unión","Sucre","Belalcázar","Marquetalia","Curumaní","San José del Guaviare","Talaigua Nuevo","El Charco","Flandes","Guaitarilla","Sabanagrande","Trujillo","Cañasgordas","Carmen de Viboral","Sampués","Genève","Zacamulpa","Santa Catalina","Ubaté","Guayabal","Villeta","Villapinzón","Barbosa","Yaguará","Circasia","Guacarí","Mitú","Túquerres","Lérida","Viotá","Galapa","Barranco de Loba","Puente Nacional","La Plata","Ancuyá","Ríosucio","Pijao","Aguadas","San Pelayo","Málaga","San Roque","Repelón","Carmen de Apicalá","El Copey","Guaranda","San Benito Abad","Serula","Albán","Zaragoza","Cocorná","Ciénaga de Oro","El Playón","El Molino","Salamina","Santuário","Sonsón","Falán","Andalucía","San Juan de Betulia","Barrancas","Puerto López","Andes","Leiva","Sopetrán","Corinto","Azcatepec","San Zenón","Chimichagua","Vijes","Pacho","Dolores","Paz de Ariporo","Versalles","Manzanares","Guamo","Viterbo","Piendamó","San Vicente del Caguan","Manatí","Guarne","Los Palmitos","Toro","San Pablo","Santa Ana","Guaduas","Istmina","Guapí","Tibú","La Mesa","Puerto Wilches"],"Comoros":["Moroni","Domoni","Fomboni","Mutsamudu","Mitsamiouli"],"Congo":["Brazzaville","Boko","Pointe Noire","Mossaka","Gamboma","Komomo","Kinkala","Djambala","Ngamaba-Mfilou","Impfondo","Ewo","Madingou","Matsanga","Dongou","Makoua","Sembé","Mindouli","Kellé","Kibangou","Epéna","Zanaga","Ikélemba","Loudima","Souanké","Loubomo","Nkayi","Mossendjo","Owando","Ouesso","Loandjili","Sibiti"],"Congo, the Democratic Republic of the":["Kinshasa","Lubumbashi","Bukavu","Mbuji-Mayi","Uvira","Goma","Aba","Kolwezi","Kikwit","Isiro","Bunia","Nioki","Mangai","Yakoma","Lubudi","Dibaya","Kananga","Kisangani","Likasi","Boma","Tshikapa","Matadi","Mwene-Ditu","Mbandaka","Butembo","Gemena","Kindu","Bandundu","Ilebo","Kalemie","Beni","Gandajika","Bumba","Mbanza-Ngungu","Kipushi","Kamina","Lisala","Lodja","Binga","Cabinda","Kasongo","Kalima","Mweka","Gbadolite","Bulungu","Buta","Basoko","Inongo","Tshela","Kenge","Bukama","Yangambi","Manono","Aketi","Luebo","Kambove","Lubao","Mushie","Kabare","Boende","Kampene","Kongolo","Yandongi","Simba","Titule","Kutu","Businga","Moba","Kabalo","Bolobo","Kasangulu","Kaniama","Libenge","Gwane","Watsa","Faradje","Demba","Basankusu","Shinkolobwe","Kasongo-Lunda","Idiofa","Tshilenge","Mobayi-Mbongo","Niangara","Bodalangi","Bondo","Kahemba","Kama","Itoko","Wamba","Yumbi","Dilolo","Katako-Kombe","Lubefu","Lusanga","Kili","Mambasa","Muanda","Kimpese","Tshofa","Bosobolo","Mongbwalu","Bafwasende","Kazumba","Kibombo","Nyunzu","Gungu","Makanza","Madimba","Kiri","Zongo","Ikela","Ubundu","Djugu","Poko","Banalia","Sakania","Le Marinel","Mwanza","Malemba-Nkulu","Mulongo","Kikondjo","Bongandanga"],"Cook Islands":["Avarua","Amuri","Mangaia","Atiu","Mauke","Tauhunu","Omoka","Mitiaro","Roto","Nassau","Rakahanga"],"Costa Rica":["Escazú","Heredia","Alajuela","San Pedro","Aguacaliente","Curridabat","Cartago","Guadalupe","Santa Cruz","Santa Ana","San Josecito","Liberia","Puntarenas","San Juan","Sabanilla","San Isidro","Alajuelita","Grecia","Colón","Limón","Desemparados","Cinco Esquinas","Atenas","Quesada","San Antonio","Nicoya","Quepos","Golfito","Santo Domingo","Turrialba","San Rafael","Tres Ríos","San Antonio de Desamparados","San Rafael Arriba","Buenos Aires","Guácimo","Daniel Flores","Tilarán","San Marcos de Tarrazú","Chiapa","El Paraíso","Chacarita","San Rafael Abajo","Calle Blancos","Cañas","Guápiles","Esparta","Apaseo el Grande","Bagaces","Upala","San Vito","Parrita","San Vicente","Purral","Ipís","San Miguel","Aserrí","San Felipe","Mercedes","Concepción","El Tejar","San Pablo","Siquirres","San Diego","Carmen","Naranjo","Río Segundo","Santiago","San Jose","Corredor","Miramar","Orotina","Filadeldia","Juntas","Palmar de Bravo","Palmares","Batán","La Cruz","Puerto Cortés","Zarcero","Los Chiles","San Ignacio","Pocosol","La Suiza","Matina","Roxana","Pital","Pacayas","Florencia","Coco","Brasilito"],"Côte d'Ivoire":["Abidjan","Abengourou","Bouaké","Aboisso","Yamoussoukro","Divo","Dabou","Bouaflé","Adzopé","Bongouanou","Acatlán","Man","Gagnoa","Dimbokro","Toumodi","Duékoué","Bonoua","Bako","Fresco","Korhogo","Anyama","Grand Bassam","Agboville","Bingerville","Danané","Bondoukou","Katiola","Issia","Soubré","Séguéla","Agnibilékrou","Boundiali","Zuénoula","Vavoua","Afféry","Bouna","Biankouma","Tiébissou","Bangolo","Adiaké","Dabakala","Sakassou","Ayamé","Alépé","Ndiékro","Bocanda","Grand-Lahou","Daloa","Sinfra","Ferkessedougou","Oumé","Odienné","Daoukro","Tiassalé","Akoupé","Lakota","Tingréla","Guiglo","Arrah","Hiré","Mbatto","Touba","Ouragahio","Sassandra","Ndouci","Tanda","Tabou","Béoumi","Mankono","Dikodougou","Rubino","Kani","Tafiré","M'bahiakro","Toulépleu","Jacqueville","Guibéroua","Botro"],"Croatia":["Zagreb","Split","Rijeka","Osijek","Beli Manastir","Zadar","Varaždin","Pula","Dubrovnik","Chakovec","Petrinja","Slavonski Brod","Velika Gorica","Zapreshic","Knin","Trogir","Vukovar","Bjelovar","Metkovic","Porech","Novska","Biograd na Moru","Karlovac","Sesvete","Shibenik","Vinkovci","Koprivnica","Solin","Virovitica","Kutina","Nova Gradishka","Krizhevci","Ogulin","Nashice","Krk","Buje","Sisak","Pozhega","Dhakovo","Zhupanja","Rovinj","Makarska","Sinj","Slatina","Opatija","Omish","Gospic","Senj","Krapina","Korchula","Grachac","Pag","Rab","Samobor"],"Cuba":["Havana","Abreus","Cienfuegos","Santiago de Cuba","Guantánamo","Camagüey","Holguín","Matanzas","Sagua la Grande","Pedro Betancourt","Varadero","Aguacate","Buenos Aires","Batabanó","Bayamo","Pinar del Río","Ciego de Ávila","Artemisa","Nuevitas","Placetas","Songo-La Maya","Camajuaní","Manicaragua","Cifuentes","Cacocum","Báguanos","Alquízar","Antilla","Martí","Manatí","Candelária","Los Arabos","Quemado de Güines","Juan Gualberto Gómez","Carlos Manuel de Céspedes","Mantova","Pilón","Calabazar de Sagua","Ameca","Carlos Rojas","San Juan y Martínez","Zaza del Medio","Santa Fé","Bolondrón","Máximo Gómez","Alacranes","Zulueta","Cabañas","Agramonte","Caney","El Cobre","Caimito del Guayabal","Rancho Veloz","Cauto Cristo","Manguito","San Diego de los Baños","Ocoyucan","Las Tunas","Sancti Spíritus","Manzanillo","Palma Soriano","Puerto Padre","Cárdenas","Contramaestre","Mayarí","Consolación del Sur","Moa","Colón","Amatlán","Güines","Huamantla","Jagüey Grande","Baracoa","San José de las Lajas","Jovellanos","Morón","Trinidad","Florida","Santo Domingo","Yaguajay","Ranchuelo","Guáimaro","Banes","Santa Cruz del Sur","Unión de Reyes","Cumanayagua","Jiguaní","Cabaiguán","Remedios","Bauta","San Antonio de los Baños","Caibarién","Condado","Nueva Gerona","Santiago de las Vegas","Madruga","Vertientes","Güira de Melena","Mariel","Gibara","Yara","Amancio","Cueto","Los Palacios","Encrucijada","Chambas","Guanajay","Yateras","Perico","Campechuela","Aguada de Pasajeros","Cruces","Calimete","Minas","Palmira","Río Cauto","Esmeralda","San Diego del Valle","Bahía Honda","Colombia","Delicias","Jaruco","Fomento","Jatibonico","Rodas","Sibanicú","Primero de Enero","Corralillo","Sagua de Tánamo","Bejucal","Jobabo","Niquero","Santa Cruz del Norte","Guisa","Venezuela","Guane","Media Luna","Baraguá"],"Curaçao":["Curacao"],"Cyprus":["Nicosia","Lemesos","Larnaca","Pafos","Aradippou","Paralimni","Famagusta","Kyrenia","Polis","Lefka","Morphou","Geri","Ypsonas","Dromolaxia","Pano Polemidia","Baru","Rizokarpaso","Chlorakas","Lapithos","Kythrea","Iskele","Èmbi","Yialousa","Leonarisso"],"Czech Republic":["Prague","Brno","Plzen","Ostrava","Olomouc","Zlín","Adamov","Hradec Králové","Cheské Budejovice","Pardubice","Cheská Lípa","Karlovy Vary","Trutnov","Podebrady","Liberec","Karviná","Prerov","Ústí","Opava","Teplice","Jablonec","Vsetín","Cheská Trebová","Havírov","Frýdek-Místek","Chomutov","Mladá Boleslav","Trinec","Tábor","Pribram","Kolín","Písek","Shumperk","Krnov","Litomerice","Jindrichuv Hradec","Beroun","Uherský Brod","Ústí nad Orlicí","Ash","Tachov","Moravská Trebová","Litomyshl","Lysá nad Labem","Cheský Brod","Blatná","Veselí nad Luzhnicí","Horovice","Moravský Krumlov","Bechyne","Hustopeche","Dobrany","Shluknov","Hostinné","Kladno","Most","Dechín","Prostejov","Orlová","Litvínov","Nový Jichín","Uherské Hradishte","Kutná Hora","Jirkov","Melník","Beneshov","Pelhrimov","Rakovník","Neratovice","Klásterec nad Ohrí","Bílina","Mariánské Lázne","Turnov","Zábreh","Nymburk","Jeseník","Holeshov","Nový Bor","Prachatice","Rychnov nad Knezhnou","Tishnov","Mohelnice","Louny","Prelouch","Lipník nad Becvou","Milevsko","Nová Paka","Semily","Trebon","Dobrísh","Bílovec","Dobrushka","Kaplice","Nýrany","Nový Bydzhov","Staré Mesto","Tanvald","Buchovice","Petrvald","Rychvald","Benátky nad Jizerou","Kravare","Letovice","Mimon","Vratimov","Zhelezny Brod","Tynishte nad Orlicí","Vodnany","Dubnany","Ledech","Preshtice","Holice","Kostelec nad Orlicí","Letohrad","Lomnice nad Popelkou","Podborany","Shlapanice","Vítkov","Vrbno pod Pradedem","Brumov","Telch","Kojetín","Strázhnice","Zhamberk","Hronov","Horní Slavkov","Tresht'","Úpice","Jilemnice","Chrastava","Horazhd'ovice","Slavkov u Brna","Roztoky","Fulnek","Cheská Skalice","Las Choapas","Habartov","Chlumec nad Cidlinou","Rosice","Shenov","Chropyne","Cheská Kamenice","Frantishkovy Lázne","Jílové","Námesht' nad Oslavou","Pacov","Skutech","Trebechovice pod Orebem","Stochov","Kynshperk nad Ohrí","Nyrsko","Osek","Zruch nad Sázavou","Doksy","Horshovký Tyn","Hradec nad Moravice","Mezibori","Nové Strashecí","Valashské Klobouky","Kunovice","Hermanuv Mestec","Protivín","Rousínov","Sushice","Jihlava","Trebích","Znojmo","Cheb","Kromerízh","Valashské Meziríchí","Breclav","Hodonín","Cheský Teshín","Sokolov","Havlíchkuv Brod","Zhd'ár","Chrudim","Koprivnice","Strakonice","Bohumín","Klatovy","Vyshkov","Náchod","Blansko","Zatec","Hranice","Otrokovice","Svitavy","Rasnov","Bruntál","Kralupy nad Vltavou","Kadan","Ostrov","Jablunkov","Jichín","Dvur Kralové","Varnsdorf","Brandys nad Labem-Stará Boleslav","Slaný","Cheský Krumlov"],"Denmark":["Copenhagen","Århus","Aalborg","Frederiksberg","Odense","Kolding","Aabenraa","Roskilde","Randers","Vejle","Esbjerg","Næstved","Køge","Herning","Nyborg","Greve Strand","Helsingør","Silkeborg","Hillerød","Svendborg","Horsens","Slagelse","Sønderborg","Birkerød","Holstebro","Fredericia","Farum","Billund","Hørsholm","Taastrup","Frederikshavn","Nykøbing","Ishøj","Frederiksværk","Holbæk","Ringsted","Varde","Ribe","Solrød","Brønderslev","Vordingborg","Vejen","Aars","Hjørring","Haderslev","Skive","Kalundborg","Frederikssund","Værløse","Hobro","Hundested","Fredensborg","Lynge","Hanstholm","Viborg","Skanderborg","Haslev","Ringkøbing","Nivå","Sorø","Hadsten","Skælskør","Ølstykke","Aabybro","Hvalsø","Hjallerup","Bullerup","Jelling","Sindal","Sundby","Thisted","Struer","Tønder","Faaborg","Brande","Assens","Kerteminde","Gilleleje","Ry","Svenstrup","Viby","Brørup","Bellinge","Juelsminde","Hornbæk","Store Heddinge","Tølløse","Dronninglund","Thyborøn","Kibæk","Lejre","Ulfborg","Nakskov","Rønne","Stenløse","Ørslev","Dragør","Jyllinge","Trørød","Måløv","Bjerringbro","Tranbjerg","Nordborg","Skjern","Hirtshals","Bramming","Hinnerup","Maribo","Ringe","Hadsund","Rudkøbing","Sakskøbing","Løgten","Højby","Give","Vodskov","Stege","Videbæk","Fakse","Tarm","Sunds","Bogense","Brædstrup","Broager","Græsted","Vissenbjerg","Ganløse","Aulum","Borup","Oksbøl","Søndersø","Nørre Aaby","Christiansfeld","Liseleje","Pandrup","Strøby Egede","Cape Town","Aarup","Auning","Ejby","Mariager","Nordby","Haarby","Rødby","Arden","Tørring","Guderup","Gørlev","Svebølle","Forlev","Vestbjerg","Aakirkeby","Blovstrød","Nørre Alslev","Karup","Allingåbro","Veksø","Korsør","Løjt Kirkeby","Fuglebjerg","Middelfart","Espergærde","Kruså","Fløng","Skagen","Hedensted","Lystrup","Smørumnedre","Humlebæk","Sæby","Vojens","Lemvig","Helsinge","Slangerup","Støvring","Hammel","Hørning","Ebeltoft","Stavnsholt","Neder Holluf","Rødekro","Hellebæk","Munkebo","Tune","Kolt","Galten","Hornslet","Padborg","Otterup","Vamdrup","Løgstør","Strib","Kjellerup","Beder","Svogerslev","Fensmark","Nibe","Ølgod","Jægerspris","Havdrup"],"Djibouti":["Jibuti","Dikhil","´Ali Sabih","Tajurah","Ubuk"],"Dominica":["Roseau","Atkinson","Portsmouth","Saint Joseph","Rosalie","Laudat","La Plaine","Salybia","Berekua","Vieille Case","Pont Cassé","Délices","Marigot","Mahaut","Wesley","Coulihaut","Barroui","Castle Bruce","Pointe Michel","Soufrière","Petite Soufrière","Hampstead"],"Dominican Republic":["Santo Domingo","Santiago","Puerto Plata","Higüey","Amatlán","Jarabacoa","Samaná","La Romana","San Francisco de Macorís","Las Matas de Farfan","Bonao","Moca","Ameca","Hato Mayor","Sosúa","Barahona","Baní","Nagua","Constanza","Dajabón","Tamayo","Villa Vázquez","San Pedro de Macorís","La Vega","Bajos de Haina","San Juan de la Maguana","Azua","Cotuí","Villa Altagracia","Consuelo","Tamboril","Neyba","El Seybo","Las Guaranas","Sánchez","Bavaro","Mahón","Ocoa","Villa Bisonó","Sabaneta","Sabana Grande de Boyá","San Miguel","Bayaguana","Monte Plata","Quisquella","Monte Cristi","Cabral","Sabana de la Mar","Pimentel","El Peñon","Sabana Yegua","La Mata","Maimón","Comendador","Duvergé","Pedernales","Fantino","Jimaní","Punta Cana"],"Ecuador":["Quito","Guayaquil","Cuenca","Alamor","Ambato","Loja","Portoviejo","Azogues","Puerto Baquerizo Moreno","Machala","Otavalo","Baños","Quevedo","Salinas","La Troncal","Puyo","Cariamanga","Cotacachi","Sucúa","Gualaquiza","Colimes","Pietrari","Eloy Alfaro","Riobamba","Ibarra","Esmeraldas","Babahoyo","Latacunga","Tulcán","Pasaje","Chone","Ventanas","Vinces","Nueva Loja","Macas","Buena Fé","Catamayo","Samborondón","Monte Cristi","Calinesti-Oas","Cañar","Pujilí","Zaruma","Colombia","Alfredo Baquerizo Moreno","Valdez","Lomas de Sargentillo","Catacocha","Paján","Palestina","Puebloviejo","Yantzaza","Cuauhtenco","Catarama","Pillaro","Pimampiro","Junín","Pedernales","Yateras","Sangolquí","Celica","Archidona","El Ángel","Amatlán","Saquisilí","Palora","Santo Domingo","Milagro","Callejones","Santa Rosa","Huaquillas","El Carmen","Velasco Ibarra","Jipijapa","Daule","Balzar","Rosa Zárate","San Ignacio","Naranjito","Bahía de Caráquez","El Triunfo","Playas","Cayambe","Naranjal","Guaranda","Pedro Carbo","Yaguachi","Atuntaqui","Machachi","Chiautzingo","Bolívar","Tena","San Gabriel","Arenillas","Piñas","Zamora","Macará","Gualaceo","La Maná","Montalvo","Tosagua","Pelileo","Sucre","San Miguel","Guano","Santa Ana","Rocafuerte","Alausí","Balao","Muisne","Portovelo","Coronel Maridueña"],"Egypt":["Cairo","Alexandria","al-Jizah","Abnub","Tanta","al-Mansurah","Sharm-ash-Shaykh","al-Fayyum","´Izbat-al-Burj","al-Ibrahimiyah","Asyut","al-Ismailiyah","Nasr","al-Qanatir-al-Khayriyah","Aswan","Damanhur","al-Ghardaqah","Shubra al-Khaymah","al-Ashir mir-Ramadan","Aja","Bur Sa´id","Mit Gamr","Banha","Abu Kabir","az-Zaqaziq","Sawhaj","Awsim","Shibin-al-Kawm","Talkha","Zifta","Kafr-az-Zayyat","al-Karnak","an-Nasir","Ras Gharib","al-Mahallah al-Kubra","Kafr-ash-Shaykh","al-Matariyah","Dumyat","al-Kharijah","Lalamusa","Abyar","as-Suways","Kafr-ad-Dawwar","Bani Suwayf","al-´Abbasiyah","Bilqas","Sibin-al-Qanatir","Shirbin","Matay","Kafr Saqr","Abu Hummus","Dandarah","al-Qusayr","al-Burj","al-Uqsur","Qina","Mallawi","Minuf","Faqus","Dishna","Tala","Kawm Hamada","Abu Hammad","Rafah","al-Husayniyah","Dar-as-Salam","al-Mahmudiyah","al-Fant","al-Maks","al-Hawamidiyah","Akhmim","Samalut","Nasir","Ashmun","al-Manzilah","Magagah","Rashid","Isna","al-Khankah","Marsa Matruh","al-Badrashayn","Qus","Sidi Salim","Quwaysina","Abu al-Matamir","Naj´ Hammadi","as-Saff","al-Maragah","Ihnasiyah","Mutubis","an-Nukhaylah","Qift","Naqadah","Shubra Khit","Mahallat Marhum","Sahil Salim","ad-Dayr","Kafr Salim","Zawiyat Sidi Gazi","Sawl","Sanhur","al-Mansuriyah","Bahut","Tandah","al-Ma'sarah","al-Batanun","Hijazah","Daraw","ad-Dabbiyah","al-Ghuli´ah","Bilbays","Qalyub","Disuq","Armant","Abu Tij","Tukh","Biyala","Minyat-al-Qamh","Bani Mazar","al-Fashn","Abu Qurqas","Minyat-an-Nasr","Samannud","Itsa","az-Zarqa","Dayr Mawas","al-Bajur","al-Wasitah","Sumusta","ar-Rawdah","Birkat-as-Sab´","Safaja","ar-Rahmaniyah","al-Wahat-al-Bahriyah","Qallin","Hiw","ar-Radisiyat-al-Bahriyah","al-Ballas","Saqqarah","ad-Da'ba","Sanabu","Qutur","Umm-al-Qusur","al-Qassasin","Qiman al-´Arus","al-Fikriyah","Tallah","al-Qantarah","as-Santah","Bani Muhammadiyat","Buturis","Kafr-al-Battikh","Kafr-al-Jara´idah","Abu Za´bal","Kiman-al-Mata´inah","Qasr Qarun","Fidimin","Nahya","al-Haddadi","al-Kawm-al-Akhdar","ad-Daljamun","Milij","Dayrut-ash-Sharif","Nisf Thani Bashbish","Fa´id","Awlad Tawq Sharq","Abu Rudays","al-Waqf","Qasr-al-Farafirah","Sidi Barrani","at-Tur","Atfih","Asfun-al-Mata´inah","Sarabiyum","Zawiyat Shammas","as-Salihiyah","Jirja","Idfu","Idku","Dikirnis","Tagta","as-Sinbillawayn","Hawsh ´Îsa","Sinnuris","Manfalut","al-Jamaliyah","Tima","al-Qusiyah","Dayrut","Fuwah","Kawm Umbu","al-Qurayn","al-Manshah","Faraskur","Beba Veche","Basyun","Farshut","Sirs-al-Layyanah","Diyarb Najm","at-Tall-al-Kabir"],"El Salvador":["San Salvador","Santa Ana","Acajutla","Nueva San Salvador","Sonsonate","Antiguo Cuscatlán","Soyapango","San Miguel","Apopa","Ilopango","Ahuachapán","Santiago de María","Santa Rosa de Lima","Tonacatepeque","Jocoro","Pasaquina","Tenancingo","Mejicanos","Delgado","Cojutepeque","Zacatecoluca","San Vicente","Quezaltepeque","Aguilares","La Unión","Chalatenango","Armenia","Berlín","Atiquizaya","San Antonio del Monte","Ciudad Barrios","Candelaria de la Frontera","Olocuilta","Chirilagua","El Rosario","Conchagua","Lolotique","Colón","Etla","Victoria","Concepción de Oriente","Guaymango","Sociedad","Jucuarán","Sesori","San Francisco Menéndez","San Francisco Morazán","San Marcos","Cuscatancingo","Azcatepec","Usulután","Chalchuapa","Ayutuxtepeque","Ilobasco","Izalco","Callejones","Metapán","San Rafael","Sensuntepeque","Hueyotlipan","Puerto El Triunfo","Sonzacate","Gotera","Zaragoza","Guazapa","Ciudad Arce","Juayúa","Santiago Nonualco","Jucuapa","El Tránsito","El Congo","Nueva Concepción","Panchimalco","Opico","Concepción de Ataco","Jiquilisco","Chinameca","Nahuizalco","Nuevo Cuscatlán","Nejapa","San Luis la Herradura","Rosario de Mora","Donostia","Coatepeque","Nueva Guadalupe","Chapeltique","Suchitoto","San Ignacio","Tacuba","San Julián","Apastepeque","San Alejo","Guatajiagua","Ozatlán","San Pablo Tacachico","La Palma","Estanzuelas","El Carmen","San Pedro Perulapán","Concepción Batres","Intipucá","Corinto","San Pedro Masahuat","Tecoluca","Anamorós","Texistepeque","Nueva Esparta","Cacaopera","Jujutla","Moncagua","El Paisnal"],"Equatorial Guinea":["Malabo","Aconibe","Mongomo","Ebebiyin","Báta","Mbini","Luba","Evinayong","Moca","Acurenam","Mikomeseng","Niefang","Añisoc","Palé","Nsok","Riaba"],"Eritrea":["Asmara","Addi K'eyih","Keren","Barentu","Asseb","Addi Ugri","Addi Kwala","Teseney","Mitsiwa","Êdd","Ginda","Mersa Fatma","Bêylul","Dek'emhare","Ak'ordat","Himbirti","Nefasit","Sen'afê"],"Estonia":["Tallinn","Tartu","Pärnu","Kuressaare","Aakre","Kuusalu","Ulila","Narva","Kohtla-Järve","Viljandi","Rakvere","Haapsalu","Johvi","Elva","Jogeva","Tammiku","Laagri","Rummu","Kärdla","Jüri","Vändra","Väike-Maarja","Lihula","Koo","Aaspere","Ülenurme","Essu","Orissaare","Ääsmäe","Roela","Assaku","Haiba","Haage","Keila-Joa","Koigi","Kudjape","Mooste","Ravila","Külitse","Tilsi","Tudu","Varstu","Karjaküla","Sürgavere","Vao","Kolga-Jaani","Krootuse","Lelle","Luua","Rahinge","Hüüru","Oisu","Somerpalu","Vanamoisa","Are","Esku","Habaja","Helme","Hummuli","Soinaste","Näpi","Prillimäe","Annikoru","Lohusuu","Maardu","Luke","Muraste","Sillamäe","Saverna","Selja","Voru","Uhti","Valga","Vajangu","Joesuu","Kuimetsa","Keila","Kurtna","Paide","Vaskjala","Kuremäe","Kivioli","Polgaste","Tapa","Toravere","Kumna","Polva","Piira","Türi","Reiu","Saue","Rohuneeme","Rapla","Rosma","Saku","Saarde","Paldiski","Uusna","Poltsamaa","Viru-Jaagupi","Sindi","Kopu","Loksa","Sinimäe","Halliste","Kehra","Kabala","Kunda","Kabli","Sihva","Kohila","Viru-Nigula","Torva","Mikitamäe","Märjamaa","Narva-Joesuu","Albu","Räpina","Ambla","Köse","Keeni","Paistu","Haabneeme","Tali","Loo","Tamme","Tabasalu","Tammiste","Tamsalu","Tarbja","Kadrina","Uhtna","Aruküla","Vaimastvere","Kilingi-Nomme","Kaarepere","Otepää","Kodila","Kullamaa","Karksi-Nuia","Osula","Paikuse","Puiga","Viimsi","Saarepeedi","Aserrí","Sipa","Püssi","Ahula","Torvandi","Eidapere","Mustvee","Hagudi","Noo","Kauksi","Kehtna","Leisi","Antsla","Misso","Järvakandi","Nasva","Kallaste","Surju","Vohma","Varbola","Voore","Kaagjärve","Raasiku","Kääpa","Pärnu-Jaagupi","Someru","Suuremoisa","Abja-Paluoja","Audru","Erastvere","Viiratsi","Lasva","Suure-Jaani","Seljametsa","Soe","Koeru","Tsooru","Puhja","Ubja","Riisipere","Vana-Antsla","Turba","Vihtra","Haljala","Jämejala","Vaida","Kärstna","Klooga","Kohtla-Nomme","Raikküla","Kose-Uuemoisa","Saru Dornei","Moisaküla","Aegviidu","Kiili"],"Ethiopia":["Addis Abeba","'Alem Maya","Addis 'Alem","Nazrêt","Jimma","Addis Zemen","Mek'elê","Bahir Dar","Awassa","Debre Zeyit","Harer","Arba Minch","Nek'emtê","Holeta Genet","Asayita","Wonji","Shashemennê","Kembolcha","Addigrat","Debre Mark'os","Assela","Debre Birhan","Dilla","Alamat'a","Hagere Hiywet","Adwa","Metu","Dembi Dolo","Sebeta","Bati","Bichena","Jinka","Asasa","Gelemso","Awash","Lalibela","Sendafa","Dirê Dawa","Gondar","Desê","Hossa'ina","Soddo","Goba","Endasilasie","Negêlê","Jijiga","Aksum","Giyon","Weldiya","Robê","Yirga Alem","Agaro","Mek'i","Mojo","Debre Tabor","K'obo","Gimbi","Butajira","Asbe Teferi","Kibre Mengist","Maych'ew","Fichê","Ziway","Mott'a","Dubti","Gambêla","Chagni","Korem","Dangla","Sawla","Shakiso","Wik'ro","Welk'it'ê","Werota","Alaba Kulito","Himora","Debark","Shewa Robit","Dodola","Finote Selam","Boditi","Burê","Hagere Maryam","Areka","Adêt","Ginir","Bedelê","Metehara","Asosa","Welench'iti","Yirga Ch'efê","Wendo","Shambu","Gebre Guracha","Nedjo","Bonga","Bedêsa","Kemisê","Nefas Mewcha","Abomsa","Mizan Teferi","Ginch'i","Têppi","Moyalê","Bako","Yabêlo","Mendi","Burayu","Degeh Bur","Guder","Huruta","Hirna","Dejen","Dabat","Leku","Gewane","Werdêr","Gidolê","Debre Werk","Tulu Bolo","Abiy Adi","Sek'ot'a","Shêh Hussên","Îmi","Sirê","Kofelê","Debre Sina","Dolaw","Gore","Bircot","Deder","Were Îlu","Ch'ench'a","Gêdo","Mêga","Hagere Selam","Ankober","Addi Ark'ay"],"Falkland Islands (Malvinas)":["Goose Green","Port Stanley","Grytviken","Port Howard"],"Faroe Islands":["Tórshavn","Eiði","Húsavík","Klaksvík","Gøta","Runavík","Tvøroyri","Fuglafjarð","Vágs","Nes","Vestmanna","Kollafjarð","Sjó","Midvágs"],"Fiji":["Suva","Ba","Nadi","Lautoka","Nausori","Labasa","Sigatoka","Savusavu","Lami","Malhaha","Namosi","Vatukoula","Rakiraki","Levuka","Tavua","Korovou","Vunisea","Navua","Deuba","Tubou","Navouvalu","Seaqaqa"],"Finland":["Helsinki","Oulu","Espoo","Tampere","Turku","Jyväskylä","Vaasa","Lahti","Joensuu","Vantaa","Rovaniemi","Anjalankoski","Kuopio","Mikkeli","Hämeenlinna","Porvoo","Lappeenranta","Pori","Varkaus","Kokkola","Kirkkonummi","Seinäjoki","Raahe","Forssa","Kajaani","Imatra","Riihimäki","Salò","Vammala","Kauhajoki","Kotka","Hyvinkää","Pietarsaari","Äänekoski","Jämsä","Hanko","Kouvola","Raisio","Iisalmi","Valkeakoski","Kuusamo","Parainen","Kempele","Lohja","Rauma","Kerava","Nokia","Tornio","Ylöjärvi","Kuusankoski","Lempäälä","Lieksa","Keuruu","Kemijärvi","Hamina","Järvenpää","Nurmijärvi","Savonlinna","Vihti","Kangasala","Heinola","Kaarina","Hollola","Sillinjärvi","Orimattila","Lapua","Loviisa","Nivala","Ilmajoki","Maarianhamina","Oulainen","Eura","Harjavalta","Uusikarlepyy","Tuusula","Kemi","Mäntsälä","Sipoo","Uusikaupunki","Laukaa","Mustasaari","Haukipudas","Tammisaari","Janakkala","Nastola","Naantali","Lieto","Ylivieska","Pirkkala","Kankaanpää","Vehkalahti","Ulvila","Valkeala","Joutseno","Kurikka","Huittinen","Muhos","Kokemäki","Kristiinankaupunki","Noormarkku","Eurajoki","Nakkila","Säkylä"],"France":["Paris","Nice","Toulouse","Marseille","Lyon","Bordeaux","Aix-en-Provence","Lille","Courbevoie","Abbeville","Grenoble","Montpellier","Nantes","Antibes","Annecy","Rennes","Versailles","Nancy","Clermont-Ferrand","Rouen","Metz","Fontainebleau","Boulogne-Billancourt","Reims","Nimes","Avignon","Orléans","Perpignan","Tours","Dijon","Issy-les-Moulineaux","Angoulême","Angers","Limoges","Saint-Germain-en-Laye","Brest","Cergy","Schiltigheim","Mulhouse","Annemasse","Caen","Neuilly-sur-Seine","Amiens","Poitiers","Levallois-Perret","Saint-Étienne","Quimper","Créteil","Colmar","Rueil-Malmaison","Le Havre","La Rochelle","Belfort","Vincennes","Montreuil","Valbonne","Asnières-sur-Seine","Vannes","Antony","Chambéry","Suresnes","Le Mans","Orsay","Béziers","Maisons-Laffitte","Grasse","Frontignan","Massy","Thonon-les-Bains","Besançon","Nanterre","Pau","Carcassonne","Toulon","Argenteuil","Hyères","Clichy","Manosque","Mougins","Colombes","Troyes","Meudon","Puteaux","Melun","Saint-Cloud","Saint-Maur-des-Fossés","Lorient","Noisy-le-Grand","Narbonne","Cagnes-sur-Mer","Douai","Thionville","Gex","Les Pavillons-sous-Bois","Agen","Palaiseau","Morlaix","Chantilly","Rambouillet","Niort","Pontivy","Auch","Blois","Chalon-sur-Saone","Ajaccio","Saint-Brieuc","Compiègne","Salon-de-Provence","Talence","Biarritz","Houilles","Castelnaudary","Nogent-sur-Marne","Bergerac","Aix-les-Bains","Le Vésinet","Viroflay","Enghien-les-Bains","Ivry-sur-Seine","Fréjus","Mantes-la-Jolie","Montmorency","Alès","Chartres","Sélestat","Périgueux","Plaisir","Menton","Saint-Denis","Calais","Vitry-sur-Seine","Champigny-sur-Marne","Sarcelles","Chamonix-Mont-Blanc","Sèvres","Beauvais","Brive-la-Gaillarde","Pantin","Albi","Villejuif","Agde","Bastia","Cognac","Beausoleil","Auxerre","Lagny-sur-Marne","Saint-Genis-Pouilly","Anglet","Lons-le-Saunier","Saverne","Achères","Draguignan","Mont-de-Marsan","Villefranche-sur-Saone","Chatillon","Bernay","Marly-le-Roi","Draveil","Saint-Omer","Vanves","Gentilly","Bonneville","Les Ulis","Dunkerque","Valença","Le Kremlin-Bicêtre","Saint-Malo","Montauban","Limoux","Sartrouville","Évry","Tarbes","Martigues","Cahors","Chelles","Valenciennes","Bayonne","Villeneuve-Loubet","Montrouge","Bagneux","Bourg-la-Reine","Alfortville","Pertuis","Chatenay-Malabry","Mandelieu-la-Napoule","Alençon","Joinville-le-Pont","Orange","Vierzon","Soisy-sous-Montmorency","Sens","Saintes","Pontoise","Le Pecq","Cavaillon","Aulnay-sous-Bois","Tournefeuille","Bourges","Villeneuve-d'Ascq","Bry-sur-Marne"],"French Guiana":["Cayenne","Kourou","Matoury","Saint-Laurent-du-Maroni","Remire-Montjoly","Mana","Macouria","Maripasoula","Apatou","Grand-Santi","Sinnamary","Saint-Georges","Roura","Iracoubo","Camopi"],"French Polynesia":["Papeete","Punaauia","Afaahiti","Vaitape","Rangiroa","Fitii","Niua","Fetuna","Faaa","Mahina","Papara","Papeari","Afareaitu","Tautira","Vairao","Teavaro","Taiohae","Papetoai","Pueu","Faanui","Hitiaa","Tevaitoa","Atuona","Faaone","Hakahao","Fare","Teahupoo","Anau","Hao","Iripau","Maupiti","Opoa","Rikitea","Takaroa","Maeva","Moerai","Mahaena","Mataura","Vaiaau","Haamene","Manihi","Makemo","Fakarava","Arutua","Tahuata","Kauehi","Hakamaii","Haapu","Ua-Huka","Fatu-Hiva","Taahuaia","Tapuamu","Takapoto","Rairua","Maroe","Rapa","Tehurui","Hipu","Mahu","Parea","Ruutia","Ahe","Anaa","Apataki","Faaaha","Vaitoare","Katiu","Tikehau","Tefarerii","Hauti","Taipivai","Kaukura","Reao","Hatiheu","Maiao","Faaite","Faie","Puamau","Tureia","Mutuaura","Anatonu","Tatakoto","Amaru","Napuka","Anapoto","Mataiva","Vaiuru","Raroia","Pukarua","Pukapuka","Hikueru","Amanu","Puohine","Fakahima","Niau","Nukutavake","Fangatau","Taenga","Vahitahi","Makatea","Hereheretue","Marokau","Tepoto","Vairaatea","Pirae","Paea","Arue","Mataiea","Paopao","Haapiti","Uturoa","Papenoo","Avera","Toahotu","Tiarei"],"French Southern Territories":["Alfred-Faure","Port-aux-Français","Martin-de-Viviès"],"Gabon":["Libreville","Port-Gentil","Gamba","Tchibanga","Bitam","Mimongo","Masuku","Moanda","Oyem","Makokou","Mouila","Lambaréné","Koulamoutou","Mounana","Ntoum","Nkan","Lastoursville","Okandja","Tsogni","Ndendé","Booué","Fougamou","Ndjolé","Setté Cama","Mayumba","Mbigou","Mitzic","Mékambo","Lékoni","Minvoul","Omboué","Cocobeach","Lalara","Médouneu","Kango"],"Gambia":["Banjul","Serekunda","al-Gharbiyah","Bakau","George Town","Sukuta","Gunjur","Bansang","Sabi","Gambissara","Kuntaur","Brufut","Essau","Kerewan","Barra","Salikeni","Farafenni","Basse","Lamin","Mansakonko"],"Georgia":["Tbilisi","Abasha","Tskneti","Adigeni","Java","Kutaisi","Gori","Samtredia","Ozurgeti","Sachkhere","Agra","Tsageri","Chakvi","Akhaldaba","Jinvali","Chokhatauri","Makhinjauri","Kazbegi","Abastumani","Bediani","Rustavi","Batumi","Sukhumi","Zugdidi","Telavi","Gali","Kvareli","Ducheti","Pitsunda","Tsalka","Dioknisi","Ambrolauri","Tetri Tskaro","Kazreti","Kareli","Ninotsminda","Khobi","Vani","Martvili","Shaumiani","Kharagauli","Tsnori","Laituri","Tianeti","Manglisi","Urmenis","Jvari","Chkhototsku","Signagi","Aspindza","Dmanisi","Khelvachauri","Akhali Atoni","Didi Lilo","Mestia","Naruja","Samgori","Pasanauri","Tsagveri","Kulashi","Kveda Nasakirali","Bakuriani","Oni","Ochkhamuri","Zahesi","Shorapani","Ureki","Akhalgori","Keda","Bakurianis Andeziti","Trialeti","Sioni","Khulo","Kojori","Tamarisi","Shuakhevi","Kvaisi","Kornisi","Kharistvala","Lajanurhesi","Gagra","Chiatura","Tskhaltubo","Khashuri","Poti","Tskhinvali","Tkibuli","Zestaphoni","Senaki","Gardabani","Akhaltsikhe","Kaspi","Marneuli","Borjomi","Tkvarcheli","Mtskheta","Ochamchira","Sagarejo","Khoni","Gurjaani","Bolnisi","Akhalkaliki","Gudauta","Tsalenjikha","Akhmeta","Lentekhi","Dedophlistskaro","Kobuleti","Surami","Lanchkhuti","Terjola","Gulripshi","Baghdati","Lagodekhi"],"Germany":["Berlin","Hamburg","Frankfurt","München","Düsseldorf","Köln","Aachen","Stuttgart","Kaiserslautern","Bremen","Heidelberg","Bonn","Darmstadt","Wiesbaden","Hannover","Nürnberg","Mannheim","Karlsruhe","Mainz","Dresden","Freiburg","Dortmund","Leipzig","Würzburg","Regensburg","Augsburg","Göttingen","Essen","Bamberg","Ansbach","Schweinfurt","Münster","Duisburg","Trier","Kiel","Bochum","Bielefeld","Ingolstadt","Kassel","Amberg","Heilbronn","Gießen","Magdeburg","Saarbrücken","Paderborn","Erfurt","Hanau","Aschaffenburg","Ulm","Wuppertal","Mönchengladbach","Aalen","Tübingen","Bad Homburg","Bitburg","Braunschweig","Konstanz","Lübeck","Koblenz","Erlangen","Fulda","Freising","Krefeld","Oldenburg","Walldorf","Rostock","Potsdam","Esslingen","Marburg","Rosenheim","Jena","Lüneburg","Passau","Offenbach","Flensburg","Bad Kreuznach","Recklinghausen","Bergisch Gladbach","Hildesheim","Villingen-Schwenningen","Bayreuth","Leverkusen","Wolfsburg","Pforzheim","Waldshut-Tiengen","Friedrichshafen","Siegburg","Starnberg","Reutlingen","Ratingen","Idar-Oberstein","Erding","Celle","Lippstadt","Kleve","Soest","Weiden","Coburg","Chemnitz","Halle","Mülheim","Osnabrück","Ludwigshafen","Pfaffenhofen","Schwerin","Ludwigsburg","Delmenhorst","Babenhausen","Bad Vilbel","Landshut","Böblingen","Heinsberg","Saarlouis","Siegen","Jülich","Limburg","Gütersloh","Dessau","Gladbeck","Norderstedt","Kempten","Rüsselsheim","Meerbusch","Lörrach","Freiberg","Pirmasens","Heppenheim","Bruchsal","Bietigheim-Bissingen","Friedrichsdorf","Gelsenkirchen","Bensheim","Oberhausen","Hofheim","Hamm","Eckernförde","Solingen","Bremerhaven","Fürstenfeldbruck","Viernheim","Troisdorf","Detmold","Kitzingen","Bad Soden","Hameln","Offenburg","Eschborn","Bad Windsheim","Cuxhaven","Nordhorn","Neu-Ulm","Heidenheim","Bad Neuenahr-Ahrweiler","Erkrath","Elmshorn","Limburgerhof","Bornheim","Frankenthal","Garmisch-Partenkirchen","Bünde","Rodgau","Kaufbeuren","Landau","Bingen","Dreieich","Traunstein","Alsfeld","Hagen","Herne","Herzogenaurach","Neu-Isenburg","Langen","Schwetzingen","Remscheid","Fürth","Sulingen","Cottbus","Mörfelden-Walldorf","Lüdenscheid","Bad Reichenhall","Überlingen","Weimar","Radolfzell","Friedberg","Hattingen","Vaihingen","Geilenkirchen","Bretten","Kevelaer","Hammelburg","Gangelt","Neckarsulm","Hof","Günzburg","Leimen","Hainburg","Ravensburg","Kelkheim","Ilmenau","Schwanewede"],"Ghana":["Accra","Kumasi","Aboso","Tamale","Tema New Town","Cape Coast","Takoradi","Koforidua","Ashiaman","Ho","Aburi","Nsawam","Sunyani","Tafo","Tarkwa","Bolgatanga","Swedru","Madina","Aflao","Somanya","Tima","Teshie","Wa","Nungua","Winneba","Berekum","Bawku","Elmina","Ada","Suhum","Konongo","Foso","Keta","Obuasi","Nkawkaw","Mampong","Oda","Anloga","Begoro","Ofinso","Akropong","Mpraeso","Sekondi","Yendi","Agogo","Techiman","Asamankese","Hohoe","Savelugu","Dunkwa","Saltpond","Bechem","Nyakrom","Komenda","Kete-Krachi","Kibi","Okitsiu","Wenchi","Kpandu","Kintampo","Prestea","Apan","Axim","Mankranso","Salaga","Shama","Kade","Navrongo","Duayaw Nkwanta","Mumford","Mauri","Bibiani","Anomabu","Kpandae","Akim Swedru","Bekwai"],"Gibraltar":["Gibraltar"],"Greece":["Athens","Thessaloníki","Adámas","Iráklion","Piraieús","Glifáda","Pátrai","Vólos","Lárisa","Kalamáta","Ródos","Kateríni","Kérkira","Mitilíni","Voúla","Kavála","Kifisiá","Aigáleo","Réthimnon","Níkaia","Amaroúsion","Ayía Paraskeví","Ambelókipoi","Árta","Haniá","Agrínion","Thrakomakedónes","Alexandroúpoli","Tríkala","Áthira","Igoumenítsa","Sámos","Peristérion","Ílion","Keratsínion","Néa Smírni","Sérrai","Lamía","Xánthi","Vrilíssia","Kastoriá","Ierápetra","Zákinthos","Anávissos","Néa Moudaniá","Thíra","Páros","Ilioúpoli","Athíkia","Néa Ionía","Ioánnina","Eúosmon","Dráma","Korinthía","Ptolemaís","Kambí","Néa Filadelfia","Pírgos","Pilaía","Kos","Ellinikón","Spárti","Ermoúpolis","Néon Psikhikón","Áyios Nikólaos","Aíyina","Toúmba","Néa Mikhanióna","Ándros","Leukás","Anthíli","Gliká Nerá","Kría Vrísi","Míkonos","Sími","Vouliagméni","Kítros","Drosiá","Polídrosos","Alivérion","Palaiokhóra","Políyiros","Stilís","Skhimatárion","Vrontádos","Desfína","Dístomon","Ánthia","Marathón","Saronís","Kallithéa","Alíartos","Ntráfi","Zeugolatíon","Koridallós","Palaión Fáliron","Víron","Kíssamos","Spétsai","Komotiní","Kalívai","Kozáni","Aryiroúpoli","Perdíkkas","Khóra","Afídnai","Metamórfosi","Kaisarianí","Darátsos","Eleusís","Salamís","Glóssa","Spárta","Dáfni","Erétria","Erikoússa","Moskháton","Mégara","Oinófita","Vartholomió","Mesopotamiá","Peúki","Édessa","Veryína","Préveza","Ágrafa","Skíros","Áyios Ioánnis Réntis","Thesprotikón","Aiyíra","Néa Mákri","Antikíra","Peraía","Alessandria","Íos","Naúpaktos","Paianía","Kalívia Thorikoú","Loutrákion","Kaména Voúrla","Rafína","Tírnavos","Piryetós","Psikhikón","Kálimnos","Alepoú","Kiáto","Argostólion","Skoútari","Karidítsa","Astakós","Likóvrisi","Grizánon","Markópoulon","Árgos Orestikón","Rodolívos","Mitrópoli","Néa Epídauros","Theodóriana","Gastoúni","Símantra","Mitroúsion","Néa Kharauyí","Kalambáka","Tsarítsani","Néa Pella","Néa Láva","Valsamáta","Keratéa","Vathí","Néa Potídaia","Néa Róda","Anakasiá","Néa Péramos","Anóyia","Nisíon","Áno Kastrítsion","Epanomí","Ássos","Palaiokhórion","Aréthousa","Filothí","Drimós","Auliótai","Khalástra","Elátia","Plátanos","Ólinthos","Eúmoiron","Europós","Pontisménon","Oxílithos","Éxarkhos","Elassón","Kanallákion","Thespiaí","Palaiomonástiron","Gaúrio","Lankadás","Kéfalos"],"Greenland":["Aappilattoq","Narsaq","Nuuk","Sisimiut","Ilulissat","Qaqortoq","Paamiut","Alluitsup Paa","Kulusuk","Upernavik Kujalleq","Uunarteq","Alluitsoq","Kangerluarsoruseq","Aasiaat","Maniitsoq","Tasiilaq","Qasigiannguit","Uummannaq","Nanortalik","Upernavik","Qeqertarsuaq","Kangaatsiaq","Qaanaaq","Kangerlussuaq","Illoqqortoormiut","Kangaamiut","Kullorsuaq","Kuumiut","Niaqornaarsuk","Attu","Qeqertarsuatsiaat","Saattut","Kangersuatsiaq","Ikerasak","Atammik","Qaarsut","Nuusuaq","Pituffik","Ukkusissat","Arsuk","Saqqaq","Tasiusaq","Sermiligaaq","Narsarsuaq","Tiniteqilaaq","Itilleq","Qeqertaq","Eqalugaarsuit","Kangilinnguit","Akunnaaq","Napasoq","Isortoq","Narsarmijit","Nuugaatsiaq","Sarfannguit","Illorsuit","Ammassivik","Kapisillit","Kitsissuarsuit","Iginniarfik","Ilimanaq","Savissivik","Ikerasaarsuk","Ikamiut","Siorapaluk","Naajaat","Niaqornat","Saarloq","Igaliku","Moriusaq","Qassiarsuk","Qassimiut","Oqaatsut","Itterajivit","Qeqertat","Akuliaruseq","Ivittuut","Qinngua","Neriunaq","Qallimiut","Saqqamiut","Timerliit","Upernaviarsuk"],"Grenada":["Carlisle","Saint Davids","Sauteurs","Gouyave","Victoria","Grenville","Saint Georges","Hillsborough"],"Guadeloupe":["Baie-Mahault","Petit-Bourg","Anse-Bertrand","Les Abymes","Le Gosier","Capesterre-Belle-Eau","Basse-Terre","Point-à-Pitre","Sainte-Rose","Saint-François","Saint-Claude","Grand-Bourg","Saint-Barthélemy","Le Moule","Sainte-Anne","Morne-à-l'Eau","Lamentin","Trois-Rivières","Petit-Canal","Pointe-Noire","Gourbeyre","Vieux-Habitants","Bouillante","Baillif","Port-Louis","Marigot","Grand'Anse","Terre-de-Bas","Goyave"],"Guam":["Agana","Tamuning","Yigo","Dededo","Santa Rita","Mangilao","Anderson Air Force Base","Sinajana","Barrigada","Toto","Agat","Chalan Pago","Inarajan","Apra Harbor","Ordot","Mongmong","Talofofo","Latte Heights","Agana Station","Santa Rosa","Agana Heights","Yona","Finegayan Station","Merizo","Marbo Annex","Barrigada Heights","Maina"],"Guatemala":["Guatemala","Antigua Guatemala","Quetzaltenango","Acatenango","Puerto Barrios","Jalpatagua","Mixco","Panajachel","San José del Golfo","Huehuetenango","Santa Lucía Cotzumalguapa","Cobán","Patzún","Tiquisate","San Pedro Jocopilas","San Lucas Sacatepéquez","Melchor de Mencos","San Miguel Dueñas","Huamantla","Rio Hondo","Atenco","Aguacaliente","Iztapa","Villa Canales","Chimaltenango","Santa Catarina Pinula","Jalapa","Chiquimula","San José Pinula","Santiago Atitlán","Salamá","San Bartolomé Jocotenango","San Bartolo","La Gomera","San Francisco la Unión","Nahualá","San José Ojetenán","Cantel","San Sebastián Huehuetenango","Santa Lucía Utatlán","Jocotenango","Zacamulpa","San Cristóbal Verapaz","San Andrés Itzapa","Santa Lucía la Reforma","Chicacao","Sibilia","Flores","Concepcion Tutuapa","Panzós","San Rafael la Independencia","Gualán","Colomba","Tamahú","Patzicía","Asunción Mita","Patzité","Poptún","Granados","Santa Maria de Jesús","Río Blanco","Alotenango","San Sebastián Coatán","Morales","San José Chacayá","Palencia","Tectitán","Cuilapa","Sipacapa","El Estor","San Diego","Sanarate","San Gaspar Ixchil","San Pablo Jocopilas","Malacatán","La Democracía","Chisec","San Lucas Tolimán","El Tejar","Donostia","San Pedro Carchá","Chiquimulilla","El Palmar","Nuevo San Carlos","Comitancillo","Santa Catalina la Tinta","Barillas","La Esperanza","Patulul","Salcajá","Almolonga","Guastatoya","Lívingston","Nueva Concepción","Ayutla","San Francisco Zapotitlán","San Pablo","Chajul","Monjas","Santa Catarina Ixtahuacán","San Luis Jilotepeque","Joyabaj","San Juan Chamelco","Rabinal","San Miguel Chicaj","Santa Catarina Mita","San Mateo Ixtatán","Siquinalá","Cuyotenango","San Andrés Xecul","San Juan Cotzal","San Pedro la Laguna","Flores Costa Cuca","Emilio Carranza","San Antonio Suchitepéquez","San Martín Jilotepeque","Zunil","Soloma","San Agustín Acasaguastlán","Santa Lucía Milpas Altas","Zaragoza","Pastores","Samayac","Estanzuela","Nueva Santa Rosa","Parramos","Sacapulas","Yepocapa","Cubulco","Dolores","El Quetzal","Concepción","Tactic","Atescatempa","Chiantla","Santo Domingo Xenacoj","San Felipe","Champerico","Oratorio","San Raymundo","Sayaxché","Pajapita","Cabricán","San Antonio Aguas Calientes","Callejones","Masagua","Concepción Chiquirichapa","Mataquescuintla","Río Bravo","Guazacapán","Zacualpan","San Jeronimito","Santa Cruz Balanyá","San Vicente Pacaya","San Cristóbal Cucho","El Tumbador","Cunén","Ocós","Santa Ana","Chuarrancho","Moyuta","Ixcán","Casillas","Taxisco","Fray Bartolomé de las Casas","Nuevo Progreso","Huaxpaltepec","Huitán","Santo Tomás la Unión","Teculután","San Pablo la Laguna","San Antonio la Paz","San José Poaquil","San Bartolomé Milpas Altas","Santa María Chiquimula","Santo Domingo Suchitepéquez","San Antonio Huista","Ipala","Magdalena Milpas Altas","San Carlos Alzatate","Aguacatán","Santa Cruz Verapaz","San Miguel Sigüilá","Tacaná","San Carlos Sija","Santa Clara la Laguna","El Asintal","Purulhá","San José Acatempa","Jocotán","Cabañas","Senahú","San Bernardino","Santa Rosa de Lima","Santa Cruz Naranjo","Cahabón","San Cristóbal Totonicapán","Uspantán","San Juan la Laguna","La Reforma"],"Guernsey":["Guernsey","Castel"],"Guinea":["Conakry","Biyala","Gaoual","Dinguiraye","Nzérékoré","Kankan","Kindia","Mamou","Siguiri","Labé","Télimélé","Kissidougou","Macenta","Tougué","Pita","Tondon","Kouroussa","Boké","Koundara","Dabola","Dalaba","Forécariah","Dubréka","Lélouma","Mandiana","Koubia","Tokonou","Youkounkoun","Faranah","Fria","Sanguéya","Kérouane","Mali","Yomou","Guéckédou","Boffa","Lola","Coyah"],"Guinea-Bissau":["Bissau","Bafatá","Cacheu","Canchungo","Gabú","Bissorã","Bolama","Bubaque","Catió","Quebo","Buba","Mansoa","Farim","Fulacunda"],"Guyana":["Georgetown","New Amsterdam","Vreed en Hoop","al-Mahdiyah","Linden","Mahaica","Suddie","Parika","Corriverton","Rosignol","Fort Wellington","Skeldon","Anna Regina","Lethem","Mabaruma","Issano","Springlands","Paradise","Mahaicony","Charity","Rockstone","Tumatumari","Bartica","Kumaka","Queenstown","Orealla","Biloku","Morawhanna","Epira","Apoteri"],"Haiti":["Port-au-Prince","Pétionville","Delmas","Cap-Haïtien","Jacmel","Anse-à-Galets","Carrefour","Ouanaminthe","Les Cayes","Port-de-Paix","Petit Goave","Saint-Louis-du-Nord","Léogane","Gonaïves","Garoafa","Desdunes","Fort-Liberté","Pignon","Croix-des-Bouquets","Lascahobas","Saint-Marc","Verrettes","Jérémie","L'Artibonite","Hinche","Dessalines","Saint-Michel-de-l'Atalaye","Trou-du-Nord","Mirebalais","Grande Rivière du Nord","Anse-d'Hainault","Gros-Morne","Miragoane","Dame Marie","Saint-Raphaël","Aquin","Kenscoff","Dérac"],"Heard Island and McDonald Mcdonald Islands":[],"Holy See (Vatican City State)":["Vatican"],"Honduras":["Tegucigalpita","San Pedro Sula","La Ceiba","Achiotal","Roatán","Distrito Central","Siguatepeque","Tela","El Marañón","Comayagua","Puerto Cortés","El Rancho","San Francisco de Yojoa","El Llano","Utila","Guastatoya","Danli","Juticalpa","Ocotepeque","Agua Blanca Sur","Gracias","Copán","Azacualpa","Santa Rosa de Aguán","Apacilagua","Arizona","Omoa","Pinalejo","José Santos Guardiola","Sula","Limón","Quezailica","Ojo de Água","San Francisco de Cones","San Jeronimito","San Juan de Planes","Amapala","San Pedro Zacapa","San Francisco de Becerra","Sandy Bay","Santiago de Puringla","Silca","Zapotal del Norte","Teguajinal","Belén Gualcho","Trojas","Jericó","Yaruchel","Río Blanquito","Bajamar","Trinidad de Copán","El Tránsito","Corozal","Guaymitas","Río Amarillo","Lepaterique","Río Arriba","Sinuapa","Río Bonito","Protección","San Fernando","Río Abajo","Savannah Bight","Cane","Texíguat","El Suyatal","Agua Azul Sierra","El Triunfo de La Cruz","Agua Caliente de Linaca","La Campana","Agua Dulcita","La Flecha","Chiquila","La Sarrosa","Cololaca","Sabanagrande","Concepcion de La Barranca","Yorito","El Durazno","Brisas del Calán","El Higuero","Dulce Nombre de Culmí","El Jocomico","Las Choapas","Monterrey","El Rusio","Nueva Esperanza","Guatemalita","Quebrada Seca","La Brea","Vallecillo","La Criba","Bugaba","Liure","Cañaveral","Macholoa","El Mochito","Morolica","Piedras Amarillas","Nuevo Chamelecón","San Antonio de La Cuesta","Chalmeca","Taragual","El Tular","Tepanguare","Marcovia","Chiapa","La Curva","Antigua Ocotepeque","Agua Azul Rancho","El Ocote","La Jigua","Erandique","La Reina","Guanaja","Las Mercedes","Ilama","Nuevo Celilac","La Cuesta Dos","San Antonio del Norte","Mezapita","Toloa Adentro","Punuare","Concepción del Norte","El Ermitaño","San Francisco del Valle","Mercedes","San Pedro de Tutule","Santa Ana de Yusguare","La Colorada","Arimís","Lagunas","Atenas de San Cristóbal","Bodega de Los Tangos","El Bálsamo","Chivana","Etla","San Juancito","Lamaní","Vivistorio","Namasigüe","Agualote","Portillo de González","Atima","El Guapinol","Concepción de María","Jardines","El Milagro","Kino","El Pedernal","San José de Pane","Suyapa de Leán","El Arenal","Coyoles","Jocón","El Derrumbo","Mandasta","San Antonio","Sapadril Abajo","San José de Tarros","El Chichicaste","El Buen Pastor","El Obraje","Guayape","La Estancia","San José de los Arroyos","Ocote Paulino","Chirinos","Orocuina","La Empalizada","San Juan de Opoa","Ayapa","San José de Oriente","Cuyalí","El Guayabo","El Lolo","El Pescadero","La Rosa","Waksma","Lomitas","Los Naranjos","El Edén","Marale","Magdalena Tequisistlán","Tepusteca","Santa Fe","Yaguacire","Corinto","Bálsamo Oriental","Hicaque","Tegucigalpa","Cedeño","Llano Largo","Concepción de Guasistagua","Nueva Florida","Donostia","Meámbar","Choloma","El Rincón","El Rodeo"],"Hong Kong":["Hong Kong"],"Hungary":["Budapest","Debrecen","Szeged","Aba","Miskolc","Pécs","Székesfehérvár","Györ","Eger","Kecskemét","Érd","Szolnok","Kaposvár","Úrkút","Tata","Nyíregyháza","Békéscsaba","Cegléd","Gödöllö","Budaörs","Zalaegerszeg","Sopron","Salgótarján","Szombathely","Dunaújváros","Vecsés","Tapolca","Nagykanizsa","Szegvár","Gyöngyös","Gyula","Szabadbattyán","Várpalota","Ozora","Százhalombatta","Fót","Pomáz","Kapuvár","Biatorbágy","Tatabánya","Veszprém","Ózd","Vác","Mosonmagyaróvár","Kiskunhalas","Dunakeszi","Szigetszentmiklós","Siófok","Hévíz","Hatvan","Paks","Szarvas","Tiszaújváros","Abony","Nyírbátor","Nagykáta","Bogyiszló","Szigetvár","Törökbálint","Bicske","Üllö","Budakalász","Tököl","Hajdúszovát","Halásztelek","Algyö","Petneháza","Hajdúböszörmény","Kiskunfélegyháza","Ajka","Esztergom","Jászberény","Répcelak","Baj","Törökszentmiklós","Mándok","Szilvásvárad","Keszthely","Dombóvár","Monor","Oroszlány","Lakitelek","Mezötúr","Mohács","Csongrád","Kesztölc","Domaszék","Monok","Kalocsa","Smederevo","Sátoraljaújhely","Hajdúnánás","Kisvárda","Mezökövesd","Dunaharaszti","Kozármisleny","Sárvár","Gyomaendröd","Dunavecse","Göd","Kiszombor","Sárospatak","Bátonyterenye","Gyömrö","Taktaharkány","Újfehértó","Rábapatona","Sárbogárd","Balatonfüred","Bucsa","Budakeszi","Pilisvörösvár","Almásfüzitö","Szigethalom","Buják","Forró","Tiszaföldvár","Köszeg","Vaja","Bóly","Maklár","Valkó","Csorna","Sásd","Pilis","Veresegyház","Pásztó","Siklós","Szerencs","Szeghalom","Jászapáti","Kunfehértó","Lábod","Múcsony","Maglód","Mátraderecske","Orgovány","Derecske","Fehérgyarmat","Kunszentmiklós","Solymár","Hidas","Kunhegyes","Lenti","Tarpa","Gárdony","Tárnok","Jászdózsa","Ecser","Nyírtelek","Zámoly","Encs","Újszász","Aranyosapáti","Pilisborosjenö","Rétság","Szabadszállás","Domoszló","Polgárdi","Heréd","Nyírlugos","Okány","Piliscsaba","Szentkirályszabadja","Szigetújfalu","Tiszapüspöki","Diósd","Taksony","Aszaló","Jászkisér","Mélykút","Litér","Ballószög","Csobánka","Gyöngyöspata","Rákócziújfalu","Kenderes","Martonvásár","Tokaj","Hódmezövásárhely","Balatonlelle","Szekszárd","Pápa","Császártöltés","Kazincbarcika","Orosháza","Nagykovácsi","Szentes","Bakonyszentlászló","Nagykörös","Györújbarát","Szentistván","Izsófalva","Aomen","Üröm","Tápióság","Kecskéd","Zsámbék","Tornyospálca","Kisléta"],"Iceland":["Reykjavík","Akranes","Kópavogur","Akureyri","Keflavík","Hafnarfjörður","Mosfellsbær","Vogar","Garðabær","Borgarnes","Fáskrúðsfjörður","Grundarhverfi","Selfoss","Seltjarnarnes","Ísafjörður","Höfn","Sandgerði","Eskifjörður","Reyðarfjörður","Vopnafjörður","Buðardalur","Litli-Árskógssandur","Borgarfjörður","Vestmannæyjar","Sauðárkrókur","Grindavík","Húsavík","Álftanes","Hveragerði","Egilsstaðir","Dalvík","Siglufjörður","Þorlákshöfn","Garður","Neskaupstaður","Stykkishólmur","Ólafsvík","Ólafsfjörður","Bolungarvík","Grundarfjörður","Blönduós","Seyðisfjörður","Hvolsvöllur","Patreksfjörður","Hella","Skagaströnd","Hvammstangi","Eyrarbakki","Stokkseyri","Hellissandur","Djúpivogur","Þórshöfn","Fellabær","Hólmavík","Tálknafjörður","Suðureyri","Þingeyri","Vík í Mýrdal","Flúðir","Raufarhöfn","Grenivík","Flateyri","Stöðvarfjörður","Bíldudalur","Reykjahlíð","Svalbarðseyri","Hrísey","Breiðdalsvík","Hofsós","Suðavík","Hvanneyri","Kirkjubæjarklaustur","Laugarvatn","Hauganes","Rif","Kópasker","Laugarás","Varmahlíð","Reykholt","Hafnir","Reykhólar","Bakkafjörður","Hrafnagil","Grímsey","Drangsnes","Laugar","Hólar","Sólheimar","Hallormsstaður","Kristnes"],"India":["Mumbai","Delhi","Bangalore","Chennai","Hyderabad","Pune","Kolkata","Gurgaon","Noida","Chandigarh","Abhayapuri","Jaipur","Ahmedabad","Indore","Kochi","Navi Mumbai","Nagpur","Vadodara","Surat","Madurai","Bhubaneswar","Guwahati","Nashik","Ni Dilli","Visakhapatnam","Faridabad","Ludhiana","Bhopal","Allahabad","Pondicherry","Thana","Thiruvananthapuram","Jalandhar","Pune Cantonment","Ghaziabad","Dehra Dun","Kanpur","Jamshedpur","Tambaram","Vijayawada","Tiruchchirappalli","Erode","Agra","Kalyan","Thrissur","Chetpet","Yelahanka","Vapi","Guntur","Patna","Mira Bhayandar","Kozhikkod","Tiruppur","Rajkot","Peddapuram","Raipur","Panvel","Varanasi","Jabalpur","Lakhnau","Hosur","Amritsar","Tirunelveli","Patiala","Aurangabad","Hubli","Ranchi","Kolhapur","Jodhpur","Navi Mumbai Panvel","Ulhasnagar","Ambattur","Shoranur","Kottayam","Bharuch","Mangaluru","Raikot","Ambala","Virar","Goa Velha","Mohali","Panaji","Aligarh","Valsad","Udaipur","Pimpri","Panchkula","Panipat","Thanjavur","Nagercoil","Koyampattur","Rohtak","Chengalpattu","Shimla","Bhilai","Sivakasi","Kollam","Sikandarabad","Neyveli","Banga","Jamnagar","Ajmer","Avadi","Rewari","Alappuzha","Pallavaram","Valasaravakkam","Tirupati","Kannur","Gwalior","Tiruchengode","Anand","Karur","Haora","Shillong","Palakkad","Warangal","Ahmadnagar","Kakinada","Badlapur","Haridwar","Durgapur","Jalgaon","Aizawl","Karnal","Jammu","Bommanahalli","Kanchipuram","Goregaon","Adilabad","Tumkur","Dwarka","Jajpur Road","Lonavale","Sangli-Miraj","Abohar","Dehri","Modinagar","Sonipat","Belgaum","Ichalkaranji","Ambarnath","Srinagar","Navsari","Gorakhpur","Bhiwandi","Tiruvethipuram","Bikaner","Namakkal","Nellur","Nizamabad","Satara","Dhanbad","Gandhinagar","Amravati","Bhavnagar","Dilli Cantonment","Rajamahendri","Bilaspur","Boisar","Bathinda","Agartala","Nalasopara","Ambala Cantonment","Bulandshahr","Kota","Selam","Moradabad","Habra","Silvassa","Palghar","Chennamalai","Nangal","Thuthukkudi","Phagwara","Nadiad","Yamunanagar","Pollachi","Machalpur","Madgaon","Asansol","Bellary","Udupi","Darbhanga","Tiruvottiyur","Indi","Sagwara","Himatnagar","Dharamshala","Karjat","Gandhidham","Kotdwara","Bardoli","Mathura","Pammal","Hapur","Haldia","Khopoli","Daman","Talegaon Dabhade"],"Indonesia":["Jakarta","Bandung","Surabaya","Yogyakarta","Batam","Medan","Semarang","Bogor","Denpasar","Aberpura","Malang","Balikpapan","Palembang","Bekasi","Tangerang","Depok","Banda Aceh","Makasar","Padang","Pontianak","Pondokgede","Bandar Lampung","Sidoarjo","Samarinda","Manado","Karawang","Surakarta","Banjarmasin","Pekan Baru","Kuta","Jambi","Salatiga","Tulungagung","Temanggung","Purwokerto","Cilegon","Magelang","Gresik","Ubud","Cimahi","Jember","Madiun","Mataram","Tanjung Pinang","Tanjung Balai","Singkawang","Purworejo","Lamongan","Ciputat","Cirebon","Kediri","Pekalongan","Pematang Siantar","Tasikmalaya","Mojokerto","Kuningan","Tarakan","Bontang","Palangka Raya","Majalengka","Klaten","Singaraja","Cilacap","Serang","Sukabumi","Jaten","Brebes","Kebumen","Subang","Cileunyi","Ponorogo","Cirebon Utara","Cikarang","Indramayu","Lubuk Pakam","Palu","Jaya Pura","Citeureup","Garut","Banjaran","Kraksaan","Jepara","Prabumulih","Cileungsi","Purwodadi","Karanganyar","Muntilan","Boyolali","Ambon","Bengkulu","Cimanggis","Kendari","Baki","Pasuruan","Kupang","Probolinggo","Sumber","Curup","Cianjur","Gorontalo","Blitar","Lhokseumawe","Tabanan","Gombong","Purwakarta","Magetan","Jombang","Rantauprapat","Dumai","Sibolga","Margasari","Jati","Demak","Serpong","Ciledug","Tomohon","Ciamis","Nganjuk","Cibitung","Gunung Stoli","Bumiayu","Sumedang","Blora","Sampit","Kaliwungu","Sragen","Sumbawa","Singaparna","Hamparan Perak","Kencong","Pringsewu","Palabuhanratu","Sleman","Sukoharjo","Padang Panjang","Luwuk","Tegal","Pandaan","Ketapang","Bitung","Binjai","Balaipungut","Tebingtinggi","Buaran","Mobagu","Jatiroto","Meulaboh","Pangkal Pinang","Poso","Cibinong","Kudus","Majalaya","Pondok Aren","Padang Sidempuan","Wlingi","Banyuwangi","Sidareja","Trenggalek","Pare Pare","Ruteng","Perbaungan","Adiwerna","Karangampel","Kisaran","Balapulang","Metro","Pangkalanbuun","Cibadak","Labuhan Deli","Bukit Tinggi","Babat","Cikampek","Paciran","Pemangkat","Cirebon Barat","Manyar","Lumajang","Padalarang","Batu","Ngunut","Bojonegoro","Grogol","Sungai Liat","Pati","Rangkasbitung","Tanjung Balai-Meral","Delanggu","Kelari","Bondowoso","Bangil","Mayong","Lubuk Linggau","Parakan","Amuntai","Singosari","Banjar","Gondanglegi","Plered","Payakumbuh","Tanjung Pandan"],"Iran, Islamic Republic of":["Tehran","Esfahan","Karaj","Abadan","Tabriz","Mashhad","Shiraz","Ahvaz","Rasht","Qazvin","Qom","Orumiyeh","Yazd","Babol","Sanandaj","Gorgan","Kermanshah","Hamadan","Shahinshahr","Arak","Mahabad","Kerman","Zanjan","Gonbad-e Qabus","Sari","Behbahan","Tonekabon","Ardabil","Sabzevar","Zahedan","Birjand","Bandar-e ´Abbas","Bushehr","Gonabad","Bojnurd","Bandar-e Anzali","Lahijan","Esfarayen","Torbat-e Heydariyeh","Quchan","Kangavar","Ardakan","Falavarjan","Azar Shahr","Mahallat","Sar-e-Pol-e-Zohab","Ramsar","Alashtar","Amol","Saveh","Zarinshahr","Minab","Kamyaran","Shahriyar","Khorramdarreh","Hashtgerd","Makó","Neka","Shahr-e Babak","Rudsar","Ramshir","Mehriz","Bafq","Semirom","Abdanan","Gheshm","Hashtrud","Dezful","Borujerd","Kashan","Qa´emshahr","Îlam","Andimeshk","Bukan","Saqqez","Semnan","Shushtar","Shahreza","Do Rud","Borazjan","Mianeh","Yasuj","Bonab","Damghan","Firuzabad","Bandar-e Gonaveh","Chahbahar","Chalus","Deh Dasht","Eqlid","Nushahr","Dorchehpiyaz","Khalkhal","Abyek","Sardasht","Estehban","Mahdasht","Garmsar","Shahindezh","Faman","Darreh Gaz","Baft","Fereydunkenar","Bardsir","Kordkuy","Khormuj","Ravar","Ivan","Bandar-e Lengeh","Tabas","Na´in","Malekan","Kehkiluyeh","Agha Jari","Ardistan","Dir","Tafresh","Nur","Mehran","Tangestan","Ashtian","Savadkuh","Eslamshahr","Khorramabad","Khomeynishahr","Neyshabur","Malayer","Maragheh","Varamin","Shahrud","Marv Dasht","Rafsanjan","Ezeh","Miandoab","Shahr-e Kord","Iranshahr","Agra","Eslamabad","Fasa","Do Gonbadan","Ahar","Behshahr","Aligudarz","Salmas","Omidiyeh","Torbat-e Jam","Golara","Abhar","Takestan","Lar","Abadeh","Bijar","Takab","Sanghar","Zarand","Rehnan","Golpayegan","Aliabad","Borujan","Bandar-e Torkaman","Robat Karim","Fuladshahr","Meybod","Neyriz","Babol Sar","Tayyebat","Piranshahr","Tuysarkan","Azna","Javanrud","Eqbaliyeh","Azad Shahr","Sarab","Sahneh","Pishva","Hashtpar","Astaneh-ye Ashrafiyeh","Mohammadiyeh","Chenaran","Astara","Garmi","Sawma´eh Sara","Qahdarijan","Dawlatabad","Hendijan","Sarakhs","Dehloran","Fariman","Farrokhshahr","Damavand","Bahar","Hadishahr","Delijan","Juybar","Qa´afur","Kalaleh","Kahnuj","Aq Qal´eh","Khonsar","Ajabshir"],"Iraq":["Baghdad","al-Basrah","Irbil","Abu al-Khasib","as-Sulaymaniyah","al-Mawsil","Dahuk","Kirkuk","al-Hillah","Tikrit","Ba´qubah","Shatt-al-´Arab","an-Najaf","an-Nasiriyah","Balad","ad-Diwaniyah","al-Fallujah","as-Samawah","´Afak","Samarra","Chamchamal","al-Majarr-al-Kabir","al-Kut","Hit","Karbala","ar-Ramadi","al-´Abbasiyah","al-Kufah","al-Hindiyah","al-Habbaniyah","Tuz","´Aqrah","al-Hamzah","Kusanjaq","al-Ghammas","Sinjar","ad-Dujayl","ar-Rifa´i","ar-Rutbah","az-Zubayr","Tall ´Afar","ash-Shatrah","Harithah","al-Qasim","Suq-ash-Shuyukh","al-Hayy","ash-Shaykhan","Hanaqin","Chaqalawa","Bayji","al-Musayyib","Zakhu","´Anah","al-Hadithah","ash-Shamiyah","al-Faw","as-Suwayrah","Jalula´´","al-Miqdadiyah","Kifri","al-Khalis","Halabjah","Mandali","ar-Rumaythah","al-Madhatiyah","an-Nu´maniyah","Panjwin","Lashkar Gah","al-Fuhud","Qarah Qush","Jurf-as-Sakhr","Rawah","Dhalu´iyah","al-Mishkhab","ash-Shinafiyah","Qal´at Dizeh","´Ali al Gharbi","Tall Kayf","Rawanduz"],"Ireland":["Dublin","Cork","Limerick","Galway","Swords","Abbeyfeale","Drogheda","Dundalk","Navan","Waterford","Kildare","Kilkenny","Mullingar","Wexford","Sligo","Wicklow","Athlone","Tralee","Carlow","Bray","Naas","Maynooth","Ennis","Letterkenny","Nenagh","Clonmel","Balbriggan","Castlebar","Malahide","Donegal","Celbridge","Cavan","Greystones","Arklow","Tullamore","Tipperary","Port Laoise","Newbridge","Clonakilty","Ballina","Dungarvan","Cobh","Longford","Carrick-on-Shannon","Leixlip","Killarney","Kells","Bandon","Birr","Westport","Gorey","Roscommon","Newcastle","Thurles","Loughrea","Dunmanway","Youghal","Monaghan","Trim","Enniscorthy","New Ross","Ardee","Carrickmacross","Boyle","Shannon","Buncrana","Charleville","Dingle","Ballyhaunis","Midleton","Rush","Tuam","Bantry","Skibbereen","Claremorris","Skerries","Ballinasloe","Roscrea","Portarlington","Bundoran","Rathdrum","Passage West","Mitchelstown","Kinsale","Bagenalstown","Castleblayney","Blarney","Castlerea","Bailieborough","Ballinrobe","Belturbet","Carrigaline","Tramore","Athy","Rathcoole","Edenderry","Listowel","Cashel","Kilrush","Macroom","Tullow","Templemore","Clones","Athenry","Banagher","Kanturk","Thomastown","Mountrath","Killorglin","Gort","Cahirciveen","Malaita","Laytown","Carrick-on-Suir","Ballybofey","Ballyshannon","Clara","Cahir","Drumcar","Coothill","Moate","Abbeyleix","Ballybunion","Rathkeale","Kilmallock","Ballaghaderreen","Granard","Moville","Millstreet","Swinford","Kenmare","Kilcormac","Mountmellick","Portrane","Monasterevan","Clane","Castleisland","Drishane","Killybegs","Castlecomer","Lifford","Kilkee","Callan","Clifden","Clondalkin","county meath","Ashbourne","Ratoath","Meath","Killaloe","Ballina-Tipperary","Corofin","Lucan","Garristown","Roundwood","Portumna"],"Isle of Man":["Isle of Man"],"Israel":["Tel Aviv-Yafo","Jerusalem","Herzeliyya","Haifa","Ra'anana","Rekhovot","Kefar Sava","Ramat Gan","Netanya","Modi'in","Hod HaSharon","Petakh Tiqwa","Bet Shemesh","Rishon LeZiyyon","'Afula","Ramat HaSharon","Be'er Sheva","Giv'atayim","Ashdod","Zikhron Ya'aqov","Bat Yam","Karmiel","Ashqelon","Shoham","Nahariyya","Rosh HaAyin","Elat","Qiryat Ono","Ganne Tiqwa","Pardes Khanna-Karkur","Nes Ziyyona","Binyamina","Mevasserat Ziyyon","Lod","Giv'at Shemuel","Qiryat Tiv'on","Ramla","Ma'ale Adummim","Or Yehuda","Yehud","Nazerat","'Akko","Nazerat 'Illit","Tiberias","Nesher","Yoqne'am Illit","Bene Beraq","Qiryat Motzkin","Zefat","Kefar Yona","Azor","Kholon","Even Yehuda","Qiryat Gat","Qiryat Yam","Qiryat Bialik","Yavne","Gedera","'Isifya","Jatt","Mazkeret Batya","Pardesiyya","Qiryat Atta","Rahat","Tayibe","'Arad","Or 'Aqiva","'Ar'ara","Daliyat-al-Karmil","Qadima","Kabul","'Ilut","Umm-al-Fahm","Migdal Ha'Emeq","Tamra","Qiryat Shemona","Baqa al-Gharbiyyah","Sederot","Qiryat Mal'akhi","'Arrabe","Qalansawe","Judeide-Maker","Reine","Gan Yavne","Abu Sinan","Iksal","Jizr-az-Zarqa","Yeroham","Dayr Hannah","Rekhasim","Jaljulye","'Omer","Nahalal","Ari'el","Neve Ilan","Khadera","Dimona","Shefar'am","Sakhnin","Ofaqim","Netivot","Ma'alot Tarshikha","Tire","Hadera","Tirat Karmel","Mugar","Kafar Kanna","Kafar Qasem","Bet She'an","Kafar Manda","Kafar Qara'","Yirka","Majd-al-Kurum","Tur'an","'Ein Mahel","I'billin","Qiryat 'Eqron","Fureidis","Beit Jann","Nahef","Dayr-al-Asad","Hazor HaGelilit","Be'er Ya'aqov","Dabburye","Kafar Yasif","Bu'eine-Nujeidat","El Rama","Bi´r Ghabalu","Bir-al-Maksur","Mashhed","Kisra-Sumei","Basmat Tab'un","Bene Ayish","Yakum"],"Italy":["Roma","Milano","Napoli","Torino","Bologna","Firenze","Palermo","Genova","Catania","Modena","Verona","Cagliari","Bari","Brescia","Padova","Venezia","Reggio nell'Emilia","Lecce","Bergamo","Perugia","Treviso","Udine","Trieste","Taranto","Parma","Pescara","Vicenza","Rimini","Pisa","Ferrara","Matera","Prato","Trento","Varese","Ancona","Salerno","Piacenza","Livorno","Cosenza","Pesaro","Siena","Forlì","Mantova","Terni","Pavia","Cerro Maggiore","La Spezia","Cesena","Cuneo","Abano Terme","Monza","Foggia","Arezzo","Ravenna","Novara","Como","Caserta","Lucca","Sanremo","Catanzaro","Pordenone","Viareggio","Siracusa","Messina","Latina","Bolzano","Savona","Pistoia","Sassari","Faenza","Reggio di Calabria","Grosseto","Brindisi","Asti","Fano","Ascoli Piceno","Carrara","Teramo","Bassano del Grappa","Potenza","Alessandria","Busto Arsizio","Imola","Cremona","Macerata","Biella","Massa","Lecco","Benevento","Trapani","Imperia","Jesi","Andria","San Benedetto del Tronto","L'Aquila","Viterbo","Crotone","Barletta","Fermo","Castelfranco Veneto","Belluno","Senigallia","Avellino","Rovigo","Ischia","Ivrea","Carbonia","Lodi","Torre del Greco","Pomezia","Pozzuoli","Foligno","Nuoro","Acerra","Voghera","Oristano","Copertino","Campobasso","Verbania","Civitanova Marche","Fiumicino","Olbia","Saronno","Gorizia","Caltanissetta","Velletri","Aosta","Lanciano","Altamura","Rieti","Carpi","Empoli","Nettuno","Pomigliano d'Arco","Battipaglia","Trani","Rho","Schio","Spoleto","Vigevano","Follonica","Chieti","Nola","Villafranca di Verona","Agrigento","Bisceglie","Castellammare di Stabia","Domodossola","Aprilia","Rivoli","Vercelli","Lugo","Chiavari","Erba","Ragusa","San Donà di Piave","Borgomanero","Abbiategrasso","Formia","Alba","Portici","Cerignola","Vibo Valentia","Casale Monferrato","Chieri","Giugliano in Campania","Cinisello Balsamo","Bracciano","Fabriano","Guidonia Montecelio","Cerveteri","Thiene","Castellanza","Genzano di Roma","Piombino","San Severo","Tivoli","Chioggia","Desio","Sondrio","Crema","Enna","Melegnano","Acqui Terme","Urbino","Civitavecchia","Frosinone","Bra","Tortona","Bitonto","Moncalieri","Alcamo","Alghero","Albano Laziale","Legnano","Albenga","Collegno","Mira","Saluzzo","Sesto Fiorentino"],"Jamaica":["Kingston-Blackmans Bay","Montego Bay","Half Way Tree","Portmore","Spanish Town","Albany","Ocho Rios","Mandeville","May Pen","Port Antonio","Morant Bay","Savanna la Mar","Black River","Lucea","Saint Ann's Bay","Anotto Bay","Falmouth","Brown's Town","Port Maria","Bull Savanna","Bamboo","Cambridge","Negril","Albert Town","Anchovy","Maroon Town","Discovery Bay","Kingston"],"Japan":["Tokyo","Osaka","Okinawa","Yokohama","Nagoya","Yokosuka","Kawasaki","Chiba","Abashiri","Kyoto","Fukuoka","Kobe","Misawa","Fussa","Sagamihara","Sasebo","Sapporo","Hamamatsu","Sendai","Shizuoka","Zama","Atsugi","Hachioji","Tsukuba","Gifu","Funabashi","Ichikawa","Fujisawa","Ibaraki","Kumamoto","Kawaguchi","Nara","Kamakura","Urayasu","Naha","Beppu","Nishinomiya","Kashiwa","Shiga","Niigata","Matsudo","Nagasaki","Tachikawa","Iwakuni","Himeji","Machida","Nagano","Matsumoto","Toyo","Nagayo","Kitakyushu","Ayase","Utsunomiya","Okazaki","Soka","Chigasaki","Ageo","Saga","Narita","Okayama","Aomori","Hiratsuka","Ota","Kanazawa","Toyohashi","Tokorozawa","Kawagoe","Miyazaki","Takasaki","Odawara","Tsu","Matsue","Musashino","Wakayama","Koshigaya","Omihachiman","Yomitan","Maebashi","Sakura","Kakamigahara","Ebina","Hikone","Akishima","Tajimi","Amagasaki","Fukuyama","Wako","Kochi","Kasugai","Ichinomiya","Takarazuka","Chofu","Suzuka","Date","Mitaka","Higashihiroshima","Isehara","Nakano","Hirakata","Kunitachi","Takamatsu","Kodaira","Aioi","Narashino","Iruma","Yamanashi","Tama","Tsuchiura","Abiko","Isesaki","Yamoto","Minokamo","Ashiya","Chatan","Kagoshima","Matsuyama","Higashiyamato","Toyota","Asahikawa","Okegawa","Kiyose","Mito","Fuji","Fuchu","Yamato","Hasuda","Kasukabe","Numazu","Zushi","Kawanishi","Kumagaya","Tottori","Otaru","Hamura","Yamaguchi","Yonago","Kusatsu","Aizuwakamatsu","Higashikurume","Toda","Koganei","Fukaya","Ise","Gyoda","Tochigi","Toride","Shiroishi","Komae","Nisshin","Iwaki","Suita","Kuroishi","Kuki","Otsu","Yokkaichi","Tsurugashima","Hakodate","Ichihara","Yao","Tokushima","Fukui","Eniwa","Kurume","Shimizu","Moka","Chiryu","Nagaoka","Kofu","Nagahama","Izumi","Yachiyo","Tomakomai","Fukuroi","Uwajima","Ashikaga","Koga","Ogaki","Komaki","Higashimurayama","Kariya","Hashimoto","Fujieda","Kikugawa","Ueda","Matsusaka","Yuki","Kasai","Hofu","Ikoma","Handa","Matsubushi","Fujimi","Kamogawa","Iwakura","Inazawa","Izumisano","Higashimatsuyama","Aira","Ginowan","Nasu"],"Jersey":[],"Jordan":["´Amman","Irbid","al-Jubayhah","Abu ´Alanda","az-Zarqa'","al-´Aqabah","Khalda wa Tila´-al-´Ali","Madaba","as-Salt","al-Husun","Suwaylih","ar-Ramtha","al-Baq´ah","Jarash","Askan Abu Nusayr","ar-Russayfah","Wadi as-Sir","Sahab","Tariq","al-Karak","Ajlun","Mushayrfat Ras al-´Ayn","al-Mafraq","al-Quwaysimah","Ma´addi","at-Tafilah","Ayn al-Basha","Amman","Shnillar","Khraybat As-Suq","Umm Qusayr wal Muqabalin","al-Juwaydah","as-Sarih","Kufranjah"],"Kazakhstan":["Almaty","Abay","Karaganda","Astana","Pavlodar","Aksay","Simkent","Taraz","Öskemen","Semey","Temirtau","Aktau","Atirau","Hromtau","Kusmurin","Osakarovka","Makansi","Borovskoy","Georgiyev","Batis Kazakstan","Arkalik","Stepnogorsk","Canatas","Ziryan","Saran","Aksu","Sahti","Ermak","Lisakovsk","Aris","Kapsagay","Aral","Tekeli","Salkar","Canakazali","Karatau","Üstöbe","Atbasar","Ayaköz","Esil","Kandagaç","Kaskelen","Chui","Talgar","Derjavinsk","Lugovoy","Tobol","Volodar","Komsomol","Ertis","Krasnoarmeets","Makin","Kaçiri","Sarbakti","Maykain","Kirgili","Merke","Lener","Kiziltu","Belyy Vody","Kürsim","Boralday","Konrat","Födorov","Karkarali","Sardara","Subarkudik","Esik","Canakorgan","Gulsat","Alka","Açisay","Karabulak","Kirov","Makat","Sergeyevka","Zatobolsk","Glubokoe","Semonaiha","Uzunagaç","Karacal","Carkant","Cetibay","Sieli","Èmbi","Mamlyutka","Sariözek","Atasu","Bulaev","Serebryansk","Alekseevka","Sarisagan","Zaysan","Külsari","Sumisker","Ürcar","Aghadir","Kurik","Belousovka","Ereymentau","Inderbor","Oytal","Energetyçeskiy","Sarkand","Sar","Bestobe","Sayram","Ulba","Iliç","Cosali","Colimbet","Selek","Mangyslak","Setpe","Mihaylov","Oktos","Zaçagansk","Cayrem","Karsakbay","Novodolinskiy","Kurchatov","Caltir","Tokaryovka","Sariagas","Stepnyak","Fabrichniy","Tasböget","Beyneu","Çapaev","Cetisay","Kazali","Dossor","Karaton","Batamsi","Sübarsi","Sinirlau","Oporni","Fort-Sevçenko","Temir","Aktöbe","Kostanay","Petropavl","Akmeçet","Èkibastuz","Köksetau","Rudni","Taldikorgan","Cezkazgan","Türkistan","Balkas","Satpaev","Baykonir","Riddir","Kentau","Cetikara","Sçuçe","Canaözen"],"Kenya":["Nairobi","Mombasa","Ahero","Nakuru","Kisumu","Eldoret","Thika","Nyeri","Kiambu","Kikuyu","Bungoma","Ngong","Embu","Kakamega","Kericho","Kitale","Naivasha","Migori","Kisii","Siaya","Mbita Point","Limuru","Machakos","Kerugoya","Nanyuki","Molo","Makueni","Butere","Kajiado","Oyugis","Itentambach","Nyahururu","Narok","Karuri","Awendo","Muhoroni","Taveta","Murang'a","Nyamira","Bondo","Karatina","Litein","Malava","Malindi","Méru","Mumias","Busia","Kilifi","Webuye","Vihiga","Lamu","Lodwar","Ol Kalou","Kitui","Kehancha","Wundanyi","Mauá","Kabarnet","Kangundo","Oloitokitok","Baringo","Gilgil","Tabaka","Kijabe","Bomet","Kwale","Othaya","Kangema","Nandi Hills","Ugunja","Kipini","Nadi","Sagana","Sotik","Runjenjes","Funyula","Garissa","Homa Bay","Mandera","Isiolo","Mavoko","Kapsabet","Voi","Maralal","Tana River","Lokichar","Moyalê","Marsabit","Kapenguria","Magadi","Sawasawa","Mariakani","Namanga","Eldama Ravine","Kimilili","Mwingi","Hola","Lokitaung","Mambrui","Garsen","Njoro","Takaungu","Mutomo","Kangonde","Rongai","Luanda","Solio","Naro Moru","Malaba","Kinango","Chhukha","Wamba","Rongo","Port Victoria","Wote","Matuu","Mount Elgon","Lugari","Witu","Gazi","Mitoto-Andei","Maragua","Rumuruti","Suneka","Londiani","Malakisi","Keroka","Nyansiongo","Vanga","Burnt Forest","Kipkelion","Chogoria","Mado Gashi","Yala","Nyamache","Shimoni","Konza","Masimba","Ogembo","Nambale","Chepareria","Kandara","Sirisia","Ukwala","Kendu Bay","Nyamarambe","Makuyu","Ruiru","Wajir"],"Kiribati":["Bairiki","Bikenibeu","Abaokoro","Ooma","Pyramid Point","Bonriki","Rawannawi","Utiroa","London","Tabontebike","Binoinano","Nabari","Taburao","Butaritari","Buariki","Tabukiniberu","Teraina","Temaraia","Tabiauea","Rungata","Ijaki","Makin","Roreti","Takaeang"],"Korea, Democratic People's Republic of":["Pyeongyang","Cheongjin","Phyeongseong","Hamheung","Hyesan","Nampo","Sineuiju","Weonsan","Sariweon","Haeju","Kanggye","Kimchaek","Kaeseong","Seongnim","Najin"],"Korea, Republic of":["Seoul","Pusan","Incheon","Suwon","Taegu","Pyeongtaek","Anyang","Cheonan","Aeweol","Yongin","Ansan","Ulsan","Osan","Taejeon","Seongnam","Hanam","Tongducheon","Kwangju","Koyang","Pohang","Icheon","Euijeongbu","Cheju","Pucheon","Cheongju","Namyangju","Chuncheon","Anseong","Cheonju","Mokpo","Kunsan","Changweon","Asan","Waegwan","Kunpo","Kimpo","Yangsan","Pochon","Iksan","Shiheung","Chungju","Kumi","Weonju","Chinhae","Masan","Andong","Seogwipo","Seosan","Geoje","Yeoju","Kimhae","Euiwang","Yeongju","Sacheon","Nonsan","Paengseong","Kwangmyeong","Yeosu","Suncheon","Chechon","Tongyeong","Kyeongsan","Kwangyang","Yeongcheon","Angang","Seonghwan","Hwasun","Koseong","Kanghwa","Puan","Chinju","Kuri","Kangneung","Kyeongju","Kimcheon","Kihung","Taebaek","Miryang","Hoechon","Munsan","Chochiwon","Naju","Taean","Okchon","Naeso","Tangjin","Kumsan","Yongdong","Chincheon","Seonsan","Poryong","Tonghae","Kwacheon","Seokcho","Yeocheon","Chongup","Kongju","Namwon","Sangju","Ungsang","Mungyong","Kimje","Sinhyeon","Nongso","Kumchon","Samchok","Yesan","Kochang","Pubal","Hongseong","Kwangyang Up","Ochon","Heunghae","Hwawon","Hwado","Wabu","Chinjop","Puyeo","Kijang","Hayang","Hongcheon","Chinyeong","Chongok","Yeongweol","Yonmu","Haenam","Taesan","Yeonil","Yechon","Oedong","Peolgyo","Yonggwang","Daejeon"],"Kuwait":["al-Kuwayt","as-Salimiyah","Hawalli","Abraq Khitan","Salwa'","al-Jabiriyah","al-Farwaniyah","al-Ahmadi","al-Manqaf","al-Mahbulah","al-Fintas","ar-Rumaythiyah","Bayan","Kayfan","Jalib ash-Shuyuh","ar-Rawdah","Abu Hulayfah","al-Fayha","al-Fuhayhil","Janub-as-Surrah","Subbah-as-Salim","al-Jahra","ad-Da´iyah","ash-Shuwaykh Reservoir","Ardiyah","Dahar","al-Qusayr","ad-Dasma'","ash-Shuwaykh Industrial","as-Sabahiyah","Tayma´","ar-Riqqah","as-Sulaybihat","al-´Udayliyah","al-Wafrah","Khitan-al-Janubiyah","as-Sulaybiyah","Waha","Jabbar-al-´Ali","az-Zawr","al-Funaytis","al-Karim","Fardaws","ar-Rabbiyah","al-Funaytis-al-Garbiyah"],"Kyrgyzstan":["Bishkek","Chat-Bazar","Ak-Bulok","Teploklyuchenka","Osh","Jalal-Abad","Karakol","Kant","Bazarkurgon","Chui","Sulukta","Grigoryevka","Jyrgolon","Chaldovar","Sosnovka","Karabalta","Tokmok","Uzgen","Balykchy","Naryn","Talas","Kyzyl-Kiya","Tash-Kumyr","Kara-Suu","Mingkush","Sokuluk","Kemin","Belovodskoye","Mailuu-Suu","Kosh Tegirmen","Kalininskoye","Toktogul","At-Bashi","Kyzyl-Suu","Isfana","Kochkor-Ata","Kyzyl-Tuu","Ivanovka","Orlovka","Tyup","Bashkaingdy","Cholpon-Ata","Krasnaya Rechka","Sopokov","Khaidarkan","Leninopol","Ak-Suu","Karavan","Kok-Jangak","Kayingdi","Kayirma","Boroldoy","Leninskoye","Minbulok","Batken","Jangybazar","Ala Buka","Ottuk","Chaiek","Kochkorka","Maimak","Jangyjar","Kyzyl-Adyr","Klyuchevka","Kalinovka","Mihaylov","Ananyevo","Darkhon","Kuturgu","Ak-Terek","Jangypakhtar","Taldy-Suu","Karako","Kulanak","Semyonovka","Don Arik","Kegety","Novovoznesenovka","Yuryevka","Groznoye","Barskoon","Chatkyol"],"Lao People's Democratic Republic":["Viangchan","Luang Prabang","Pakxe","Thakek","Muang Sing","Xaignabury","Champasak","Phonhong","Savannakhet","Xam Nua","Attopu","Pakxan","Luang Nam Tha","Pek","Saravan","Phongsaly","Huayxay","Muang Khongxedon","Muang Khong","Muang Vangviang","Ban Donkon","Sekong","Ban Nahin"],"Latvia":["Riga","Jelgava","Ainazhi","Jurmala","Liepaja","Kuldiga","Rêzekne","Aizkraukle","Balvi","Daugavpils","Ventspils","Jêkabspils","Cêsis","Limbazhi","Salaspils","Talsi","Dobele","Sigulda","Bauska","Madona","Kandava","Ikshkile","Rujiena","Saulkrasti","Salacgriva","Viesite","Lubana","Valmiera","Ogre","Tukums","Olaine","Saldus","Kraslava","Ludza","Livani","Aluksne","Gulbene","Preili","Valka","Aizpute","Smiltene","Lielvarde","Grobina","Vilani","Balozhi","Vangazhi","Plavinas","Auce","Ilukste","Dagda","Brocêni","Priekule","Skrunda","Karsava","Kegums","Varaklani","Kalnciems","Zilupe","Strenchi","Baldone","Jaunjelgava","Stende","Vilaka","Cesvaine","Mazsalaca","Seda","Sabile","Ape","Akniste","Aloja","Ligatne","Staicele","Pavilosta","Valdemarpils","Piltene","Subate","Durbe"],"Lebanon":["Beirut","Juniyah","al-Batrun","Tarabulus","Sayda'","Jubayl","B´abda","´Alayh","Sur","Ba´labakk","Zahlah","al-Hirmil","Riyak","Marj ´Uyun","Jazzin","Rashayya","an-Nabatiyat-at-Tahta","Jubb Jannin","Juwayya"],"Lesotho":["Maseru","Butha Buthe","Qacha's Nek","Quthing","Teyateyaneng","Maputsoa","Mafeteng","Hlotse","Mohale's Hoek","Mokhotlong","Thaba-Tseka"],"Liberia":["Monrovia","Barclayville","Harbel","Zwedru","Ganta","Harper","Gbarnga","Greenville","Voinjama","Buchanan","Yekepa","Bensonville","Tubmanburg","Robertsport","Tapeta","Sanniquellie","Kakata","Rivercess"],"Libya":["Tripoli","Banghazi","Ajdabiya","az-Zawiyah","Misratah","al-Bayda","Sabha","Ghadamis","Gharyan","Tubruq","Waddan","al-Khums","Yafran","Tarhunah","Darnah","Sabratah","Nalut","Mizdah","Suluq","Bardiyah","al-Marj","Zlitan","Awbari","Surt","al-Aziziyah","Murzuq","Bani Walid","Zuwarah","Shahhat","Birak","al-Abyar","al-Quriyah","az-Zuwaytinah","Ghat","al-Jawf","Awjilah","Marsa al-Burayqah","al-Qaryah-ash-Sharqiyah","Zaltan"],"Liechtenstein":["Balzers","Vaduz","Schaan","Eschen","Triesen","Mauren","Triesenberg","Ruggell","Gamprin","Selimbar","Planken"],"Lithuania":["Vilnius","Kaunas","Klaipeda","Shiauliai","Akmene","Alytus","Panevezhys","Ukmerge","Marijampole","Palanga","Visaginas","Taurage","Shilute","Druskininkai","Moletai","Trakai","Ariogala","Mazheikiai","Jonava","Utena","Plunge","Birzhai","Gargzhdai","Kurshenai","Jurbarkas","Vilkavishkis","Grigishkes","Skuodas","Pakruojis","Neringa","Pagegiai","Vilkija","Kedainiai","Telshiai","Kretinga","Radvilishkis","Rokishkis","Elektrenai","Garliava","Raseiniai","Naujoji Akmene","Anykshchiai","Lentvaris","Jonishkis","Prienai","Kelme","Varena","Kaishiadorys","Pasvalys","Kupishkis","Zarasai","Kazlu Ruda","Shirvintos","Shvenchioneliai","Shakiai","Shalchininkai","Kybartai","Ignalina","Pabrade","Shilale","Nemenchine","Shvenchionys","Vievis","Lazdijai","Kalvarija","Rietavas","Zhiezhmariai","Eishishkes","Sheduva","Venta","Birshtonas","Tytuvenai","Rudishkes","Rusne","Viekshniai","Zhagare","Ezherelis","Skaudvile","Gelgaudishkis","Juodupe","Kudirkos Naumiestis","Simnas","Salantai","Linkuva","Veisiejai","Priekule","Ramygala","Zhemaichiu Naumiestis","Jieznas","Jonishkelis","Daugai","Kulautuva","Obeliai","Varniai","Virbalis","Seda","Vabalninkas","Subachius","Baltoji Voke","Dukshtas","Pandelys","Dusetos","Uzhventis","Dotnuva","Kavarskas","Kachergine","Smalininkai","Troshkunai","Tyruliai","Panemune","Turmantas"],"Luxembourg":["Luxembourg","Abweiler","Esch-Alzette","Mamer","Bereldange","Hesperange","Howald","Bettembourg","Strassen","Bertrange","Kayl","Grevenmacher","Steinsel","Dudelange","Remich","Mondorf-les-Bains","Bridel","Sanem","Niederanven","Wickrange","Wecker","Münsbach","Schifflange","Pétange","Echternach","Mersch","Sandweiler","Steinfort","Clemency","Leudelange","Kehlen","Oetrange","Nospelt","Wormeldange","Ehlerange","Medingen","Uebersyren","Calmus","Platen","Wellenstein","Noerdange","Bockholtz","Alscheid","Christnach","Oberpallen","Zittig","Ell","Betzdorf","Nocher","Differdange","Soleuvre","Roodt","Bascharage","Obercorn","Rodange","Mondercange","Itzig","Lintgen","Senningerberg","Gonderange","Dondelange","Moutfort","Contern","Koerich","Aspelt","Noertzange","Tadler-Ringel-Dirbach","Winseler","Kleinbettingen","Dippach","Hosingen","Colpach-Bas","Dellen-Lehrhof-Grevels","Lorentzweiler","Girst","Hoesdorf","Walferdange","Hoscheid-Dickt","Vichten","Kehmen-Scheidel","Roeser","Stadtbredimus","Marienthal","Oberanven","Michelbouch","Rameldange","Rippig","Rosport","Rodenbourg","Brouch","Bourglinster","Dickweiler","Elvange","Findel","Kopstal","Lannen","Weiswampach","Biwisch","Beckerich","Breidweiler","Remerschen","Graulinster-Blumenthal","Berbourg","Grosbous","Useldange","Mompach","Helmdange","Prettange","Perlé","Beiler","Biwer","Berg","Hellange","Dorscheid","Emerange","Bivange","Lellingen","Heffingen","Merckholtz","Huncherange","Petit-Nobressart","Reckange","Rodershausen","Tuntange","Savelborn-Fermes","Lener","Wallendorf","Watrange","Greiveldange","Holler","Peppange","Tandel","Altwies","Boevange","Bigelbach","Keispelt","Bivels","Reckange-sur-Mess","Bech-Kleinmacher","Givenich","Steinheim","Heispelt","Holzem","Hemstal","Bous","Hinkel","Wormeldange-Haut","Landscheid","Leithum","Ehnen","Liefrange","Reisdorf","Longsdorf","Weiler-la-Tour","Boudler","Foetz","Bour","Bigonville","Grass","Blaschette","Kuborn","Nachtmanderscheid","Bürden","Neunhausen","Godbrange","Pissange","Gosseldange","Roder","Troine-Route","Scheidgen","Walsdorf","Hassel","Allerborn","Goeblange","Marnach","Grümelscheid","Manternach","Kalborn","Schengen","Mecher","Ehlange","Selscheid","Syren","Siebenaler","Eschdorf","Heiderscheid","Heinerscheid","Breidfeld","Moestroff","Cruchten","Neidhausen","Hünsdorf","Pommerloch","Stegen","Schwebach","Waldbillig","Urspelt","Asselborn","Breinert","Heiderscheid-Fond"],"Macao":["Macau","Macao"],"Macedonia, the Former Yugoslav Republic of":["Skopje","Arachinovo","Ohrid","Kumanovo","Tetovo","Bitola","Prilep","Veles","Shtip","Strumica","Kochani","Gostivar","Struga","Kavadarci","Veleshta","Novo Selo","Gradsko","Debar","Radovish","Kratovo","Berovo","Krushevo","Zhelino","Star Dojran","Zajas","Chashka","Mogila","Mavrovi Anovi","Vevchani","Miravci","Kichevo","Saraj","Kriva Palanka","Gevgelija","Negotino","Probishtip","Sopishte","Delchevo","Tearce","Petrovec","Rostusha","Labunishta","Dolna Banjica","Kondovo","Brvenica","Chucher","Valandovo","Bogdanci","Demir Hisar","Kamenjance","Oslomej","Kamenica","Negotino-Poloshko","Bogovinje","Brod","Zelenikovo","Vrapchishte","Bistrica","Dolneni","Shipkovica","Zhupa","Delogozhdi","Chegrane","Vrutok","Demir Kapija","Drugovo","Pehchevo","Karbinci","Orizari","Rankovce","Belchishta","Staro Nagorichane","Vratnica","Rosoman","Zletovo","Dzhepchishte","Jegunovce","Plasnica","Bosilovo","Lozovo","Sopotnica","Krivogashtani","Vasilevo","Lukovo","Zrnovci","Novaci","Mesheishta","Capari","Kukurechani","Kosel","Samokov","Kuklish","Topolchani","Murtino","Vraneshtica","Bogomila","Klechevce","Obleshevo","Srbinovo","Dobrushevo","Izvoarele Sucevei","Orashac","Vitolishte","Bach","Blatec","Zhitoshe","Konopishte","Cheshinovo","Konche","Staravina","Podaresh","Sveti Nikole","Resen","Ilinden","Studenichani","Vinica","Lipkovo"],"Madagascar":["Antananarivo","Ambalavao","Toamasina","Mahajanga","Antsirabé","Antsiranana","Antanifotsy","Nosy Varika","Manjakandriana","Ambatolampy","Beloha","Fianarantsoa","Toliary","Ambovombe","Amparafaravola","Taolanaro","Ambatondrazaka","Soavinandriana","Mananara","Mahanoro","Soanierana Ivongo","Morondava","Manakara","Faratsiho","Amboasary","Antalaha","Vavatenina","Ikongo","Sambava","Fandriana","Ambanja","Ambositra","Betioky","Marovoay","Tsihombe","Betafo","Mananjary","Moramanga","Ambatofinandrahana","Tsiroanomandidy","Ankazoabo","Ampanihy","Farafangana","Anosibe An'ala","Marolambo","Vangaindrano","Vohibinany","Belon'i Tsiribihina","Antsirambazaha","Maroantsetra","Ambato Boina","Sakaraha","Andapa","Arivonimamo","Antsohihy","Miandrivazo","Vondrozo","Fenoarivo","Andilamena","Beroroha","Anjozorobe","Ifanadiana","Ihosy","Bealanana","Tsaratanana","Ikalamavony","Ankazobe","Ambilobe","Ambodifototra","Andevoranto"],"Malawi":["Blantyre","Lilongwe","Balaka","Zomba","Mzuzu","Kasungu","Mangochi","Mzimba","Karonga","Dedza","Mulanje","Mponela","Dowa","Salima","Nkhotakota","Nsanje","Liwonde","Rumphi","Mchinji","Chilumba","Nkhata Bay","Luchenza","Monkey Bay","Mwanza","Ntcheu","Chitipa","Chikwawa","Thyolo","Ntchisi","Livingstonia","Phalombe","Chipoka","Chiradzulu","Machinga"],"Malaysia":["Kuala Lumpur","Petaling Jaya","Johor Bahru","Subang Jaya","Kuching","Kota Kinabalu","Shah Alam","Ipoh","Alor Gajah","Klang","Georgetown","Melaka","Seremban","Kajang-Sungai Chua","Kuantan","Miri","Ampang Jaya","Bintulu","Kuala Terengganu","Alor Setar","Nilai","Kota Bahru","Rawang","Sibu","Sungai Petani","Butterworth","Bukit Mertajam","Kuala Selangor","Gelugor","Taiping","Ayer Keroh","Port Dickson","Kluang","Tawau","Ayer Itam","Banting","Selayang Baru","Gombak Setia","Kulai","Kulim","Sandakan","Pasir Gudang","Balakong","Kuala Kubu Baru","Sekudai","Perai","Lumut","Bandar Penggaram","Keningau","Teluk Intan","Tanjong Bunga","Kangar","Senai","Bentong","Kota Tinggi","Nibong Tebal","Kepala Batas","Sungai Ara","Bandar Maharani","Segamat","Pekan","Bandar Baru Salak Tinggi","Kuala Kangsar","Batu Berendam","Tanjong Malim","Dungun","Semenyih","Temerloh","Batu Gajah","Raub","Tampin","Jenjarom","Parit Raja","Sabak","Pontian Kecil","Sungai Siput Utara","Mersing","Kuala Pilah","Bagan Serai","Beaufort","Batu Sembilan Cheras","Cukai","Ulu Tiram","Jitra","Bidor","Sri Aman","Pasir Mas","Simpang Rengam","Jertih","Beranang","Taman Greenwood","Lahad Datu","Simpang Empat","Mentakab","Klebang","Kampong Koh","Tanjong Tokong","Kerteh","Marang","Gua Musang","Ayer Tawar","Ayer Molek","Kuala Perlis","Kota Belud","Putatan","Donggongon","Bukit Baru","Semporna","Tangkak","Masjid Tanah","Sarikel","Jerantut","Permatang Kuching","Parit Buntar","Kuah","Yong Peng","Kuala Krai","Limbang","Paka","Labis","Ranau","Kunak","Sekinchan","Kuala Lipis","Pantai Remis","Bemban","Kelapa Sawit","Val d'Or","Pangkal Kalong","Bedong","Kudat","Tanah Merah","Bahau","Tapah","Serendah","Sungai Besar","Kampar","Pekan Nenas","Kadok","Pengkalan Kundang","Kuala Kedah","Batu Arang","Kuang","Bukit Rambai","Papar","Batang Berjuntai","Kinarut","Tanjong Karang","Tumpat","Juru","Bukit Tinggi","Kuala Sungai Baru","Chaah","Sungai Pelek","Puchong","Putrajaya","Cyberjaya","Garoafa","Sabah","Sungai Udang","Peringat","Bukit Bakri","Lawan Kuda Baharu","Wakaf Baru","Tanjong Sepat","Kapit","Gürün","Buloh Kasap","Pulau Sebang","Seri Kembangan"],"Maldives":["Malé","Agolhitheemu","Dharavandhoo","Holhudhoo","Hithaadhoo","Hinnavaru","Thulhaadhoo","Miladhoo","Nellaidhoo","Kulhudhuffushi","Hulhudhoo","Maradhoo-Feydhoo","Thoddoo","Kumundhoo","Neykurendhoo","Hirilandhoo","Lhaimagu","Feydhoo","Maradhoo","Alifushi","Maamigili","Nolhivaramu","Kurendhoo","Vilufushi","Funadhoo","Muli","Fiyoari","Totesti","Filladhoo","Madifushi","Rasgetheemu","Feridhoo","Himandhoo","Fares","Kanduhulhudhoo","Uligamu","Kamadhoo","Rakeedhoo","Dhiyadhoo","Fuvammulah","Thinadhoo","Naifaru","Kadholhudhoo","Hoarafushi","Maavah","Manadhoo","Vaikaradhoo","Kolamaafushi","Rasdhoo","Himmafushi","Hulhudhuffaaru","Maamendhoo","Kolhufushi","Dhiffushi","Gemanafushi","Biledhdhoo","Feeali","Thulusdhoo","Maabaidhoo","Madeveli","Kibidhoo","Maakurathu","Gaafaru","Dhiggaru","Huraa","Veymandhoo","Maafaru","Kendhoo","Omadhoo","Feevah","Maaugoodhoo","Dhagethi","Vashafaru","Landhoo","Dhabidhoo","Nadallaa","Gulhi","Maroshi","Badidhoo","Maalhendhoo","Fenfushi","Maaeboodhoo","Utheemu","Rasmaadhoo","Hirimaradhoo","Rathafandhoo","Kunahandhoo","Dhevvadhoo","Mundhoo","Hulhudheli","Innamaadhoo","Felidhoo","Lhohi","Maarandhoo","Ukulhas","Hangnameedhoo","Keyodhoo","Mathiveri","Noomaraa","Thakandhoo","Hoadedhdhoo","Maathodaa","Kuribi","Bilehffahi","Dhiyamigili","Goidhoo","Magoodhoo","Muraidhoo","Naivaadhoo","Bodufolhudhoo","Narudhoo","Nolhivaranfaru","Olhuvelifushi","Hebadhoo","Kalhaidhoo","Kuburudhoo","Kudarikilu","Dhigurah","Ribudhoo","Thuraakunu","Kudafari","Firubaidhoo","Kinolhas","Kadoodhoo","Maalhos","Vaanee","Dhonfanu","Fulidhoo","Finey","Gemendhoo","Maavaidhoo","Mandhoo","Gaadhiffushi","Kihaadhoo","Buruni","Naalaafushi","Fodhdhoo","Fulhadhoo","Fainu","Kodey","Vandhoo","Mulhadhoo","Dharaboodhoo","Veyvah","Faridhoo","Raimandhoo","Fehendhoo","Hathifushi","Maafilaafushi","Berinmadhoo","Hondaidhoo","Dhidhdhoo","Gamu","Eydhafushi","Maafushi","Viligili","Ihavandhoo","Mahibadhoo","Fonadhoo","Velidhoo","Nilandhoo","Kaashidhoo","Maakandoodhoo","Gaadhoo","Maduvvari","Meedhoo","Komandoo","Guraidhoo","Isdhoo","Thimarafushi","Iguraidhoo","Baarah","Miim","Kudahuvadhoo","Dhaandhoo","Hanimaadhoo","Kelaa","Makunudhoo","Ugoofaaru","Foakaidhoo","Kaditheemu","Kedhikolhudhoo"],"Mali":["Bamako","Araouane","Mopti","Kati","San´a","Yorosso","Sokolo","Tessalit","Sikasso","Ségou","Koutiala","Nkayi","Nioro","Markala","Gao","Kolokani","Tombouctou","Bougouni","Niono","Koulikoro","Banamba","Nara","Djenné","Bafoulabé","Kangaba","Diré","Kidal","Koro","Niafunké","Goundam","Kolondiéba","Ké-Massina","Douentza","Bandiagara","Tenenkou","Kimparana","Kita","Taoudenni"],"Malta":["Sliema","Valletta","Asfi","Birkirkara","Attard","San Pawl il-Bahar","Mellieha","San Gwann","San Ghiljan","Marsascala","Qormi","Mosta","Fgura","Naxxar","Birzebugia","Hamrun","Zurrieq","Tarxien","Gzira","Pembroke","Gharghur","Zebbug","Paola","Santa Venera","Garoafa","Marsa","Isla","Gudja","Lija","Mdina","Zabbar","Sighghiewi","Swieqi","Bormla","Nadur","Mqabba","Floriana","Zejtun","Luqa","Pieta'","Balzan","Birgu","Dingli","Kalkara","Ghajnsielem and Comino","Ta Xbiex","Kercem","Munxar","Msida","Ghaxaq","Colombia","Xaghra","Iklin","Xewkija","Marsaxlokk","Mgarr","Qrendi","Kirkop","Sannat","Qala´-an-Nahl","Gharb","Xghajra","San Lawrenz","Ghasri","Gozo"],"Marshall Islands":["Ebeye","Jaluit","Rita"],"Martinique":["Fort-de-France","Le Lamentin","Ambodifototra","Saint-Esprit","Le Marin","Basse-Pointe","Schoelcher","Les Trois-Îlets","Le Robert","Le François","Saint-Joseph","Ducos","Rivière-Pilote","La Trinité","Rivière-Salée","Gros-Morne","Le Lorrain","Le Vauclin","Sainte-Luce","Le Morne-Rouge","Saint-Pierre"],"Mauritania":["Nouakchott","Alaq","Atar","´Ayun-al-´Atrus","Nawadhibu","Kifah","Kayhaydi","Rusu","Zuwarat","an-Na´mah","Tijiqjah","Magta´ Lahjar","Walatah","Aqjawajat","Buqah","Hsay Walad ´Ali Babi","Shingati","Timbédra","Kubanni","Fdayrik"],"Mauritius":["Port Louis","Curepipe","Albion","Quatre Bornes","Beau Bassin-Rose Hill","Vacoas-Phoenix","Moka","Grand Baie","Terre Rouge","Tamarin","Chemin Grenier","Flic en Flac","Central Flacq","Riviere du Rempart","Montagne Blanche","Long Mountain","Camp Thorel","Triolet","Goodlands","Le Hochet","Saint Pierre","Baie du Tombeau","Rose Belle","New Grove","Morcellement Saint André","Cascavelle","Case Noyale","Bel Air","Mahébourg","Surinam","Pailles","Plaine Magnien","Lalmatie","Petit Raffray","Grand Bois","Pamplemousse","Dagotière","Brisee Verdiere","Laventure","Trou d'Eau Douce","Fond du Sac","Poudre d'Or","Cap Malheureux","Camp Diable","Richelieu","Camp de Masque Pavé","Souillac","Arsenal","Queen Victoria","Villebague","La Gaulette","Saint Aubin","Cluny","Bambous","Rivière des Anguilles","Pointe aux Piments","Beau Vallon","L'Escalier","Plaines des Papayes","Bon Accueil","Nouvelle France","Grand Gaube","Medine-Camp de Masque","Poste de Flacq","Quatre Cocos","Quartier Militaire","Ecroignard","Roches Noires","Sébastopol","Chamouny","Calebasses","Piton","Midlands","D'Epinay","Belle Vue Maurel","Petite Rivière","Camp Ithier","Notre Dame","Plaine des Roches","Saint Hubert","Olivia","The Vale","Cottage","Roche Terre","Quatre Soeurs","Saint Julien d'Hotman","Providence","Gros Cailloux","Dubreuil","Ripailles","Saint Julien","Crève Coeur","Amaury","Camp de Masque","L'Avenir","Amitié-Gokhoola","Grand River South East","Grand Sable","Clémencia","Espérance Trébuchet","Poudre d'Or Hamlet","Grande Riviere Noire","Mare La Chaux","Verdun","Melrose","Espérance","Bois des Amourettes","Bambous Virieux","Congomah","Grand Bel Air","Le Morne","La Laura-Malenga","Mapou","Chamarel","Bananes"],"Mayotte":["Dzaoudzi","Pamanzi","Acoua","Mamoudzou","Koungou","Whittlesea","Bandraboua","Mtsamboro","Chiconi","Dembéni","Tsingoni","Chirongui","Mtsangamouji","Bandrélé","Ouangani","Bouéni","Kanikéli"],"Mexico":["México City","Monterrey","Guadalajara","Puerto Vallarta","Tijuana","Abasolo","Puebla","Querétaro","Cancun","Chihuahua","Hermosillo","Cuernavaca","Mexicali","Veracruz","Mérida","Reynosa","Cabo San Lucas","San Nicolás de los Garza","Tampico","Torreón","Oaxaca","Morelia","Ensenada","Culiacán","Toluca","León","San Miguel de Allende","Acapulco","Xalapa","Ecatepec","Saltillo","Mazatlán","Aguascalientes","Villahermosa","Playa del Carmen","Cuautitlán Izcalli","Matamoros","Nuevo Laredo","Zapopan","Tlalnepantla","Guadalupe","Durango","La Paz","Colima","Victoria","Guanajuato","Atizapán","Pachuca","Rosarito","San Pedro","Tepic","Apodaca","Monclova","Benito Juárez","Celaya","Zacatecas","Puerto Peñasco","Nuevo México","Metepec","Tuxtla Gutiérrez","Chetumal","Cuauhtémoc","Morelos","Álvaro Obregón","Coacalco","Coatzacoalcos","Mazatán","Nezahualcóyotl","Ajijic","Nogales","Texcoco","Sinaloa","Navajoa","Chapala","Cadereyta","Tabasco","Los Mochis","Campeche","Huixquilucan","Coatepec","Chiapa","Santa Catarina","Poza Rica","Minatitlán","Garza García","Ciudad Valles","Jalapa","Cozumel","Apizaco","Santiago","Los Cabos","Irapuato","Uruapan","Santa Fé","Adolfo López Mateos","Carmen","San Cristóbal de las Casas","Manzanillo","Guaymas","Dolores Hidalgo","Taxco","Miguel Hidalgo","Montemorelos","Nombre de Dios","Ixmiquilpan","San Ciro de Acosta","San Felipe","Madero","Tultitlán","Huixquilucan de Degollado","Cuautla","Salamanca","Piedras Negras","Zamora","Orizaba","Allende","Fresnillo","Tulancingo","Río Bravo","Tlaxcala","Isla Mujeres","Cholula","Cuautitlán","Boca del Río","Linares","Tapalpa","San Luis de la Paz","Chapultepec","Zumpango","Moroleón","Camargo","Tangancicuaro","Ixtlahuacán de los Membrillos","Natívitas","Chietla","Huandacareo","Jalcocotán","Tonalá","Xico","Escobedo","Chilpancingo","Córdoba","Santa Catarina del Monte","Matatlán","Acuña","Tempoal","Delicias","Ciudad del Maíz","Bacobampo","Cárdenas","El Mante","Tepatitlán","Mexicaltzingo","Santos Reyes Nopala","Oxkutzcab","Tuxpam","Tonatico","Agua Prieta","Aguacaliente","General Bravo","Xilitla","Santa Catarina de Tepehuanes","Mezcala","Imuris","Acaponeta","Zacapú","Huauchinango","Ixtapa","Altamira","Río Verde","Tepecoacuilco","Coalcomán","Valle de Juárez","Acayucan","Huajuapan","Panotla","Progreso","Autlán","Tlanalapa","Armería","Cuautepec","Comalcalco","Jérez","Tizayuca","Altotonga","Ramos Arizpe","General Zuazua","Venustiano Carranza","Tepeji","Sabinas Hidalgo","Perote","Cuajinicuilapa","Maravatío","Cosamaloapan","Chimalhuacán","Valle de Bravo","Nanchital","General Escobedo","Jiquilpan","Los Reyes"],"Micronesia, Federated States of":["Colonia","Kolonia","Weno","Palikir","Kusaie"],"Moldova, Republic of":["Chisinau","Balti","Tiraspol'","Cahul","Edinet","Cimislia","Orhei","Causani","Calarasi","Leova","Tighina","Rabnita","Soroca","Ungheni","Dubasari","Comrat","Ciadar Lunga","Drochia","Falesti","Hancesti","Slobozia","Floresti","Vulcanesti","Rascani","Nisporeni","Taraclia","Basarabeasca","Rezina","Dnestrovsc","Camenca","Donduseni","Glodeni","Griguriopol","Briceni","Ocnita","Straseni","Telenesti"],"Monaco":["Monte Carlo","Monaco-Ville","Fontvieille","La Condamine"],"Mongolia":["Ulaanbaatar","Altaj","Darhan","Èrdènèt","Hovd","Bajanhongor","Ölgij","Mörön","Ulaangom","Zuunmod","Bulgan","Chojbalsan","Sajnshand","Uliastaj","Sühbaatar","Arvajhèèr","Cècèrleg","Zuunharaa","Dalanzadgad","Baruun-Urt","Mandalgovi","Öndörhaan","Tosoncengel","Nalajh","Chojr"],"Montenegro":["Podgorica","Nikšić","Pljevlja","Budva"],"Montserrat":["Montserrat"],"Morocco":["ad-Dar-al-Bayda","ar-Ribat","Aghadir","Marrakush","Fas","Miknas","Tanjah","Tarudant","al-Husaymah","Tazah","Tiznit","Warzazat","al-Qanitrah","Asfi","Titwan","Bani Mallal","an-Nadur","Midalt","Sakhirat","Ahfir","Îfran","´Ayn Diab","Ujdah","al-Jadidah","Khamissat","Yussufiyah","Safru","Wazzan","al-´Ayun","´Allal-at-Tazi","Khuribghah","Sattat","Ghulimim","Birkan","Khanifrah","Sidi Qasim","Bin Gharir","Zagorá","Zayu","Tawnat","al-Hajab","Martil","Mahdiyah","Midar","al-Buruj","Tarfaya","Sidi Battash","Ait Baha","al-Qasr-al-Kabir","Azru","Suq-al-Arb´a","Qasbat Tadlah","Bu-al-Jad","Shifshawn","Tinghir","Sidi Yahya al-Gharb","Tazah-al-Uliyah","Asilah","Sidi Îfni","Buznika","Midiq","Tahala","Azilal","Bu ´Arfa","Mulay","Taliwin","Inazkan","Asni","Îmin Tanut","Amizmiz","Madyunah","Sidi Bu Ghadrah","al-Katwat","ash-Shama´iyah","Bab Tazah","Ghafsay","Bani Tajjit","Afurir","Sidi Sulayman","Tawrirt","Bir Rashid","Jaradah","as-Sawirah","al-Qal´at-al-Khasba'","Tiflat","Awlat Taymah","Tantan","Gharsif","Suq Sabt Awlat Nama","Bin Sulayman","Finidiq","Sidi Binnur","Azimur","al-Arwi","Jama´at-al-Marirt","Imzuran","Bin Ansar","Mashra Bin-al-Qsiri","Amalu Ighriban","Sidi Isma´il","Mulay Idris","Fijij","Damnat","Bin Ahmad","Bu Danib","al-Qsibah","Walidiyah","Sulwan","ar-Rummani","Tafraut","Buciumeni","Bulman","as-Sa´idiyah","Awtat Awlat-al-Hajj","Sidi Allal-al-Bahrawi","Targhist","Casablanca","Tandrarah","az-Zahiliqah","Kitamah","Tamri","Timhadit","Rabat","Birjant","Awluz","Dabdu","Unaghah","Ghurramah","Îgharm","Îmuzzar-al-Kandar","Talmist","Shishawah","Marrakesh","Bumiyah","Biukra","Sidi Hajjaj","Ijukak","Khamis-az-Zamamrah","Sukhur-ar-Rihamnah","Errachidia","al-´Abbasiyah","al-Faqih Bin Salah","ar-Rasidiyah","Wad Zam","Meknes"],"Mozambique":["Maputo","Matola","Angoche","Beira","Nampula","Tete","Chimoio","Quelimane","Lichinga","Pemba","Dondo","Mocuba","Inhambane","Moçambique","Nazombe","Panda","Bela Vista","Nacala","Xai-Xai","Garue","Maxixe","Cuamba","Montepuez","Chókwè","Chibuto","Manica","Quissico","Lumbo","Inharrime","Macia","Marrupa","Chongoene","Homoíne","Manhiça","Guijá","Magude","Zumbo","Jangamo","Maniamba","Marracuene","Moamba","Mandimba","Namaacha","Chidenguele","Manjacaze"],"Myanmar":["Yangon","Mandalay","Yandoon","Akyab","Pakokku","Loikaw","Bago","Keng Tung","Pathein","Taunggyi","Myingyan","Maymyo","Magway","Pyinmana","Mogok","Meiktila","Mergui","Lashio","Pyay","Mudon","Nyaunglebin","Myitkyina","Pyapon","Arakan","Thongwa","Ye","Kyaikto","Kyaukse","Wakema","Myanaung","Falam","Mawlamyine","Monywa","Dawei","Henzada","Thaton","Yenangyaung","Toungoo","Kalay","Chauk","Shwebo","Sagaing","Syriam","Bogale","Taungdwingyi","Kanbe","Thayetmyo","Allanmyo","Minbu","Tharrawaddy","Maubin","Kyaiklat","Martaban","Kyaikkami","Banmo","Twante","Yamethin","Mawlaik","Labutta","Pyu","Kayan","Moulmeingyun","Letpadan","Katha","Thanatpin","Paungde","Hpa-an"],"Namibia":["Windhoek","Arandis","Walvis Bay","Tsumeb","Swakopmund","Katima Mulilo","Okahandja","Kuisebmond","Aranos","Oshikango","Otjiwarongo","Keetmanshoop","Gobabis","Ondangwa","Oranjemund","Bethanien","Outjo","Rundu","Oshakati","Grootfontein","Lüderitz","Mariental","Khorixas","Ongwediva","Omaruru","Karasburg","Opuwo","Karibib","Okakarara","Otavi","Usakos","Otjimbingwe","Ongandjera","Maltahöhe","Warmbad","Henties Bay","Rekhovot"],"Nauru":["Yaren"],"Nepal":["Kathmandu","Baglung","Lalitpur","Pokhara","Butwal","Bhaktapur","Biratnagar","Bharatpur","Dharan","Rajbiraj","Birganj","Damak","Itahari","Janakpur","Tansen","Ilam","Jumla","Mahendranagar","Kirtipur","Tulsipur","Byas","Dhankuta","Bhadrapur","Banepa","Bidur","Hetauda","Dhangadi","Nepalganj","Madhyapur Thimi","Gulariya","Mechinagar","Tribuvannagar","Leknath","Birendranagar","Kalaiya","Putalibazar","Panauti","Gaur","Jaleshwar","Triyuga","Sidharthanagar","Tikapur","Ratnanagar","Kamalamai","Kapilwastu","Lahan","Prithivinarayan","Siraha","Bhimeshwar","Inaruwa","Malangwa","Khandbari","Dipayal","Waling","Sinduli Marhi","Salyan","Bishalter","Weni","Bahadurganj"],"Netherlands":["Amsterdam","Rotterdam","Den Haag","Utrecht","Eindhoven","Nijmegen","Hilversum","Groningen","Haarlem","Leiden","Arnhem","Delft","Maastricht","Almere","Breda","Amersfoort","Amstelveen","'s-Hertogenbosch","Tilburg","Alkmaar","Enschede","Zoetermeer","Helmond","Zwolle","Leeuwarden","Apeldoorn","Venlo","Hoorn","Dordrecht","Zaanstad","Lelystad","Wageningen","Ede","Rijswijk","Gouda","Nieuwegein","Heerlen","Haarlemmermeer","Bussum","Purmerend","Doetinchem","Zeist","Hengelo","Leidschendam-Voorburg","Emmen","Bergen op Zoom","Roermond","Deventer","Schiedam","Beverwijk","Hardenberg","Heerhugowaard","Zutphen","Culemborg","Woerden","Veldhoven","Den Helder","Wassenaar","Voorschoten","Huizen","Heemskerk","Goes","Nuenen","Roosendaal","Oss","Houten","Diemen","Weesp","Zandvoort","Almelo","Alphen","Assen","Barneveld","Soest","De Bilt","Dronten","Terneuzen","Meppel","Aalsmeer","Capelle","Veenendaal","Hoogeveen","Middelburg","Heemstede","Vlaardingen","Ridderkerk","Maarsen","IJsselstein","Vught","Baarn","Noordwijk","Oosterhout","Kampen","Heerenveen","Uden","Landgraaf","Gorinchem","Brunssum","Oegstgeest","Vianen","Naarden","Weert","Tiel","Hellevoetsluis","Wijchen","Stadskanaal","Blaricum","Deurne","Oud-Beijerland","Zeewolde","Berkel en Rodenrijs","Bloemendaal","Spijkenisse","Waalwijk","Steenwijk","Harderwijk","Venray","Barendrecht","Pijnacker-Nootdorp","Castricum","Sneek","Maassluis","Bergen","Boxtel","Leusden","Winterswijk","Leiderdorp","Nieuwekerk aan den IJssel","Hendrik-Ido-Ambacht","Lisse","Hulst","Enkhuizen","Velsen","Vlissingen","Katwijk","Laren","Uitgeest","De Ronde Venen","Doorn","Waddinxveen","Uithoorn","Dongen","Leerdam","Bodegraven","Lichtenvoorde","Lochem","Schagen","Waalre","Brielle","Breukelen","Rheden","Zwijndrecht","Neede","Hof van Twente","Hoogezand-Sappemeer","Krimpen","Geldrop","Achtkarspelen","Gemert-Bakel","Ermelo","Duiven","Aa en Hunze","Geldermalsen","Haaksbergen","Schijndel","Heiloo","Borne","Haren","Oostburg","Valkenburg","Rhenen","Waterland","Bergschenhoek","Anna Paulowna","Bunnik","Maasbree","Eijsden","Nijkerk","Moerdijk","Rijssen","Zevenhuizen-Moerkapelle","Midden-Drenthe","Renkum","Oldenzaal","Valkenswaard","Papendrecht","Boxmeer","Best","Delfzijl","Veendam","Gilze en Rijen","Cuijk","De Wolden","Steenbergen","Putten","Loon op Zand","Borsele","Monster","Leek","Bunschoten"],"New Caledonia":["Nouméa","Mont-Doré","Païta","Bourail","Dumbéa","Wé","Tadine","Fayaoué","Houaïlu","Poindimié","Koné","Canala","Pouébo","La Foa","Thio","Ponerihouen","Koumac","Hienghène","Ouégoa","Poya","Touho","Vao","Voh","Kaala Gomén","Bouloupari","Yaté","Poum","Pouembout","Belep","Moindou","Sarraméa","Farino"],"New Zealand":["Auckland","Christchurch","Wellington","Hamilton","Dunedin","Tauranga","Palmerston North","North Shore","Whangarei","Ahipara","Rotorua","Nelson","Invercargill","Lower Hutt","Napier","New Plymouth","Manukau","Waitakere","Taupo","Pukekohe","Wanganui","Kerikeri","Upper Hutt","Gisborne","Hastings","Porirua","Blenheim","Ashburton","Te Awamutu","Kapiti","Oamaru","Queenstown","Timaru","Masterton","Whakatane","Cambridge","Matamata","Orewa","Rangiora","Hawera","Waiheke","Warkworth","Thames","Wanaka","Arrowtown","Foxton","Kaikohe","Feilding","Motueka","Marton","Waihi","Katikati","Raglan","Mangawhai Heads","Levin","Waiuku","Otaki","Kaitaia","Ngaruawahia","Balclutha","Helensville","Amberley","Avarua","Te Horo","Te Puke","Paeroa","Te Aroha","Whitianga","Wellsford","Martinborough","Matata","Kaiwaka","Havelock","Çust","Awanui","Otematata","Tokoroa","Greymouth","Huntly","Kawerau","Morrinsville","Dargaville","Johannesburg","Te Kuiti","Westport","Waihi Beach","Taihape","Bulls","Darfield","Coromandel","Ohakune","Takaka","Ngatea","Twizel","Clyde","Kaitangata","Russell","Maungaturoto","Dobson","Waikuku","Ohaeawai","Southbridge","Mumbai","Murchison","Kawhia","Käo","Seddon","Rawene","Karamea","Ratana","Warrington","Clinton","Franz Josef","Lake Tekapo","Gore","Waitara","Dannevirke","Taumarunui","Opotiki","Temuka","Whangamata","Hokitika","Cromwell","Waimate","Featherston","Rolleston","Muriwai Beach","Kaikoura","Milton","Te Anau","Waipawa","Oxford","Taipa Bay-Mangonui","Edgecumbe","Riverton","Waiouru","Tairua","Woodville","Ngunguru","Patea","Leeston","Mangakino","Methven","Parakai","Maketu","Paengaroa","Algies Bay-Mahurangi","Taneatua","Ranfurly","Otautau","Tirau","Pauanui Beach","Fairlie","Mamaku","Okaihau","Hanmer Springs","Tuatapere","Waitangi","Waimana","Manutuke","Roxburgh","Te Teko","Wallacetown","Rongotea","Outram","Haruru Falls","Omapere and Opononi","Akaroa","Eketahuna","Takapau","Edendale","Wyndham","Reporoa","Kaingaroa Forest","Otane","Te Karaka","Tokomaru","Waharoa","Himatangi","Athenree","Okato","Hunterville","Kerepehi","Sefton","Sanson","Waitati","Te Kopuru","Egmont Village","Lawrence","Piopio","Pareora","Tokomaru Bay","Lumsden","Ruawai","Halcombe","Leigh","Taitapu","Urenui","Kakanui","Culverden"],"Nicaragua":["Managua","León","Granada","Estelí","Matagalpa","Acoyapa","Masaya","Chinandega","Tipitapa","Juigalpa","Diriamba","Nagarote","Chichigalpa","Rivas","Nindirí","La Trinidad","Diriomo","Bluefields","El Viejo","Nueva Guinea","Jinotega","Ocotal","Jinotepe","Puerto Cabezas","Jalapa","San Rafael del Sur","Boaco","La Paz Centro","El Rama","Corinto","Sébaco","San Marcos","Nandaime","Somoto","Masatepe","Mateare","Camoapa","Hueyotlipan","Somotillo","Ciudad Darío","Río Blanco","Bugaba","Benito Juárez","Siuna","Quilalí","Condega","Ticuantepe","Matiguás","El Sauce","Villa Sandino","Telica","El Jícaro","Rosita","San Jorge","Wiwilí","Larreynaga","San Juan del Sur","Chiautzingo","Corn Island","Waspán","Niquinohomo","Dolores","San Isidro","Santo Domingo","Nandasmo","Bonanza","Puerto Morazán","Magdalena Tequisistlán","Waslala","Bayt Lahm","Bocana de Paiwas","Laguna de Perlas","San Miguelito"],"Niger":["Niamey","Agadez","Tahoua","Birni N'Konni","Dakoro","Tanout","Madarounfa","Zinder","Maradi","Arlit","Dosso","Tessaoua","Dogondoutchi","Ayorou","Mirriah","Birni N'Gaouré","Gaya","Diffa","Téra","Magaria","Illéla","Matameye","N'Guigmi","Tillabéry","Tibiri","Guidan Roumdji","Filingué","Keita","Maïné-Soroa","Madaoua","Ouallam","Gouré","Mayahi","Say","Kollo","Boboye","Tchirozérine","Kantché","Bouza","Aguié","Tchintabaraden","Bilma"],"Nigeria":["Lagos","Abuja","Port Harcourt","Aba","Ibadan","Benin","Enugu","Owerri","Warri","Kaduna","Abeokuta","Calabar","´Îsa","Kano","Asaba","Jos","Ikorodu","Anambra","Surulere","Uyo","Ilorin","Akure","Ijebu Ode","Ife","Onitsha","Oshogbo","Umuahia","Oyo","Ekpoma","Ondo","Sapele","Nsukka","Egbeda","Katsina","Agenebode","Iseyin","Ado","Abua","Minna","Yenagoa","Eket","Abakaliki","Ogbomosho","Makurdi","Yola","Zaria","Sokoto","Shagamu","Nnewi","Isanlu","Ilaro","Enugu Ngwo","Ajaokuta","Bauchi","Okrika","Oron","Ojo","Auchi","Enugu Ezike","Agbara","Ode","Ilesha","Ikot Ekpene","Ikene","Ota","Suleja","Gwagwalada","Igboho","Ijesha","Modakeke","Ijebu Igbo","Abadan","Agbor","Rano","Emure","Garki","Abraka","Dekina","Omoko","Igarra","Umunede","Ugep","Ikire","Abaji","Ikirun","Ejigbo","Offa","Okigwe","Ilero","Nkpor","Epe","Uburu","Aguata","Bukuru","Oka","Gwoza","Ohafia","Nkwerre","Lafiagi","Kwale","Donga","Sabon Birnin Gwari","Egume","Ogoja","Udi","Oturkpo","Oguta","Omu-Aran","Owo","Ibeju","Gombe","Dadiya","Gboko","Ilawe","Aboh","Bonny","Jebba","Obosi","Ado Odo","Amaigbo","Pankshin","Uromi","Taki","Hadejia","Birnin Kebbi","Wukari","Keffi","Ughelli","Agulu","Opobo","Babura","Etiti","Fika","Lokoja","Ezeagu","Kabba","Okpe","Yelwa","Garkida","Bori","Fiditi","Kurfi","Ifon","Lalupon","Zuba","Dakingari","Ipoti","Aiyetoro","Amper","Idanre","Aramoko","Shanono","Ete","Iperu","Kazaure","Okwe","Jada","Nafada","Kaltungo","Sabongari","Awgu","Jikamshi","Nike","Shiroro","Chanchaga","Amagunze","Gulma","Giwa","Igbor","Gwadabawa","Agbabu","Owode","Ringim","Mando","Obudu","Maiduguri","Ubiaja","Kotorkoshi","Geidam","Ifaki","Okene","Biliri","Takum","Bebeji","Chibok","Gwazo","Duku","Chafe","Odigbo","Damaturu","Babana","Badeggi","Mubi","Ogori","Langtang","Ore","Lajere","Odogbolu","Bida","Ikare"],"Niue":["Alofi","Avatele","Liku","Hakupu","Tamakautoga","Mutalau","Tuapa","Lakepa","Makefu","Hikutavake","Vaiea","Toi","Namukulu"],"Norfolk Island":["Kingston-Blackmans Bay"],"Northern Mariana Islands":["Garapan","Capital Hill","San Antonio","Koblerville","San Vicente","Tanapag","Chalan Kanoa","Dandan","Gualo Rai","Susupe","Chiapa","Songsong","San Roque","Settlement"],"Norway":["Oslo","Trondheim","Bergen","Stavanger","Kristiansand","Porsgrunn-Skien","Alta","Fredrikstad-Sarpsborg","Tønsberg","Drammen","Ålesund","Tromsø","Sandane","Bodø","Haugesund","Sandefjord","Arendal","Hamar","Moss","Larvik","Lillehammer","Molde","Kongsberg","Jessheim","Horten","Kristiansund","Hammerfest","Vestby","Halden","Harstad","Elverum","Drøbak","Kongsvinger","Nesoddtangen","Bryne","Å","Gjøvik","Ski","Mosjøen","Namsos","Ask","Lillesand","Volda","Sykkylven","Varhaug","Rena","Askim","Dale","Grimstad","Seljord","Notodden","Leksvik","Fetsund","Vossevangen","Kragerø","Brønnøysund","Røros","Eidsvoll","Årnes","Gol","Geilo","Tynset","Hauge","Husnes","Andebu","Hønefoss","Tingvollvågen","Ålgård-Figgjo","Frogner","Levanger","Førde","Brumunddal","Ash","Osøyro","Søgne","Løkken Verk","Orkanger-Fannrem","Ørsta","Sveio","Raufoss","Fauske","Tananger","Mysen","Jørpeland","Ulsteinvik","Fevik","Risør","Son-Store Brevik","Sauda","Sortland","Jevnaker","Svolvær","Hommelvik","Lierbyen","Lyngdal","Svelvik","Fosnavåg-Leinstrand","Sagvåg","Spydeberg","Nordstrand","Sætre","Rørvik","Røyken","Stokke","Stranda","Skjervøy","Tjøme","Birkeland","Bjørkelangen","Maura","Brattvåg","Gullhaug","Myre","Tvedestrand","Hauknes","Skarnes","Blakstad","Nodeland","Frekhaug","Kolvereid","Ringebu","Sande","Vigeland","Berger","Isfjorden","Lervik","Svelgen","Mo i Rana","Åros","Berlevåg","Askøy","Narvik","Vennesla","Søfteland","Steinkjer","Eide","Leirvik","Hagavik","Mandal","Straumen","Knarrevik-Straume","Hjelset","Hvittingfoss","Råholt","Knappskog","Florø","Stamsund","Magnor","Skoger","Slevik","Verdalsøra","Etne","Kopervik","Lundamo","Vaksdal","Øyer","Storebø","Rosendal","Berkåk","Indre Arna","Lørenfallet","Kleppe-Verdalen","Holmestrand","Sørkjosen","Malvik","Sandnessjøen","Tranby","Åmot-Geithus","Hommersåk","Stavern","Flekkefjord","Kløfta","Kvernaland","Vadsø","Nærbø","Rotnes","Melhus","Odda","Brandbu-Jaren","Sunndalsøra","Knarvik","Moelv","Finnsnes","Hareid","Rakkestad","Rjukan","Oppdal","Øvre Årdal","Sørumsand","Vear","Fanahammeren","Skudeneshamn","Kirkenes","Tofte","Måløy","Farsund","Flateby","Stokmarknes","Åsgårdstrand","Andenes"],"Oman":["Masqat","Ruwi","al-Buraymi","Qurm","Dhufar","Madinat Qabus","as-Sib","Bawshar","Suhar","Nizwa","Sur","Saham","´Ibri","Bahla'","al-Khaburah","al-Masna´ah","as-Suwayq","Shinas","Qurayyat","Ibra","Khasab","ar-Rustaq","Marsa Matruh","al-Marj","al-Mudaybi","Sumayl"],"Pakistan":["Karachi","Islamabad","Lahore","Rawalpindi","Faisalabad","Abottabad","Peshawar","Gujranwala","Sialkot","Multan","Hyderabad","Sargodha","Gujrat","Quetta","Jhelum","Muzaffarabad","Swabi","Bahawalpur","Pattoki","´Abdul Hakim","Rahim Yar Khan","Hafizabad","Lalamusa","Khanewal","Chakwal","Attock","Wah","Larkana","Talagang","Mardan","Mandi Bahauddin","Kulachi","Kohat","Shakargarh","Sukkur","Kabirwala","Dera Ghazi Khan","Bannu","Okara","Sahiwal","Kharian","Mansehra","Narowal","Pasrur","Hasan Abdal","Bhera","Pindi Gheb","Dadu","Bhakkar","Sanghar","Taunsa","Kamoke","Rabwah","Charsadda","Arifwala","Hasilpur","Ghotki","Haripur","Mirpur Mathelo","Renala Khurd","Chitral","Murree","Nawabshah","Mingaora","Sadiqabad","Jacobabad","Lodhran","Bhalwal","Lakki Marwat","Pirmahal","Karor Lal Esan","Shekhupura","Pind Dadan Khan","Mirpur Khas","Matiari","Mianwali","Taxila","Lieah","Gujar Khan","Islamkot","Jampur","Gilgit","Alipur Chatha","Sarai Alamgir","Tordher","Chiniot","Kanganpur","Gharo","Jaranwala","Daharki","Naushehra","Mian Channun","Toba Tek Singh","Fort Abbas","Nowshera Virkan","Pindi Bhattian","Mehrabpur","Zafarwal","Kasur","Burewala","Gojra","Bahawalnagar","Tando Adam","Chishtian Mandi","Tando Allah Yar","Chichawatni","Sarai Sidhu","Tando Muhammad Khan","Kotri","Shahdadkot","Sambrial","Ghakar","Gwadar","Karoondi","Thatta","Umarkot","Badah","Malakwal","Alipur","Naudero","Sukheke","Minchinabad","Jhawarian","Kunri","Raja Jang","Chawinda","Ubauro","Akora","Kotli Loharan","Shikarpur","Muzaffargarh","Kanpur","Pakpattan","Bhit Shah","Daska","Ahmadpur East","Ghurgushti","Vihari","Kot Addu","Mangla","Tando Ghulam Ali","Turbat","Choa Saidan Shah","Badin","Dalbandin","Garhi Yasin","Dokri","Kot Abdul Malik","Sobhodero","Kahror Pakka","Lakhi","Bhiria City","Mankera","Timargara","Bakshshapur","Kot Radha Kishan","Kamra","Kandiari","Usta Muhammad","Kario Ghanwar","Ziarat","Jalalpur Pirwala","Risalpur","Topi","Dunyapur","al-Karak","Tulamba","Kunjah","Dijkot","Sujawal","Sillanwali","Kandiaro","Zaida","Jhudo","Amangarh","Ahmadpur Sial","Phalia","Jhang","Kot Samaba","Ranipur","Kot Ghulam Mohammad","Padidan","Dhoronaro","Sarai Naurang","Jand","Fatehpur","Dera Bugti","Lachi","Dajal","Kamalia","Khuzdar","Tharushah","Dera Îsmail Khan","Bhopalwala","Radhan","Ahmadpur Lumma","Jiwani","Kalabagh","Jalalpur","Kamar Mashani"],"Palau":["Airai","Koror","Meyungs","Ulimang","Kayangel","Kloulklubed","Ngermechau","Melekeok","Chol","Ngaramash","Imeong","Ngerkeai","Ollei","Oikul","Ngetkip","Dongosaru","Hatohobei"],"Palestine, State of":["Gaza City","Ramallah","al-Quds","Tulkarm","Nabulus","al-Khalil","Bayt Lahm","ad-Dahiriyah","Bayt Sahur","Janin","Khan Yunis","Dayr-al-Balah","al-Birah","ar-Ram","Rafah","Bayt Lahiyah","Qalqilyah","Halhul","Tubas","Bayt Jala","Salfit","Jabaliyah","al-Insayrat","Yattah","al-Burayj","Bani Suhaylah","Bayt Hanun","Ma´ale Adummim","Dura","Ariha","Qabatiyah"],"Panama":["Panamá","Colón","David","Aguacaliente","La Chorrera","Bocas del Toro","San Miguelito","Bajo Boquete","Arraiján","Santiago","Portobelo","Cañazas","Chame","Río Sereno","Aiton","Las Tablas","Los Santos","Gualaca","Parita","Boquerón","Tonosí","Chiriquí Grande","Miguel de la Borda","Pedasí","Horconcitos","San Miguel","Changuinola","Soná","Puerto Armuelles","Bugaba","Penonomé","Narganá","Chepo","Ocú","Chitré","Aguadulce","Dolega","Natá","Capira","Montijo","Atalaya","La Mesa","Guararé","La Palma","Chichica","La Pintada","Las Palmas","Tolé","Benito Juárez","Kusapin","Santa Fé","Alanje","Cerro Iglesias","Macaracas","Río de Jesús","Calobre","Soloy","Pesé","Las Minas","Los Pozos","Río Sábalo","Bisira","El Olingo","Ajoloapán","Hato Pilón","Chimán","Olá","El Real de Santa María","Las Lajas","Remedios","Taboga","Pocrí","Nuevo Chagres","Malabo","Playa Coronado"],"Papua New Guinea":["Port Moresby","Aitape","Goroka","Lae","Madang","Wewak","Kimbe","Vanimo","Mount Hagen","Daru","Alotau","Mendi","Kiunga","Lorengau","Kerema","Arawa","Rabaul","Kavieng","Popondetta","Bulolo","Waw","Kundiawa","Wabag","Kieta","Kokoda","Kokopo","Panguna","Kainantu","Morehead","Porgera","Sohano","Ambunti","Samarai","Angoram","Namatanai","Buin","Laiagam","Finschhafen","Kandrian"],"Paraguay":["Asunción","Ciudad del Este","Abaí","Encarnación","Nueva Germania","Nueva Londres","San Juan Bautista de Ñeembucú","La Paz","Luque","Lambaré","San Antonio","Minga Guazú","Paraguarí","Ypacaraí","Bella Vista","San Pedro del Paraná","Pirayú","Yguazú","Caapucú","Capitán Mauricio José Troche","General Delgado","Buena Vista","San Miguel","General Bernardino Caballero","Yegros","Cerrito","General Eugenio Alejandrino Garay","Tres de Febrero","Mayor Pablo Lagerenza","Mayor José Dejesús Martínez","Domingo Martínez de Irala","Ñumí","Puerto Pinasco","Capitán Meza","Paso de Patria","Primero de Marzo","Quyquyho","Ñacunday","San Salvador","Simón Bolívar","Cambyreta","Iruña","Veinticinco de Diciembre","San Pablo","Tavaí","Laureles","Marechal Francisco Solano López","Mbocayty del Yhaguy","Villa Oliva","Benito Juárez","San Lázaro","Nueva Colombia","Itapúa Poty","Manila","Félix Pérez Cardozo","Ybytimí","Alto Verá","Juan de Mena","Mbaracayú","San José Obrero","Amatlán","José Fasardi","Maciel","San Rafael del Paraná","Villa Franca","Loma Grande","Villalbín","La Pastoria","Tebicuarymí","Doctor Moisés Bertoni","Guazu Cuá","Borja","Isla Umbú","Itanará","Leandro Oviedo","Tacuaras","José Falcón","Nueva Alborada","Escobar","Tres Corrales","Yabebyry","Desmochados","Doctor Botrell","Chiautzingo","Capiatá","Fernando de la Mora","Limpio","Ñemby","Mariano Roque Alonso","Pedro Juan Caballero","Villa Elisa","Caaguazú","Coronel Oviedo","Itauguá","Presidente Franco","Hernandaríaz","Concepción","Villarrica","Pilar","Caacupé","Itá","Villa Hayes","San Ignacio","San Estanislao","Ayolas","Tuxtepec","Villeta","Areguá","Horqueta","Doctor Eulogio Estigarribia","Curuguaty","Tobatí","Piribebuy","Coronel Bogado","Santa Rita","Guarambaré","San Pedro de Ycuamandiyú","Capitán Bado","Eusebio Ayala","Benjamín Aceval","Filadelfia","San Juan Nepomuceno","Doctor Juan León Mallorquín","Jaguarão","Santa Rosa","Salto del Guairá","Caazapá","Ypané","Alberdi","Carapeguá","Repatriación","Obligado","Marechal Estigarribia","Emboscada","Villa del Rosario","San José de los Arroyos","Tomás Romero Pereira","Menno","Nanawa","Hohenau","Quiindy","Ybycuí","Doctor Juan Manuel Frutos","Atyrá","La Victoria","Altos","Yuty","Doctor Pedro P. Peña","Iturbe","Mayor Otaño","San Alberto","San Bernardino","Carmen del Paraná","Juan Augusto Saldívar","La Paloma","General Artigas","Itacurubí del Rosario","Katueté","Itacurubí de la Cordillera","Capiíbary","Fram","Loreto","Acahay","Juan Emilio O'Leary","Nueva Esperanza","Itaquyry","Vaquería","General Elizardo Aquino","General Francisco Álvarez","Oaxaca","Nueva Italia de Ruiz","Yatytay","Neuland","La Colmena","Los Cedrales","Trinidad","Jesús","Ygatimi","Santiago","Natalio","Capitán Miranda","Carayaó","Lima","Arroyos y Esteros","Fuerte Olimpo","Mbocayaty","Mbuyapey","Villa Florida","Choré","San Cosme y Damián","Tacuatí","Ajoloapán","Doctor Cecilio Báez","Guayaibi","Yhú","Naranjal","General Isidro Resquín","Sapucaí","Ypehú","Yataity"],"Peru":["Lima","Arequipa","Cusco","Trujillo","Abancay","Chiclayo","Piura","Lambayeque","Chaclacayo","Iquitos","Huancayo","Chimbote","Pucallpa","Tacna","Ica","Huánuco","Huaraz","Jauja","Chachapoyas","Junín","Azángaro","Jepelacio","Chincha Alta","Cajamarca","Puno","Huacho","Ilo","Barranca","Chepén","Monsefú","Guadalupe","Huamachuco","Andahuaylas","Ajoloapán","Satipo","Ascope","Soritor","Oxapampa","Ilabaya","El Alto","Morococha","Acobamba","Caleta de Carquín","Lircay","Llata","Juliaca","Ayacucho","Tarapoto","Orcotuna","Huaral","Tarma","Huancavelica","Moyobamba","Tambopata","Sicuani","Saña","Juanjuí","Ferreñafe","Imperial","Nuevo Imperial","Puerto Maldonado","La Unión","La Oroya","La Arena","Chocope","Paramonga","Pacasmayo","Chancay","Chaupimarca","Hualmay","Mollendo","Tocache","Tambo Grande","San Vicente de Cañete","La Peca","Santa Ana","Rioja","Laredo","Marcavélica","Querecotillo","Yanacancha","Nazca","Huaura","Moche","Santiago de Cao","Sechura","Paucarpata","Casma","Paiján","Virú","Requena","Bagua Grande","Ayaviri","Corrales","Huanta","Malaita","Pachacámac","Huanchanco","Uchiza","Zarumilla","Camaná","Huarmey","Ilave","San Pedro de Lloc","Chongoyape","San Clemente","Marcona","Pimentel","Bojaya","Choishco","Chicama","Supe","Apaseo el Grande","Saposoa","Celendín","Cutervo","Chota","La Brea","Santa","Chilca","Contamana","Santa Rosa de Saco","Etén","Motupe","Santa Maria de Lamas","Colán","Cajabamba","Bambamarca","Quillabamba","Yanahuara","Pueblo Nuevo","Supe Puerto","Tabalosos","Vice","Pativilca","Zorritos","Nauta","Morropón","Concepción","Tupac Amaru Inca","Caraz","Puquío","Ulma","Santa Rosa","Santiago","Tingo María","Vista Alegre","Yunguyo","Otuzco","Salaverry","Olmos","Reque","Huamantla","San José de Sisa","Lagunas","Calca","Carhuamayo","Chupaca","Quiruvilca","Yauya","Subtanjalla","Aguas Verdes","Las Lomas","San Jerónimo de Tunán","Campoverde","Cocachacra","Pacanga","Pilcomayo","Huancabamba","Putina","La Huaca","Chazuta","San Ignacio","Huancane","Los Aquijes","Buenos Aires","Coracora","Pacocha","Urubamba","Villa Rica","Chiapa","Mochumí","Talavera","Cajaruro","Juli","Máncora","Chicla","Vargas Guerra","Juan Lacaze","Quilmaná","Túcume","Torata","Santa Eulalia","Oyón","Perené","Tuxtepec","Acolla","Ambos","Mazamari","Sicaya"],"Philippines":["Manila","Cebu","Cavite","Davao","Ángeles","Baguio","Antipolo","Iloilo","Bacolod","Batangas","Cagayan de Oro","Cainta","Tacloban","Zamboanga","Dumaguete","Iligan","Olongapo","Tarlac","Malolos","Lucena","Santa Rosa","San Pedro","Naga","Dagupan","Bacoor","Calamba","Los Baños","Cabanatuan","Butuan","Legaspi","General Santos","San Pablo","Meycauayan","San Fernando","Biñan","Taytay","Angono","Ozamiz","Baliuag","Tagbilaran","Cotabato","Marawi","Montalban","Laoag","Puerto Princessa","Bocaue","Tagaytay","Dipolog","Vigan","Mandaue","Dasmariñas","Binangonan","Sorsogon","Mati","Isabela","Koronadal","Surigao","Lapu-Lapu","Daet","Roxas","Mariveles","Lipa","Pagadian","Tagum","Santa Cruz","Tuguegarao","Mabalacat","Pulilan","Digos","Santiago","Gapan","Bislig","Calbayog","Calumpit","Bais","Hagonoy","Gingoog","Iriga","Catarama","Guiguinto","Kabankalan","Bago","Atenco","Tanay","Catbalogan","Silay","Macabebe","Dapitan","Balagtas","Obando","Solano","Bangued","Cádiz","Trece Martires","La Carlota","Toledo","General Mariano Alvarez","Jolo","Victorias","Talisay","Kawit","Sultan Kudarat","Mangaldan","Polomoloc","Manaoag","Sagay","Binalbagan","Benito Juárez","Guagua","Tangub","Uíge","Tanza","Pasig City","Liliw","Makati","City of Balanga","Danao","Hueyotlipan","Santa Catalina","El Rosario","Taal","Canlaon","Chiapa","Quezon City","Palayan","Pulupandan"],"Pitcairn":[],"Poland":["Warsaw","Poznan","Kraków","Wroclaw","Łódź","Szczecin","Aleksandrów Kujawski","Lublin","Gdansk","Katowice","Gdynia","Torun","Gliwice","Rzeszów","Bydgoszcz","Bialystok","Bielsko-Biala","Olsztyn","Opole","Kielce","Radom","Gorzów Wielkopolski","Koszalin","Czestochowa","Sopot","Nowa Sól","Brodnica","Bytom","Walbrzych","Stalowa Wola","Jaworzno","Zamosc","Starachowice","Sandomierz","Tychy","Plock","Tarnów","Glogów","Tarnobrzeg","Piaseczno","Zabrze","Rybnik","Elblag","Slupsk","Jastrzebie-Zdrój","Ostrów Wielkopolski","Bedzin","Skierniewice","Krosno","Ciechanów","Oswiecim","Sochaczew","Biskupiec","Bochnia","Lubartów","Wloclawek","Kalisz","Piotrków Trybunalski","Inowroclaw","Pila","Przemysl","Zory","Swidnica","Biala Podlaska","Legionowo","Skarzysko-Kamienna","Radomsko","Wegrów","Kolobrzeg","Sieradz","Rumia","Swinoujscie","Wegorzewo","Chrzanów","Jaroslaw","Zary","Szczecinek","Brzeg","Kwidzyn","Dzierzoniów","Police","Zywiec","Luków","Gorlice","Czersk","Wyszków","Grodzisk Mazowiecki","Koscian","Fribourg","Laziska Górne","Mragowo","Gostynin","Wadowice","Kety","Pisz","Sokolów Podlaski","Reda","Miedzyrzec Podlaski","Sosnowiec","Nowogard","Radzyn Podlaski","Chorzów","Nisko","Legnica","Grudziadz","Nowy Sacz","Konin","Glucholazy","Lubin","Myslowice","Lomianki","Gniezno","Suwalki","Wlodawa","Zgierz","Pulawy","Wodzislaw Slaski","Nysa","Krosno Odrzanskie","Debica","Blonie","Zdunska Wola","Otwock","Mosina","Zyrardów","Brzeszcze","Boleslawiec","Janów Lubelski","Drawsko Pomorskie","Olkusz","Góra Kalwaria","Jaslo","Olesnica","Wolomin","Lobez","Czechowice-Dziedzice","Drezdenko","Ostróda","Görlitz","Kudowa-Zdrój","Nowy Targ","Sztum","Olawa","Krzeszowice","Lowicz","Gizycko","Turek","Nowy Dwór Gdanski","Kozuchów","Lwówek Slaski","Ustrzyki Dolne","Nowy Dwór Mazowiecki","Zagan","Szczytno","Walcz","Bartoszyce","Stary Sacz","Lubon","Pszczyna","Opalenica","Poreba","Wielun","Grodków","Bialogard","Polaniec","Kolo","Piastów","Grajewo","Ostrów Mazowiecka","Hajnówka","Leczna","Swiebodzin","Sroda Wielkopolska","Gryfino","Rawicz","Gostyn","Chelmno","Pionki","Chodziez","Bogatynia","Pyskowice","Lask","Sierpc","Kozienice","Szamotuly","Krapkowice","Sulechów","Oborniki","Libiaz","Józefów","Zielonka","Gubin","Boguszów-Gorce","Bytów","Gryfice","Przasnysz","Ruda Slaska","Rypin","Zabkowice Slaskie","Dabrowa Górnicza"],"Portugal":["Lisbon","Porto","Cascais","Almada","Coimbra","Braga","Aveiro","A dos Cunhados","Leiria","Setúbal","Sintra","Vila Nova de Gaia","Faro","Amadora","Viseu","Oeiras e São Julião da Barra","Caldas da Rainha","Albufeira","Viana do Castelo","Ponta Delgada","Funchal","Odivelas","Barreiro","Portimão","Abrantes","Loures","Lagos","Maia","Santarém","Estoril","Matosinhos","Carcavelos","Amora","Torres Vedras","Espinho","Évora","Parede","Tomar","Vila Real","Oliveira de Azeméis","Corroios","Guimarães","São João da Madeira","Algés","Ermesinde","Vila do Conde","Paço de Arcos","Figueira da Foz","Montijo","Barcelos","Mafra","Pombal","Quarteira","Gondomar","Guarda","Carnaxide","Ovar","Torres Novas","Águeda","Alcochete","Agualva-Cacém","São Domingos de Rana","Sesimbra","Alverca do Ribatejo","Póvoa de Varzim","Linda-a-Velha","Loulé","Alcobaça","Covilhã","Tavira","Almeirim","Vila Nova de Famalicão","Castelo Branco","Baixa da Banheira","Pinhal Novo","Charneca de Caparica","Bragança","Santa Maria de Lamas","Fafe","Oliveira do Hospital","Santo André","Lamego","Rebordosa","A Ver-o-Mar","Carregado","Argoncilhe","Benedita","Mira","Algueirão-Mem Martins","Paços de Ferreira","Arruda dos Vinhos","Olhão","Águas Santas","Bombarral","Entroncamento","Venda do Pinheiro","Alhos Vedros","Rio Maior","Mirandela","Fernão Ferro","Fundão","Lagoa","São Bartolomeu de Messines","Camacha","Penafiel","Albergaria-A-Velha","Colares","Alhandra","Ericeira","Rio Tinto","Rio de Mouro","Amarante","Santa Cruz","Camara de Lobos","Marinha Grande","Póvoa de Santa Iria","Belas","Vila Franca de Xira","Portalegre","Vila Praia de Ancora","Alfena","Porto Salvo","Arcozelo","Chaves","Costa da Caparica","Alcanena","Avintes","Esmoriz","Aldeia de Paio Pires","Milheirós","Sobreda","Sobralinho","Campanário","Lousã","Nazaré","Lourosa","Armação de Pêra","São João de Ver","Abraveses","Silvalde","Santiago do Cacém","Cantanhede","Reguengos de Monsaraz","Horta","Praia da Vitória","Santa Cruz do Bispo","Alcabideche","Arrentela","Porto de Mós","Senhora da Hora","Oliveira do Bairro","Sertã","São Mamede de Infesta","Pontinha","Laranjeiro","Vila Franca do Campo","Alvor","Moita","Ílhavo","Real","Castro Verde","Peniche","Rio Meão","Póvoa de Santo Adrião","Gafanha da Nazaré","Angra","Moscavide","Perafita","Porto Santo","Teixoso","Barcarena","São Félix da Marinha","Forte da Casa","Santa Bárbara de Nexe","Silves","Caneças","Cortegaça","Vila Chã","Ponte de Sor","Serzedelo","Grijó","Cartaxo","Adaúfe","São Brás de Alportel","Golegã","Caldas de Vizela","Mira de Aire","Elvas","São Pedro do Sul","Gulpilhares","Guifões","Lavra","Tondela","Tramagal","Milheirós de Poiares","Coruche","Vizela","Valadares","Vila Verde","Alenquer"],"Puerto Rico":[],"Qatar":["ad-Dawhah","al-Wakrah","ar-Rayyan","Dukhan","al-Khawr","ar-Ruways","Umm Salal","al-Jumayliyah","al-Wukayr","al-Ghuwayriyah","Musay´id","ash-Shahaniyah","Umm Bab"],"Réunion":["Saint-Pierre","Saint-Denis","Ambodifototra","Le Tampon","Le Port","La Possession","Salazie","Cilaos","Saint-Paul","Saint-Louis","Saint-André","Saint-Benoit","Saint-Joseph","Saint-Leu","Sainte-Suzanne","L'Étang-Salé","Petite-Ile","Bras-Panon","Les Aviron","Les Trois-Bassins","Sainte-Rose","Entre-Deux","Saint-Philippe","Réunion"],"Romania":["Bucharest","Bucuresci","Cluj-Napoca","Timisoara","Constanta","Iasi","Abramut","Brasov","Craiova","Sibiu","Ploiesti","Oradea","Targu-Mures","Galati","Pitesti","Arad","Baia Mare","Bacau","Targoviste","Suceava","Braila","Buzau","Deva","Piatra Neamt","Lupeni","Alba Iulia","Ramnicu Valcea","Sfantu Gheorghe","Petrosani","Calarasi","Satu Mare","Barlad","Slobozia","Onesti","Botosani","Slatina","Sighisoara","Bistrita","Vaslui","Medias","Targu Jiu","Lugoj","Campulung","Caransebes","Vatra Dornei","Resita","Hunedoara","Falticeni","Blaj","Alesd","Craiva","Drobeta-Turnu Severin","Tulcea","Mangalia","Bilbor","Bucu","Giurgiu","Roman","Zalau","Alessandria","Pascani","Marghita","Sinaia","Darabani","Techirghiol","Faurei","Uricani","Cosmesti","Salsig","Bodesti","Turceni","Bicaz","Medgidia","Baile Herculane","Miercurea-Ciuc","Campina","Odorheiu Secuiesc","Sacele","Cotmeana","Aiud","Oltenita","Moinesti","Maglavit","Comanesti","Carei","Orastie","Targu-Neamt","Gheorgheni","Buhusi","Ludus","Viseu de Sus","Simleu Silvaniei","Toplita","Simeria","Targu-Lapus","Sinesti","Victor Vlad Delamarina","Rovinari","Sadu","Gaiseni","Grebanu","Brezoaiele","Sofronea","Bolintinu-din-Vale","Bradeni","Vlahita","Uileacu de Beius","Tudor Vladimirescu","Balaci","Ianca","Salard","Lipova","Maneciu","Caianu","Rebrisoara","Balanesti","Jimbolia","Cleja","Racari","Costesti","Gheorghe Doja","Brezoi","Pui","Baia","Nasaud","Grajduri","Vladimirescu","Orlat","Busteni","Bradesti","Crevedia","Negrasi","Ineu","Otopeni","Baltatesti","Sascut","Brosteni","Fratautii Vechi","Bran","Magureni","Copsa Mica","Butoiesti","Vadu Izei","Ortisoara","Negresti","Zatreni","Ghimes-Faget","Costisa","Gaiceana","Draghiceni","Frasin","Gradistea","Cristuru Secuiesc","Timisesti","Baiut","Babaita","Plopeni","Mesesenii de Jos","Vintu de Jos","Deta","Babeni","Eforie","Romanu","Alexandru Odobescu","Cavnic","Ibanesti","Poienesti","Soars","Siret","Niculesti","Anina","Suncuius","Salatig","Voivodeni","Budila","Tuzla","Valea Danului","Abrud","Dumitra","Santandrei","Bistrita Bargaului","Viseu de Jos","Provita de Sus","Rabagani","Tasca","Focsani","Sacalaz","Ciolpani","Suciu de Sus","Cetariu","Cozmesti","Rasova","Dornesti","Glodeni","Densus","Gura Vaii","Rasmiresti","Razvad","Potcoava","Köln"],"Russian Federation":["Moscow","St. Petersburg","Abakan","Kazan","Novosibirsk","Krasnodar","Cheboksary","Vladivostok","Samara","Rostov","Tomsk","Ufa","Volgograd","Jekaterinburg","Sochi","´Anah","Kaliningrad","Kirov","Omsk","Perm","Voronezh","Habarovsk","Joshkar-Ola","Cheljabinsk","Irkutsk","Penza","Almetjevsk","Krasnojarsk","Saratov","Izhevsk","Kursk","Toljatti","Barnaul","Uljanovsk","Magnitogorsk","Jaroslavl","Novokuzneck","Ivanovo","Arhangelsk","Volzhskij","Taganrog","Podolsk","Kemerovo","Belgorod","Vladimir","Petrozavodsk","Velikij Novgorod","Petropavlovsk-Kamchatskij","Elista","Birobidzhan","Dubna","Orenburg","Tatarsk","Tula","Nizhnij Tagil","Stavropol","Orjol","Murmansk","Surgut","Saransk","Novorossijsk","Zeljenograd","Syktyvkar","Zvenigorod","Prokopjevsk","Rybinsk","Nadym","Engels","Dimitrovgrad","Orehovo-Zujevo","Obninsk","Magadan","Podporozhje","Nizhneudinsk","Novyj Urengoj","Kstovo","Solnechnogorsk","Kudymkar","Belye Berega","Mahackala","Zernograd","Zubova Poljana","Rjazan","Naberezhnyje Chelny","Kotovo","Lipetsk","Novoaltajsk","Urengoj","Belorechensk","Nogliki","Kotelnich","Pervomajsk","Gorno-Altajsk","Trubchjovsk","Kurgan","Kanash","Smolensk","Nalchik","Lytkarino","Nizhnjaja Pojma","Vologda","Roslavl","Kostroma","Malgobek","Bezheck","Nizhnevartovsk","Groznyj","Angarsk","Buj","Monchegorsk","Gorohovec","Staryj Oskol","Shelehov","Jakutsk","Leninsk","Armavir","Pavlovsk","Pskov","Zlatoust","Ahtubinsk","Yuzhno-Sakhalinsk","Nizhnij Lomov","Mostovskoj","Korolyov","Sharja","Kolomna","Aleksandrovsk-Sahalinskij","Kovrov","Lyskovo","Pjatigorsk","Bekovo","Odincovo","Partizansk","Kislovodsk","Zhirnov","Norilsk","Abdulino","Kolchugino","Hotkovo","Dalnegorsk","Noginsk","Achinsk","Seversk","Tavda","Babajevo","Camenca","Kyzyl","Uhta","Slancy","Serebrjanyj Bor","Tynda","Nytva","Birsk","Sarapul","Serov","Ust-Ilimsk","Balashov","Bugulma","Aldan","Novouralsk","Novovoronezh","Skalnyj","Abinsk","Gatchina","Vyborg","Sljudjanka","Bektemir","Vorkuta","Belovo","Prohladnyj","Lysva","Urussu","Volsk","Stupino","Navashino","Korsakov","Iskitim","Zelenogorsk","Aleksin","Gorodec","Nizhnij Odes","Dno","Budjonnovsk","Klincy","Sertolovo","Severo-Zadonsk","Revda","Horki","Krasnoturinsk","Aleksandrov","Chehov","Dalnerechensk","Abaza","Kuvandyk","Kurtamysh","Shahtjorsk","Shchjokino","Morozovsk","Udachnyj","Totma"],"Rwanda":["Kigali","Butare","Byumba","Cyangugu","Gitarama","Kibuye","Ruhengeri","Nyanza","Rwamagana","Gisenyi","Kibungo","Gikongoro"],"Saint Barthélemy":[],"Saint Helena, Ascension and Tristan da Cunha":["Edinburgh","Holetown","Georgetown"],"Saint Kitts and Nevis":["Basseterre","Charlestown","Saint Paul's","Cotton Ground","Old Road","Sadlers","Middle Island","Cayon","Tabernacle","Sandy Point","Mansion","Boyds","Dieppe Bay","Monkey Hill","Newcastle","Gingerland","Fig Tree"],"Saint Lucia":["Castries","Gros Islet","Anse-la-Raye","Vieux Fort","Cap Estate","Micoud","Soufrière","Canaries","Choiseul","Dennery","Laborie","Choc"],"Saint Martin (French part)":[],"Saint Pierre and Miquelon":["Saint-Pierre","Miquelon"],"Saint Vincent and the Grenadines":["Kingstown","Georgetown","Barroualie","Biabou","Grenadines","Saint Vincent","Byera","Layou","Port Elizabeth","Chateaubelair","Hamilton","Dovers"],"Samoa":["Solosolo","Falelatai","Mulifanua","Taga","Samalae'ulu","A'opo","Neiafu","Abaiang","Safotulafai","Samamea","Gautavai"],"San Marino":["Serravalle","San Marino","Borgo Maggiore","Acquaviva","Fiorentino","Faetano","Domagnano","Chiesanuova","Montegiardino"],"Sao Tome and Principe":["Trindade","São Tomé","Neves","Santo Amaro","Santana","Santo António"],"Saudi Arabia":["Riyadh","Jiddah","ad-Dammam","al-Khubar","Abha","Jubayl","Yanbu","al-Madinah","Makkah","al-Qatif","Tabuk","al-Hufuf","Buraydah","´Afif","at-Ta´if","Ha´il","al-Khafji","Sayhat","al-Bahah","al-Kharj","Najran","Jizan","Khamis Mushayt","Ara´ar","al-Jawf","´Unayzah","ar-Rass","Rahimah","ad-Dawadimi","ad-Dilam","Hafar-al-Batin","ath-Thuqbah","az-Zahran","al-Mubarraz","Sakakah","Tarut","Sabya","Rabig","al-Qurayyat","az-Zulfi","Safwah","Buqayq","al-Majma´ah","Dar´a","Qal´at Bishah","Abu ´Alanda","Turayf","Rafha","Umm Lajj","al-Hawiyah","Sharurah","Al Hofuf"],"Senegal":["Dakar","al-Madinah","Bakel","Diourbel","Bambey","Médina Gounas","Kaolack","Daga","Diofior","Thiès","Saint-Louis","Kolda","Goudomp","Dabo","Mbour","Fatick","Dahra","Khombole","Touba","Toubakouta","Louga","Bignona","Kayar","Linguère","Kanel","Thilogne","Passi","Foundiougne","Kahone","Ziguinchor","Richard Toll","Tambacounda","Mbacké","Tivaouane","Joal-Fadiouth","Kaffrine","Pout","Vélingara","Nioro","Sédhiou","Mékhé","Kébémer","Kédougou","Guinguinéo","Koungheul","Sokone","Wassadou","Matam","Waoundé","Gossas","Ourossogui","Marsassoum","Ndoffane","Thionck-Essyl","Thiadiaye","Podor","Oussouye","Gandiaye","Nguékhokh","Ndioum","Semmé","Golléré"],"Serbia":["Beograd","Novi Sad","Niš","Apatin","Kragujevac","Subotica","Panchevo","Zrenjanin","Zaječar","Kruševac","Sombor","Senta","Nova Pazova","Chachak","Kraljevo","Vranje","Šabac","Bur","Jagodina","Paraćin","Valjevo","Požarevac","Vršac","Ruma","Gornji Milanovac","Leskovac","Smederevo","Užice","Inđija","Obrenovac","Mladenovac","Loznica","Novi Pazar","Kikinda","Borča","Bačka Palanka","Prokuplje","Vrbas","Bečej","Smederevska Palanka","Aranđelovac","Lazarevac","Ćuprija","Priboj","Kula","Stara Pazova","Futog","Sremčica","Pirot","Uroševac","BG","Kaluđerica","Knjaževac","Temerin","Veternik","Trstenik"],"Seychelles":["Victoria","Anse Boileau","Anse Royal","Cascade","Takamaka"],"Sierra Leone":["Freetown","Biama","Bø","Kenema","Kabala","Lungi","Lunsar","Port Loko","Matru","Daru","Makeni","Binkolo","Bonthe","York","Segbwema","Kambia","Manowa","Pendembu","Pujehun","Koidu","Koindu","Yengema","Taiama","Magburaka","Pepel","Yele","Sefadu","Kailahun","Moyamba","Kissy","Mambolo","Giehun","Bumpe"],"Singapore":["Singapore"],"Sint Maarten (Dutch part)":[],"Slovakia":["Bratislava","Košice","Bánovce","Trenchín","Banská Bystrica","Preshov","Trnava","Komárno","Nitra","Zhilina","Martin","Zvolen","Nové Zámky","Levice","Piesht'any","Luchenec","Dolný Kubín","Poprad","Prievidza","Michalovce","Humenné","Ruzhomberok","Rimavská Sobota","Dunajská Streda","Stará L'ubovna","Vel'ký Krtísh","Povazhská Bystrica","Liptovský Mikulásh","Topol'chany","Chadca","Dubnica","Partizánske","Hlohovec","Vranov","Trebishov","Senica","Pezinok","Handlová","Sered'","Kysucké Nové Mesto","Zlaté Moravce","Skalica","Senec","Svidnik","Shtúrovo","Holích","Banská Shtiavnica","Stropkov","Kolárovo","Vráble","Vel'ký Meder","Modra","Hurbanovo","Námestovo","Stupava","Král'ovský Chlmec","Turzovka","Vrútky","Vrbové","Chierna nad Tisou","Spishská Nová Ves","Bardejov","Shal'a","Brezno","Nové Mesto","Snina","Kezhmarok","Zhiar","Rasnov","Púchov","Malacky","Galanta","Detva","Levocha","Revúca","Myjava","Nová Dubnica","Sabinov","Shamorín","Bytcha","Shurany","Stará Turá","Fil'akovo","Vel'ké Kapushany","Moldava nad Bodvou","Tvrdoshín","Krompachy","Hrinová","Liptovský Hrádok","Tornal'a","Shahy","Krupina","Sechovce","Hnúsht'a","Kaliningrad","Trstená","Zheliezovce","Rajec","Svit","Turchianské Teplice","Medzilaborce","Zharnovica","Gelnica","Sobrance","Nemshová","Poltár","Sládkovichovo","Spishská Belá","Lipany","Kremnica","Brezová pod Bradlom","Ilava","Gbely","Bojnice","Dobshiná","Sliach","Svätý Jur","Strázhske","Nováky","Trenchianske Teplice","Tlmache","Giraltovce","Tisovec","Leopoldov","Vel'ký Sharish","Spishské Podhradie","Medzev","Podolínec","Svodín"],"Slovenia":["Ljubljana","Maribor","Kranj","Ajdovshchina","Koper","Celje","Nova Gorica","Domzhale","Ptuj","Slovenska Bistrica","Grosuplje","Trbovlje","Kamnik","Vrhnika","Krshko","Zagorje ob Savi","Idrija","Mengesh","Bled","Velenje","Nové Mesto na Morave","Shkofja Loka","Logatec","Chrnomelj","Sezhana","Slovenske Konjice","Dravograd","Bistrica ob Trzhichu","Ankaran","Portorozh","Vrtojba","Izola","Postojna","Slovenj Gradec","Brezhice","Hrastnik","Lucija","Piran","Shempeter","Cerknica","Ribnica","Solkan","Zhelezniki","Metlika","Trebnje","Zreche","Shenchur","Radlje ob Dravi","Rache","Brezovica pri Ljubljani","Limbush","Strazha","Lovrenc na Pohorju","Mozirje","Renche","Jesenice","Murska Sobota","Ravne","Litija","Radovljica","Zhalec","Medvode","Sevnica","Ilirska Bistrica","Rogashka Slatina","Shentjur","Rushe","Prevalje","Monfalcone","Miklavzh na Dravskem Polju","Tolmin","Zhiri","Mezhica","Lashko","Lendava","Ljutomer","Trzin","Gornja Radgona","Vir","Shoshtanj","Lesce","Lenart","Chrna na Koroshkem","Muta","Polzela","Senovo","Radeche","Beltinci","Koroshka Bela","Ormozh","Radenci","Spodnje Hoche","Borovnica","Ig","Jagodje","Shkofljica","Pivka","Rakek","Vojnik","Shtore","Mislinja","Slovenski Javornik","Spodnja Idrija","Kromberk","Verd","Vnanje Gorice","Kranjska Gora","Pesnica pri Mariboru","Novo mesto","Kochevje"],"Solomon Islands":["Honiara","Auki","Tulagi","Cuauhtenco","Gizo","Buala","Kirakira","Taro Island","Tigoa"],"Somalia":["Mogadishu","Afgoye","Hargeysa","Baydhabo","Bosaso","´Adadlay","Jamame","Berbera","Kismayo","Marka","Qoryoley","Wanlaweyn","Qardho","Jilib","Borama","Galka´yo","Las´anod","Luq","Jawhar","Beled Wêyne","Bur´o","´Êldhêre","Bur Hakkaba","Awdhêgle","Bardhêre","Barawe","Bulobarde","Bandarbeyla","Garowe","´Êrigabo","Dinsor","Garbaharey","Baki","Bur Gabo","Berêda","Sha´´ab","Mahadday Weyne","Bandarmu´ayo","Xafun","Qandala","Eyl","´Êk","´Êlbur","Dhusa Marrêb","Dolaw","Gebilay","Afmadu","Jalalassi","Sayla´","Bargal","Lasqoray","´Alula","Bal´ad","Xuddur","Iskushuban","Odweyne","Hobyo","´Adale","Dujuma","Wajid","Yêt","Tayêglo","Xarardhêre"],"South Africa":["Cape Town","Johannesburg","Pretoria","Durban","Bloemfontein","Adelaide","Port Elizabeth","Stellenbosch","Midrand","Nelspruit","Benoni","Pietermaritzburg","Boksburg","Alberton","East London","Richards Bay","Krugersdorp","Rustenburg","Paarl","Potchefstroom","Knysna","Secunda","Witbank","Klerksdorp","George","Vanderbijlpark","Plettenberg Bay","Soweto","Pietersburg","Grahamstown","Vereeniging","Carltonville","Randfontein","Middelburg","Port Alfred","Brakpan","Kimberley","Kroonstad","Tzaneen","Springs","Worcester","Mmabatho","Jeffreys Bay","Newcastle","Welkom","Hermanus","Saldanha","Bronkhorstspruit","Kathu","Tembisa","Uitenhage","Umtata","Mosselbay","Margate","Fochville","Howick","Empangeni","Lydenburg","Thulamahashe","Komatipoort","Verwoerdburg","Phalaborwa","Mabopane","Sasolburg","Oudtshoorn","Lichtenburg","Heidelberg","Delmas","Port Shepstone","Scottsburgh","Zeerust","Ballitoville","Somerset East","Belfast","Alice","Caledon","Standerton","Virginia","Brits","Upington","Phuthaditjhaba","Vryburg","Stanger","Ekangala","Harrismith","Butterworth","Richmond","Malmesbury","Wolmaranstad","Cullinan","Volksrust","Robertson","Umkomaas","Witrivier","Mankweng","Brandfort","Thabazimbi","Ritchie","Kuruman","Calvinia","Westonaria","Makasar","Nigel","Potgietersrus","Louis Trichardt","Bethlehem","Queenstown","Temba","Ermelo","Thaba Nchu","Kgotsong","Warmbad","Beaufort-West","Piet Retief","Schweizer Reneke","Cradock","Dundee","Barberton","Lulekani","Fort Beaufort","De Aar","Lebowakgomo","Lady Frere","Kokstad","Balfour","Aliwal North","Giyani","Theunissen","Messina","Grabouw","Ellisras","Ulundi","Eshowe","Kriel","Greytown","Needscamp","Jan Kempdorp","Glencoe","Burgersdorp","Clocolan","Breyten","Danielskuil","Molteno","Mooi River","Dordrecht","Willowmore","Umzimvubu","Carnarvon","Utrecht","Somerset West","Melkbosstrand","Germiston","Botshabelo","Bisho","Emnambithi","Epumalanga","Embalenhle","Orkney","GaRankuwa","Vryheid","Stilfontein","Atlantis","Kutlwanong","Bethal","Parys","Thohoyandou","Esikhawini","Siyabuswa","Graaff-Reinet","Mondlo","Wembezi","Centurion","Ceres","Phola","Lebohang","Heilbron","Viljoenskroon","Wesselsbron","Duiwelskloof","Hennenman","Pampierstad","Ekuphumleni","Mpophomeni","Frankfort","Stutterheim","Nylstroom","Allanridge","Bulfontein","Senekal","Nkowakowa","Kruisfontein","Ezibeleni","Warrenton","Ncotshane","Christiana","Ladybrand","Bloemhof","Reitz","Hendrina","Vrede"],"South Georgia and the South Sandwich Islands":[],"South Sudan":[],"Spain":["Barcelona","Madrid","Valencia","A Coruña","Sevilla","Málaga","Palma","Alacant","Marbella","Torrevieja","Murcia","Bilbao","Girona","Santa Cruz de Tenerife","Granada","Zaragoza","Las Palmas","Fuengirola","Almería","Cádiz","Tarragona","Gijón","Vigo","Oviedo","Estepona","Valladolid","Terrassa","Salamanca","Badalona","Cartagena","Sabadell","Pamplona","Badajoz","Donostia","Cantabria","Santiago de Compostela","Arona","Abarán","La Rioja","Sant Cugat del Vallès","Castelló","Lleida","Puerto del Rosario","Toledo","Rota","Ourense","Huelva","León","Sitges","Vitoria","Pontevedra","Albox","Benidorm","Eivissa","Córdoba","Albacete","Alcorcón","Las Rozas de Madrid","Huesca","Dénia","Mahón","Alcalá de Henares","A Estrada","Ponferrada","Benalmádena","Alcobendas","Algeciras","Pozuelo de Alarcón","Manresa","Vilanova i la Geltrú","Vilafranca del Penedès","Elx","Burgos","Cáceres","Ciudad Real","Gandia","Majadahonda","La Línea","Torremolinos","Castelldefels","Altea","Ronda","Vic","Premià de Mar","Móstoles","Santa Pola","Mataró","Lugo","Xàbia","Palencia","Torrent","Vélez-Málaga","Alcoi","Cerdanyola","Torrelavega","Pozoblanco","Malgrat de Mar","Tortosa","Xàtiva","Lloret de Mar","El Puerto de Santa María","Alhaurín el Grande","San Sebastián de los Reyes","Viladecans","Segovia","Granollers","Cuenca","Arrecife","Coín","Tres Cantos","Igualada","Ontinyent","Figueres","Sant Joan Despí","Boadilla del Monte","Montornès del Vallès","Totana","Sant Pere de Ribes","Banyoles","Alcúdia","Sant Celoni","Ibi","Jerez","El Escorial","Jaén","Torrejón de Ardoz","Santa Coloma de Gramenet","Reus","Avilés","Talavera de la Reina","Getxo","Adeje","Orihuela","Mijas","Mieres","Basauri","Gavà","Soria","Barbastro","Caldes de Montbui","Santa Cruz de la Palma","Tomelloso","Ripollet","La Pobla de Vallbona","Pilar de la Horadada","Puerto de la Cruz","Arcos de la Frontera","Tàrrega","Balaguer","Alhaurín de la Torre","Mazarrón","Inca","Baza","L'Hospitalet de Llobregat","Fuenlabrada","Santa Perpètua de Mogoda","Priego de Córdoba","Molins de Rei","Granadilla de Abona","Vejer de la Frontera","Dos Hermanas","El Campello","Oliva","El Masnou","Torrox","Ferrol","Santoña","Ceuta","Santa Eulalia del Río","Collado Villalba","Elda","Mollet del Vallès","Esplugues de Llobregat","Mula","Mairena del Aljarafe","Ayamonte","Salou","Cártama","Cehegín","Úbeda","San Lorenzo de El Escorial","Vilagarcía de Arousa","Teruel","L'Eliana","Blanes","Viveiro","La Vall d'Uixó","Alcañiz","Älät","Eibar","Arenys de Mar","Aguilar de la Frontera","Llanes","Camargo","O Barco de Valdeorras","Ribeira","Pollença","Betanzos","La Vila Joiosa","Castro-Urdiales"],"Sri Lanka":["Colombo","Dehiwala-Mount Lavinia","Sri Jayawardenepura","Gampaha","Ambalamgoda","Galle","Battaramulla","Maharagama","Kolonnawa","Moratuwa","Kurunegala","Maha Nuwara","Wattala","Homagama","Jaela","Kalutara","Matara","Ratnapuraya","Kelaniya","Kêgalla","Nawalapitiya","Kuliyapitiya","Daluguma","Matale","Katunayaka","Horana","Gampola","Bandarawela","Anuradhapuraya","Amparai","Hendala","Kandana","Minuwangoda","Jaffna","Badulla","Panadraya","Ragama","Mulleriyawa","Kadugannawa","Puttalama","Beruwala","Eravur","Balangoda","Tanggalla","Migamuwa","Chavakachchêri","Tirikunamalaya","Valvedditturai","Dambulla","Vavuniyawa","Katankudi","Nuwara Eliya","Seethawakapura","Hatton","Polonnaruwa","Monaragala","Wattegama","Mullaitivu","Pêduru Tuduwa","Kotikawatta","Mannarama","Peliyagoda","Hambantota","Polgahawela","Haputale","Talawakele","Sigiriya","Galmunê","Madakalpuwa","Keselwatta","Welesara","Halawata","Weligama","Kilinochchi"],"Sudan":["al-Khartum","Umm Durman","al-Khartum Bahri","Abu Hijar","Juba","´Atbarah","Sawakin","Wad Madani","al-Fashir","Kutum","Bur Sudan","Kassala","ad-Damazin","ad-Duwaym","Sandi","Nasir","Abu Jubayhah","Abu Zabad","al-Kurumuk","Niyala","al-Junaynah","Rabak","ad-Damir","Khashm-al-Qirbah","Kodok","Yirol","Barbar","Doka","ad-Dabbah","al-Jazirah","Kuraymah","Dunqulah","Tangasi-ar-Ru´ays","Dalqu","Kabushiyah","Abu Karshola","Wad Rawah","Tonj","Karmah-an-Nuzul","al-Ubayyid","al-Qadarif","Kusti","al-Manaqil","Kaduqli","ad-Du´ayn","Sinnar","Umm Ruwabah","Malakal","Waw","Halfa al-Jadidah","an-Nuhud","Yei","Sinjah","Uwayl","Gogrial","Yambio","Babanusah","ad-Dillinj","Arba´atun wa ´Ishrun-al-Qurashi","Rufa´a","as-Suki","Nzara","Tandalti","Bur","Zalinqay","Mayurnu","Umm Dawm","Rumbik","Asalaya","al-Hawatah","Kinanah","ar-Rusayris","ar-Rank","ad-Dindar","Warab","al-Mijlad","ar-Rahad","Maharaybah","Shuwak","al-Bawga","al-Husayhisah","Karkawj","Umm Shawkah","Wagar","al-Hawsh","al-Hilaliyah","al-´Abbasiyah","Torit","Bara","al-Qutaynah","Rahad-al-Bardi","Tawkar","al-Kawah","Kurti","Mashra ar-Raqq","al-Huda","Shabashah","Wadi Halfa","al-Kamilin","Talawdi","Tabat","Umm Kaddadah","al-Matammah","Hajj ´Abdallah","al-Fulah","Ler","Gabait","Marabba","Sinkat","Tambul","Qala´-an-Nahl","al-Karaymat","Kanisah","Miallayab","Gulli","Sharafat","al-Musallamiyah","Marawi","Maridi","Abu ´Usar","Aruma","Wad-az-Zaki","Bentiu","al-Faw","al-Quwaysi","Umm Jarr","Lagawa","Kapoêta","Galgani","Tambura","Argu","Raga"],"Suriname":["Paramaribo","Lelydorp","Nieuw Nickerie","Albina","Moengo","Meerzorg","Nieuw Amsterdam","Aluksne","Wageningen","Groningen","Brownsweg","Brokopondo","Ellisras","Totness"],"Svalbard and Jan Mayen":["Longyearbyen","Barentsburg","Ny-Ålesund","Hornsund"],"Swaziland":["Mbabane","Manzini","Bhunya","Matsapha","Bulembu","Malkerns","Mhlume","Simunye","Big Bend","Nhlangano","Lobamba","Kwaluseni","Sidvokodvo","Lavumisa","Mankayane","Tshaneni","Pigg's Peak","Hluti","Nsoko","Mhlambanyatsi","Siteki","Hlatikulu","Kubuta","Ezulwini","Mpaka","Ngwenya"],"Sweden":["Stockholm","Göteborg","Malmö","Lund","Uppsala","Helsingborg","Linköping","Halmstad","Luleå","Örebro","Karlstad","Västerås","Umeå","Jönköping","Växjö","Norrköping","Borås","Gävle","Borlänge","Sundsvall","Alingsås","Eskilstuna","Kalmar","Skövde","Karlskrona","Uddevalla","Östersund","Trollhättan","Kristianstad","Ronneby","Åkersberga","Kungsbacka","Ängelholm","Södertälje","Örnsköldsvik","Arvika","Falun","Visby","Piteå","Ystad","Täby","Lidköping","Enköping","Hässleholm","Lidingö","Varberg","Skellefteå","Landskrona","Katrineholm","Hudiksvall","Nynäshamn","Karlshamn","Mariestad","Eslöv","Norrtälje","Lerum","Bollnäs","Tumba","Karlskoga","Oskarshamn","Falköping","Ljungby","Mjölby","Nyköping","Trelleborg","Sandviken","Kungälv","Västervik","Boden","Värnamo","Ludvika","Vetlanda","Strängnäs","Fagersta","Märsta","Boo","Falkenberg","Kristinehamn","Bålsta","Finspång","Söderhamn","Upplands-Väsby","Motala","Vänersborg","Härnösand","Avesta","Kumla","Nybro","Vallentuna","Köping","Nässjö","Tranås","Kinna","Mölnlycke","Sala","Älmhult","Säffle","Skara","Lysekil","Girón","stratford","Västerhaninge","Staffanstorp","Höganäs","Skoghall"],"Switzerland":["Zürich","Genève","Lausanne","Bern","Lugano","Basel","Winterthur","Luzern","Zug","Nyon","Neuchatel","Aadorf","Sankt Gallen","Fribourg","Baden","Schaffhausen","Montreux","Vevey","Aarau","Locarno","Morges","Bellinzona","Thalwil","Biel","Sion","Solothurn","Wettingen","Zollikon","Richterswil","Thun","Adliswil","Versoix","Mendrisio","Chur","Yverdon","Frauenfeld","Bülach","Gland","Dietikon","Kloten","Sierre","Rapperswil","Allschwil","Kreuzlingen","Olten","Regensdorf","Chiasso","Uster","Baar","Wädenswil","Wil","Küsnacht","Brugg","Lachen","Birmensdorf","Pully","Monthey","Bulle","Pfäffikon","Le Locle","Stans","Bremgarten","Stäfa","Buchs","Lenzburg","Wangen-Brüttisellen","Chavannes","La Chaux-de-Fonds","Glarus","Horgen","Sargans","Opfikon","Spreitenbach","Sursee","Yens","Neuenhof","Wollerau","Collonge-Bellerive","Dietlikon","Biasca","Zermatt","Buochs","Oberglatt","Ascona","Herisau","Saint-Imier","Volketswil","Langenthal","Schwyz","Cham","Rheinfelden","Lyss","Affoltern","Davos","Zofingen","Kilchberg","Payerne","Kriens","Appenzell","Dübendorf","Orbe","Wetzikon","Jona","Zumikon","Allaman","Martigny","Thonex","Arzier","Arbon","Bursins","Meilen","Küssnacht","Gingins","Aesch","Rolle","Männedorf","Arth","Langnau","Lutry","Embrach","Aigle","Emmen","Eschenbach","Meyrin","Carouge","Renens","Gossau","Interlaken","Blonay","Onex","Huttwil","Meiringen","Pratteln","Burgdorf","Wohlen","Schlieren","Aubonne","Uzwil","Coppet","Delémont","Crans-pres-Celigny","Brig-Glis","Rüti","Grand-Lancy","Münchenstein","Altstätten","Neuhausen","Oberwil","Saint-Prex","Zollikofen","Trelex","Bassersdorf","Bernex","Altdorf","Risch","Hünenberg","Kirchberg","Giubiasco","Epalinges","Au","Crissier","Seuzach","Dornach","Thal","Rümlang","Frenkendorf","Herrliberg","Murten","Uetendorf","Bottmingen","Uznach","Neuenkirch","Peseux","Greifensee","Heimberg","Oberuzwil","Teufen","Rüschlikon","Riehen","Cologny","Alpnach","Reinach","Colombier","Le Mont-sur-Lausanne","Bellach","Muttenz","Laufen","Sumiswald","Grenchen","Seon","Walenstadt","Fehraltdorf","Lengnau","Arosa","Freienbach","Aire","Aire-La-Ville","Binningen","Anieres","Arnex-Sur-Nyon"],"Syrian Arab Republic":["Dimashq","Halab","Abu Kamal","Hims","´Afrin","al-Ladhiqiyah","Hamah","as-Suwayda","´Ayn-al-´Arab","Duma","Salamiyah","Jablah","Safita","Dayr az-Zawr","al-Qamishli","Jaramanah","an-Nabk","ar-Raqqah","Dar´a","al-Bab","al-Malikiyah","Tartus","Idlib","Darayya","Jisr-ash-Shughur","Baniyas","al-Mayadin","Hajar Aswad","ar-Rastan","Masyaf","az-Zabadani","Å","at-Tall","Yabrud","al-Hasakah","ath-Thawrah","Manbij","Ma´addi","Nawa","Kabir-as-Sit","Tudmur","Ariha","Harasta al-Bas","al-Qunaytirah","as-Safirah","al-Qusayr","Muhradah","Qatana","Ra's-al-´Ayn","al-Qutayfah"],"Taiwan, Province of China":["Taipei","Taichung","Hsinchu","Kaohsiung","Changhwa","Tainan","Taoyuan","Chiayi","Hsinchuang","Nantou","Ilan","Keelung","Chungli","Chunan","Panchiao","Tali","Chupei","Chaochou","Tuku","Tucheng","Pingtung","Tanshui","Miaoli","Tachi","Chishan","Chungho","Sanchung","Fengshan","Hsintien","Luchou","Shulin","Yuanlin","Yangmei","Taitung","Hualian","Touliu","Chutung","Yingko","Hsilo","Wuchi","Peikang","Tienchung","Houlung","Hsinpu","Talin","Peitou","Kuanhsi","Yenshui","Kincheng","Chichi","Kuanshan","Yungho","Yungkang","Pingchen","Fengyuan","Pate","Hsichih","Tsaotun","Kangshan","Pulí","Toufen","Chingshui","Homei","Lukang","Sanhsia","Tachia","Hsinying","Shalu","Lotung","Huwei","Chushan","Tungshih","Erhlin","Chiali","Chihu","Makó","Tungkang","Yuanli","Juifang","Suao","Tounan","Meinung","Matou","Hsinhua","Potzu","Tunghsiao","Shanhwa","Paiho","Putai","Toucheng","Yuri","Taipao","Hengchun","Hsuechia","Cholan","Chengkung","Fenglin","Kinhsia"],"Tajikistan":["Adrasmon","Dushanbe","Jilikul","Asht","Bustonkala","Vorukh","Boshkengash","Isfara","Chkalov","Hisor","Gafurov","Taboshar","Khojamaston","Dusti","Kirov","Sovetskij","Pyanj","Rogun","Kuybyshevski","Navabadski","Kumsangir","Orzu","Navabad","Shakhrinau","Kansay","Altyn-Topkan","Nefteabad","Chorbog","Shurob","Choruh-Dairon","Kuruksay","Palas","Karakendzha","Syrdarinskiy","Chorku","Takob","Kim","Tartki","Takeli","Ayni","Varzob","Darband","Naugarzan","Khujand","Kulob","Qurgonteppa","Konibodom","Uroteppa","Kofarnihon","Tursunzoda","Panjakent","Khorug","Leninskiy","Tugalan","Yovon","Nurak","Farkhor","Moskva","Dangara","Vakhsh","Proletarsk","Matcha","Zafarabad","Shaartuz","Buston","Nau","Garm","Sarband","Muminobod","Murgob","Obigarm","Kuybyshev","Qayroqqum","Mehnatabad","Sharora","Garavuti","Pakhtakoron","Ganchi","Chichka"],"Tanzania, United Republic of":["Dar es Salaam","Arusha","Mwanza","Zanzibar","Singida","Moshi","Mbeya","Dodoma","Morogoro","Kigoma","Mtwara","Wete","Tandahimba","Tanga","Tabora","Musoma","Bugene","Bukoba","Ifakara","Lindi","Kidodi","Bariadi","Bugarama","Tarime","Tunduru","Tukuyu","Kisesa","Dutwa","Sokoni","Vikindu","Chala","Mpwapwa","Liwale","Dareda","Bashnet","Nangwa","Iringa","Mugango","Kilosa","Nyanguge","Ushirombo","Sumbawanga","Ngorongoro","Bagamoyo","Kandete","Majengo","Mpanda","Igurubi","Lusanga","Uyovu","Makanya","Kalangalala","Micheweni","Makambako","Condé-sur-l'Escaut","Mishoma","Maneromango","Sengerama","Ludewa","Buseresere","Istanbul","Mererani","Mwembe","Bunda","Longido","Katoro","Mbamba","Utengule Usongwe","Kihurio","Siha Kati","Pangani","Njombe","Lang'ata","Masuguru","Nkome","Lulindi","Kiranyi","Kintinku","Nkololo","Issenye","Vwawa","Kwakoa","Gairo","Mahenge","Kidadu","Isongole","Nguruka","Mwaya","Tunduma","Kisiwani","Masasi","Bukene","Korogwe","Malangali","Usoke","Kasulu","Mtambile","Mafinga","Itewe","Newala","Nansio","Isagehe","Kilimatinde","Mikindani","Nakatunguru","Missungwi","Nkowe","Mlimba","Mahonda","Igunga","Monduli","Chalinze","Msanga","Kahama","Kibaya","Segese","Katesh","Masumbwe","Mbumi","Ubaruku","Bukongo","Biharamulo","Kijini","Somanda","Gamba","Dunga Bweni","Tumbi","Ilembo","Babati","Mkokotoni","Kirando","Uweleni","Koani","Chanika","Nganani","Mvomero","Kibiti","Kyela","Mang'ula","Lugulu","Lukuledi","Kabwe","Ilula","Mlandizi","Rujewa","Mwena","Mtibwa","Kashaulili","Mkuranga","Mwamapalala","Bungu","Chato","Namanyere","Kasamwa","Kibondo","Livingstone","Kalemela","Malinyi","Mtinko","Sikonge","Mwanhuzi","Makongorosi","Nzega","Luchingu","Manyoni","Sepuka","Ilemela","Mlingoti Magharibi","Magugu","Buziku","Mbinga","Shelui","Chimala","Igurusi","Lushoto","Kibaha","Mwadui","Haidom","Sirari","Nyalikungu","Namtumbo","Mgandu","Kiomboi","Nangomba","Urambo","Kakonko","Matai","Kondoa","Songwa","Iguguno","Nachingwea","Ngudu","Maguu","Lalango","Kigonsera","Kingori","Rulenge","Tinde","Kukirango","Old Shinyanga"],"Thailand":["Bangkok","Chiang Mai","Pattaya","Phuket","Amnat Charoen","Rayong","Phra Pradaeng","Nonthaburi","Pathum Thani","Chon Buri","Samut Prakan","Udon Thani","Ayutthaya","Ko Samui","Hat Yai","Phitsanulok","Hua Hin","Chiang Rai","Surat Thani","Nakhon Ratchasima","Nakhon Si Thammarat","Lampang","Khon Kaen","Nakhon Pathom","Ubon Ratchathani","Krabi","Lop Buri","Mae Sot","Bang Khla","Si Racha","Songkhla","Saraburi","Maha Sarakham","Bang Bo Thong","Bang Ban","Ban Phaeo","Mukdahan","Mae Sai","Ang Thong","Satuk","Ratchaburi","Krathum Baen","Bang Kruai","Chachoengsao","Surin","Buri Ram","Satun","Prachuap Khiri Khan","Nong Phai","Sa Kaeo","Phayao","Taphan Hin","Trat","Phibun Mangsahan","Kaset","Ban Tak","Pa Sang","Kabin Buri","Lang Suan","Bang Yai","Khlong Luang","Nakhon Sawan","Yala","Trang","Lam Luk Ka","Lamphun","Phrae","Wichian Buri","Photharam","Bang Lamung","Nakhon Phanom","Bang Bo","Sankamphaeng","Kumphawapi","Ban Chang","Ranong","Chok Chai","Sing Buri","Ban Bung","Kamalasai","Nakhon Nayok","Bang Len","Ban Laem","Ban Dung","Chai Nat","Bua Yai","Aranya Prathet","Chon Daen","Bang Mun Nak","Sawang Daen Din","Bamnet Narong","Bo Phloi","Chiang Kham","Chom Bung","Bang Sai","Bo Rai","Nong Ki","Non Thai","Pak Kret","Suwannaphum","Chanthaburi","Bacho","Samut Sakhon","Pa Daet","Sakhon Nakhon","Nong Khai","Ao Luk","Chaiyaphum","Uttaradit","Mae Hong Son","Kanchanaburi","Ban Pong","Klaeng","Pak Chong","Kalasin","Sadao","Chaam","Phetchabun","Phetchaburi","Sam Phran","Tha Yang","Sukhothai","Roi Et","Phichit","Loei","Sansai","Det Udom","Bang Sao Thong","Phra Samut Judee","Na Klang","Mae Chan","Sikhiu","Thung Song","Yaring","Kaeng Khlo","Bang Phae","Ron Phibun","Kathu","Prachin Buri","Kaeng Khoi","Pak Phanang","Bang Pakong","Chai Badan","Betong","Dok Kham Tai","Nong Han","Si Satchanalai","Pak Thong Chai","Phun Phin","Yasothon","Maetaeng","Kut Chap","Tha Muang","Tak","Nan","Damnoen Saduak","Se Na","Nang Rong","Lamplai Mat","Laplae","Song Phi Nong","Nong Wua So","Tha Mai","Ban Na San","Ranot","Bang Pa In","Khon Buri","Non Sung","Phak Hai","Uthai Thani","Den Chai","Tha Rua","Sawankhalok","Thoen","Kuchinarai","Phanat Nikhom","Nam Som","Bang Racham","Suwan Khuha","Lat Yao","Huai Yot","Khanu Woralaksaburi","Wiset Chai Chan","Khao Yoi","Phu Khieo","Sam Roi Yot","Kanchanadit","Kaset Sombun","Mae Ramat","Seka","Selaphum","Bang Krathum","Dan Khun Thot","Kui Buri","Phanom Sarakham","Tak Bai","Huai Thalaeng","Nam Phong","Hangdong","Sanpatong"],"Timor-Leste":[],"Togo":["Lomé","Agbélouvé","Aného","Atakpamé","Kara","Mango","Badou","Sokodé","Tsévié","Vogan","Amlamé","Kpagouda","Dapaong","Kpalimé","Notsé","Tchamba","Bafilo","Sotouboua","Tandjouaré","Anié","Kouvé","Tabligbo","Kandé","Bassar","Niamtougou","Blitta","Kpessi","Guérin Kouka"],"Tokelau":["Atafu","Fakaofo","Nukunonu"],"Tonga":["Haveloloto","Nuku'alofa","Neiafu","Vaini","Tofoa-Koloua","Pangai","Hihifo","Mu'a","Ohonua"],"Trinidad and Tobago":["Port of Spain","Arima","San Fernando","Chaguanas","Tunapuna","San Juan","Couva","Saint Joseph","Sangre Grande","Princes Town","Scarborough","Point Fortín","Arouca","Tacarigua","Río Claro","Marabella","Siparia","Débé","Peñal","Mucurapo","Biche","Tabaquite"],"Tunisia":["Tunis","Safaqis","ad-Dahmani","Susah","al-Hammamat","Binzart","Bin ´Arus","al-Marsa","´Allal-at-Tazi","Bardaw","Nabul","Manzil Bu Ruqaybah","Hammam Susah","Aryanah","Qafsah","al-Munastir","Bi'r Ali Bin Khalifah","al-Qayrawan","al-Muruj","Masakin","Jarbah Hawmat-as-Suq","Madaniyin","Bajah","Jarbah Midun","Radis","Manubah","Ras-al-Jabal","al-Baqalitah","al-Mazzunah","Lamtah","al-Middah","Nibbar","ash-Shabikah","Tatawin","al-Mahdiyah","Jundubah","Hammam-al-Anif","Saqiyat-az-Zayt","Jammal","Manzil Tamim","Tawzar","Matir","Maqrin","Duz","Sulayman","Silyanah","Ghar-ad-Dima'","al-Fahs","Qal´at-al-Andalus","al-Miknassi","Tastur","Bin Qirdan","Bu ´Aradah","al-Huwariyah","al-Matwiyah","al-Qal´ah","Mallulash","Jamnah","Tuzah","al-Battan","Jilmah","Qal´at-as-Sanan","Ghar-al-Milh","az-Zarat","al-Qusur","as-Sawasi","Bi'r-al-Hufayy","Sajanan","Bumirdas","Majal Bal ´Abbas","Zawiyat Quntash","Dhahibah","Manzil Hurr","Rimadah","ar-Rawhiyah","Bu Hajjar","Sidi Bin Nur","´Awsajah","Bani Khaddash","Qurbus","Quballat","al-Masdur","Haydrah","Manzil Salim","Manzil Shakir","Sidi al-Hani","Tamaghzah","Kasra","Matmatat-al-Qadimah","Wadi Maliz","´Ayn Jalulah","Firnanah","Bani Matir","at-Tadaman Dawwar Hishar","Qabis","Halq-al-Wadi","al-Qasrayn","Jarjis","Muhammadiyat Fushanah","al-Muknin","al-Kaf","al-Qal´at-al-Khasba'","Wadi al-Layl","al-Mitlawi","Qasr Hallal","Sidi Bu Zayd","al-´Ayn","Qalibiyah","al-Hammah","Saqiyat-ad-Dair","az-Zahra'","Dar Sha´ban","Qarmadah","Qurbah","Murnaq","Tabulbah","ar-Rudayyif","al-Qasr","Qusur-as-Saf","Umm-al-´Arais","ad-Dandan","Jarbah Ajim","Taburbah","Firyanah","Naftah","Subaytilah","Manzil Jamil","ash-Shabbah","Ghannush","Bu Salim","Taklisah","Majaz-al-Bab","al-Jamm","Akkudah","Qibili","Tajarwin","Qurunbaliyah","Tinjah","al-Wardanin","Bani Hiyar","Qartaj","Zaramidin","Qarqannah","Talah","Zaghwan","al-´Abbasiyah","al-Mahras","Manzil Bu Zalafah","Manzil ´Abd-ar-Rahman","al-Jarissah","Makthar","Ghumrassin","Tabarqah","Sahilin Ma´atmar","Sayyadah","Sanini an-Nahal","al-Murnaqiyah","Tabursuq","Banblat wal-Manarah","Banan Budar","Bani Khallad","as-Sars","Qusaybat-al-Madyuni","Marath","Qa´afur","an-Nafidah","al-Waslatiyah","Bu ´Ûrqub","Khunays","Wadhraf","Rafraf","as-Sukhayrah","Rajish","Sidi Thabit","Sidi Bu ´Ali","Zawiyat Susah","az-Zaribah","Daqash","Manzil Kamil","Hammam-al-Aghzaz","Bani Hassan","as-Sanad","Haffuz","al-Karib","al-Matlin","Bu Fishah","Jabinyanah","´Ayn Darahim","as-Subaykhah","Tazirkah","al-Ma´murah","Harqalah","al-Masa´din","ar-Riqab","Hammat-al-Jarid","Saqiyat Sidi Yussuf","as-Sama´ah","Bi'r Mashariqah","Zawiyat-al-Jadidi","al-Hanashah"],"Turkey":["Istanbul","Ankara","Izmir","Adana","Antalya","Bursa","Izmit","Konya","Alanya","Eskisehir","Gaziantep","Içel","Bodrum","Mugla","Kayseri","Marmaris","Fethiye","Adapazari","Balikesir","Diyarbakir","Samsun","Erzurum","Trabzon","Manisa","Antakya","Aydin","Manavgat","Kütahya","Tekirdag","Malatya","Denizli","Ordu","Zonguldak","Bolu","Kirklareli","Didim","Sivas","Isparta","Edirne","Bandirma","Giresun","Çanakkale","Karamürsel","Van","Batman","Çorum","Çorlu","Afyonkarahisar","Kirsehir","Lüleburgaz","Rize","Yozgat","Nevsehir","Ayvalik","Elazig","Gebze","Aksaray","Tokat","Körfez","Nigde","Yalova","Orhangazi","Bilecik","Sinop","Artvin","Çesme","Gelibolu","Hayrabolu","Usak","Nazilli","Karaman","Kars","Fatsa","Tatvan","Kusadasi","Niksar","Afsin","Develi","Vakfikebir","Burhaniye","Kulu","Osmancik","Göksun","Akçakoca","Kaman","Biga","Selçuk","Malkara","Boyabat","Erzin","Karakoçan","Malazgirt","Haskovo","Akyazi","Kahramanmaras","Iznik","Kovancilar","Tarsus","Gediz","Iskilip","Osmaniye","Horasan","Iskenderun","Inegöl","Erzincan","Karabük","Ceyhan","Derince","Turgutlu","Bafra","Salihli","Polatli","Akhisar","Amasya","Cizre","Ünye","Mardin","Burdur","Çankiri","Ödemis","Bismil","Hakkari","Anamur","Tavsanli","Düziçi","Adilcevaz","Sebinkarahisar","Akçaabat","Urla","Aliaga","Uzunköprü","Büyükçekmece","Talas","Samandag","Beypazari","Üzümlü","Bulancak","Yerköy","Bayburt","Serik","Safranbolu","Ceylanpinar","Besikdüzü","Bogaziliyan","Hendek","Gümüshane","Bur","Simav","Hinis","Imamoglu","Bucak","Gölbasi","Karasu","Kestel","Görele","Çan","Kozluk","Kurtalan","Ortaköy","Of","Ilgin","Sarkikaraagaç","Bozyazi","Kumluca","Kula","Yenisehir","Babaeski","Gerede","Terme","Susehri","Tunceli","Alaca","Kirkagaç","Pazarcik","Gölköy","Bulanik","Çay","Eskil","Sarikamis","Oltu","Vezirköprü","Elmadag","Pasinler","Yahyali","Susurluk","Tosya","Devrek","Gürsu","Urfa","Demirci","Sarkisla","Mudanya","Çayeli","Emirdag","Akdagmadeni","Çermik","Bozova","Derik","Çine","Emet"],"Turkmenistan":["Asgabat","Gubadag","Adyndaky","Balkanabat","Türkmenbasi","Annau","Türkmenabat","Bekdash","Dasoguz","Mari","Bayramali","Tecen","Serdar","Büzmeyin","Boldumsaz","Govurdak","Köhne Ürgenç","Kerki","Komsomolsk","Elöten","Akdepe","Yilanli","Gumdag","Bäherden","Gazanjyk","Khazar","Gökedepe","Kaka","Karakala","Gazojak","Saragt","Tagta","Goturdepe","Moskva","Seydi","Sayat","Halaç","Dänew","Miana","Sakarchäge","Jebel","Krasnyj Oktjabr","Farap","Babadayhan","Birleshik Pervi","Gorelde","Derveze","Dushak","Tagtabazar","Murgob","Ovaz Jalatay","Sharlawuk","Esenmengli","Gasanguli","Mukri","Darganata","Ahchadepe","Gusgi"],"Turks and Caicos Islands":["Cockburn Town","Cockburn Harbour","Providenciales"],"Tuvalu":["Asau","Tonga","Lolua","Tanrake","Vaiaku","Kua","Savave","Fangaua"],"Uganda":["Kampala","Adjumani","Jinja","Mukono","Entebbe","Mbarara","Mityana","Wakiso","Mbale","Masaka","Hoima","Gulu","Soroti","Fort Portal","Iganga","Kamwenge","Apac","Kajansi","La Lira","Kasese","Kayunga","Mubende","Kyenjojo","Kanungu","Jinja-Kawempe","Pader","Arua","Kitgum","Tororo","Busia","Lugazi","Luwero","Nebbi","Bushenyi","Kaberamaido","Namasuba","Wobulenzi","Bugiri","Pakwach","Kireka","Yumbe","Buwenge","Bombo","Kamuli","Kisoro","Bweyogerere","Malaba","Kumi","Lyantonde","Kilembe","Kaabong","Nakasongola","Rakai","Kibaale","Kalangala","Kagadi","Njeru","Kabale","Koboko","Masindi","Paidha","Pallisa","Ibanda","Rukungiri","Kabwohe-Itendero","Lukaya","Bundibugyo","Kotido","Ntungamo","Hima","Busembatia","Moyo","Kiboga","Sironko","Nkonkonjeru","Mpigi","Bugembe","Mayuge","Kapchorwa","Kyotera","Moroto","Ngora","Katakwi","Masindi-Port","Katwe","Kigorobya","Sembabule","Nakapiripirit","Muhororo","Amudat"],"Ukraine":["Kyiv","Kharkiv","Odesa","L'viv","Adancata","Dnipropetrovs'k","Donets'k","Zaporizhzhya","Simferopol'","Luhans'k","Cherkasy","Ternopil'","Ivano-Frankivs'k","Vinnytsya","Chernivets'ka","Mykolayiv","Kherson","Zhytomyr","Rivne","Luts'k","Poltavs'ka","Chernihiv","Fastiv","Sevastopol'","Kalush","Khmel'nyts'ka","Dniprodzerzhyns'k","Uzhhorod","Berdyans'k","Kam'yanets'-Podil's'kyy","Umán","Berdychiv","Korosten'","Mariupol'","Makiyivka","Sums'ka","Kirovohrad","Kremenchuh","Kramators'k","Kerch","Yenakiyeve","Artemivs'k","Izmayil","Drohobych","Smila","Kovel'","Druzhkivka","Antratsyt","Pryluky","Lozova","Novovolyns'k","Bryanka","Bilhorod-Dnistrovs'kyy","Zhovti Vody","Romny","Dzerzhyns'k","Kryvyy Rih","Sumy","Bila Tserkva","Melitpol'","Nikopol'","Slov'yans'k","Alchevs'k","Syeverodonets'k","Pavlodar","Lysychans'k","Yevpatoriya","Kostyantynivka","Konotop","Oleksandriya","Krasnyy Luch","Brovary","Shostka","Stakhanov","Mukacheve","Yalta","Nizhyn","Jekaterinburg","Feodosiya","Novomoskovs'k","Torez","Chervonohrad","Krasnoarmeets","Pervomays'k","Khartsyz'k","Rubizhne","Stryy","Kolomyya","Snizhne","Shahtjorsk","Novohrad-Volyns'kyy","Boryspil'","Illichivs'k","Izyum","Roven'ky","Enerhodar","Krasnodon","Dymytrov","Komsomol's'k","Svidlovods'k","Lubny","Shepetivka","Nova Kakhovka","Okhtyrka","Marhanets'","Dzhankoy"],"United Arab Emirates":["Dubai","Abu Dhabi","ash-Shariqah","Ajman","al-´Ayn","Umm al-Qaywayn","Ra's al-Khaymah","al-Fujayrah","Khawr Fakkan"],"United Kingdom":["London","Manchester","Glasgow","Edinburgh","Birmingham","Leeds","Bristol","Nottingham","Liverpool","Brighton","Newcastle Upon Tyne","Belfast","Oxford","Reading","Leicester","Aberchirder","Cambridge","Milton Keynes","Cardiff","York","Stoke-on-Trent","Dundee","Southampton","Portsmouth","Guildford","Northampton","Bournemouth","Sheffield","Wolverhampton","Derby","Swindon","Stockport","Coventry","Bath","Bolton","Hull","Aberdeen","Norwich","Watford","Maidenhead","Basingstoke","Exeter","Blackpool","Doncaster","Chester","Colchester","Witney","Bradford","Ipswich","High Wycombe","Falkirk","Southend-on-Sea","Wakefield","Plymouth","Slough","Cheltenham","Harrogate","Peterborough","Bedford","Lincoln","Luton","Woking","Huddersfield","Gloucester","Preston","Swansea","Basildon","Wigan","Aylesbury","Maidstone","Chelmsford","Eastbourne","Warrington","Worcester","Windsor","Walsall","Winchester","Nuneaton","Birkenhead","Stafford","Middlesbrough","Chichester","Telford","Canterbury","Durham","Newbury","St Albans","Solihull","Dartford","Bracknell","Poole","Leamington Spa","Crawley","Shrewsbury","Halifax","Dunfermline","Worthing","Macclesfield","Hemel Hempstead","Lancaster","Epsom","Camberley","Hove","Reigate","Newport","Barnsley","Harlow","Sunderland","East Kilbride","Ayr","Hereford","Stirling","Dudley","Livingston","Wokingham","Hastings","Hertford","Banbury","Farnborough","Altrincham","Stevenage","Horsham","Chesterfield","Rochester","Staines","Tonbridge","Sevenoaks","Rochdale","Darlington","Loughborough","Yeovil","Burnley","Truro","Bishop's Stortford","Oldham","Carlisle","Kilmarnock","Blackburn","Weston-super-mare","Ashford","Loughton","Abingdon","Londonderry","Burton-on-Trent","Taunton","Fareham","Wrexham","Farnham","Stockton-on-Tees","Torquay","Greenock","Crewe","Gillingham","Rugby","Rotherham","Brentwood","Grimsby","Inverness","Bury St Edmunds","Salford","Weybridge","Gravesend","Amersham","Hitchin","Tunbridge Wells","Grays","Aldershot","Bury","Chippenham","Tamworth","Warwick","Andover","Motherwell","Gateshead","Redditch","Mansfield","Kettering","Perth","Stratford-upon-avon","Scunthorpe","Cumbernauld","Sutton Coldfield","Beverley","Kirkcaldy","Leatherhead","Leighton Buzzard","Harpenden","Barrow-in-Furness","King's Lynn","Northwich","Hartlepool","Gosport","Egham","Hatfield","Weymouth","Dunstable","East Grinstead","Ashton-under-Lyne","Accrington","Newark"],"United States":["New York","Chicago","San Diego","Washington","Los Angeles","Houston","Atlanta","San Francisco","Seattle","Austin","Philadelphia","Denver","Dallas","Portland","Boston","Raleigh","Brooklyn","Orlando","Phoenix","Las Vegas","Minneapolis","Charlotte","Sacramento","San Antonio","Tampa","Fort Lauderdale","San Jose","Saint Louis","Miami","Pittsburgh","Baltimore","Jacksonville","Richmond","Tucson","Columbus","Nashville","Cincinnati","Indianapolis","Kansas City","Arlington","Santa Monica","Fort Worth","Saint Paul","Cleveland","Irvine","Oakland","Milwaukee","Colorado Springs","Rochester","Fairfax","Albuquerque","Long Beach","Virginia Beach","Scottsdale","Alexandria","Salt Lake City","Boulder","Anaheim","Detroit","Louisville","Marietta","Plano","West Palm Beach","New Orleans","Saint Petersburg","Cambridge","Buffalo","Albany","Madison","Greensboro","Knoxville","Littleton","Bellevue","Cary","Oklahoma City","Ann Arbor","Norfolk","Rockville","Bronx","Durham","Mesa","Arlington","Riverside","Tacoma","Fort Collins","Tulsa","Omaha","Pasadena","Sarasota","Providence","Greenville","Memphis","Stamford","Gilbert","White Plains","Hollywood","Schaumburg","Silver Spring","Chandler","Tempe","Tallahassee","Birmingham","Fresno","Palo Alto","Wilmington","Boise","Charleston","Boca Raton","Jersey City","Alpharetta","New Haven","Berkeley","Syracuse","Mountain View","Lexington","Huntington","Grand Rapids","Anchorage","Asheville","Huntington Beach","Bakersfield","Henderson","Columbia","Escondido","Fort Myers","Honolulu","Hialeah","Pompano Beach","Palmdale","Reno","Astoria","Fayetteville","Newark","Hartford","Gainesville","Baton Rouge","Santa Cruz","Staten Island","Everett","Ridgewood","Santa Rosa","Portland","Spring","Trenton","Des Moines","Wichita","Sunnyvale","Walnut Creek","Worcester","Aurora","Harrisburg","Akron","Vancouver","Spokane","Naperville","Allentown","Ventura","Torrance","Huntsville","Carlsbad","Beaverton","Naples","Dayton","Frisco","Olympia","Newport Beach","Savannah","Oceanside","Reston","Pensacola","Manchester","Somerville","Fremont","Charlottesville","Toledo","Wilmington","Eugene","Renton","Santa Barbara","McKinney","Clearwater","Costa Mesa","Melbourne","Miami Beach","New Brunswick","Chattanooga","Columbia","Lansing","Poughkeepsie","Roanoke","Beverly Hills","Irving","Katy","San Mateo","Lancaster","Cherry Hill","Santa Clara","Overland Park","Glendale","Roseville"],"United States Minor Outlying Islands":[],"Uruguay":["Montevideo","Artigas","Maldonado","Fray Bentos","Pando","Durazno","Treinta y Tres","Colonia","Trinidad","Colombia","Bella Unión","Ciudad de la Costa","Paysandú","Melo","Tacuarembó","Mercedes","Rocha","Benito Juárez","La Paz","Carmelo","Young","Paso de los Toros","Chui","Nueva Helvecia","Las Piedras","Minas","Chiapa","Florida","Cacaotepec","Progreso","Delta del Tigre","Río Branco","Dolores","Camino Maldonado","Juan Antonio Artigas","Paso de Carrasco","Juan Lacaze","Salto","Cuernavaca","Rivera"],"Uzbekistan":["Toskent","Ahunabayev","Samarkand","Buhoro","Andijon","Nukus","Çirçik","Angren","Bekobod","Sahrisabz","Asaka","Çartak","Uçkuduk","Gurlan","Sovot","Yakkabog","Urtaçim","Çelak","Akkürgon","Boz","Altyarik","Camboy","Kibray","Almazar","Buston","Baht","Avval","Aytim","Namangan","Karsi","Fargona","Kükon","Ürgenç","Cizah","Navoi","Margilon","Termiz","Olmalik","Hücayli","Guliston","Kattakürgon","Denau","Türtkül","Çust","Kogon","Zarafson","Sahrihan","Koson","Küngirot","Yaniyül","Tahiatos","Heva","Beruni","Urgut","Kosonsoy","Kitob","Gijduvon","Honko","Oktos","Hovos","Parkent","Ohangaron","Çimboy","Uçkürgon","Kuva","Yaniyer","Karabagis","Kamasi","Kuvasoy","Mangit","Riston","Nurota","Muborak","Pskent","Turakürgon","Sirdare","Bulungur","Bektemir","Carkurgon","Hakkulobod","Kürgontepa","Kirgili","Särur","Paytug","Serobod","Guzor","Pahtaobod","Boysun","Çinoz","Gazalkent","Gagarin","Sürçi","Yaniobod","Iskandar","Gallaorol","Karmana","Kara-Kul","Pop","Besarik","Stantsiya Gorchakovo","Pahtakor","Tahtaküpir","Yaypan","Tüytepa","Üyçi","Cuma","Buka","Ulyanovo","Çirakçi","Keles","Paskurd","Yanikürgon","Kegayli","Zan","Honobod","Kumkurgon","Sariasiya","Unhoyat","Maydayap","Chichka","Hazorasp","Karauzyak","Tosbulok","Kasbi","Drujba","Salar","Beskent","Ceynau","Hocaobod","Küsküpir","Karabag","Kizketken","Vobkent","Düstlik","Kallig","Dinau","Sargun","Krasnogorskij","Superfosfatniy","Toslok","Ziadin","Çarhin","Galaosiye","Paysanba","Sumanay","Marhomat","Urtaaul","Kozokdaryo","Soldatski","Cangeldi","Sirin","Müynok","Kiziltepa","Hamza","Istihon","Romitan","Konimeh","Oyokkuduk","Zomin","Maymanak","Halkobod","Küyluk","Älät","Iskavat","Dahbed","Tomdibulok","Gazli","Dehkanobod","Safirkon","Uzunkuduk","Rapkan","Yaninison","Madaniyat","Yanirobod","Nurabad","Küsrobod","Mesekli","Talimarcon","Besbulok","Gozgon","Minbulok","Turpokkala","Çingeldi","Kalkuduk","Kizilravbe","Kükça","Korovulbazar","Marcanbulok"],"Vanuatu":["Isangel","Vila","Luganville","Sola","Lakatoro","Norsup","Longana","Port Olry"],"Venezuela, Bolivarian Republic of":["Caracas","Maracaibo","Acarigua","Valencia","Maracay","Barquisimeto","San Antonio de los Altos","Ciudad Guayana","Puerto la Cruz","Ciudad Bolívar","Maturín","Mérida","Táriba","Coro","Porlamar","Guarenas","Guatire","Cabudare","Barcelona","Los Teques","Charallave","Cumaná","Barinas","El Tigre","Mariara","Carúpano","Cagua","Anaco","Ciudad Ojeda","Caucagüita","Altagracia de Orituco","Carrizal","San Antonio del Táchira","Trujillo","La Guaira","Baruta","La Victoria","Cúa","Carora","Rubio","Chacao","Maiquetía","Morón","Tucupita","Tacarigua","Barinitas","Petare","Cabimas","Puerto Cabello","Magdalena Tequisistlán","El Limón","Guanare","Catia La Mar","Ocumare del Tuy","Valera","Calabozo","San Fernando","Punto Fijo","Valle de la Pascua","Ayotzingo","Araure","San Felipe","Benito Juárez","El Cafetal","Tinaquillo","Palo Negro","El Vigía","Yaritagua","Villa de Cura","Ejido","Güigüe","Los Dos Caminos","Puerto Ayacucho","Upata","San José de Guanipa","El Hatillo","La Dolorita","Machiques","Punta Cardón","Villa del Rosario","San Carlos del Zulia","Chivacoa","Goaigoaza","Quíbor","Zaraza","Atenco","Acatlán","San Joaquín","El Tocuyo","Villa Bruzual","San Juan de Colón","Caraballeda","Guasdualito","Santa Rita","Villa Rosa","Los Rastrojos","Las Teyerías","Cantaura","Nirgua","Filas de Mariche","La Asunción","La Fría","Bachaquero","San Cristobal","Turmero","Amatlán","Guacara"],"Viet Nam":["Thanh Pho Ho Chi Minh","Ha Noi","Bac Can","Nha Trang","Bien Hoa","Hai Phong","Dha Nang","Hue","Vung Tau","Can Tho","Long Xuyen","Da Lat","Ha Dong","Bac Giang","Bac Ninh","Hoi An","Dong Ha","Buon Me Thuot","Ca Mau","Hoa Binh","Tuy Hoa","Tay Ninh","Phan Thiet","My Tho","Thanh Hoa","Vinh","Song Be","Bien San","Ha Tinh","Qui Nhon","Nam Dinh","Cam Ranh","Thai Nguyen","Soc Trang","Play Cu","Bac Lieu","Vinh Long","Yen Bai","Viet Tri","Tam Ky","Hai Duong","Tra Vinh","Thai Binh","Lao Cai","Quang Ngai","Tuyen Quang","Dien Bien","Dong Xoai","Rach Gia","Cam Pha","Hong Gai","Phan Rang","Uong Bi","Tan An","Chau Doc","Ben Tre","Kon Tum","Sa Dec","Huong Yen","Son Tay","Cao Bang","Ninh Binh","Ha Giang","Lang Son","Dong Hoi","Phu Ly","Son La","Vinh Yen"],"Virgin Islands, British":["East End-Long Look","Road Town","West End","Little Harbour","Spanish Town","Settlement"],"Virgin Islands, U.S.":[],"Wallis and Futuna":["Mata'Utu"],"Western Sahara":["ad-Dakhlah","al-´Ayun","Bu Jaydur","as-Samarah"],"Yemen":["San´a","´Adan","Ahwar","Ta´izz","al-Mukalla","al-Hudaydah","Ibb","Shibam","Habban","al-Mukha","Zinjibar","Dhamar","Ja´ar","al-Marawi´ah","Sahar","Yarim","al-Bayda","Lahij","Qa´afur","Sayhut","Ma'rib","al-Hazm","al-Ghaydah","Sayán","ash-Shahir","Zabid","Bajil","Raydah","Hajjah","Dhi Sufal","Bayt-al-Faqih","´Amran","al-Hawthah","Shaqra'","al-Luhayya","az-Zaydiyah","Jiblah","Sha´´ab","´Ataq","Mahwit"],"Zambia":["Chambishi","Kitwe","Kafue","Ndola","Livingstone","Chilanga","Chingola","Kalulushi","Kabwe","Theunissen","Mansa","Chililabombwe","Monze","Kasama","Zambezi","Itezhi-Tezhi","Kalengwa","Solwezi","Mufulira","Choma","Mazabuka","Kapiri Mposhi","Mbala","Petauke","Senanga","Lundazi","Luanshya","Chipata","Mongu","Kansanshi","Mpika","Nchelenge","Samfya","Mumbwa","Isoka","Kalomo","Maamba","Kaoma","Serenje","Katete","Chinsali","Mkushi","Nakambala","Kalabo","Mwinilunga","Mpongwe","Siavonga","Limulunga","Sesheke","Lusaka"],"Zimbabwe":["Harare","Beitbridge","Bulawayo","Mutare","Chitungwiza","Zvishavane","Gweru","Karoi","Cape Town","Masvingo","Marondera","Redcliffe","Bindura","Kwekwe","Chinhoyi","Victoria Falls","Tuli","Chimanimani","Mvuma","Hwange","Chegutu","Sakubva","Rusape","Shurugwi","Chipinge","Gwanda","Mutoko","Gaths","Kadoma","Kariba","Norton","Chiredzi","Plumtree","Mount Darwin","Chivhu","West Nicholson"]}}
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(11);
-module.exports = __webpack_require__(44);
+__webpack_require__(12);
+module.exports = __webpack_require__(51);
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -983,9 +11354,9 @@ module.exports = __webpack_require__(44);
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-__webpack_require__(12);
+__webpack_require__(13);
 
-window.Vue = __webpack_require__(37);
+window.Vue = __webpack_require__(44);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -993,17 +11364,17 @@ window.Vue = __webpack_require__(37);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', __webpack_require__(40));
+Vue.component('example', __webpack_require__(47));
 
 var app = new Vue({
   el: '#app'
 });
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
-window._ = __webpack_require__(13);
+window._ = __webpack_require__(14);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -1012,7 +11383,7 @@ window._ = __webpack_require__(13);
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__(15);
+  window.$ = window.jQuery = __webpack_require__(3);
 
   __webpack_require__(16);
 } catch (e) {}
@@ -1028,7 +11399,8 @@ window.axios = __webpack_require__(17);
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.countries = __webpack_require__(36); // Returns an array of country names.
 // windows.cities = require ('countries-cities').getCities("Pakistan"); // Returns an array of city names of the particualr country.
-
+window.toastr = __webpack_require__(37);
+__webpack_require__(39);
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
@@ -1060,7 +11432,7 @@ if (token) {
 // });
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -18170,10 +28542,10 @@ if (token) {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(14)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(15)(module)))
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -18198,10377 +28570,6 @@ module.exports = function(module) {
 	}
 	return module;
 };
-
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * jQuery JavaScript Library v3.3.1
- * https://jquery.com/
- *
- * Includes Sizzle.js
- * https://sizzlejs.com/
- *
- * Copyright JS Foundation and other contributors
- * Released under the MIT license
- * https://jquery.org/license
- *
- * Date: 2018-01-20T17:24Z
- */
-( function( global, factory ) {
-
-	"use strict";
-
-	if ( typeof module === "object" && typeof module.exports === "object" ) {
-
-		// For CommonJS and CommonJS-like environments where a proper `window`
-		// is present, execute the factory and get jQuery.
-		// For environments that do not have a `window` with a `document`
-		// (such as Node.js), expose a factory as module.exports.
-		// This accentuates the need for the creation of a real `window`.
-		// e.g. var jQuery = require("jquery")(window);
-		// See ticket #14549 for more info.
-		module.exports = global.document ?
-			factory( global, true ) :
-			function( w ) {
-				if ( !w.document ) {
-					throw new Error( "jQuery requires a window with a document" );
-				}
-				return factory( w );
-			};
-	} else {
-		factory( global );
-	}
-
-// Pass this if window is not defined yet
-} )( typeof window !== "undefined" ? window : this, function( window, noGlobal ) {
-
-// Edge <= 12 - 13+, Firefox <=18 - 45+, IE 10 - 11, Safari 5.1 - 9+, iOS 6 - 9.1
-// throw exceptions when non-strict code (e.g., ASP.NET 4.5) accesses strict mode
-// arguments.callee.caller (trac-13335). But as of jQuery 3.0 (2016), strict mode should be common
-// enough that all such attempts are guarded in a try block.
-"use strict";
-
-var arr = [];
-
-var document = window.document;
-
-var getProto = Object.getPrototypeOf;
-
-var slice = arr.slice;
-
-var concat = arr.concat;
-
-var push = arr.push;
-
-var indexOf = arr.indexOf;
-
-var class2type = {};
-
-var toString = class2type.toString;
-
-var hasOwn = class2type.hasOwnProperty;
-
-var fnToString = hasOwn.toString;
-
-var ObjectFunctionString = fnToString.call( Object );
-
-var support = {};
-
-var isFunction = function isFunction( obj ) {
-
-      // Support: Chrome <=57, Firefox <=52
-      // In some browsers, typeof returns "function" for HTML <object> elements
-      // (i.e., `typeof document.createElement( "object" ) === "function"`).
-      // We don't want to classify *any* DOM node as a function.
-      return typeof obj === "function" && typeof obj.nodeType !== "number";
-  };
-
-
-var isWindow = function isWindow( obj ) {
-		return obj != null && obj === obj.window;
-	};
-
-
-
-
-	var preservedScriptAttributes = {
-		type: true,
-		src: true,
-		noModule: true
-	};
-
-	function DOMEval( code, doc, node ) {
-		doc = doc || document;
-
-		var i,
-			script = doc.createElement( "script" );
-
-		script.text = code;
-		if ( node ) {
-			for ( i in preservedScriptAttributes ) {
-				if ( node[ i ] ) {
-					script[ i ] = node[ i ];
-				}
-			}
-		}
-		doc.head.appendChild( script ).parentNode.removeChild( script );
-	}
-
-
-function toType( obj ) {
-	if ( obj == null ) {
-		return obj + "";
-	}
-
-	// Support: Android <=2.3 only (functionish RegExp)
-	return typeof obj === "object" || typeof obj === "function" ?
-		class2type[ toString.call( obj ) ] || "object" :
-		typeof obj;
-}
-/* global Symbol */
-// Defining this global in .eslintrc.json would create a danger of using the global
-// unguarded in another place, it seems safer to define global only for this module
-
-
-
-var
-	version = "3.3.1",
-
-	// Define a local copy of jQuery
-	jQuery = function( selector, context ) {
-
-		// The jQuery object is actually just the init constructor 'enhanced'
-		// Need init if jQuery is called (just allow error to be thrown if not included)
-		return new jQuery.fn.init( selector, context );
-	},
-
-	// Support: Android <=4.0 only
-	// Make sure we trim BOM and NBSP
-	rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
-
-jQuery.fn = jQuery.prototype = {
-
-	// The current version of jQuery being used
-	jquery: version,
-
-	constructor: jQuery,
-
-	// The default length of a jQuery object is 0
-	length: 0,
-
-	toArray: function() {
-		return slice.call( this );
-	},
-
-	// Get the Nth element in the matched element set OR
-	// Get the whole matched element set as a clean array
-	get: function( num ) {
-
-		// Return all the elements in a clean array
-		if ( num == null ) {
-			return slice.call( this );
-		}
-
-		// Return just the one element from the set
-		return num < 0 ? this[ num + this.length ] : this[ num ];
-	},
-
-	// Take an array of elements and push it onto the stack
-	// (returning the new matched element set)
-	pushStack: function( elems ) {
-
-		// Build a new jQuery matched element set
-		var ret = jQuery.merge( this.constructor(), elems );
-
-		// Add the old object onto the stack (as a reference)
-		ret.prevObject = this;
-
-		// Return the newly-formed element set
-		return ret;
-	},
-
-	// Execute a callback for every element in the matched set.
-	each: function( callback ) {
-		return jQuery.each( this, callback );
-	},
-
-	map: function( callback ) {
-		return this.pushStack( jQuery.map( this, function( elem, i ) {
-			return callback.call( elem, i, elem );
-		} ) );
-	},
-
-	slice: function() {
-		return this.pushStack( slice.apply( this, arguments ) );
-	},
-
-	first: function() {
-		return this.eq( 0 );
-	},
-
-	last: function() {
-		return this.eq( -1 );
-	},
-
-	eq: function( i ) {
-		var len = this.length,
-			j = +i + ( i < 0 ? len : 0 );
-		return this.pushStack( j >= 0 && j < len ? [ this[ j ] ] : [] );
-	},
-
-	end: function() {
-		return this.prevObject || this.constructor();
-	},
-
-	// For internal use only.
-	// Behaves like an Array's method, not like a jQuery method.
-	push: push,
-	sort: arr.sort,
-	splice: arr.splice
-};
-
-jQuery.extend = jQuery.fn.extend = function() {
-	var options, name, src, copy, copyIsArray, clone,
-		target = arguments[ 0 ] || {},
-		i = 1,
-		length = arguments.length,
-		deep = false;
-
-	// Handle a deep copy situation
-	if ( typeof target === "boolean" ) {
-		deep = target;
-
-		// Skip the boolean and the target
-		target = arguments[ i ] || {};
-		i++;
-	}
-
-	// Handle case when target is a string or something (possible in deep copy)
-	if ( typeof target !== "object" && !isFunction( target ) ) {
-		target = {};
-	}
-
-	// Extend jQuery itself if only one argument is passed
-	if ( i === length ) {
-		target = this;
-		i--;
-	}
-
-	for ( ; i < length; i++ ) {
-
-		// Only deal with non-null/undefined values
-		if ( ( options = arguments[ i ] ) != null ) {
-
-			// Extend the base object
-			for ( name in options ) {
-				src = target[ name ];
-				copy = options[ name ];
-
-				// Prevent never-ending loop
-				if ( target === copy ) {
-					continue;
-				}
-
-				// Recurse if we're merging plain objects or arrays
-				if ( deep && copy && ( jQuery.isPlainObject( copy ) ||
-					( copyIsArray = Array.isArray( copy ) ) ) ) {
-
-					if ( copyIsArray ) {
-						copyIsArray = false;
-						clone = src && Array.isArray( src ) ? src : [];
-
-					} else {
-						clone = src && jQuery.isPlainObject( src ) ? src : {};
-					}
-
-					// Never move original objects, clone them
-					target[ name ] = jQuery.extend( deep, clone, copy );
-
-				// Don't bring in undefined values
-				} else if ( copy !== undefined ) {
-					target[ name ] = copy;
-				}
-			}
-		}
-	}
-
-	// Return the modified object
-	return target;
-};
-
-jQuery.extend( {
-
-	// Unique for each copy of jQuery on the page
-	expando: "jQuery" + ( version + Math.random() ).replace( /\D/g, "" ),
-
-	// Assume jQuery is ready without the ready module
-	isReady: true,
-
-	error: function( msg ) {
-		throw new Error( msg );
-	},
-
-	noop: function() {},
-
-	isPlainObject: function( obj ) {
-		var proto, Ctor;
-
-		// Detect obvious negatives
-		// Use toString instead of jQuery.type to catch host objects
-		if ( !obj || toString.call( obj ) !== "[object Object]" ) {
-			return false;
-		}
-
-		proto = getProto( obj );
-
-		// Objects with no prototype (e.g., `Object.create( null )`) are plain
-		if ( !proto ) {
-			return true;
-		}
-
-		// Objects with prototype are plain iff they were constructed by a global Object function
-		Ctor = hasOwn.call( proto, "constructor" ) && proto.constructor;
-		return typeof Ctor === "function" && fnToString.call( Ctor ) === ObjectFunctionString;
-	},
-
-	isEmptyObject: function( obj ) {
-
-		/* eslint-disable no-unused-vars */
-		// See https://github.com/eslint/eslint/issues/6125
-		var name;
-
-		for ( name in obj ) {
-			return false;
-		}
-		return true;
-	},
-
-	// Evaluates a script in a global context
-	globalEval: function( code ) {
-		DOMEval( code );
-	},
-
-	each: function( obj, callback ) {
-		var length, i = 0;
-
-		if ( isArrayLike( obj ) ) {
-			length = obj.length;
-			for ( ; i < length; i++ ) {
-				if ( callback.call( obj[ i ], i, obj[ i ] ) === false ) {
-					break;
-				}
-			}
-		} else {
-			for ( i in obj ) {
-				if ( callback.call( obj[ i ], i, obj[ i ] ) === false ) {
-					break;
-				}
-			}
-		}
-
-		return obj;
-	},
-
-	// Support: Android <=4.0 only
-	trim: function( text ) {
-		return text == null ?
-			"" :
-			( text + "" ).replace( rtrim, "" );
-	},
-
-	// results is for internal usage only
-	makeArray: function( arr, results ) {
-		var ret = results || [];
-
-		if ( arr != null ) {
-			if ( isArrayLike( Object( arr ) ) ) {
-				jQuery.merge( ret,
-					typeof arr === "string" ?
-					[ arr ] : arr
-				);
-			} else {
-				push.call( ret, arr );
-			}
-		}
-
-		return ret;
-	},
-
-	inArray: function( elem, arr, i ) {
-		return arr == null ? -1 : indexOf.call( arr, elem, i );
-	},
-
-	// Support: Android <=4.0 only, PhantomJS 1 only
-	// push.apply(_, arraylike) throws on ancient WebKit
-	merge: function( first, second ) {
-		var len = +second.length,
-			j = 0,
-			i = first.length;
-
-		for ( ; j < len; j++ ) {
-			first[ i++ ] = second[ j ];
-		}
-
-		first.length = i;
-
-		return first;
-	},
-
-	grep: function( elems, callback, invert ) {
-		var callbackInverse,
-			matches = [],
-			i = 0,
-			length = elems.length,
-			callbackExpect = !invert;
-
-		// Go through the array, only saving the items
-		// that pass the validator function
-		for ( ; i < length; i++ ) {
-			callbackInverse = !callback( elems[ i ], i );
-			if ( callbackInverse !== callbackExpect ) {
-				matches.push( elems[ i ] );
-			}
-		}
-
-		return matches;
-	},
-
-	// arg is for internal usage only
-	map: function( elems, callback, arg ) {
-		var length, value,
-			i = 0,
-			ret = [];
-
-		// Go through the array, translating each of the items to their new values
-		if ( isArrayLike( elems ) ) {
-			length = elems.length;
-			for ( ; i < length; i++ ) {
-				value = callback( elems[ i ], i, arg );
-
-				if ( value != null ) {
-					ret.push( value );
-				}
-			}
-
-		// Go through every key on the object,
-		} else {
-			for ( i in elems ) {
-				value = callback( elems[ i ], i, arg );
-
-				if ( value != null ) {
-					ret.push( value );
-				}
-			}
-		}
-
-		// Flatten any nested arrays
-		return concat.apply( [], ret );
-	},
-
-	// A global GUID counter for objects
-	guid: 1,
-
-	// jQuery.support is not used in Core but other projects attach their
-	// properties to it so it needs to exist.
-	support: support
-} );
-
-if ( typeof Symbol === "function" ) {
-	jQuery.fn[ Symbol.iterator ] = arr[ Symbol.iterator ];
-}
-
-// Populate the class2type map
-jQuery.each( "Boolean Number String Function Array Date RegExp Object Error Symbol".split( " " ),
-function( i, name ) {
-	class2type[ "[object " + name + "]" ] = name.toLowerCase();
-} );
-
-function isArrayLike( obj ) {
-
-	// Support: real iOS 8.2 only (not reproducible in simulator)
-	// `in` check used to prevent JIT error (gh-2145)
-	// hasOwn isn't used here due to false negatives
-	// regarding Nodelist length in IE
-	var length = !!obj && "length" in obj && obj.length,
-		type = toType( obj );
-
-	if ( isFunction( obj ) || isWindow( obj ) ) {
-		return false;
-	}
-
-	return type === "array" || length === 0 ||
-		typeof length === "number" && length > 0 && ( length - 1 ) in obj;
-}
-var Sizzle =
-/*!
- * Sizzle CSS Selector Engine v2.3.3
- * https://sizzlejs.com/
- *
- * Copyright jQuery Foundation and other contributors
- * Released under the MIT license
- * http://jquery.org/license
- *
- * Date: 2016-08-08
- */
-(function( window ) {
-
-var i,
-	support,
-	Expr,
-	getText,
-	isXML,
-	tokenize,
-	compile,
-	select,
-	outermostContext,
-	sortInput,
-	hasDuplicate,
-
-	// Local document vars
-	setDocument,
-	document,
-	docElem,
-	documentIsHTML,
-	rbuggyQSA,
-	rbuggyMatches,
-	matches,
-	contains,
-
-	// Instance-specific data
-	expando = "sizzle" + 1 * new Date(),
-	preferredDoc = window.document,
-	dirruns = 0,
-	done = 0,
-	classCache = createCache(),
-	tokenCache = createCache(),
-	compilerCache = createCache(),
-	sortOrder = function( a, b ) {
-		if ( a === b ) {
-			hasDuplicate = true;
-		}
-		return 0;
-	},
-
-	// Instance methods
-	hasOwn = ({}).hasOwnProperty,
-	arr = [],
-	pop = arr.pop,
-	push_native = arr.push,
-	push = arr.push,
-	slice = arr.slice,
-	// Use a stripped-down indexOf as it's faster than native
-	// https://jsperf.com/thor-indexof-vs-for/5
-	indexOf = function( list, elem ) {
-		var i = 0,
-			len = list.length;
-		for ( ; i < len; i++ ) {
-			if ( list[i] === elem ) {
-				return i;
-			}
-		}
-		return -1;
-	},
-
-	booleans = "checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|ismap|loop|multiple|open|readonly|required|scoped",
-
-	// Regular expressions
-
-	// http://www.w3.org/TR/css3-selectors/#whitespace
-	whitespace = "[\\x20\\t\\r\\n\\f]",
-
-	// http://www.w3.org/TR/CSS21/syndata.html#value-def-identifier
-	identifier = "(?:\\\\.|[\\w-]|[^\0-\\xa0])+",
-
-	// Attribute selectors: http://www.w3.org/TR/selectors/#attribute-selectors
-	attributes = "\\[" + whitespace + "*(" + identifier + ")(?:" + whitespace +
-		// Operator (capture 2)
-		"*([*^$|!~]?=)" + whitespace +
-		// "Attribute values must be CSS identifiers [capture 5] or strings [capture 3 or capture 4]"
-		"*(?:'((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\"|(" + identifier + "))|)" + whitespace +
-		"*\\]",
-
-	pseudos = ":(" + identifier + ")(?:\\((" +
-		// To reduce the number of selectors needing tokenize in the preFilter, prefer arguments:
-		// 1. quoted (capture 3; capture 4 or capture 5)
-		"('((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\")|" +
-		// 2. simple (capture 6)
-		"((?:\\\\.|[^\\\\()[\\]]|" + attributes + ")*)|" +
-		// 3. anything else (capture 2)
-		".*" +
-		")\\)|)",
-
-	// Leading and non-escaped trailing whitespace, capturing some non-whitespace characters preceding the latter
-	rwhitespace = new RegExp( whitespace + "+", "g" ),
-	rtrim = new RegExp( "^" + whitespace + "+|((?:^|[^\\\\])(?:\\\\.)*)" + whitespace + "+$", "g" ),
-
-	rcomma = new RegExp( "^" + whitespace + "*," + whitespace + "*" ),
-	rcombinators = new RegExp( "^" + whitespace + "*([>+~]|" + whitespace + ")" + whitespace + "*" ),
-
-	rattributeQuotes = new RegExp( "=" + whitespace + "*([^\\]'\"]*?)" + whitespace + "*\\]", "g" ),
-
-	rpseudo = new RegExp( pseudos ),
-	ridentifier = new RegExp( "^" + identifier + "$" ),
-
-	matchExpr = {
-		"ID": new RegExp( "^#(" + identifier + ")" ),
-		"CLASS": new RegExp( "^\\.(" + identifier + ")" ),
-		"TAG": new RegExp( "^(" + identifier + "|[*])" ),
-		"ATTR": new RegExp( "^" + attributes ),
-		"PSEUDO": new RegExp( "^" + pseudos ),
-		"CHILD": new RegExp( "^:(only|first|last|nth|nth-last)-(child|of-type)(?:\\(" + whitespace +
-			"*(even|odd|(([+-]|)(\\d*)n|)" + whitespace + "*(?:([+-]|)" + whitespace +
-			"*(\\d+)|))" + whitespace + "*\\)|)", "i" ),
-		"bool": new RegExp( "^(?:" + booleans + ")$", "i" ),
-		// For use in libraries implementing .is()
-		// We use this for POS matching in `select`
-		"needsContext": new RegExp( "^" + whitespace + "*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\\(" +
-			whitespace + "*((?:-\\d)?\\d*)" + whitespace + "*\\)|)(?=[^-]|$)", "i" )
-	},
-
-	rinputs = /^(?:input|select|textarea|button)$/i,
-	rheader = /^h\d$/i,
-
-	rnative = /^[^{]+\{\s*\[native \w/,
-
-	// Easily-parseable/retrievable ID or TAG or CLASS selectors
-	rquickExpr = /^(?:#([\w-]+)|(\w+)|\.([\w-]+))$/,
-
-	rsibling = /[+~]/,
-
-	// CSS escapes
-	// http://www.w3.org/TR/CSS21/syndata.html#escaped-characters
-	runescape = new RegExp( "\\\\([\\da-f]{1,6}" + whitespace + "?|(" + whitespace + ")|.)", "ig" ),
-	funescape = function( _, escaped, escapedWhitespace ) {
-		var high = "0x" + escaped - 0x10000;
-		// NaN means non-codepoint
-		// Support: Firefox<24
-		// Workaround erroneous numeric interpretation of +"0x"
-		return high !== high || escapedWhitespace ?
-			escaped :
-			high < 0 ?
-				// BMP codepoint
-				String.fromCharCode( high + 0x10000 ) :
-				// Supplemental Plane codepoint (surrogate pair)
-				String.fromCharCode( high >> 10 | 0xD800, high & 0x3FF | 0xDC00 );
-	},
-
-	// CSS string/identifier serialization
-	// https://drafts.csswg.org/cssom/#common-serializing-idioms
-	rcssescape = /([\0-\x1f\x7f]|^-?\d)|^-$|[^\0-\x1f\x7f-\uFFFF\w-]/g,
-	fcssescape = function( ch, asCodePoint ) {
-		if ( asCodePoint ) {
-
-			// U+0000 NULL becomes U+FFFD REPLACEMENT CHARACTER
-			if ( ch === "\0" ) {
-				return "\uFFFD";
-			}
-
-			// Control characters and (dependent upon position) numbers get escaped as code points
-			return ch.slice( 0, -1 ) + "\\" + ch.charCodeAt( ch.length - 1 ).toString( 16 ) + " ";
-		}
-
-		// Other potentially-special ASCII characters get backslash-escaped
-		return "\\" + ch;
-	},
-
-	// Used for iframes
-	// See setDocument()
-	// Removing the function wrapper causes a "Permission Denied"
-	// error in IE
-	unloadHandler = function() {
-		setDocument();
-	},
-
-	disabledAncestor = addCombinator(
-		function( elem ) {
-			return elem.disabled === true && ("form" in elem || "label" in elem);
-		},
-		{ dir: "parentNode", next: "legend" }
-	);
-
-// Optimize for push.apply( _, NodeList )
-try {
-	push.apply(
-		(arr = slice.call( preferredDoc.childNodes )),
-		preferredDoc.childNodes
-	);
-	// Support: Android<4.0
-	// Detect silently failing push.apply
-	arr[ preferredDoc.childNodes.length ].nodeType;
-} catch ( e ) {
-	push = { apply: arr.length ?
-
-		// Leverage slice if possible
-		function( target, els ) {
-			push_native.apply( target, slice.call(els) );
-		} :
-
-		// Support: IE<9
-		// Otherwise append directly
-		function( target, els ) {
-			var j = target.length,
-				i = 0;
-			// Can't trust NodeList.length
-			while ( (target[j++] = els[i++]) ) {}
-			target.length = j - 1;
-		}
-	};
-}
-
-function Sizzle( selector, context, results, seed ) {
-	var m, i, elem, nid, match, groups, newSelector,
-		newContext = context && context.ownerDocument,
-
-		// nodeType defaults to 9, since context defaults to document
-		nodeType = context ? context.nodeType : 9;
-
-	results = results || [];
-
-	// Return early from calls with invalid selector or context
-	if ( typeof selector !== "string" || !selector ||
-		nodeType !== 1 && nodeType !== 9 && nodeType !== 11 ) {
-
-		return results;
-	}
-
-	// Try to shortcut find operations (as opposed to filters) in HTML documents
-	if ( !seed ) {
-
-		if ( ( context ? context.ownerDocument || context : preferredDoc ) !== document ) {
-			setDocument( context );
-		}
-		context = context || document;
-
-		if ( documentIsHTML ) {
-
-			// If the selector is sufficiently simple, try using a "get*By*" DOM method
-			// (excepting DocumentFragment context, where the methods don't exist)
-			if ( nodeType !== 11 && (match = rquickExpr.exec( selector )) ) {
-
-				// ID selector
-				if ( (m = match[1]) ) {
-
-					// Document context
-					if ( nodeType === 9 ) {
-						if ( (elem = context.getElementById( m )) ) {
-
-							// Support: IE, Opera, Webkit
-							// TODO: identify versions
-							// getElementById can match elements by name instead of ID
-							if ( elem.id === m ) {
-								results.push( elem );
-								return results;
-							}
-						} else {
-							return results;
-						}
-
-					// Element context
-					} else {
-
-						// Support: IE, Opera, Webkit
-						// TODO: identify versions
-						// getElementById can match elements by name instead of ID
-						if ( newContext && (elem = newContext.getElementById( m )) &&
-							contains( context, elem ) &&
-							elem.id === m ) {
-
-							results.push( elem );
-							return results;
-						}
-					}
-
-				// Type selector
-				} else if ( match[2] ) {
-					push.apply( results, context.getElementsByTagName( selector ) );
-					return results;
-
-				// Class selector
-				} else if ( (m = match[3]) && support.getElementsByClassName &&
-					context.getElementsByClassName ) {
-
-					push.apply( results, context.getElementsByClassName( m ) );
-					return results;
-				}
-			}
-
-			// Take advantage of querySelectorAll
-			if ( support.qsa &&
-				!compilerCache[ selector + " " ] &&
-				(!rbuggyQSA || !rbuggyQSA.test( selector )) ) {
-
-				if ( nodeType !== 1 ) {
-					newContext = context;
-					newSelector = selector;
-
-				// qSA looks outside Element context, which is not what we want
-				// Thanks to Andrew Dupont for this workaround technique
-				// Support: IE <=8
-				// Exclude object elements
-				} else if ( context.nodeName.toLowerCase() !== "object" ) {
-
-					// Capture the context ID, setting it first if necessary
-					if ( (nid = context.getAttribute( "id" )) ) {
-						nid = nid.replace( rcssescape, fcssescape );
-					} else {
-						context.setAttribute( "id", (nid = expando) );
-					}
-
-					// Prefix every selector in the list
-					groups = tokenize( selector );
-					i = groups.length;
-					while ( i-- ) {
-						groups[i] = "#" + nid + " " + toSelector( groups[i] );
-					}
-					newSelector = groups.join( "," );
-
-					// Expand context for sibling selectors
-					newContext = rsibling.test( selector ) && testContext( context.parentNode ) ||
-						context;
-				}
-
-				if ( newSelector ) {
-					try {
-						push.apply( results,
-							newContext.querySelectorAll( newSelector )
-						);
-						return results;
-					} catch ( qsaError ) {
-					} finally {
-						if ( nid === expando ) {
-							context.removeAttribute( "id" );
-						}
-					}
-				}
-			}
-		}
-	}
-
-	// All others
-	return select( selector.replace( rtrim, "$1" ), context, results, seed );
-}
-
-/**
- * Create key-value caches of limited size
- * @returns {function(string, object)} Returns the Object data after storing it on itself with
- *	property name the (space-suffixed) string and (if the cache is larger than Expr.cacheLength)
- *	deleting the oldest entry
- */
-function createCache() {
-	var keys = [];
-
-	function cache( key, value ) {
-		// Use (key + " ") to avoid collision with native prototype properties (see Issue #157)
-		if ( keys.push( key + " " ) > Expr.cacheLength ) {
-			// Only keep the most recent entries
-			delete cache[ keys.shift() ];
-		}
-		return (cache[ key + " " ] = value);
-	}
-	return cache;
-}
-
-/**
- * Mark a function for special use by Sizzle
- * @param {Function} fn The function to mark
- */
-function markFunction( fn ) {
-	fn[ expando ] = true;
-	return fn;
-}
-
-/**
- * Support testing using an element
- * @param {Function} fn Passed the created element and returns a boolean result
- */
-function assert( fn ) {
-	var el = document.createElement("fieldset");
-
-	try {
-		return !!fn( el );
-	} catch (e) {
-		return false;
-	} finally {
-		// Remove from its parent by default
-		if ( el.parentNode ) {
-			el.parentNode.removeChild( el );
-		}
-		// release memory in IE
-		el = null;
-	}
-}
-
-/**
- * Adds the same handler for all of the specified attrs
- * @param {String} attrs Pipe-separated list of attributes
- * @param {Function} handler The method that will be applied
- */
-function addHandle( attrs, handler ) {
-	var arr = attrs.split("|"),
-		i = arr.length;
-
-	while ( i-- ) {
-		Expr.attrHandle[ arr[i] ] = handler;
-	}
-}
-
-/**
- * Checks document order of two siblings
- * @param {Element} a
- * @param {Element} b
- * @returns {Number} Returns less than 0 if a precedes b, greater than 0 if a follows b
- */
-function siblingCheck( a, b ) {
-	var cur = b && a,
-		diff = cur && a.nodeType === 1 && b.nodeType === 1 &&
-			a.sourceIndex - b.sourceIndex;
-
-	// Use IE sourceIndex if available on both nodes
-	if ( diff ) {
-		return diff;
-	}
-
-	// Check if b follows a
-	if ( cur ) {
-		while ( (cur = cur.nextSibling) ) {
-			if ( cur === b ) {
-				return -1;
-			}
-		}
-	}
-
-	return a ? 1 : -1;
-}
-
-/**
- * Returns a function to use in pseudos for input types
- * @param {String} type
- */
-function createInputPseudo( type ) {
-	return function( elem ) {
-		var name = elem.nodeName.toLowerCase();
-		return name === "input" && elem.type === type;
-	};
-}
-
-/**
- * Returns a function to use in pseudos for buttons
- * @param {String} type
- */
-function createButtonPseudo( type ) {
-	return function( elem ) {
-		var name = elem.nodeName.toLowerCase();
-		return (name === "input" || name === "button") && elem.type === type;
-	};
-}
-
-/**
- * Returns a function to use in pseudos for :enabled/:disabled
- * @param {Boolean} disabled true for :disabled; false for :enabled
- */
-function createDisabledPseudo( disabled ) {
-
-	// Known :disabled false positives: fieldset[disabled] > legend:nth-of-type(n+2) :can-disable
-	return function( elem ) {
-
-		// Only certain elements can match :enabled or :disabled
-		// https://html.spec.whatwg.org/multipage/scripting.html#selector-enabled
-		// https://html.spec.whatwg.org/multipage/scripting.html#selector-disabled
-		if ( "form" in elem ) {
-
-			// Check for inherited disabledness on relevant non-disabled elements:
-			// * listed form-associated elements in a disabled fieldset
-			//   https://html.spec.whatwg.org/multipage/forms.html#category-listed
-			//   https://html.spec.whatwg.org/multipage/forms.html#concept-fe-disabled
-			// * option elements in a disabled optgroup
-			//   https://html.spec.whatwg.org/multipage/forms.html#concept-option-disabled
-			// All such elements have a "form" property.
-			if ( elem.parentNode && elem.disabled === false ) {
-
-				// Option elements defer to a parent optgroup if present
-				if ( "label" in elem ) {
-					if ( "label" in elem.parentNode ) {
-						return elem.parentNode.disabled === disabled;
-					} else {
-						return elem.disabled === disabled;
-					}
-				}
-
-				// Support: IE 6 - 11
-				// Use the isDisabled shortcut property to check for disabled fieldset ancestors
-				return elem.isDisabled === disabled ||
-
-					// Where there is no isDisabled, check manually
-					/* jshint -W018 */
-					elem.isDisabled !== !disabled &&
-						disabledAncestor( elem ) === disabled;
-			}
-
-			return elem.disabled === disabled;
-
-		// Try to winnow out elements that can't be disabled before trusting the disabled property.
-		// Some victims get caught in our net (label, legend, menu, track), but it shouldn't
-		// even exist on them, let alone have a boolean value.
-		} else if ( "label" in elem ) {
-			return elem.disabled === disabled;
-		}
-
-		// Remaining elements are neither :enabled nor :disabled
-		return false;
-	};
-}
-
-/**
- * Returns a function to use in pseudos for positionals
- * @param {Function} fn
- */
-function createPositionalPseudo( fn ) {
-	return markFunction(function( argument ) {
-		argument = +argument;
-		return markFunction(function( seed, matches ) {
-			var j,
-				matchIndexes = fn( [], seed.length, argument ),
-				i = matchIndexes.length;
-
-			// Match elements found at the specified indexes
-			while ( i-- ) {
-				if ( seed[ (j = matchIndexes[i]) ] ) {
-					seed[j] = !(matches[j] = seed[j]);
-				}
-			}
-		});
-	});
-}
-
-/**
- * Checks a node for validity as a Sizzle context
- * @param {Element|Object=} context
- * @returns {Element|Object|Boolean} The input node if acceptable, otherwise a falsy value
- */
-function testContext( context ) {
-	return context && typeof context.getElementsByTagName !== "undefined" && context;
-}
-
-// Expose support vars for convenience
-support = Sizzle.support = {};
-
-/**
- * Detects XML nodes
- * @param {Element|Object} elem An element or a document
- * @returns {Boolean} True iff elem is a non-HTML XML node
- */
-isXML = Sizzle.isXML = function( elem ) {
-	// documentElement is verified for cases where it doesn't yet exist
-	// (such as loading iframes in IE - #4833)
-	var documentElement = elem && (elem.ownerDocument || elem).documentElement;
-	return documentElement ? documentElement.nodeName !== "HTML" : false;
-};
-
-/**
- * Sets document-related variables once based on the current document
- * @param {Element|Object} [doc] An element or document object to use to set the document
- * @returns {Object} Returns the current document
- */
-setDocument = Sizzle.setDocument = function( node ) {
-	var hasCompare, subWindow,
-		doc = node ? node.ownerDocument || node : preferredDoc;
-
-	// Return early if doc is invalid or already selected
-	if ( doc === document || doc.nodeType !== 9 || !doc.documentElement ) {
-		return document;
-	}
-
-	// Update global variables
-	document = doc;
-	docElem = document.documentElement;
-	documentIsHTML = !isXML( document );
-
-	// Support: IE 9-11, Edge
-	// Accessing iframe documents after unload throws "permission denied" errors (jQuery #13936)
-	if ( preferredDoc !== document &&
-		(subWindow = document.defaultView) && subWindow.top !== subWindow ) {
-
-		// Support: IE 11, Edge
-		if ( subWindow.addEventListener ) {
-			subWindow.addEventListener( "unload", unloadHandler, false );
-
-		// Support: IE 9 - 10 only
-		} else if ( subWindow.attachEvent ) {
-			subWindow.attachEvent( "onunload", unloadHandler );
-		}
-	}
-
-	/* Attributes
-	---------------------------------------------------------------------- */
-
-	// Support: IE<8
-	// Verify that getAttribute really returns attributes and not properties
-	// (excepting IE8 booleans)
-	support.attributes = assert(function( el ) {
-		el.className = "i";
-		return !el.getAttribute("className");
-	});
-
-	/* getElement(s)By*
-	---------------------------------------------------------------------- */
-
-	// Check if getElementsByTagName("*") returns only elements
-	support.getElementsByTagName = assert(function( el ) {
-		el.appendChild( document.createComment("") );
-		return !el.getElementsByTagName("*").length;
-	});
-
-	// Support: IE<9
-	support.getElementsByClassName = rnative.test( document.getElementsByClassName );
-
-	// Support: IE<10
-	// Check if getElementById returns elements by name
-	// The broken getElementById methods don't pick up programmatically-set names,
-	// so use a roundabout getElementsByName test
-	support.getById = assert(function( el ) {
-		docElem.appendChild( el ).id = expando;
-		return !document.getElementsByName || !document.getElementsByName( expando ).length;
-	});
-
-	// ID filter and find
-	if ( support.getById ) {
-		Expr.filter["ID"] = function( id ) {
-			var attrId = id.replace( runescape, funescape );
-			return function( elem ) {
-				return elem.getAttribute("id") === attrId;
-			};
-		};
-		Expr.find["ID"] = function( id, context ) {
-			if ( typeof context.getElementById !== "undefined" && documentIsHTML ) {
-				var elem = context.getElementById( id );
-				return elem ? [ elem ] : [];
-			}
-		};
-	} else {
-		Expr.filter["ID"] =  function( id ) {
-			var attrId = id.replace( runescape, funescape );
-			return function( elem ) {
-				var node = typeof elem.getAttributeNode !== "undefined" &&
-					elem.getAttributeNode("id");
-				return node && node.value === attrId;
-			};
-		};
-
-		// Support: IE 6 - 7 only
-		// getElementById is not reliable as a find shortcut
-		Expr.find["ID"] = function( id, context ) {
-			if ( typeof context.getElementById !== "undefined" && documentIsHTML ) {
-				var node, i, elems,
-					elem = context.getElementById( id );
-
-				if ( elem ) {
-
-					// Verify the id attribute
-					node = elem.getAttributeNode("id");
-					if ( node && node.value === id ) {
-						return [ elem ];
-					}
-
-					// Fall back on getElementsByName
-					elems = context.getElementsByName( id );
-					i = 0;
-					while ( (elem = elems[i++]) ) {
-						node = elem.getAttributeNode("id");
-						if ( node && node.value === id ) {
-							return [ elem ];
-						}
-					}
-				}
-
-				return [];
-			}
-		};
-	}
-
-	// Tag
-	Expr.find["TAG"] = support.getElementsByTagName ?
-		function( tag, context ) {
-			if ( typeof context.getElementsByTagName !== "undefined" ) {
-				return context.getElementsByTagName( tag );
-
-			// DocumentFragment nodes don't have gEBTN
-			} else if ( support.qsa ) {
-				return context.querySelectorAll( tag );
-			}
-		} :
-
-		function( tag, context ) {
-			var elem,
-				tmp = [],
-				i = 0,
-				// By happy coincidence, a (broken) gEBTN appears on DocumentFragment nodes too
-				results = context.getElementsByTagName( tag );
-
-			// Filter out possible comments
-			if ( tag === "*" ) {
-				while ( (elem = results[i++]) ) {
-					if ( elem.nodeType === 1 ) {
-						tmp.push( elem );
-					}
-				}
-
-				return tmp;
-			}
-			return results;
-		};
-
-	// Class
-	Expr.find["CLASS"] = support.getElementsByClassName && function( className, context ) {
-		if ( typeof context.getElementsByClassName !== "undefined" && documentIsHTML ) {
-			return context.getElementsByClassName( className );
-		}
-	};
-
-	/* QSA/matchesSelector
-	---------------------------------------------------------------------- */
-
-	// QSA and matchesSelector support
-
-	// matchesSelector(:active) reports false when true (IE9/Opera 11.5)
-	rbuggyMatches = [];
-
-	// qSa(:focus) reports false when true (Chrome 21)
-	// We allow this because of a bug in IE8/9 that throws an error
-	// whenever `document.activeElement` is accessed on an iframe
-	// So, we allow :focus to pass through QSA all the time to avoid the IE error
-	// See https://bugs.jquery.com/ticket/13378
-	rbuggyQSA = [];
-
-	if ( (support.qsa = rnative.test( document.querySelectorAll )) ) {
-		// Build QSA regex
-		// Regex strategy adopted from Diego Perini
-		assert(function( el ) {
-			// Select is set to empty string on purpose
-			// This is to test IE's treatment of not explicitly
-			// setting a boolean content attribute,
-			// since its presence should be enough
-			// https://bugs.jquery.com/ticket/12359
-			docElem.appendChild( el ).innerHTML = "<a id='" + expando + "'></a>" +
-				"<select id='" + expando + "-\r\\' msallowcapture=''>" +
-				"<option selected=''></option></select>";
-
-			// Support: IE8, Opera 11-12.16
-			// Nothing should be selected when empty strings follow ^= or $= or *=
-			// The test attribute must be unknown in Opera but "safe" for WinRT
-			// https://msdn.microsoft.com/en-us/library/ie/hh465388.aspx#attribute_section
-			if ( el.querySelectorAll("[msallowcapture^='']").length ) {
-				rbuggyQSA.push( "[*^$]=" + whitespace + "*(?:''|\"\")" );
-			}
-
-			// Support: IE8
-			// Boolean attributes and "value" are not treated correctly
-			if ( !el.querySelectorAll("[selected]").length ) {
-				rbuggyQSA.push( "\\[" + whitespace + "*(?:value|" + booleans + ")" );
-			}
-
-			// Support: Chrome<29, Android<4.4, Safari<7.0+, iOS<7.0+, PhantomJS<1.9.8+
-			if ( !el.querySelectorAll( "[id~=" + expando + "-]" ).length ) {
-				rbuggyQSA.push("~=");
-			}
-
-			// Webkit/Opera - :checked should return selected option elements
-			// http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
-			// IE8 throws error here and will not see later tests
-			if ( !el.querySelectorAll(":checked").length ) {
-				rbuggyQSA.push(":checked");
-			}
-
-			// Support: Safari 8+, iOS 8+
-			// https://bugs.webkit.org/show_bug.cgi?id=136851
-			// In-page `selector#id sibling-combinator selector` fails
-			if ( !el.querySelectorAll( "a#" + expando + "+*" ).length ) {
-				rbuggyQSA.push(".#.+[+~]");
-			}
-		});
-
-		assert(function( el ) {
-			el.innerHTML = "<a href='' disabled='disabled'></a>" +
-				"<select disabled='disabled'><option/></select>";
-
-			// Support: Windows 8 Native Apps
-			// The type and name attributes are restricted during .innerHTML assignment
-			var input = document.createElement("input");
-			input.setAttribute( "type", "hidden" );
-			el.appendChild( input ).setAttribute( "name", "D" );
-
-			// Support: IE8
-			// Enforce case-sensitivity of name attribute
-			if ( el.querySelectorAll("[name=d]").length ) {
-				rbuggyQSA.push( "name" + whitespace + "*[*^$|!~]?=" );
-			}
-
-			// FF 3.5 - :enabled/:disabled and hidden elements (hidden elements are still enabled)
-			// IE8 throws error here and will not see later tests
-			if ( el.querySelectorAll(":enabled").length !== 2 ) {
-				rbuggyQSA.push( ":enabled", ":disabled" );
-			}
-
-			// Support: IE9-11+
-			// IE's :disabled selector does not pick up the children of disabled fieldsets
-			docElem.appendChild( el ).disabled = true;
-			if ( el.querySelectorAll(":disabled").length !== 2 ) {
-				rbuggyQSA.push( ":enabled", ":disabled" );
-			}
-
-			// Opera 10-11 does not throw on post-comma invalid pseudos
-			el.querySelectorAll("*,:x");
-			rbuggyQSA.push(",.*:");
-		});
-	}
-
-	if ( (support.matchesSelector = rnative.test( (matches = docElem.matches ||
-		docElem.webkitMatchesSelector ||
-		docElem.mozMatchesSelector ||
-		docElem.oMatchesSelector ||
-		docElem.msMatchesSelector) )) ) {
-
-		assert(function( el ) {
-			// Check to see if it's possible to do matchesSelector
-			// on a disconnected node (IE 9)
-			support.disconnectedMatch = matches.call( el, "*" );
-
-			// This should fail with an exception
-			// Gecko does not error, returns false instead
-			matches.call( el, "[s!='']:x" );
-			rbuggyMatches.push( "!=", pseudos );
-		});
-	}
-
-	rbuggyQSA = rbuggyQSA.length && new RegExp( rbuggyQSA.join("|") );
-	rbuggyMatches = rbuggyMatches.length && new RegExp( rbuggyMatches.join("|") );
-
-	/* Contains
-	---------------------------------------------------------------------- */
-	hasCompare = rnative.test( docElem.compareDocumentPosition );
-
-	// Element contains another
-	// Purposefully self-exclusive
-	// As in, an element does not contain itself
-	contains = hasCompare || rnative.test( docElem.contains ) ?
-		function( a, b ) {
-			var adown = a.nodeType === 9 ? a.documentElement : a,
-				bup = b && b.parentNode;
-			return a === bup || !!( bup && bup.nodeType === 1 && (
-				adown.contains ?
-					adown.contains( bup ) :
-					a.compareDocumentPosition && a.compareDocumentPosition( bup ) & 16
-			));
-		} :
-		function( a, b ) {
-			if ( b ) {
-				while ( (b = b.parentNode) ) {
-					if ( b === a ) {
-						return true;
-					}
-				}
-			}
-			return false;
-		};
-
-	/* Sorting
-	---------------------------------------------------------------------- */
-
-	// Document order sorting
-	sortOrder = hasCompare ?
-	function( a, b ) {
-
-		// Flag for duplicate removal
-		if ( a === b ) {
-			hasDuplicate = true;
-			return 0;
-		}
-
-		// Sort on method existence if only one input has compareDocumentPosition
-		var compare = !a.compareDocumentPosition - !b.compareDocumentPosition;
-		if ( compare ) {
-			return compare;
-		}
-
-		// Calculate position if both inputs belong to the same document
-		compare = ( a.ownerDocument || a ) === ( b.ownerDocument || b ) ?
-			a.compareDocumentPosition( b ) :
-
-			// Otherwise we know they are disconnected
-			1;
-
-		// Disconnected nodes
-		if ( compare & 1 ||
-			(!support.sortDetached && b.compareDocumentPosition( a ) === compare) ) {
-
-			// Choose the first element that is related to our preferred document
-			if ( a === document || a.ownerDocument === preferredDoc && contains(preferredDoc, a) ) {
-				return -1;
-			}
-			if ( b === document || b.ownerDocument === preferredDoc && contains(preferredDoc, b) ) {
-				return 1;
-			}
-
-			// Maintain original order
-			return sortInput ?
-				( indexOf( sortInput, a ) - indexOf( sortInput, b ) ) :
-				0;
-		}
-
-		return compare & 4 ? -1 : 1;
-	} :
-	function( a, b ) {
-		// Exit early if the nodes are identical
-		if ( a === b ) {
-			hasDuplicate = true;
-			return 0;
-		}
-
-		var cur,
-			i = 0,
-			aup = a.parentNode,
-			bup = b.parentNode,
-			ap = [ a ],
-			bp = [ b ];
-
-		// Parentless nodes are either documents or disconnected
-		if ( !aup || !bup ) {
-			return a === document ? -1 :
-				b === document ? 1 :
-				aup ? -1 :
-				bup ? 1 :
-				sortInput ?
-				( indexOf( sortInput, a ) - indexOf( sortInput, b ) ) :
-				0;
-
-		// If the nodes are siblings, we can do a quick check
-		} else if ( aup === bup ) {
-			return siblingCheck( a, b );
-		}
-
-		// Otherwise we need full lists of their ancestors for comparison
-		cur = a;
-		while ( (cur = cur.parentNode) ) {
-			ap.unshift( cur );
-		}
-		cur = b;
-		while ( (cur = cur.parentNode) ) {
-			bp.unshift( cur );
-		}
-
-		// Walk down the tree looking for a discrepancy
-		while ( ap[i] === bp[i] ) {
-			i++;
-		}
-
-		return i ?
-			// Do a sibling check if the nodes have a common ancestor
-			siblingCheck( ap[i], bp[i] ) :
-
-			// Otherwise nodes in our document sort first
-			ap[i] === preferredDoc ? -1 :
-			bp[i] === preferredDoc ? 1 :
-			0;
-	};
-
-	return document;
-};
-
-Sizzle.matches = function( expr, elements ) {
-	return Sizzle( expr, null, null, elements );
-};
-
-Sizzle.matchesSelector = function( elem, expr ) {
-	// Set document vars if needed
-	if ( ( elem.ownerDocument || elem ) !== document ) {
-		setDocument( elem );
-	}
-
-	// Make sure that attribute selectors are quoted
-	expr = expr.replace( rattributeQuotes, "='$1']" );
-
-	if ( support.matchesSelector && documentIsHTML &&
-		!compilerCache[ expr + " " ] &&
-		( !rbuggyMatches || !rbuggyMatches.test( expr ) ) &&
-		( !rbuggyQSA     || !rbuggyQSA.test( expr ) ) ) {
-
-		try {
-			var ret = matches.call( elem, expr );
-
-			// IE 9's matchesSelector returns false on disconnected nodes
-			if ( ret || support.disconnectedMatch ||
-					// As well, disconnected nodes are said to be in a document
-					// fragment in IE 9
-					elem.document && elem.document.nodeType !== 11 ) {
-				return ret;
-			}
-		} catch (e) {}
-	}
-
-	return Sizzle( expr, document, null, [ elem ] ).length > 0;
-};
-
-Sizzle.contains = function( context, elem ) {
-	// Set document vars if needed
-	if ( ( context.ownerDocument || context ) !== document ) {
-		setDocument( context );
-	}
-	return contains( context, elem );
-};
-
-Sizzle.attr = function( elem, name ) {
-	// Set document vars if needed
-	if ( ( elem.ownerDocument || elem ) !== document ) {
-		setDocument( elem );
-	}
-
-	var fn = Expr.attrHandle[ name.toLowerCase() ],
-		// Don't get fooled by Object.prototype properties (jQuery #13807)
-		val = fn && hasOwn.call( Expr.attrHandle, name.toLowerCase() ) ?
-			fn( elem, name, !documentIsHTML ) :
-			undefined;
-
-	return val !== undefined ?
-		val :
-		support.attributes || !documentIsHTML ?
-			elem.getAttribute( name ) :
-			(val = elem.getAttributeNode(name)) && val.specified ?
-				val.value :
-				null;
-};
-
-Sizzle.escape = function( sel ) {
-	return (sel + "").replace( rcssescape, fcssescape );
-};
-
-Sizzle.error = function( msg ) {
-	throw new Error( "Syntax error, unrecognized expression: " + msg );
-};
-
-/**
- * Document sorting and removing duplicates
- * @param {ArrayLike} results
- */
-Sizzle.uniqueSort = function( results ) {
-	var elem,
-		duplicates = [],
-		j = 0,
-		i = 0;
-
-	// Unless we *know* we can detect duplicates, assume their presence
-	hasDuplicate = !support.detectDuplicates;
-	sortInput = !support.sortStable && results.slice( 0 );
-	results.sort( sortOrder );
-
-	if ( hasDuplicate ) {
-		while ( (elem = results[i++]) ) {
-			if ( elem === results[ i ] ) {
-				j = duplicates.push( i );
-			}
-		}
-		while ( j-- ) {
-			results.splice( duplicates[ j ], 1 );
-		}
-	}
-
-	// Clear input after sorting to release objects
-	// See https://github.com/jquery/sizzle/pull/225
-	sortInput = null;
-
-	return results;
-};
-
-/**
- * Utility function for retrieving the text value of an array of DOM nodes
- * @param {Array|Element} elem
- */
-getText = Sizzle.getText = function( elem ) {
-	var node,
-		ret = "",
-		i = 0,
-		nodeType = elem.nodeType;
-
-	if ( !nodeType ) {
-		// If no nodeType, this is expected to be an array
-		while ( (node = elem[i++]) ) {
-			// Do not traverse comment nodes
-			ret += getText( node );
-		}
-	} else if ( nodeType === 1 || nodeType === 9 || nodeType === 11 ) {
-		// Use textContent for elements
-		// innerText usage removed for consistency of new lines (jQuery #11153)
-		if ( typeof elem.textContent === "string" ) {
-			return elem.textContent;
-		} else {
-			// Traverse its children
-			for ( elem = elem.firstChild; elem; elem = elem.nextSibling ) {
-				ret += getText( elem );
-			}
-		}
-	} else if ( nodeType === 3 || nodeType === 4 ) {
-		return elem.nodeValue;
-	}
-	// Do not include comment or processing instruction nodes
-
-	return ret;
-};
-
-Expr = Sizzle.selectors = {
-
-	// Can be adjusted by the user
-	cacheLength: 50,
-
-	createPseudo: markFunction,
-
-	match: matchExpr,
-
-	attrHandle: {},
-
-	find: {},
-
-	relative: {
-		">": { dir: "parentNode", first: true },
-		" ": { dir: "parentNode" },
-		"+": { dir: "previousSibling", first: true },
-		"~": { dir: "previousSibling" }
-	},
-
-	preFilter: {
-		"ATTR": function( match ) {
-			match[1] = match[1].replace( runescape, funescape );
-
-			// Move the given value to match[3] whether quoted or unquoted
-			match[3] = ( match[3] || match[4] || match[5] || "" ).replace( runescape, funescape );
-
-			if ( match[2] === "~=" ) {
-				match[3] = " " + match[3] + " ";
-			}
-
-			return match.slice( 0, 4 );
-		},
-
-		"CHILD": function( match ) {
-			/* matches from matchExpr["CHILD"]
-				1 type (only|nth|...)
-				2 what (child|of-type)
-				3 argument (even|odd|\d*|\d*n([+-]\d+)?|...)
-				4 xn-component of xn+y argument ([+-]?\d*n|)
-				5 sign of xn-component
-				6 x of xn-component
-				7 sign of y-component
-				8 y of y-component
-			*/
-			match[1] = match[1].toLowerCase();
-
-			if ( match[1].slice( 0, 3 ) === "nth" ) {
-				// nth-* requires argument
-				if ( !match[3] ) {
-					Sizzle.error( match[0] );
-				}
-
-				// numeric x and y parameters for Expr.filter.CHILD
-				// remember that false/true cast respectively to 0/1
-				match[4] = +( match[4] ? match[5] + (match[6] || 1) : 2 * ( match[3] === "even" || match[3] === "odd" ) );
-				match[5] = +( ( match[7] + match[8] ) || match[3] === "odd" );
-
-			// other types prohibit arguments
-			} else if ( match[3] ) {
-				Sizzle.error( match[0] );
-			}
-
-			return match;
-		},
-
-		"PSEUDO": function( match ) {
-			var excess,
-				unquoted = !match[6] && match[2];
-
-			if ( matchExpr["CHILD"].test( match[0] ) ) {
-				return null;
-			}
-
-			// Accept quoted arguments as-is
-			if ( match[3] ) {
-				match[2] = match[4] || match[5] || "";
-
-			// Strip excess characters from unquoted arguments
-			} else if ( unquoted && rpseudo.test( unquoted ) &&
-				// Get excess from tokenize (recursively)
-				(excess = tokenize( unquoted, true )) &&
-				// advance to the next closing parenthesis
-				(excess = unquoted.indexOf( ")", unquoted.length - excess ) - unquoted.length) ) {
-
-				// excess is a negative index
-				match[0] = match[0].slice( 0, excess );
-				match[2] = unquoted.slice( 0, excess );
-			}
-
-			// Return only captures needed by the pseudo filter method (type and argument)
-			return match.slice( 0, 3 );
-		}
-	},
-
-	filter: {
-
-		"TAG": function( nodeNameSelector ) {
-			var nodeName = nodeNameSelector.replace( runescape, funescape ).toLowerCase();
-			return nodeNameSelector === "*" ?
-				function() { return true; } :
-				function( elem ) {
-					return elem.nodeName && elem.nodeName.toLowerCase() === nodeName;
-				};
-		},
-
-		"CLASS": function( className ) {
-			var pattern = classCache[ className + " " ];
-
-			return pattern ||
-				(pattern = new RegExp( "(^|" + whitespace + ")" + className + "(" + whitespace + "|$)" )) &&
-				classCache( className, function( elem ) {
-					return pattern.test( typeof elem.className === "string" && elem.className || typeof elem.getAttribute !== "undefined" && elem.getAttribute("class") || "" );
-				});
-		},
-
-		"ATTR": function( name, operator, check ) {
-			return function( elem ) {
-				var result = Sizzle.attr( elem, name );
-
-				if ( result == null ) {
-					return operator === "!=";
-				}
-				if ( !operator ) {
-					return true;
-				}
-
-				result += "";
-
-				return operator === "=" ? result === check :
-					operator === "!=" ? result !== check :
-					operator === "^=" ? check && result.indexOf( check ) === 0 :
-					operator === "*=" ? check && result.indexOf( check ) > -1 :
-					operator === "$=" ? check && result.slice( -check.length ) === check :
-					operator === "~=" ? ( " " + result.replace( rwhitespace, " " ) + " " ).indexOf( check ) > -1 :
-					operator === "|=" ? result === check || result.slice( 0, check.length + 1 ) === check + "-" :
-					false;
-			};
-		},
-
-		"CHILD": function( type, what, argument, first, last ) {
-			var simple = type.slice( 0, 3 ) !== "nth",
-				forward = type.slice( -4 ) !== "last",
-				ofType = what === "of-type";
-
-			return first === 1 && last === 0 ?
-
-				// Shortcut for :nth-*(n)
-				function( elem ) {
-					return !!elem.parentNode;
-				} :
-
-				function( elem, context, xml ) {
-					var cache, uniqueCache, outerCache, node, nodeIndex, start,
-						dir = simple !== forward ? "nextSibling" : "previousSibling",
-						parent = elem.parentNode,
-						name = ofType && elem.nodeName.toLowerCase(),
-						useCache = !xml && !ofType,
-						diff = false;
-
-					if ( parent ) {
-
-						// :(first|last|only)-(child|of-type)
-						if ( simple ) {
-							while ( dir ) {
-								node = elem;
-								while ( (node = node[ dir ]) ) {
-									if ( ofType ?
-										node.nodeName.toLowerCase() === name :
-										node.nodeType === 1 ) {
-
-										return false;
-									}
-								}
-								// Reverse direction for :only-* (if we haven't yet done so)
-								start = dir = type === "only" && !start && "nextSibling";
-							}
-							return true;
-						}
-
-						start = [ forward ? parent.firstChild : parent.lastChild ];
-
-						// non-xml :nth-child(...) stores cache data on `parent`
-						if ( forward && useCache ) {
-
-							// Seek `elem` from a previously-cached index
-
-							// ...in a gzip-friendly way
-							node = parent;
-							outerCache = node[ expando ] || (node[ expando ] = {});
-
-							// Support: IE <9 only
-							// Defend against cloned attroperties (jQuery gh-1709)
-							uniqueCache = outerCache[ node.uniqueID ] ||
-								(outerCache[ node.uniqueID ] = {});
-
-							cache = uniqueCache[ type ] || [];
-							nodeIndex = cache[ 0 ] === dirruns && cache[ 1 ];
-							diff = nodeIndex && cache[ 2 ];
-							node = nodeIndex && parent.childNodes[ nodeIndex ];
-
-							while ( (node = ++nodeIndex && node && node[ dir ] ||
-
-								// Fallback to seeking `elem` from the start
-								(diff = nodeIndex = 0) || start.pop()) ) {
-
-								// When found, cache indexes on `parent` and break
-								if ( node.nodeType === 1 && ++diff && node === elem ) {
-									uniqueCache[ type ] = [ dirruns, nodeIndex, diff ];
-									break;
-								}
-							}
-
-						} else {
-							// Use previously-cached element index if available
-							if ( useCache ) {
-								// ...in a gzip-friendly way
-								node = elem;
-								outerCache = node[ expando ] || (node[ expando ] = {});
-
-								// Support: IE <9 only
-								// Defend against cloned attroperties (jQuery gh-1709)
-								uniqueCache = outerCache[ node.uniqueID ] ||
-									(outerCache[ node.uniqueID ] = {});
-
-								cache = uniqueCache[ type ] || [];
-								nodeIndex = cache[ 0 ] === dirruns && cache[ 1 ];
-								diff = nodeIndex;
-							}
-
-							// xml :nth-child(...)
-							// or :nth-last-child(...) or :nth(-last)?-of-type(...)
-							if ( diff === false ) {
-								// Use the same loop as above to seek `elem` from the start
-								while ( (node = ++nodeIndex && node && node[ dir ] ||
-									(diff = nodeIndex = 0) || start.pop()) ) {
-
-									if ( ( ofType ?
-										node.nodeName.toLowerCase() === name :
-										node.nodeType === 1 ) &&
-										++diff ) {
-
-										// Cache the index of each encountered element
-										if ( useCache ) {
-											outerCache = node[ expando ] || (node[ expando ] = {});
-
-											// Support: IE <9 only
-											// Defend against cloned attroperties (jQuery gh-1709)
-											uniqueCache = outerCache[ node.uniqueID ] ||
-												(outerCache[ node.uniqueID ] = {});
-
-											uniqueCache[ type ] = [ dirruns, diff ];
-										}
-
-										if ( node === elem ) {
-											break;
-										}
-									}
-								}
-							}
-						}
-
-						// Incorporate the offset, then check against cycle size
-						diff -= last;
-						return diff === first || ( diff % first === 0 && diff / first >= 0 );
-					}
-				};
-		},
-
-		"PSEUDO": function( pseudo, argument ) {
-			// pseudo-class names are case-insensitive
-			// http://www.w3.org/TR/selectors/#pseudo-classes
-			// Prioritize by case sensitivity in case custom pseudos are added with uppercase letters
-			// Remember that setFilters inherits from pseudos
-			var args,
-				fn = Expr.pseudos[ pseudo ] || Expr.setFilters[ pseudo.toLowerCase() ] ||
-					Sizzle.error( "unsupported pseudo: " + pseudo );
-
-			// The user may use createPseudo to indicate that
-			// arguments are needed to create the filter function
-			// just as Sizzle does
-			if ( fn[ expando ] ) {
-				return fn( argument );
-			}
-
-			// But maintain support for old signatures
-			if ( fn.length > 1 ) {
-				args = [ pseudo, pseudo, "", argument ];
-				return Expr.setFilters.hasOwnProperty( pseudo.toLowerCase() ) ?
-					markFunction(function( seed, matches ) {
-						var idx,
-							matched = fn( seed, argument ),
-							i = matched.length;
-						while ( i-- ) {
-							idx = indexOf( seed, matched[i] );
-							seed[ idx ] = !( matches[ idx ] = matched[i] );
-						}
-					}) :
-					function( elem ) {
-						return fn( elem, 0, args );
-					};
-			}
-
-			return fn;
-		}
-	},
-
-	pseudos: {
-		// Potentially complex pseudos
-		"not": markFunction(function( selector ) {
-			// Trim the selector passed to compile
-			// to avoid treating leading and trailing
-			// spaces as combinators
-			var input = [],
-				results = [],
-				matcher = compile( selector.replace( rtrim, "$1" ) );
-
-			return matcher[ expando ] ?
-				markFunction(function( seed, matches, context, xml ) {
-					var elem,
-						unmatched = matcher( seed, null, xml, [] ),
-						i = seed.length;
-
-					// Match elements unmatched by `matcher`
-					while ( i-- ) {
-						if ( (elem = unmatched[i]) ) {
-							seed[i] = !(matches[i] = elem);
-						}
-					}
-				}) :
-				function( elem, context, xml ) {
-					input[0] = elem;
-					matcher( input, null, xml, results );
-					// Don't keep the element (issue #299)
-					input[0] = null;
-					return !results.pop();
-				};
-		}),
-
-		"has": markFunction(function( selector ) {
-			return function( elem ) {
-				return Sizzle( selector, elem ).length > 0;
-			};
-		}),
-
-		"contains": markFunction(function( text ) {
-			text = text.replace( runescape, funescape );
-			return function( elem ) {
-				return ( elem.textContent || elem.innerText || getText( elem ) ).indexOf( text ) > -1;
-			};
-		}),
-
-		// "Whether an element is represented by a :lang() selector
-		// is based solely on the element's language value
-		// being equal to the identifier C,
-		// or beginning with the identifier C immediately followed by "-".
-		// The matching of C against the element's language value is performed case-insensitively.
-		// The identifier C does not have to be a valid language name."
-		// http://www.w3.org/TR/selectors/#lang-pseudo
-		"lang": markFunction( function( lang ) {
-			// lang value must be a valid identifier
-			if ( !ridentifier.test(lang || "") ) {
-				Sizzle.error( "unsupported lang: " + lang );
-			}
-			lang = lang.replace( runescape, funescape ).toLowerCase();
-			return function( elem ) {
-				var elemLang;
-				do {
-					if ( (elemLang = documentIsHTML ?
-						elem.lang :
-						elem.getAttribute("xml:lang") || elem.getAttribute("lang")) ) {
-
-						elemLang = elemLang.toLowerCase();
-						return elemLang === lang || elemLang.indexOf( lang + "-" ) === 0;
-					}
-				} while ( (elem = elem.parentNode) && elem.nodeType === 1 );
-				return false;
-			};
-		}),
-
-		// Miscellaneous
-		"target": function( elem ) {
-			var hash = window.location && window.location.hash;
-			return hash && hash.slice( 1 ) === elem.id;
-		},
-
-		"root": function( elem ) {
-			return elem === docElem;
-		},
-
-		"focus": function( elem ) {
-			return elem === document.activeElement && (!document.hasFocus || document.hasFocus()) && !!(elem.type || elem.href || ~elem.tabIndex);
-		},
-
-		// Boolean properties
-		"enabled": createDisabledPseudo( false ),
-		"disabled": createDisabledPseudo( true ),
-
-		"checked": function( elem ) {
-			// In CSS3, :checked should return both checked and selected elements
-			// http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
-			var nodeName = elem.nodeName.toLowerCase();
-			return (nodeName === "input" && !!elem.checked) || (nodeName === "option" && !!elem.selected);
-		},
-
-		"selected": function( elem ) {
-			// Accessing this property makes selected-by-default
-			// options in Safari work properly
-			if ( elem.parentNode ) {
-				elem.parentNode.selectedIndex;
-			}
-
-			return elem.selected === true;
-		},
-
-		// Contents
-		"empty": function( elem ) {
-			// http://www.w3.org/TR/selectors/#empty-pseudo
-			// :empty is negated by element (1) or content nodes (text: 3; cdata: 4; entity ref: 5),
-			//   but not by others (comment: 8; processing instruction: 7; etc.)
-			// nodeType < 6 works because attributes (2) do not appear as children
-			for ( elem = elem.firstChild; elem; elem = elem.nextSibling ) {
-				if ( elem.nodeType < 6 ) {
-					return false;
-				}
-			}
-			return true;
-		},
-
-		"parent": function( elem ) {
-			return !Expr.pseudos["empty"]( elem );
-		},
-
-		// Element/input types
-		"header": function( elem ) {
-			return rheader.test( elem.nodeName );
-		},
-
-		"input": function( elem ) {
-			return rinputs.test( elem.nodeName );
-		},
-
-		"button": function( elem ) {
-			var name = elem.nodeName.toLowerCase();
-			return name === "input" && elem.type === "button" || name === "button";
-		},
-
-		"text": function( elem ) {
-			var attr;
-			return elem.nodeName.toLowerCase() === "input" &&
-				elem.type === "text" &&
-
-				// Support: IE<8
-				// New HTML5 attribute values (e.g., "search") appear with elem.type === "text"
-				( (attr = elem.getAttribute("type")) == null || attr.toLowerCase() === "text" );
-		},
-
-		// Position-in-collection
-		"first": createPositionalPseudo(function() {
-			return [ 0 ];
-		}),
-
-		"last": createPositionalPseudo(function( matchIndexes, length ) {
-			return [ length - 1 ];
-		}),
-
-		"eq": createPositionalPseudo(function( matchIndexes, length, argument ) {
-			return [ argument < 0 ? argument + length : argument ];
-		}),
-
-		"even": createPositionalPseudo(function( matchIndexes, length ) {
-			var i = 0;
-			for ( ; i < length; i += 2 ) {
-				matchIndexes.push( i );
-			}
-			return matchIndexes;
-		}),
-
-		"odd": createPositionalPseudo(function( matchIndexes, length ) {
-			var i = 1;
-			for ( ; i < length; i += 2 ) {
-				matchIndexes.push( i );
-			}
-			return matchIndexes;
-		}),
-
-		"lt": createPositionalPseudo(function( matchIndexes, length, argument ) {
-			var i = argument < 0 ? argument + length : argument;
-			for ( ; --i >= 0; ) {
-				matchIndexes.push( i );
-			}
-			return matchIndexes;
-		}),
-
-		"gt": createPositionalPseudo(function( matchIndexes, length, argument ) {
-			var i = argument < 0 ? argument + length : argument;
-			for ( ; ++i < length; ) {
-				matchIndexes.push( i );
-			}
-			return matchIndexes;
-		})
-	}
-};
-
-Expr.pseudos["nth"] = Expr.pseudos["eq"];
-
-// Add button/input type pseudos
-for ( i in { radio: true, checkbox: true, file: true, password: true, image: true } ) {
-	Expr.pseudos[ i ] = createInputPseudo( i );
-}
-for ( i in { submit: true, reset: true } ) {
-	Expr.pseudos[ i ] = createButtonPseudo( i );
-}
-
-// Easy API for creating new setFilters
-function setFilters() {}
-setFilters.prototype = Expr.filters = Expr.pseudos;
-Expr.setFilters = new setFilters();
-
-tokenize = Sizzle.tokenize = function( selector, parseOnly ) {
-	var matched, match, tokens, type,
-		soFar, groups, preFilters,
-		cached = tokenCache[ selector + " " ];
-
-	if ( cached ) {
-		return parseOnly ? 0 : cached.slice( 0 );
-	}
-
-	soFar = selector;
-	groups = [];
-	preFilters = Expr.preFilter;
-
-	while ( soFar ) {
-
-		// Comma and first run
-		if ( !matched || (match = rcomma.exec( soFar )) ) {
-			if ( match ) {
-				// Don't consume trailing commas as valid
-				soFar = soFar.slice( match[0].length ) || soFar;
-			}
-			groups.push( (tokens = []) );
-		}
-
-		matched = false;
-
-		// Combinators
-		if ( (match = rcombinators.exec( soFar )) ) {
-			matched = match.shift();
-			tokens.push({
-				value: matched,
-				// Cast descendant combinators to space
-				type: match[0].replace( rtrim, " " )
-			});
-			soFar = soFar.slice( matched.length );
-		}
-
-		// Filters
-		for ( type in Expr.filter ) {
-			if ( (match = matchExpr[ type ].exec( soFar )) && (!preFilters[ type ] ||
-				(match = preFilters[ type ]( match ))) ) {
-				matched = match.shift();
-				tokens.push({
-					value: matched,
-					type: type,
-					matches: match
-				});
-				soFar = soFar.slice( matched.length );
-			}
-		}
-
-		if ( !matched ) {
-			break;
-		}
-	}
-
-	// Return the length of the invalid excess
-	// if we're just parsing
-	// Otherwise, throw an error or return tokens
-	return parseOnly ?
-		soFar.length :
-		soFar ?
-			Sizzle.error( selector ) :
-			// Cache the tokens
-			tokenCache( selector, groups ).slice( 0 );
-};
-
-function toSelector( tokens ) {
-	var i = 0,
-		len = tokens.length,
-		selector = "";
-	for ( ; i < len; i++ ) {
-		selector += tokens[i].value;
-	}
-	return selector;
-}
-
-function addCombinator( matcher, combinator, base ) {
-	var dir = combinator.dir,
-		skip = combinator.next,
-		key = skip || dir,
-		checkNonElements = base && key === "parentNode",
-		doneName = done++;
-
-	return combinator.first ?
-		// Check against closest ancestor/preceding element
-		function( elem, context, xml ) {
-			while ( (elem = elem[ dir ]) ) {
-				if ( elem.nodeType === 1 || checkNonElements ) {
-					return matcher( elem, context, xml );
-				}
-			}
-			return false;
-		} :
-
-		// Check against all ancestor/preceding elements
-		function( elem, context, xml ) {
-			var oldCache, uniqueCache, outerCache,
-				newCache = [ dirruns, doneName ];
-
-			// We can't set arbitrary data on XML nodes, so they don't benefit from combinator caching
-			if ( xml ) {
-				while ( (elem = elem[ dir ]) ) {
-					if ( elem.nodeType === 1 || checkNonElements ) {
-						if ( matcher( elem, context, xml ) ) {
-							return true;
-						}
-					}
-				}
-			} else {
-				while ( (elem = elem[ dir ]) ) {
-					if ( elem.nodeType === 1 || checkNonElements ) {
-						outerCache = elem[ expando ] || (elem[ expando ] = {});
-
-						// Support: IE <9 only
-						// Defend against cloned attroperties (jQuery gh-1709)
-						uniqueCache = outerCache[ elem.uniqueID ] || (outerCache[ elem.uniqueID ] = {});
-
-						if ( skip && skip === elem.nodeName.toLowerCase() ) {
-							elem = elem[ dir ] || elem;
-						} else if ( (oldCache = uniqueCache[ key ]) &&
-							oldCache[ 0 ] === dirruns && oldCache[ 1 ] === doneName ) {
-
-							// Assign to newCache so results back-propagate to previous elements
-							return (newCache[ 2 ] = oldCache[ 2 ]);
-						} else {
-							// Reuse newcache so results back-propagate to previous elements
-							uniqueCache[ key ] = newCache;
-
-							// A match means we're done; a fail means we have to keep checking
-							if ( (newCache[ 2 ] = matcher( elem, context, xml )) ) {
-								return true;
-							}
-						}
-					}
-				}
-			}
-			return false;
-		};
-}
-
-function elementMatcher( matchers ) {
-	return matchers.length > 1 ?
-		function( elem, context, xml ) {
-			var i = matchers.length;
-			while ( i-- ) {
-				if ( !matchers[i]( elem, context, xml ) ) {
-					return false;
-				}
-			}
-			return true;
-		} :
-		matchers[0];
-}
-
-function multipleContexts( selector, contexts, results ) {
-	var i = 0,
-		len = contexts.length;
-	for ( ; i < len; i++ ) {
-		Sizzle( selector, contexts[i], results );
-	}
-	return results;
-}
-
-function condense( unmatched, map, filter, context, xml ) {
-	var elem,
-		newUnmatched = [],
-		i = 0,
-		len = unmatched.length,
-		mapped = map != null;
-
-	for ( ; i < len; i++ ) {
-		if ( (elem = unmatched[i]) ) {
-			if ( !filter || filter( elem, context, xml ) ) {
-				newUnmatched.push( elem );
-				if ( mapped ) {
-					map.push( i );
-				}
-			}
-		}
-	}
-
-	return newUnmatched;
-}
-
-function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postSelector ) {
-	if ( postFilter && !postFilter[ expando ] ) {
-		postFilter = setMatcher( postFilter );
-	}
-	if ( postFinder && !postFinder[ expando ] ) {
-		postFinder = setMatcher( postFinder, postSelector );
-	}
-	return markFunction(function( seed, results, context, xml ) {
-		var temp, i, elem,
-			preMap = [],
-			postMap = [],
-			preexisting = results.length,
-
-			// Get initial elements from seed or context
-			elems = seed || multipleContexts( selector || "*", context.nodeType ? [ context ] : context, [] ),
-
-			// Prefilter to get matcher input, preserving a map for seed-results synchronization
-			matcherIn = preFilter && ( seed || !selector ) ?
-				condense( elems, preMap, preFilter, context, xml ) :
-				elems,
-
-			matcherOut = matcher ?
-				// If we have a postFinder, or filtered seed, or non-seed postFilter or preexisting results,
-				postFinder || ( seed ? preFilter : preexisting || postFilter ) ?
-
-					// ...intermediate processing is necessary
-					[] :
-
-					// ...otherwise use results directly
-					results :
-				matcherIn;
-
-		// Find primary matches
-		if ( matcher ) {
-			matcher( matcherIn, matcherOut, context, xml );
-		}
-
-		// Apply postFilter
-		if ( postFilter ) {
-			temp = condense( matcherOut, postMap );
-			postFilter( temp, [], context, xml );
-
-			// Un-match failing elements by moving them back to matcherIn
-			i = temp.length;
-			while ( i-- ) {
-				if ( (elem = temp[i]) ) {
-					matcherOut[ postMap[i] ] = !(matcherIn[ postMap[i] ] = elem);
-				}
-			}
-		}
-
-		if ( seed ) {
-			if ( postFinder || preFilter ) {
-				if ( postFinder ) {
-					// Get the final matcherOut by condensing this intermediate into postFinder contexts
-					temp = [];
-					i = matcherOut.length;
-					while ( i-- ) {
-						if ( (elem = matcherOut[i]) ) {
-							// Restore matcherIn since elem is not yet a final match
-							temp.push( (matcherIn[i] = elem) );
-						}
-					}
-					postFinder( null, (matcherOut = []), temp, xml );
-				}
-
-				// Move matched elements from seed to results to keep them synchronized
-				i = matcherOut.length;
-				while ( i-- ) {
-					if ( (elem = matcherOut[i]) &&
-						(temp = postFinder ? indexOf( seed, elem ) : preMap[i]) > -1 ) {
-
-						seed[temp] = !(results[temp] = elem);
-					}
-				}
-			}
-
-		// Add elements to results, through postFinder if defined
-		} else {
-			matcherOut = condense(
-				matcherOut === results ?
-					matcherOut.splice( preexisting, matcherOut.length ) :
-					matcherOut
-			);
-			if ( postFinder ) {
-				postFinder( null, results, matcherOut, xml );
-			} else {
-				push.apply( results, matcherOut );
-			}
-		}
-	});
-}
-
-function matcherFromTokens( tokens ) {
-	var checkContext, matcher, j,
-		len = tokens.length,
-		leadingRelative = Expr.relative[ tokens[0].type ],
-		implicitRelative = leadingRelative || Expr.relative[" "],
-		i = leadingRelative ? 1 : 0,
-
-		// The foundational matcher ensures that elements are reachable from top-level context(s)
-		matchContext = addCombinator( function( elem ) {
-			return elem === checkContext;
-		}, implicitRelative, true ),
-		matchAnyContext = addCombinator( function( elem ) {
-			return indexOf( checkContext, elem ) > -1;
-		}, implicitRelative, true ),
-		matchers = [ function( elem, context, xml ) {
-			var ret = ( !leadingRelative && ( xml || context !== outermostContext ) ) || (
-				(checkContext = context).nodeType ?
-					matchContext( elem, context, xml ) :
-					matchAnyContext( elem, context, xml ) );
-			// Avoid hanging onto element (issue #299)
-			checkContext = null;
-			return ret;
-		} ];
-
-	for ( ; i < len; i++ ) {
-		if ( (matcher = Expr.relative[ tokens[i].type ]) ) {
-			matchers = [ addCombinator(elementMatcher( matchers ), matcher) ];
-		} else {
-			matcher = Expr.filter[ tokens[i].type ].apply( null, tokens[i].matches );
-
-			// Return special upon seeing a positional matcher
-			if ( matcher[ expando ] ) {
-				// Find the next relative operator (if any) for proper handling
-				j = ++i;
-				for ( ; j < len; j++ ) {
-					if ( Expr.relative[ tokens[j].type ] ) {
-						break;
-					}
-				}
-				return setMatcher(
-					i > 1 && elementMatcher( matchers ),
-					i > 1 && toSelector(
-						// If the preceding token was a descendant combinator, insert an implicit any-element `*`
-						tokens.slice( 0, i - 1 ).concat({ value: tokens[ i - 2 ].type === " " ? "*" : "" })
-					).replace( rtrim, "$1" ),
-					matcher,
-					i < j && matcherFromTokens( tokens.slice( i, j ) ),
-					j < len && matcherFromTokens( (tokens = tokens.slice( j )) ),
-					j < len && toSelector( tokens )
-				);
-			}
-			matchers.push( matcher );
-		}
-	}
-
-	return elementMatcher( matchers );
-}
-
-function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
-	var bySet = setMatchers.length > 0,
-		byElement = elementMatchers.length > 0,
-		superMatcher = function( seed, context, xml, results, outermost ) {
-			var elem, j, matcher,
-				matchedCount = 0,
-				i = "0",
-				unmatched = seed && [],
-				setMatched = [],
-				contextBackup = outermostContext,
-				// We must always have either seed elements or outermost context
-				elems = seed || byElement && Expr.find["TAG"]( "*", outermost ),
-				// Use integer dirruns iff this is the outermost matcher
-				dirrunsUnique = (dirruns += contextBackup == null ? 1 : Math.random() || 0.1),
-				len = elems.length;
-
-			if ( outermost ) {
-				outermostContext = context === document || context || outermost;
-			}
-
-			// Add elements passing elementMatchers directly to results
-			// Support: IE<9, Safari
-			// Tolerate NodeList properties (IE: "length"; Safari: <number>) matching elements by id
-			for ( ; i !== len && (elem = elems[i]) != null; i++ ) {
-				if ( byElement && elem ) {
-					j = 0;
-					if ( !context && elem.ownerDocument !== document ) {
-						setDocument( elem );
-						xml = !documentIsHTML;
-					}
-					while ( (matcher = elementMatchers[j++]) ) {
-						if ( matcher( elem, context || document, xml) ) {
-							results.push( elem );
-							break;
-						}
-					}
-					if ( outermost ) {
-						dirruns = dirrunsUnique;
-					}
-				}
-
-				// Track unmatched elements for set filters
-				if ( bySet ) {
-					// They will have gone through all possible matchers
-					if ( (elem = !matcher && elem) ) {
-						matchedCount--;
-					}
-
-					// Lengthen the array for every element, matched or not
-					if ( seed ) {
-						unmatched.push( elem );
-					}
-				}
-			}
-
-			// `i` is now the count of elements visited above, and adding it to `matchedCount`
-			// makes the latter nonnegative.
-			matchedCount += i;
-
-			// Apply set filters to unmatched elements
-			// NOTE: This can be skipped if there are no unmatched elements (i.e., `matchedCount`
-			// equals `i`), unless we didn't visit _any_ elements in the above loop because we have
-			// no element matchers and no seed.
-			// Incrementing an initially-string "0" `i` allows `i` to remain a string only in that
-			// case, which will result in a "00" `matchedCount` that differs from `i` but is also
-			// numerically zero.
-			if ( bySet && i !== matchedCount ) {
-				j = 0;
-				while ( (matcher = setMatchers[j++]) ) {
-					matcher( unmatched, setMatched, context, xml );
-				}
-
-				if ( seed ) {
-					// Reintegrate element matches to eliminate the need for sorting
-					if ( matchedCount > 0 ) {
-						while ( i-- ) {
-							if ( !(unmatched[i] || setMatched[i]) ) {
-								setMatched[i] = pop.call( results );
-							}
-						}
-					}
-
-					// Discard index placeholder values to get only actual matches
-					setMatched = condense( setMatched );
-				}
-
-				// Add matches to results
-				push.apply( results, setMatched );
-
-				// Seedless set matches succeeding multiple successful matchers stipulate sorting
-				if ( outermost && !seed && setMatched.length > 0 &&
-					( matchedCount + setMatchers.length ) > 1 ) {
-
-					Sizzle.uniqueSort( results );
-				}
-			}
-
-			// Override manipulation of globals by nested matchers
-			if ( outermost ) {
-				dirruns = dirrunsUnique;
-				outermostContext = contextBackup;
-			}
-
-			return unmatched;
-		};
-
-	return bySet ?
-		markFunction( superMatcher ) :
-		superMatcher;
-}
-
-compile = Sizzle.compile = function( selector, match /* Internal Use Only */ ) {
-	var i,
-		setMatchers = [],
-		elementMatchers = [],
-		cached = compilerCache[ selector + " " ];
-
-	if ( !cached ) {
-		// Generate a function of recursive functions that can be used to check each element
-		if ( !match ) {
-			match = tokenize( selector );
-		}
-		i = match.length;
-		while ( i-- ) {
-			cached = matcherFromTokens( match[i] );
-			if ( cached[ expando ] ) {
-				setMatchers.push( cached );
-			} else {
-				elementMatchers.push( cached );
-			}
-		}
-
-		// Cache the compiled function
-		cached = compilerCache( selector, matcherFromGroupMatchers( elementMatchers, setMatchers ) );
-
-		// Save selector and tokenization
-		cached.selector = selector;
-	}
-	return cached;
-};
-
-/**
- * A low-level selection function that works with Sizzle's compiled
- *  selector functions
- * @param {String|Function} selector A selector or a pre-compiled
- *  selector function built with Sizzle.compile
- * @param {Element} context
- * @param {Array} [results]
- * @param {Array} [seed] A set of elements to match against
- */
-select = Sizzle.select = function( selector, context, results, seed ) {
-	var i, tokens, token, type, find,
-		compiled = typeof selector === "function" && selector,
-		match = !seed && tokenize( (selector = compiled.selector || selector) );
-
-	results = results || [];
-
-	// Try to minimize operations if there is only one selector in the list and no seed
-	// (the latter of which guarantees us context)
-	if ( match.length === 1 ) {
-
-		// Reduce context if the leading compound selector is an ID
-		tokens = match[0] = match[0].slice( 0 );
-		if ( tokens.length > 2 && (token = tokens[0]).type === "ID" &&
-				context.nodeType === 9 && documentIsHTML && Expr.relative[ tokens[1].type ] ) {
-
-			context = ( Expr.find["ID"]( token.matches[0].replace(runescape, funescape), context ) || [] )[0];
-			if ( !context ) {
-				return results;
-
-			// Precompiled matchers will still verify ancestry, so step up a level
-			} else if ( compiled ) {
-				context = context.parentNode;
-			}
-
-			selector = selector.slice( tokens.shift().value.length );
-		}
-
-		// Fetch a seed set for right-to-left matching
-		i = matchExpr["needsContext"].test( selector ) ? 0 : tokens.length;
-		while ( i-- ) {
-			token = tokens[i];
-
-			// Abort if we hit a combinator
-			if ( Expr.relative[ (type = token.type) ] ) {
-				break;
-			}
-			if ( (find = Expr.find[ type ]) ) {
-				// Search, expanding context for leading sibling combinators
-				if ( (seed = find(
-					token.matches[0].replace( runescape, funescape ),
-					rsibling.test( tokens[0].type ) && testContext( context.parentNode ) || context
-				)) ) {
-
-					// If seed is empty or no tokens remain, we can return early
-					tokens.splice( i, 1 );
-					selector = seed.length && toSelector( tokens );
-					if ( !selector ) {
-						push.apply( results, seed );
-						return results;
-					}
-
-					break;
-				}
-			}
-		}
-	}
-
-	// Compile and execute a filtering function if one is not provided
-	// Provide `match` to avoid retokenization if we modified the selector above
-	( compiled || compile( selector, match ) )(
-		seed,
-		context,
-		!documentIsHTML,
-		results,
-		!context || rsibling.test( selector ) && testContext( context.parentNode ) || context
-	);
-	return results;
-};
-
-// One-time assignments
-
-// Sort stability
-support.sortStable = expando.split("").sort( sortOrder ).join("") === expando;
-
-// Support: Chrome 14-35+
-// Always assume duplicates if they aren't passed to the comparison function
-support.detectDuplicates = !!hasDuplicate;
-
-// Initialize against the default document
-setDocument();
-
-// Support: Webkit<537.32 - Safari 6.0.3/Chrome 25 (fixed in Chrome 27)
-// Detached nodes confoundingly follow *each other*
-support.sortDetached = assert(function( el ) {
-	// Should return 1, but returns 4 (following)
-	return el.compareDocumentPosition( document.createElement("fieldset") ) & 1;
-});
-
-// Support: IE<8
-// Prevent attribute/property "interpolation"
-// https://msdn.microsoft.com/en-us/library/ms536429%28VS.85%29.aspx
-if ( !assert(function( el ) {
-	el.innerHTML = "<a href='#'></a>";
-	return el.firstChild.getAttribute("href") === "#" ;
-}) ) {
-	addHandle( "type|href|height|width", function( elem, name, isXML ) {
-		if ( !isXML ) {
-			return elem.getAttribute( name, name.toLowerCase() === "type" ? 1 : 2 );
-		}
-	});
-}
-
-// Support: IE<9
-// Use defaultValue in place of getAttribute("value")
-if ( !support.attributes || !assert(function( el ) {
-	el.innerHTML = "<input/>";
-	el.firstChild.setAttribute( "value", "" );
-	return el.firstChild.getAttribute( "value" ) === "";
-}) ) {
-	addHandle( "value", function( elem, name, isXML ) {
-		if ( !isXML && elem.nodeName.toLowerCase() === "input" ) {
-			return elem.defaultValue;
-		}
-	});
-}
-
-// Support: IE<9
-// Use getAttributeNode to fetch booleans when getAttribute lies
-if ( !assert(function( el ) {
-	return el.getAttribute("disabled") == null;
-}) ) {
-	addHandle( booleans, function( elem, name, isXML ) {
-		var val;
-		if ( !isXML ) {
-			return elem[ name ] === true ? name.toLowerCase() :
-					(val = elem.getAttributeNode( name )) && val.specified ?
-					val.value :
-				null;
-		}
-	});
-}
-
-return Sizzle;
-
-})( window );
-
-
-
-jQuery.find = Sizzle;
-jQuery.expr = Sizzle.selectors;
-
-// Deprecated
-jQuery.expr[ ":" ] = jQuery.expr.pseudos;
-jQuery.uniqueSort = jQuery.unique = Sizzle.uniqueSort;
-jQuery.text = Sizzle.getText;
-jQuery.isXMLDoc = Sizzle.isXML;
-jQuery.contains = Sizzle.contains;
-jQuery.escapeSelector = Sizzle.escape;
-
-
-
-
-var dir = function( elem, dir, until ) {
-	var matched = [],
-		truncate = until !== undefined;
-
-	while ( ( elem = elem[ dir ] ) && elem.nodeType !== 9 ) {
-		if ( elem.nodeType === 1 ) {
-			if ( truncate && jQuery( elem ).is( until ) ) {
-				break;
-			}
-			matched.push( elem );
-		}
-	}
-	return matched;
-};
-
-
-var siblings = function( n, elem ) {
-	var matched = [];
-
-	for ( ; n; n = n.nextSibling ) {
-		if ( n.nodeType === 1 && n !== elem ) {
-			matched.push( n );
-		}
-	}
-
-	return matched;
-};
-
-
-var rneedsContext = jQuery.expr.match.needsContext;
-
-
-
-function nodeName( elem, name ) {
-
-  return elem.nodeName && elem.nodeName.toLowerCase() === name.toLowerCase();
-
-};
-var rsingleTag = ( /^<([a-z][^\/\0>:\x20\t\r\n\f]*)[\x20\t\r\n\f]*\/?>(?:<\/\1>|)$/i );
-
-
-
-// Implement the identical functionality for filter and not
-function winnow( elements, qualifier, not ) {
-	if ( isFunction( qualifier ) ) {
-		return jQuery.grep( elements, function( elem, i ) {
-			return !!qualifier.call( elem, i, elem ) !== not;
-		} );
-	}
-
-	// Single element
-	if ( qualifier.nodeType ) {
-		return jQuery.grep( elements, function( elem ) {
-			return ( elem === qualifier ) !== not;
-		} );
-	}
-
-	// Arraylike of elements (jQuery, arguments, Array)
-	if ( typeof qualifier !== "string" ) {
-		return jQuery.grep( elements, function( elem ) {
-			return ( indexOf.call( qualifier, elem ) > -1 ) !== not;
-		} );
-	}
-
-	// Filtered directly for both simple and complex selectors
-	return jQuery.filter( qualifier, elements, not );
-}
-
-jQuery.filter = function( expr, elems, not ) {
-	var elem = elems[ 0 ];
-
-	if ( not ) {
-		expr = ":not(" + expr + ")";
-	}
-
-	if ( elems.length === 1 && elem.nodeType === 1 ) {
-		return jQuery.find.matchesSelector( elem, expr ) ? [ elem ] : [];
-	}
-
-	return jQuery.find.matches( expr, jQuery.grep( elems, function( elem ) {
-		return elem.nodeType === 1;
-	} ) );
-};
-
-jQuery.fn.extend( {
-	find: function( selector ) {
-		var i, ret,
-			len = this.length,
-			self = this;
-
-		if ( typeof selector !== "string" ) {
-			return this.pushStack( jQuery( selector ).filter( function() {
-				for ( i = 0; i < len; i++ ) {
-					if ( jQuery.contains( self[ i ], this ) ) {
-						return true;
-					}
-				}
-			} ) );
-		}
-
-		ret = this.pushStack( [] );
-
-		for ( i = 0; i < len; i++ ) {
-			jQuery.find( selector, self[ i ], ret );
-		}
-
-		return len > 1 ? jQuery.uniqueSort( ret ) : ret;
-	},
-	filter: function( selector ) {
-		return this.pushStack( winnow( this, selector || [], false ) );
-	},
-	not: function( selector ) {
-		return this.pushStack( winnow( this, selector || [], true ) );
-	},
-	is: function( selector ) {
-		return !!winnow(
-			this,
-
-			// If this is a positional/relative selector, check membership in the returned set
-			// so $("p:first").is("p:last") won't return true for a doc with two "p".
-			typeof selector === "string" && rneedsContext.test( selector ) ?
-				jQuery( selector ) :
-				selector || [],
-			false
-		).length;
-	}
-} );
-
-
-// Initialize a jQuery object
-
-
-// A central reference to the root jQuery(document)
-var rootjQuery,
-
-	// A simple way to check for HTML strings
-	// Prioritize #id over <tag> to avoid XSS via location.hash (#9521)
-	// Strict HTML recognition (#11290: must start with <)
-	// Shortcut simple #id case for speed
-	rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]+))$/,
-
-	init = jQuery.fn.init = function( selector, context, root ) {
-		var match, elem;
-
-		// HANDLE: $(""), $(null), $(undefined), $(false)
-		if ( !selector ) {
-			return this;
-		}
-
-		// Method init() accepts an alternate rootjQuery
-		// so migrate can support jQuery.sub (gh-2101)
-		root = root || rootjQuery;
-
-		// Handle HTML strings
-		if ( typeof selector === "string" ) {
-			if ( selector[ 0 ] === "<" &&
-				selector[ selector.length - 1 ] === ">" &&
-				selector.length >= 3 ) {
-
-				// Assume that strings that start and end with <> are HTML and skip the regex check
-				match = [ null, selector, null ];
-
-			} else {
-				match = rquickExpr.exec( selector );
-			}
-
-			// Match html or make sure no context is specified for #id
-			if ( match && ( match[ 1 ] || !context ) ) {
-
-				// HANDLE: $(html) -> $(array)
-				if ( match[ 1 ] ) {
-					context = context instanceof jQuery ? context[ 0 ] : context;
-
-					// Option to run scripts is true for back-compat
-					// Intentionally let the error be thrown if parseHTML is not present
-					jQuery.merge( this, jQuery.parseHTML(
-						match[ 1 ],
-						context && context.nodeType ? context.ownerDocument || context : document,
-						true
-					) );
-
-					// HANDLE: $(html, props)
-					if ( rsingleTag.test( match[ 1 ] ) && jQuery.isPlainObject( context ) ) {
-						for ( match in context ) {
-
-							// Properties of context are called as methods if possible
-							if ( isFunction( this[ match ] ) ) {
-								this[ match ]( context[ match ] );
-
-							// ...and otherwise set as attributes
-							} else {
-								this.attr( match, context[ match ] );
-							}
-						}
-					}
-
-					return this;
-
-				// HANDLE: $(#id)
-				} else {
-					elem = document.getElementById( match[ 2 ] );
-
-					if ( elem ) {
-
-						// Inject the element directly into the jQuery object
-						this[ 0 ] = elem;
-						this.length = 1;
-					}
-					return this;
-				}
-
-			// HANDLE: $(expr, $(...))
-			} else if ( !context || context.jquery ) {
-				return ( context || root ).find( selector );
-
-			// HANDLE: $(expr, context)
-			// (which is just equivalent to: $(context).find(expr)
-			} else {
-				return this.constructor( context ).find( selector );
-			}
-
-		// HANDLE: $(DOMElement)
-		} else if ( selector.nodeType ) {
-			this[ 0 ] = selector;
-			this.length = 1;
-			return this;
-
-		// HANDLE: $(function)
-		// Shortcut for document ready
-		} else if ( isFunction( selector ) ) {
-			return root.ready !== undefined ?
-				root.ready( selector ) :
-
-				// Execute immediately if ready is not present
-				selector( jQuery );
-		}
-
-		return jQuery.makeArray( selector, this );
-	};
-
-// Give the init function the jQuery prototype for later instantiation
-init.prototype = jQuery.fn;
-
-// Initialize central reference
-rootjQuery = jQuery( document );
-
-
-var rparentsprev = /^(?:parents|prev(?:Until|All))/,
-
-	// Methods guaranteed to produce a unique set when starting from a unique set
-	guaranteedUnique = {
-		children: true,
-		contents: true,
-		next: true,
-		prev: true
-	};
-
-jQuery.fn.extend( {
-	has: function( target ) {
-		var targets = jQuery( target, this ),
-			l = targets.length;
-
-		return this.filter( function() {
-			var i = 0;
-			for ( ; i < l; i++ ) {
-				if ( jQuery.contains( this, targets[ i ] ) ) {
-					return true;
-				}
-			}
-		} );
-	},
-
-	closest: function( selectors, context ) {
-		var cur,
-			i = 0,
-			l = this.length,
-			matched = [],
-			targets = typeof selectors !== "string" && jQuery( selectors );
-
-		// Positional selectors never match, since there's no _selection_ context
-		if ( !rneedsContext.test( selectors ) ) {
-			for ( ; i < l; i++ ) {
-				for ( cur = this[ i ]; cur && cur !== context; cur = cur.parentNode ) {
-
-					// Always skip document fragments
-					if ( cur.nodeType < 11 && ( targets ?
-						targets.index( cur ) > -1 :
-
-						// Don't pass non-elements to Sizzle
-						cur.nodeType === 1 &&
-							jQuery.find.matchesSelector( cur, selectors ) ) ) {
-
-						matched.push( cur );
-						break;
-					}
-				}
-			}
-		}
-
-		return this.pushStack( matched.length > 1 ? jQuery.uniqueSort( matched ) : matched );
-	},
-
-	// Determine the position of an element within the set
-	index: function( elem ) {
-
-		// No argument, return index in parent
-		if ( !elem ) {
-			return ( this[ 0 ] && this[ 0 ].parentNode ) ? this.first().prevAll().length : -1;
-		}
-
-		// Index in selector
-		if ( typeof elem === "string" ) {
-			return indexOf.call( jQuery( elem ), this[ 0 ] );
-		}
-
-		// Locate the position of the desired element
-		return indexOf.call( this,
-
-			// If it receives a jQuery object, the first element is used
-			elem.jquery ? elem[ 0 ] : elem
-		);
-	},
-
-	add: function( selector, context ) {
-		return this.pushStack(
-			jQuery.uniqueSort(
-				jQuery.merge( this.get(), jQuery( selector, context ) )
-			)
-		);
-	},
-
-	addBack: function( selector ) {
-		return this.add( selector == null ?
-			this.prevObject : this.prevObject.filter( selector )
-		);
-	}
-} );
-
-function sibling( cur, dir ) {
-	while ( ( cur = cur[ dir ] ) && cur.nodeType !== 1 ) {}
-	return cur;
-}
-
-jQuery.each( {
-	parent: function( elem ) {
-		var parent = elem.parentNode;
-		return parent && parent.nodeType !== 11 ? parent : null;
-	},
-	parents: function( elem ) {
-		return dir( elem, "parentNode" );
-	},
-	parentsUntil: function( elem, i, until ) {
-		return dir( elem, "parentNode", until );
-	},
-	next: function( elem ) {
-		return sibling( elem, "nextSibling" );
-	},
-	prev: function( elem ) {
-		return sibling( elem, "previousSibling" );
-	},
-	nextAll: function( elem ) {
-		return dir( elem, "nextSibling" );
-	},
-	prevAll: function( elem ) {
-		return dir( elem, "previousSibling" );
-	},
-	nextUntil: function( elem, i, until ) {
-		return dir( elem, "nextSibling", until );
-	},
-	prevUntil: function( elem, i, until ) {
-		return dir( elem, "previousSibling", until );
-	},
-	siblings: function( elem ) {
-		return siblings( ( elem.parentNode || {} ).firstChild, elem );
-	},
-	children: function( elem ) {
-		return siblings( elem.firstChild );
-	},
-	contents: function( elem ) {
-        if ( nodeName( elem, "iframe" ) ) {
-            return elem.contentDocument;
-        }
-
-        // Support: IE 9 - 11 only, iOS 7 only, Android Browser <=4.3 only
-        // Treat the template element as a regular one in browsers that
-        // don't support it.
-        if ( nodeName( elem, "template" ) ) {
-            elem = elem.content || elem;
-        }
-
-        return jQuery.merge( [], elem.childNodes );
-	}
-}, function( name, fn ) {
-	jQuery.fn[ name ] = function( until, selector ) {
-		var matched = jQuery.map( this, fn, until );
-
-		if ( name.slice( -5 ) !== "Until" ) {
-			selector = until;
-		}
-
-		if ( selector && typeof selector === "string" ) {
-			matched = jQuery.filter( selector, matched );
-		}
-
-		if ( this.length > 1 ) {
-
-			// Remove duplicates
-			if ( !guaranteedUnique[ name ] ) {
-				jQuery.uniqueSort( matched );
-			}
-
-			// Reverse order for parents* and prev-derivatives
-			if ( rparentsprev.test( name ) ) {
-				matched.reverse();
-			}
-		}
-
-		return this.pushStack( matched );
-	};
-} );
-var rnothtmlwhite = ( /[^\x20\t\r\n\f]+/g );
-
-
-
-// Convert String-formatted options into Object-formatted ones
-function createOptions( options ) {
-	var object = {};
-	jQuery.each( options.match( rnothtmlwhite ) || [], function( _, flag ) {
-		object[ flag ] = true;
-	} );
-	return object;
-}
-
-/*
- * Create a callback list using the following parameters:
- *
- *	options: an optional list of space-separated options that will change how
- *			the callback list behaves or a more traditional option object
- *
- * By default a callback list will act like an event callback list and can be
- * "fired" multiple times.
- *
- * Possible options:
- *
- *	once:			will ensure the callback list can only be fired once (like a Deferred)
- *
- *	memory:			will keep track of previous values and will call any callback added
- *					after the list has been fired right away with the latest "memorized"
- *					values (like a Deferred)
- *
- *	unique:			will ensure a callback can only be added once (no duplicate in the list)
- *
- *	stopOnFalse:	interrupt callings when a callback returns false
- *
- */
-jQuery.Callbacks = function( options ) {
-
-	// Convert options from String-formatted to Object-formatted if needed
-	// (we check in cache first)
-	options = typeof options === "string" ?
-		createOptions( options ) :
-		jQuery.extend( {}, options );
-
-	var // Flag to know if list is currently firing
-		firing,
-
-		// Last fire value for non-forgettable lists
-		memory,
-
-		// Flag to know if list was already fired
-		fired,
-
-		// Flag to prevent firing
-		locked,
-
-		// Actual callback list
-		list = [],
-
-		// Queue of execution data for repeatable lists
-		queue = [],
-
-		// Index of currently firing callback (modified by add/remove as needed)
-		firingIndex = -1,
-
-		// Fire callbacks
-		fire = function() {
-
-			// Enforce single-firing
-			locked = locked || options.once;
-
-			// Execute callbacks for all pending executions,
-			// respecting firingIndex overrides and runtime changes
-			fired = firing = true;
-			for ( ; queue.length; firingIndex = -1 ) {
-				memory = queue.shift();
-				while ( ++firingIndex < list.length ) {
-
-					// Run callback and check for early termination
-					if ( list[ firingIndex ].apply( memory[ 0 ], memory[ 1 ] ) === false &&
-						options.stopOnFalse ) {
-
-						// Jump to end and forget the data so .add doesn't re-fire
-						firingIndex = list.length;
-						memory = false;
-					}
-				}
-			}
-
-			// Forget the data if we're done with it
-			if ( !options.memory ) {
-				memory = false;
-			}
-
-			firing = false;
-
-			// Clean up if we're done firing for good
-			if ( locked ) {
-
-				// Keep an empty list if we have data for future add calls
-				if ( memory ) {
-					list = [];
-
-				// Otherwise, this object is spent
-				} else {
-					list = "";
-				}
-			}
-		},
-
-		// Actual Callbacks object
-		self = {
-
-			// Add a callback or a collection of callbacks to the list
-			add: function() {
-				if ( list ) {
-
-					// If we have memory from a past run, we should fire after adding
-					if ( memory && !firing ) {
-						firingIndex = list.length - 1;
-						queue.push( memory );
-					}
-
-					( function add( args ) {
-						jQuery.each( args, function( _, arg ) {
-							if ( isFunction( arg ) ) {
-								if ( !options.unique || !self.has( arg ) ) {
-									list.push( arg );
-								}
-							} else if ( arg && arg.length && toType( arg ) !== "string" ) {
-
-								// Inspect recursively
-								add( arg );
-							}
-						} );
-					} )( arguments );
-
-					if ( memory && !firing ) {
-						fire();
-					}
-				}
-				return this;
-			},
-
-			// Remove a callback from the list
-			remove: function() {
-				jQuery.each( arguments, function( _, arg ) {
-					var index;
-					while ( ( index = jQuery.inArray( arg, list, index ) ) > -1 ) {
-						list.splice( index, 1 );
-
-						// Handle firing indexes
-						if ( index <= firingIndex ) {
-							firingIndex--;
-						}
-					}
-				} );
-				return this;
-			},
-
-			// Check if a given callback is in the list.
-			// If no argument is given, return whether or not list has callbacks attached.
-			has: function( fn ) {
-				return fn ?
-					jQuery.inArray( fn, list ) > -1 :
-					list.length > 0;
-			},
-
-			// Remove all callbacks from the list
-			empty: function() {
-				if ( list ) {
-					list = [];
-				}
-				return this;
-			},
-
-			// Disable .fire and .add
-			// Abort any current/pending executions
-			// Clear all callbacks and values
-			disable: function() {
-				locked = queue = [];
-				list = memory = "";
-				return this;
-			},
-			disabled: function() {
-				return !list;
-			},
-
-			// Disable .fire
-			// Also disable .add unless we have memory (since it would have no effect)
-			// Abort any pending executions
-			lock: function() {
-				locked = queue = [];
-				if ( !memory && !firing ) {
-					list = memory = "";
-				}
-				return this;
-			},
-			locked: function() {
-				return !!locked;
-			},
-
-			// Call all callbacks with the given context and arguments
-			fireWith: function( context, args ) {
-				if ( !locked ) {
-					args = args || [];
-					args = [ context, args.slice ? args.slice() : args ];
-					queue.push( args );
-					if ( !firing ) {
-						fire();
-					}
-				}
-				return this;
-			},
-
-			// Call all the callbacks with the given arguments
-			fire: function() {
-				self.fireWith( this, arguments );
-				return this;
-			},
-
-			// To know if the callbacks have already been called at least once
-			fired: function() {
-				return !!fired;
-			}
-		};
-
-	return self;
-};
-
-
-function Identity( v ) {
-	return v;
-}
-function Thrower( ex ) {
-	throw ex;
-}
-
-function adoptValue( value, resolve, reject, noValue ) {
-	var method;
-
-	try {
-
-		// Check for promise aspect first to privilege synchronous behavior
-		if ( value && isFunction( ( method = value.promise ) ) ) {
-			method.call( value ).done( resolve ).fail( reject );
-
-		// Other thenables
-		} else if ( value && isFunction( ( method = value.then ) ) ) {
-			method.call( value, resolve, reject );
-
-		// Other non-thenables
-		} else {
-
-			// Control `resolve` arguments by letting Array#slice cast boolean `noValue` to integer:
-			// * false: [ value ].slice( 0 ) => resolve( value )
-			// * true: [ value ].slice( 1 ) => resolve()
-			resolve.apply( undefined, [ value ].slice( noValue ) );
-		}
-
-	// For Promises/A+, convert exceptions into rejections
-	// Since jQuery.when doesn't unwrap thenables, we can skip the extra checks appearing in
-	// Deferred#then to conditionally suppress rejection.
-	} catch ( value ) {
-
-		// Support: Android 4.0 only
-		// Strict mode functions invoked without .call/.apply get global-object context
-		reject.apply( undefined, [ value ] );
-	}
-}
-
-jQuery.extend( {
-
-	Deferred: function( func ) {
-		var tuples = [
-
-				// action, add listener, callbacks,
-				// ... .then handlers, argument index, [final state]
-				[ "notify", "progress", jQuery.Callbacks( "memory" ),
-					jQuery.Callbacks( "memory" ), 2 ],
-				[ "resolve", "done", jQuery.Callbacks( "once memory" ),
-					jQuery.Callbacks( "once memory" ), 0, "resolved" ],
-				[ "reject", "fail", jQuery.Callbacks( "once memory" ),
-					jQuery.Callbacks( "once memory" ), 1, "rejected" ]
-			],
-			state = "pending",
-			promise = {
-				state: function() {
-					return state;
-				},
-				always: function() {
-					deferred.done( arguments ).fail( arguments );
-					return this;
-				},
-				"catch": function( fn ) {
-					return promise.then( null, fn );
-				},
-
-				// Keep pipe for back-compat
-				pipe: function( /* fnDone, fnFail, fnProgress */ ) {
-					var fns = arguments;
-
-					return jQuery.Deferred( function( newDefer ) {
-						jQuery.each( tuples, function( i, tuple ) {
-
-							// Map tuples (progress, done, fail) to arguments (done, fail, progress)
-							var fn = isFunction( fns[ tuple[ 4 ] ] ) && fns[ tuple[ 4 ] ];
-
-							// deferred.progress(function() { bind to newDefer or newDefer.notify })
-							// deferred.done(function() { bind to newDefer or newDefer.resolve })
-							// deferred.fail(function() { bind to newDefer or newDefer.reject })
-							deferred[ tuple[ 1 ] ]( function() {
-								var returned = fn && fn.apply( this, arguments );
-								if ( returned && isFunction( returned.promise ) ) {
-									returned.promise()
-										.progress( newDefer.notify )
-										.done( newDefer.resolve )
-										.fail( newDefer.reject );
-								} else {
-									newDefer[ tuple[ 0 ] + "With" ](
-										this,
-										fn ? [ returned ] : arguments
-									);
-								}
-							} );
-						} );
-						fns = null;
-					} ).promise();
-				},
-				then: function( onFulfilled, onRejected, onProgress ) {
-					var maxDepth = 0;
-					function resolve( depth, deferred, handler, special ) {
-						return function() {
-							var that = this,
-								args = arguments,
-								mightThrow = function() {
-									var returned, then;
-
-									// Support: Promises/A+ section 2.3.3.3.3
-									// https://promisesaplus.com/#point-59
-									// Ignore double-resolution attempts
-									if ( depth < maxDepth ) {
-										return;
-									}
-
-									returned = handler.apply( that, args );
-
-									// Support: Promises/A+ section 2.3.1
-									// https://promisesaplus.com/#point-48
-									if ( returned === deferred.promise() ) {
-										throw new TypeError( "Thenable self-resolution" );
-									}
-
-									// Support: Promises/A+ sections 2.3.3.1, 3.5
-									// https://promisesaplus.com/#point-54
-									// https://promisesaplus.com/#point-75
-									// Retrieve `then` only once
-									then = returned &&
-
-										// Support: Promises/A+ section 2.3.4
-										// https://promisesaplus.com/#point-64
-										// Only check objects and functions for thenability
-										( typeof returned === "object" ||
-											typeof returned === "function" ) &&
-										returned.then;
-
-									// Handle a returned thenable
-									if ( isFunction( then ) ) {
-
-										// Special processors (notify) just wait for resolution
-										if ( special ) {
-											then.call(
-												returned,
-												resolve( maxDepth, deferred, Identity, special ),
-												resolve( maxDepth, deferred, Thrower, special )
-											);
-
-										// Normal processors (resolve) also hook into progress
-										} else {
-
-											// ...and disregard older resolution values
-											maxDepth++;
-
-											then.call(
-												returned,
-												resolve( maxDepth, deferred, Identity, special ),
-												resolve( maxDepth, deferred, Thrower, special ),
-												resolve( maxDepth, deferred, Identity,
-													deferred.notifyWith )
-											);
-										}
-
-									// Handle all other returned values
-									} else {
-
-										// Only substitute handlers pass on context
-										// and multiple values (non-spec behavior)
-										if ( handler !== Identity ) {
-											that = undefined;
-											args = [ returned ];
-										}
-
-										// Process the value(s)
-										// Default process is resolve
-										( special || deferred.resolveWith )( that, args );
-									}
-								},
-
-								// Only normal processors (resolve) catch and reject exceptions
-								process = special ?
-									mightThrow :
-									function() {
-										try {
-											mightThrow();
-										} catch ( e ) {
-
-											if ( jQuery.Deferred.exceptionHook ) {
-												jQuery.Deferred.exceptionHook( e,
-													process.stackTrace );
-											}
-
-											// Support: Promises/A+ section 2.3.3.3.4.1
-											// https://promisesaplus.com/#point-61
-											// Ignore post-resolution exceptions
-											if ( depth + 1 >= maxDepth ) {
-
-												// Only substitute handlers pass on context
-												// and multiple values (non-spec behavior)
-												if ( handler !== Thrower ) {
-													that = undefined;
-													args = [ e ];
-												}
-
-												deferred.rejectWith( that, args );
-											}
-										}
-									};
-
-							// Support: Promises/A+ section 2.3.3.3.1
-							// https://promisesaplus.com/#point-57
-							// Re-resolve promises immediately to dodge false rejection from
-							// subsequent errors
-							if ( depth ) {
-								process();
-							} else {
-
-								// Call an optional hook to record the stack, in case of exception
-								// since it's otherwise lost when execution goes async
-								if ( jQuery.Deferred.getStackHook ) {
-									process.stackTrace = jQuery.Deferred.getStackHook();
-								}
-								window.setTimeout( process );
-							}
-						};
-					}
-
-					return jQuery.Deferred( function( newDefer ) {
-
-						// progress_handlers.add( ... )
-						tuples[ 0 ][ 3 ].add(
-							resolve(
-								0,
-								newDefer,
-								isFunction( onProgress ) ?
-									onProgress :
-									Identity,
-								newDefer.notifyWith
-							)
-						);
-
-						// fulfilled_handlers.add( ... )
-						tuples[ 1 ][ 3 ].add(
-							resolve(
-								0,
-								newDefer,
-								isFunction( onFulfilled ) ?
-									onFulfilled :
-									Identity
-							)
-						);
-
-						// rejected_handlers.add( ... )
-						tuples[ 2 ][ 3 ].add(
-							resolve(
-								0,
-								newDefer,
-								isFunction( onRejected ) ?
-									onRejected :
-									Thrower
-							)
-						);
-					} ).promise();
-				},
-
-				// Get a promise for this deferred
-				// If obj is provided, the promise aspect is added to the object
-				promise: function( obj ) {
-					return obj != null ? jQuery.extend( obj, promise ) : promise;
-				}
-			},
-			deferred = {};
-
-		// Add list-specific methods
-		jQuery.each( tuples, function( i, tuple ) {
-			var list = tuple[ 2 ],
-				stateString = tuple[ 5 ];
-
-			// promise.progress = list.add
-			// promise.done = list.add
-			// promise.fail = list.add
-			promise[ tuple[ 1 ] ] = list.add;
-
-			// Handle state
-			if ( stateString ) {
-				list.add(
-					function() {
-
-						// state = "resolved" (i.e., fulfilled)
-						// state = "rejected"
-						state = stateString;
-					},
-
-					// rejected_callbacks.disable
-					// fulfilled_callbacks.disable
-					tuples[ 3 - i ][ 2 ].disable,
-
-					// rejected_handlers.disable
-					// fulfilled_handlers.disable
-					tuples[ 3 - i ][ 3 ].disable,
-
-					// progress_callbacks.lock
-					tuples[ 0 ][ 2 ].lock,
-
-					// progress_handlers.lock
-					tuples[ 0 ][ 3 ].lock
-				);
-			}
-
-			// progress_handlers.fire
-			// fulfilled_handlers.fire
-			// rejected_handlers.fire
-			list.add( tuple[ 3 ].fire );
-
-			// deferred.notify = function() { deferred.notifyWith(...) }
-			// deferred.resolve = function() { deferred.resolveWith(...) }
-			// deferred.reject = function() { deferred.rejectWith(...) }
-			deferred[ tuple[ 0 ] ] = function() {
-				deferred[ tuple[ 0 ] + "With" ]( this === deferred ? undefined : this, arguments );
-				return this;
-			};
-
-			// deferred.notifyWith = list.fireWith
-			// deferred.resolveWith = list.fireWith
-			// deferred.rejectWith = list.fireWith
-			deferred[ tuple[ 0 ] + "With" ] = list.fireWith;
-		} );
-
-		// Make the deferred a promise
-		promise.promise( deferred );
-
-		// Call given func if any
-		if ( func ) {
-			func.call( deferred, deferred );
-		}
-
-		// All done!
-		return deferred;
-	},
-
-	// Deferred helper
-	when: function( singleValue ) {
-		var
-
-			// count of uncompleted subordinates
-			remaining = arguments.length,
-
-			// count of unprocessed arguments
-			i = remaining,
-
-			// subordinate fulfillment data
-			resolveContexts = Array( i ),
-			resolveValues = slice.call( arguments ),
-
-			// the master Deferred
-			master = jQuery.Deferred(),
-
-			// subordinate callback factory
-			updateFunc = function( i ) {
-				return function( value ) {
-					resolveContexts[ i ] = this;
-					resolveValues[ i ] = arguments.length > 1 ? slice.call( arguments ) : value;
-					if ( !( --remaining ) ) {
-						master.resolveWith( resolveContexts, resolveValues );
-					}
-				};
-			};
-
-		// Single- and empty arguments are adopted like Promise.resolve
-		if ( remaining <= 1 ) {
-			adoptValue( singleValue, master.done( updateFunc( i ) ).resolve, master.reject,
-				!remaining );
-
-			// Use .then() to unwrap secondary thenables (cf. gh-3000)
-			if ( master.state() === "pending" ||
-				isFunction( resolveValues[ i ] && resolveValues[ i ].then ) ) {
-
-				return master.then();
-			}
-		}
-
-		// Multiple arguments are aggregated like Promise.all array elements
-		while ( i-- ) {
-			adoptValue( resolveValues[ i ], updateFunc( i ), master.reject );
-		}
-
-		return master.promise();
-	}
-} );
-
-
-// These usually indicate a programmer mistake during development,
-// warn about them ASAP rather than swallowing them by default.
-var rerrorNames = /^(Eval|Internal|Range|Reference|Syntax|Type|URI)Error$/;
-
-jQuery.Deferred.exceptionHook = function( error, stack ) {
-
-	// Support: IE 8 - 9 only
-	// Console exists when dev tools are open, which can happen at any time
-	if ( window.console && window.console.warn && error && rerrorNames.test( error.name ) ) {
-		window.console.warn( "jQuery.Deferred exception: " + error.message, error.stack, stack );
-	}
-};
-
-
-
-
-jQuery.readyException = function( error ) {
-	window.setTimeout( function() {
-		throw error;
-	} );
-};
-
-
-
-
-// The deferred used on DOM ready
-var readyList = jQuery.Deferred();
-
-jQuery.fn.ready = function( fn ) {
-
-	readyList
-		.then( fn )
-
-		// Wrap jQuery.readyException in a function so that the lookup
-		// happens at the time of error handling instead of callback
-		// registration.
-		.catch( function( error ) {
-			jQuery.readyException( error );
-		} );
-
-	return this;
-};
-
-jQuery.extend( {
-
-	// Is the DOM ready to be used? Set to true once it occurs.
-	isReady: false,
-
-	// A counter to track how many items to wait for before
-	// the ready event fires. See #6781
-	readyWait: 1,
-
-	// Handle when the DOM is ready
-	ready: function( wait ) {
-
-		// Abort if there are pending holds or we're already ready
-		if ( wait === true ? --jQuery.readyWait : jQuery.isReady ) {
-			return;
-		}
-
-		// Remember that the DOM is ready
-		jQuery.isReady = true;
-
-		// If a normal DOM Ready event fired, decrement, and wait if need be
-		if ( wait !== true && --jQuery.readyWait > 0 ) {
-			return;
-		}
-
-		// If there are functions bound, to execute
-		readyList.resolveWith( document, [ jQuery ] );
-	}
-} );
-
-jQuery.ready.then = readyList.then;
-
-// The ready event handler and self cleanup method
-function completed() {
-	document.removeEventListener( "DOMContentLoaded", completed );
-	window.removeEventListener( "load", completed );
-	jQuery.ready();
-}
-
-// Catch cases where $(document).ready() is called
-// after the browser event has already occurred.
-// Support: IE <=9 - 10 only
-// Older IE sometimes signals "interactive" too soon
-if ( document.readyState === "complete" ||
-	( document.readyState !== "loading" && !document.documentElement.doScroll ) ) {
-
-	// Handle it asynchronously to allow scripts the opportunity to delay ready
-	window.setTimeout( jQuery.ready );
-
-} else {
-
-	// Use the handy event callback
-	document.addEventListener( "DOMContentLoaded", completed );
-
-	// A fallback to window.onload, that will always work
-	window.addEventListener( "load", completed );
-}
-
-
-
-
-// Multifunctional method to get and set values of a collection
-// The value/s can optionally be executed if it's a function
-var access = function( elems, fn, key, value, chainable, emptyGet, raw ) {
-	var i = 0,
-		len = elems.length,
-		bulk = key == null;
-
-	// Sets many values
-	if ( toType( key ) === "object" ) {
-		chainable = true;
-		for ( i in key ) {
-			access( elems, fn, i, key[ i ], true, emptyGet, raw );
-		}
-
-	// Sets one value
-	} else if ( value !== undefined ) {
-		chainable = true;
-
-		if ( !isFunction( value ) ) {
-			raw = true;
-		}
-
-		if ( bulk ) {
-
-			// Bulk operations run against the entire set
-			if ( raw ) {
-				fn.call( elems, value );
-				fn = null;
-
-			// ...except when executing function values
-			} else {
-				bulk = fn;
-				fn = function( elem, key, value ) {
-					return bulk.call( jQuery( elem ), value );
-				};
-			}
-		}
-
-		if ( fn ) {
-			for ( ; i < len; i++ ) {
-				fn(
-					elems[ i ], key, raw ?
-					value :
-					value.call( elems[ i ], i, fn( elems[ i ], key ) )
-				);
-			}
-		}
-	}
-
-	if ( chainable ) {
-		return elems;
-	}
-
-	// Gets
-	if ( bulk ) {
-		return fn.call( elems );
-	}
-
-	return len ? fn( elems[ 0 ], key ) : emptyGet;
-};
-
-
-// Matches dashed string for camelizing
-var rmsPrefix = /^-ms-/,
-	rdashAlpha = /-([a-z])/g;
-
-// Used by camelCase as callback to replace()
-function fcamelCase( all, letter ) {
-	return letter.toUpperCase();
-}
-
-// Convert dashed to camelCase; used by the css and data modules
-// Support: IE <=9 - 11, Edge 12 - 15
-// Microsoft forgot to hump their vendor prefix (#9572)
-function camelCase( string ) {
-	return string.replace( rmsPrefix, "ms-" ).replace( rdashAlpha, fcamelCase );
-}
-var acceptData = function( owner ) {
-
-	// Accepts only:
-	//  - Node
-	//    - Node.ELEMENT_NODE
-	//    - Node.DOCUMENT_NODE
-	//  - Object
-	//    - Any
-	return owner.nodeType === 1 || owner.nodeType === 9 || !( +owner.nodeType );
-};
-
-
-
-
-function Data() {
-	this.expando = jQuery.expando + Data.uid++;
-}
-
-Data.uid = 1;
-
-Data.prototype = {
-
-	cache: function( owner ) {
-
-		// Check if the owner object already has a cache
-		var value = owner[ this.expando ];
-
-		// If not, create one
-		if ( !value ) {
-			value = {};
-
-			// We can accept data for non-element nodes in modern browsers,
-			// but we should not, see #8335.
-			// Always return an empty object.
-			if ( acceptData( owner ) ) {
-
-				// If it is a node unlikely to be stringify-ed or looped over
-				// use plain assignment
-				if ( owner.nodeType ) {
-					owner[ this.expando ] = value;
-
-				// Otherwise secure it in a non-enumerable property
-				// configurable must be true to allow the property to be
-				// deleted when data is removed
-				} else {
-					Object.defineProperty( owner, this.expando, {
-						value: value,
-						configurable: true
-					} );
-				}
-			}
-		}
-
-		return value;
-	},
-	set: function( owner, data, value ) {
-		var prop,
-			cache = this.cache( owner );
-
-		// Handle: [ owner, key, value ] args
-		// Always use camelCase key (gh-2257)
-		if ( typeof data === "string" ) {
-			cache[ camelCase( data ) ] = value;
-
-		// Handle: [ owner, { properties } ] args
-		} else {
-
-			// Copy the properties one-by-one to the cache object
-			for ( prop in data ) {
-				cache[ camelCase( prop ) ] = data[ prop ];
-			}
-		}
-		return cache;
-	},
-	get: function( owner, key ) {
-		return key === undefined ?
-			this.cache( owner ) :
-
-			// Always use camelCase key (gh-2257)
-			owner[ this.expando ] && owner[ this.expando ][ camelCase( key ) ];
-	},
-	access: function( owner, key, value ) {
-
-		// In cases where either:
-		//
-		//   1. No key was specified
-		//   2. A string key was specified, but no value provided
-		//
-		// Take the "read" path and allow the get method to determine
-		// which value to return, respectively either:
-		//
-		//   1. The entire cache object
-		//   2. The data stored at the key
-		//
-		if ( key === undefined ||
-				( ( key && typeof key === "string" ) && value === undefined ) ) {
-
-			return this.get( owner, key );
-		}
-
-		// When the key is not a string, or both a key and value
-		// are specified, set or extend (existing objects) with either:
-		//
-		//   1. An object of properties
-		//   2. A key and value
-		//
-		this.set( owner, key, value );
-
-		// Since the "set" path can have two possible entry points
-		// return the expected data based on which path was taken[*]
-		return value !== undefined ? value : key;
-	},
-	remove: function( owner, key ) {
-		var i,
-			cache = owner[ this.expando ];
-
-		if ( cache === undefined ) {
-			return;
-		}
-
-		if ( key !== undefined ) {
-
-			// Support array or space separated string of keys
-			if ( Array.isArray( key ) ) {
-
-				// If key is an array of keys...
-				// We always set camelCase keys, so remove that.
-				key = key.map( camelCase );
-			} else {
-				key = camelCase( key );
-
-				// If a key with the spaces exists, use it.
-				// Otherwise, create an array by matching non-whitespace
-				key = key in cache ?
-					[ key ] :
-					( key.match( rnothtmlwhite ) || [] );
-			}
-
-			i = key.length;
-
-			while ( i-- ) {
-				delete cache[ key[ i ] ];
-			}
-		}
-
-		// Remove the expando if there's no more data
-		if ( key === undefined || jQuery.isEmptyObject( cache ) ) {
-
-			// Support: Chrome <=35 - 45
-			// Webkit & Blink performance suffers when deleting properties
-			// from DOM nodes, so set to undefined instead
-			// https://bugs.chromium.org/p/chromium/issues/detail?id=378607 (bug restricted)
-			if ( owner.nodeType ) {
-				owner[ this.expando ] = undefined;
-			} else {
-				delete owner[ this.expando ];
-			}
-		}
-	},
-	hasData: function( owner ) {
-		var cache = owner[ this.expando ];
-		return cache !== undefined && !jQuery.isEmptyObject( cache );
-	}
-};
-var dataPriv = new Data();
-
-var dataUser = new Data();
-
-
-
-//	Implementation Summary
-//
-//	1. Enforce API surface and semantic compatibility with 1.9.x branch
-//	2. Improve the module's maintainability by reducing the storage
-//		paths to a single mechanism.
-//	3. Use the same single mechanism to support "private" and "user" data.
-//	4. _Never_ expose "private" data to user code (TODO: Drop _data, _removeData)
-//	5. Avoid exposing implementation details on user objects (eg. expando properties)
-//	6. Provide a clear path for implementation upgrade to WeakMap in 2014
-
-var rbrace = /^(?:\{[\w\W]*\}|\[[\w\W]*\])$/,
-	rmultiDash = /[A-Z]/g;
-
-function getData( data ) {
-	if ( data === "true" ) {
-		return true;
-	}
-
-	if ( data === "false" ) {
-		return false;
-	}
-
-	if ( data === "null" ) {
-		return null;
-	}
-
-	// Only convert to a number if it doesn't change the string
-	if ( data === +data + "" ) {
-		return +data;
-	}
-
-	if ( rbrace.test( data ) ) {
-		return JSON.parse( data );
-	}
-
-	return data;
-}
-
-function dataAttr( elem, key, data ) {
-	var name;
-
-	// If nothing was found internally, try to fetch any
-	// data from the HTML5 data-* attribute
-	if ( data === undefined && elem.nodeType === 1 ) {
-		name = "data-" + key.replace( rmultiDash, "-$&" ).toLowerCase();
-		data = elem.getAttribute( name );
-
-		if ( typeof data === "string" ) {
-			try {
-				data = getData( data );
-			} catch ( e ) {}
-
-			// Make sure we set the data so it isn't changed later
-			dataUser.set( elem, key, data );
-		} else {
-			data = undefined;
-		}
-	}
-	return data;
-}
-
-jQuery.extend( {
-	hasData: function( elem ) {
-		return dataUser.hasData( elem ) || dataPriv.hasData( elem );
-	},
-
-	data: function( elem, name, data ) {
-		return dataUser.access( elem, name, data );
-	},
-
-	removeData: function( elem, name ) {
-		dataUser.remove( elem, name );
-	},
-
-	// TODO: Now that all calls to _data and _removeData have been replaced
-	// with direct calls to dataPriv methods, these can be deprecated.
-	_data: function( elem, name, data ) {
-		return dataPriv.access( elem, name, data );
-	},
-
-	_removeData: function( elem, name ) {
-		dataPriv.remove( elem, name );
-	}
-} );
-
-jQuery.fn.extend( {
-	data: function( key, value ) {
-		var i, name, data,
-			elem = this[ 0 ],
-			attrs = elem && elem.attributes;
-
-		// Gets all values
-		if ( key === undefined ) {
-			if ( this.length ) {
-				data = dataUser.get( elem );
-
-				if ( elem.nodeType === 1 && !dataPriv.get( elem, "hasDataAttrs" ) ) {
-					i = attrs.length;
-					while ( i-- ) {
-
-						// Support: IE 11 only
-						// The attrs elements can be null (#14894)
-						if ( attrs[ i ] ) {
-							name = attrs[ i ].name;
-							if ( name.indexOf( "data-" ) === 0 ) {
-								name = camelCase( name.slice( 5 ) );
-								dataAttr( elem, name, data[ name ] );
-							}
-						}
-					}
-					dataPriv.set( elem, "hasDataAttrs", true );
-				}
-			}
-
-			return data;
-		}
-
-		// Sets multiple values
-		if ( typeof key === "object" ) {
-			return this.each( function() {
-				dataUser.set( this, key );
-			} );
-		}
-
-		return access( this, function( value ) {
-			var data;
-
-			// The calling jQuery object (element matches) is not empty
-			// (and therefore has an element appears at this[ 0 ]) and the
-			// `value` parameter was not undefined. An empty jQuery object
-			// will result in `undefined` for elem = this[ 0 ] which will
-			// throw an exception if an attempt to read a data cache is made.
-			if ( elem && value === undefined ) {
-
-				// Attempt to get data from the cache
-				// The key will always be camelCased in Data
-				data = dataUser.get( elem, key );
-				if ( data !== undefined ) {
-					return data;
-				}
-
-				// Attempt to "discover" the data in
-				// HTML5 custom data-* attrs
-				data = dataAttr( elem, key );
-				if ( data !== undefined ) {
-					return data;
-				}
-
-				// We tried really hard, but the data doesn't exist.
-				return;
-			}
-
-			// Set the data...
-			this.each( function() {
-
-				// We always store the camelCased key
-				dataUser.set( this, key, value );
-			} );
-		}, null, value, arguments.length > 1, null, true );
-	},
-
-	removeData: function( key ) {
-		return this.each( function() {
-			dataUser.remove( this, key );
-		} );
-	}
-} );
-
-
-jQuery.extend( {
-	queue: function( elem, type, data ) {
-		var queue;
-
-		if ( elem ) {
-			type = ( type || "fx" ) + "queue";
-			queue = dataPriv.get( elem, type );
-
-			// Speed up dequeue by getting out quickly if this is just a lookup
-			if ( data ) {
-				if ( !queue || Array.isArray( data ) ) {
-					queue = dataPriv.access( elem, type, jQuery.makeArray( data ) );
-				} else {
-					queue.push( data );
-				}
-			}
-			return queue || [];
-		}
-	},
-
-	dequeue: function( elem, type ) {
-		type = type || "fx";
-
-		var queue = jQuery.queue( elem, type ),
-			startLength = queue.length,
-			fn = queue.shift(),
-			hooks = jQuery._queueHooks( elem, type ),
-			next = function() {
-				jQuery.dequeue( elem, type );
-			};
-
-		// If the fx queue is dequeued, always remove the progress sentinel
-		if ( fn === "inprogress" ) {
-			fn = queue.shift();
-			startLength--;
-		}
-
-		if ( fn ) {
-
-			// Add a progress sentinel to prevent the fx queue from being
-			// automatically dequeued
-			if ( type === "fx" ) {
-				queue.unshift( "inprogress" );
-			}
-
-			// Clear up the last queue stop function
-			delete hooks.stop;
-			fn.call( elem, next, hooks );
-		}
-
-		if ( !startLength && hooks ) {
-			hooks.empty.fire();
-		}
-	},
-
-	// Not public - generate a queueHooks object, or return the current one
-	_queueHooks: function( elem, type ) {
-		var key = type + "queueHooks";
-		return dataPriv.get( elem, key ) || dataPriv.access( elem, key, {
-			empty: jQuery.Callbacks( "once memory" ).add( function() {
-				dataPriv.remove( elem, [ type + "queue", key ] );
-			} )
-		} );
-	}
-} );
-
-jQuery.fn.extend( {
-	queue: function( type, data ) {
-		var setter = 2;
-
-		if ( typeof type !== "string" ) {
-			data = type;
-			type = "fx";
-			setter--;
-		}
-
-		if ( arguments.length < setter ) {
-			return jQuery.queue( this[ 0 ], type );
-		}
-
-		return data === undefined ?
-			this :
-			this.each( function() {
-				var queue = jQuery.queue( this, type, data );
-
-				// Ensure a hooks for this queue
-				jQuery._queueHooks( this, type );
-
-				if ( type === "fx" && queue[ 0 ] !== "inprogress" ) {
-					jQuery.dequeue( this, type );
-				}
-			} );
-	},
-	dequeue: function( type ) {
-		return this.each( function() {
-			jQuery.dequeue( this, type );
-		} );
-	},
-	clearQueue: function( type ) {
-		return this.queue( type || "fx", [] );
-	},
-
-	// Get a promise resolved when queues of a certain type
-	// are emptied (fx is the type by default)
-	promise: function( type, obj ) {
-		var tmp,
-			count = 1,
-			defer = jQuery.Deferred(),
-			elements = this,
-			i = this.length,
-			resolve = function() {
-				if ( !( --count ) ) {
-					defer.resolveWith( elements, [ elements ] );
-				}
-			};
-
-		if ( typeof type !== "string" ) {
-			obj = type;
-			type = undefined;
-		}
-		type = type || "fx";
-
-		while ( i-- ) {
-			tmp = dataPriv.get( elements[ i ], type + "queueHooks" );
-			if ( tmp && tmp.empty ) {
-				count++;
-				tmp.empty.add( resolve );
-			}
-		}
-		resolve();
-		return defer.promise( obj );
-	}
-} );
-var pnum = ( /[+-]?(?:\d*\.|)\d+(?:[eE][+-]?\d+|)/ ).source;
-
-var rcssNum = new RegExp( "^(?:([+-])=|)(" + pnum + ")([a-z%]*)$", "i" );
-
-
-var cssExpand = [ "Top", "Right", "Bottom", "Left" ];
-
-var isHiddenWithinTree = function( elem, el ) {
-
-		// isHiddenWithinTree might be called from jQuery#filter function;
-		// in that case, element will be second argument
-		elem = el || elem;
-
-		// Inline style trumps all
-		return elem.style.display === "none" ||
-			elem.style.display === "" &&
-
-			// Otherwise, check computed style
-			// Support: Firefox <=43 - 45
-			// Disconnected elements can have computed display: none, so first confirm that elem is
-			// in the document.
-			jQuery.contains( elem.ownerDocument, elem ) &&
-
-			jQuery.css( elem, "display" ) === "none";
-	};
-
-var swap = function( elem, options, callback, args ) {
-	var ret, name,
-		old = {};
-
-	// Remember the old values, and insert the new ones
-	for ( name in options ) {
-		old[ name ] = elem.style[ name ];
-		elem.style[ name ] = options[ name ];
-	}
-
-	ret = callback.apply( elem, args || [] );
-
-	// Revert the old values
-	for ( name in options ) {
-		elem.style[ name ] = old[ name ];
-	}
-
-	return ret;
-};
-
-
-
-
-function adjustCSS( elem, prop, valueParts, tween ) {
-	var adjusted, scale,
-		maxIterations = 20,
-		currentValue = tween ?
-			function() {
-				return tween.cur();
-			} :
-			function() {
-				return jQuery.css( elem, prop, "" );
-			},
-		initial = currentValue(),
-		unit = valueParts && valueParts[ 3 ] || ( jQuery.cssNumber[ prop ] ? "" : "px" ),
-
-		// Starting value computation is required for potential unit mismatches
-		initialInUnit = ( jQuery.cssNumber[ prop ] || unit !== "px" && +initial ) &&
-			rcssNum.exec( jQuery.css( elem, prop ) );
-
-	if ( initialInUnit && initialInUnit[ 3 ] !== unit ) {
-
-		// Support: Firefox <=54
-		// Halve the iteration target value to prevent interference from CSS upper bounds (gh-2144)
-		initial = initial / 2;
-
-		// Trust units reported by jQuery.css
-		unit = unit || initialInUnit[ 3 ];
-
-		// Iteratively approximate from a nonzero starting point
-		initialInUnit = +initial || 1;
-
-		while ( maxIterations-- ) {
-
-			// Evaluate and update our best guess (doubling guesses that zero out).
-			// Finish if the scale equals or crosses 1 (making the old*new product non-positive).
-			jQuery.style( elem, prop, initialInUnit + unit );
-			if ( ( 1 - scale ) * ( 1 - ( scale = currentValue() / initial || 0.5 ) ) <= 0 ) {
-				maxIterations = 0;
-			}
-			initialInUnit = initialInUnit / scale;
-
-		}
-
-		initialInUnit = initialInUnit * 2;
-		jQuery.style( elem, prop, initialInUnit + unit );
-
-		// Make sure we update the tween properties later on
-		valueParts = valueParts || [];
-	}
-
-	if ( valueParts ) {
-		initialInUnit = +initialInUnit || +initial || 0;
-
-		// Apply relative offset (+=/-=) if specified
-		adjusted = valueParts[ 1 ] ?
-			initialInUnit + ( valueParts[ 1 ] + 1 ) * valueParts[ 2 ] :
-			+valueParts[ 2 ];
-		if ( tween ) {
-			tween.unit = unit;
-			tween.start = initialInUnit;
-			tween.end = adjusted;
-		}
-	}
-	return adjusted;
-}
-
-
-var defaultDisplayMap = {};
-
-function getDefaultDisplay( elem ) {
-	var temp,
-		doc = elem.ownerDocument,
-		nodeName = elem.nodeName,
-		display = defaultDisplayMap[ nodeName ];
-
-	if ( display ) {
-		return display;
-	}
-
-	temp = doc.body.appendChild( doc.createElement( nodeName ) );
-	display = jQuery.css( temp, "display" );
-
-	temp.parentNode.removeChild( temp );
-
-	if ( display === "none" ) {
-		display = "block";
-	}
-	defaultDisplayMap[ nodeName ] = display;
-
-	return display;
-}
-
-function showHide( elements, show ) {
-	var display, elem,
-		values = [],
-		index = 0,
-		length = elements.length;
-
-	// Determine new display value for elements that need to change
-	for ( ; index < length; index++ ) {
-		elem = elements[ index ];
-		if ( !elem.style ) {
-			continue;
-		}
-
-		display = elem.style.display;
-		if ( show ) {
-
-			// Since we force visibility upon cascade-hidden elements, an immediate (and slow)
-			// check is required in this first loop unless we have a nonempty display value (either
-			// inline or about-to-be-restored)
-			if ( display === "none" ) {
-				values[ index ] = dataPriv.get( elem, "display" ) || null;
-				if ( !values[ index ] ) {
-					elem.style.display = "";
-				}
-			}
-			if ( elem.style.display === "" && isHiddenWithinTree( elem ) ) {
-				values[ index ] = getDefaultDisplay( elem );
-			}
-		} else {
-			if ( display !== "none" ) {
-				values[ index ] = "none";
-
-				// Remember what we're overwriting
-				dataPriv.set( elem, "display", display );
-			}
-		}
-	}
-
-	// Set the display of the elements in a second loop to avoid constant reflow
-	for ( index = 0; index < length; index++ ) {
-		if ( values[ index ] != null ) {
-			elements[ index ].style.display = values[ index ];
-		}
-	}
-
-	return elements;
-}
-
-jQuery.fn.extend( {
-	show: function() {
-		return showHide( this, true );
-	},
-	hide: function() {
-		return showHide( this );
-	},
-	toggle: function( state ) {
-		if ( typeof state === "boolean" ) {
-			return state ? this.show() : this.hide();
-		}
-
-		return this.each( function() {
-			if ( isHiddenWithinTree( this ) ) {
-				jQuery( this ).show();
-			} else {
-				jQuery( this ).hide();
-			}
-		} );
-	}
-} );
-var rcheckableType = ( /^(?:checkbox|radio)$/i );
-
-var rtagName = ( /<([a-z][^\/\0>\x20\t\r\n\f]+)/i );
-
-var rscriptType = ( /^$|^module$|\/(?:java|ecma)script/i );
-
-
-
-// We have to close these tags to support XHTML (#13200)
-var wrapMap = {
-
-	// Support: IE <=9 only
-	option: [ 1, "<select multiple='multiple'>", "</select>" ],
-
-	// XHTML parsers do not magically insert elements in the
-	// same way that tag soup parsers do. So we cannot shorten
-	// this by omitting <tbody> or other required elements.
-	thead: [ 1, "<table>", "</table>" ],
-	col: [ 2, "<table><colgroup>", "</colgroup></table>" ],
-	tr: [ 2, "<table><tbody>", "</tbody></table>" ],
-	td: [ 3, "<table><tbody><tr>", "</tr></tbody></table>" ],
-
-	_default: [ 0, "", "" ]
-};
-
-// Support: IE <=9 only
-wrapMap.optgroup = wrapMap.option;
-
-wrapMap.tbody = wrapMap.tfoot = wrapMap.colgroup = wrapMap.caption = wrapMap.thead;
-wrapMap.th = wrapMap.td;
-
-
-function getAll( context, tag ) {
-
-	// Support: IE <=9 - 11 only
-	// Use typeof to avoid zero-argument method invocation on host objects (#15151)
-	var ret;
-
-	if ( typeof context.getElementsByTagName !== "undefined" ) {
-		ret = context.getElementsByTagName( tag || "*" );
-
-	} else if ( typeof context.querySelectorAll !== "undefined" ) {
-		ret = context.querySelectorAll( tag || "*" );
-
-	} else {
-		ret = [];
-	}
-
-	if ( tag === undefined || tag && nodeName( context, tag ) ) {
-		return jQuery.merge( [ context ], ret );
-	}
-
-	return ret;
-}
-
-
-// Mark scripts as having already been evaluated
-function setGlobalEval( elems, refElements ) {
-	var i = 0,
-		l = elems.length;
-
-	for ( ; i < l; i++ ) {
-		dataPriv.set(
-			elems[ i ],
-			"globalEval",
-			!refElements || dataPriv.get( refElements[ i ], "globalEval" )
-		);
-	}
-}
-
-
-var rhtml = /<|&#?\w+;/;
-
-function buildFragment( elems, context, scripts, selection, ignored ) {
-	var elem, tmp, tag, wrap, contains, j,
-		fragment = context.createDocumentFragment(),
-		nodes = [],
-		i = 0,
-		l = elems.length;
-
-	for ( ; i < l; i++ ) {
-		elem = elems[ i ];
-
-		if ( elem || elem === 0 ) {
-
-			// Add nodes directly
-			if ( toType( elem ) === "object" ) {
-
-				// Support: Android <=4.0 only, PhantomJS 1 only
-				// push.apply(_, arraylike) throws on ancient WebKit
-				jQuery.merge( nodes, elem.nodeType ? [ elem ] : elem );
-
-			// Convert non-html into a text node
-			} else if ( !rhtml.test( elem ) ) {
-				nodes.push( context.createTextNode( elem ) );
-
-			// Convert html into DOM nodes
-			} else {
-				tmp = tmp || fragment.appendChild( context.createElement( "div" ) );
-
-				// Deserialize a standard representation
-				tag = ( rtagName.exec( elem ) || [ "", "" ] )[ 1 ].toLowerCase();
-				wrap = wrapMap[ tag ] || wrapMap._default;
-				tmp.innerHTML = wrap[ 1 ] + jQuery.htmlPrefilter( elem ) + wrap[ 2 ];
-
-				// Descend through wrappers to the right content
-				j = wrap[ 0 ];
-				while ( j-- ) {
-					tmp = tmp.lastChild;
-				}
-
-				// Support: Android <=4.0 only, PhantomJS 1 only
-				// push.apply(_, arraylike) throws on ancient WebKit
-				jQuery.merge( nodes, tmp.childNodes );
-
-				// Remember the top-level container
-				tmp = fragment.firstChild;
-
-				// Ensure the created nodes are orphaned (#12392)
-				tmp.textContent = "";
-			}
-		}
-	}
-
-	// Remove wrapper from fragment
-	fragment.textContent = "";
-
-	i = 0;
-	while ( ( elem = nodes[ i++ ] ) ) {
-
-		// Skip elements already in the context collection (trac-4087)
-		if ( selection && jQuery.inArray( elem, selection ) > -1 ) {
-			if ( ignored ) {
-				ignored.push( elem );
-			}
-			continue;
-		}
-
-		contains = jQuery.contains( elem.ownerDocument, elem );
-
-		// Append to fragment
-		tmp = getAll( fragment.appendChild( elem ), "script" );
-
-		// Preserve script evaluation history
-		if ( contains ) {
-			setGlobalEval( tmp );
-		}
-
-		// Capture executables
-		if ( scripts ) {
-			j = 0;
-			while ( ( elem = tmp[ j++ ] ) ) {
-				if ( rscriptType.test( elem.type || "" ) ) {
-					scripts.push( elem );
-				}
-			}
-		}
-	}
-
-	return fragment;
-}
-
-
-( function() {
-	var fragment = document.createDocumentFragment(),
-		div = fragment.appendChild( document.createElement( "div" ) ),
-		input = document.createElement( "input" );
-
-	// Support: Android 4.0 - 4.3 only
-	// Check state lost if the name is set (#11217)
-	// Support: Windows Web Apps (WWA)
-	// `name` and `type` must use .setAttribute for WWA (#14901)
-	input.setAttribute( "type", "radio" );
-	input.setAttribute( "checked", "checked" );
-	input.setAttribute( "name", "t" );
-
-	div.appendChild( input );
-
-	// Support: Android <=4.1 only
-	// Older WebKit doesn't clone checked state correctly in fragments
-	support.checkClone = div.cloneNode( true ).cloneNode( true ).lastChild.checked;
-
-	// Support: IE <=11 only
-	// Make sure textarea (and checkbox) defaultValue is properly cloned
-	div.innerHTML = "<textarea>x</textarea>";
-	support.noCloneChecked = !!div.cloneNode( true ).lastChild.defaultValue;
-} )();
-var documentElement = document.documentElement;
-
-
-
-var
-	rkeyEvent = /^key/,
-	rmouseEvent = /^(?:mouse|pointer|contextmenu|drag|drop)|click/,
-	rtypenamespace = /^([^.]*)(?:\.(.+)|)/;
-
-function returnTrue() {
-	return true;
-}
-
-function returnFalse() {
-	return false;
-}
-
-// Support: IE <=9 only
-// See #13393 for more info
-function safeActiveElement() {
-	try {
-		return document.activeElement;
-	} catch ( err ) { }
-}
-
-function on( elem, types, selector, data, fn, one ) {
-	var origFn, type;
-
-	// Types can be a map of types/handlers
-	if ( typeof types === "object" ) {
-
-		// ( types-Object, selector, data )
-		if ( typeof selector !== "string" ) {
-
-			// ( types-Object, data )
-			data = data || selector;
-			selector = undefined;
-		}
-		for ( type in types ) {
-			on( elem, type, selector, data, types[ type ], one );
-		}
-		return elem;
-	}
-
-	if ( data == null && fn == null ) {
-
-		// ( types, fn )
-		fn = selector;
-		data = selector = undefined;
-	} else if ( fn == null ) {
-		if ( typeof selector === "string" ) {
-
-			// ( types, selector, fn )
-			fn = data;
-			data = undefined;
-		} else {
-
-			// ( types, data, fn )
-			fn = data;
-			data = selector;
-			selector = undefined;
-		}
-	}
-	if ( fn === false ) {
-		fn = returnFalse;
-	} else if ( !fn ) {
-		return elem;
-	}
-
-	if ( one === 1 ) {
-		origFn = fn;
-		fn = function( event ) {
-
-			// Can use an empty set, since event contains the info
-			jQuery().off( event );
-			return origFn.apply( this, arguments );
-		};
-
-		// Use same guid so caller can remove using origFn
-		fn.guid = origFn.guid || ( origFn.guid = jQuery.guid++ );
-	}
-	return elem.each( function() {
-		jQuery.event.add( this, types, fn, data, selector );
-	} );
-}
-
-/*
- * Helper functions for managing events -- not part of the public interface.
- * Props to Dean Edwards' addEvent library for many of the ideas.
- */
-jQuery.event = {
-
-	global: {},
-
-	add: function( elem, types, handler, data, selector ) {
-
-		var handleObjIn, eventHandle, tmp,
-			events, t, handleObj,
-			special, handlers, type, namespaces, origType,
-			elemData = dataPriv.get( elem );
-
-		// Don't attach events to noData or text/comment nodes (but allow plain objects)
-		if ( !elemData ) {
-			return;
-		}
-
-		// Caller can pass in an object of custom data in lieu of the handler
-		if ( handler.handler ) {
-			handleObjIn = handler;
-			handler = handleObjIn.handler;
-			selector = handleObjIn.selector;
-		}
-
-		// Ensure that invalid selectors throw exceptions at attach time
-		// Evaluate against documentElement in case elem is a non-element node (e.g., document)
-		if ( selector ) {
-			jQuery.find.matchesSelector( documentElement, selector );
-		}
-
-		// Make sure that the handler has a unique ID, used to find/remove it later
-		if ( !handler.guid ) {
-			handler.guid = jQuery.guid++;
-		}
-
-		// Init the element's event structure and main handler, if this is the first
-		if ( !( events = elemData.events ) ) {
-			events = elemData.events = {};
-		}
-		if ( !( eventHandle = elemData.handle ) ) {
-			eventHandle = elemData.handle = function( e ) {
-
-				// Discard the second event of a jQuery.event.trigger() and
-				// when an event is called after a page has unloaded
-				return typeof jQuery !== "undefined" && jQuery.event.triggered !== e.type ?
-					jQuery.event.dispatch.apply( elem, arguments ) : undefined;
-			};
-		}
-
-		// Handle multiple events separated by a space
-		types = ( types || "" ).match( rnothtmlwhite ) || [ "" ];
-		t = types.length;
-		while ( t-- ) {
-			tmp = rtypenamespace.exec( types[ t ] ) || [];
-			type = origType = tmp[ 1 ];
-			namespaces = ( tmp[ 2 ] || "" ).split( "." ).sort();
-
-			// There *must* be a type, no attaching namespace-only handlers
-			if ( !type ) {
-				continue;
-			}
-
-			// If event changes its type, use the special event handlers for the changed type
-			special = jQuery.event.special[ type ] || {};
-
-			// If selector defined, determine special event api type, otherwise given type
-			type = ( selector ? special.delegateType : special.bindType ) || type;
-
-			// Update special based on newly reset type
-			special = jQuery.event.special[ type ] || {};
-
-			// handleObj is passed to all event handlers
-			handleObj = jQuery.extend( {
-				type: type,
-				origType: origType,
-				data: data,
-				handler: handler,
-				guid: handler.guid,
-				selector: selector,
-				needsContext: selector && jQuery.expr.match.needsContext.test( selector ),
-				namespace: namespaces.join( "." )
-			}, handleObjIn );
-
-			// Init the event handler queue if we're the first
-			if ( !( handlers = events[ type ] ) ) {
-				handlers = events[ type ] = [];
-				handlers.delegateCount = 0;
-
-				// Only use addEventListener if the special events handler returns false
-				if ( !special.setup ||
-					special.setup.call( elem, data, namespaces, eventHandle ) === false ) {
-
-					if ( elem.addEventListener ) {
-						elem.addEventListener( type, eventHandle );
-					}
-				}
-			}
-
-			if ( special.add ) {
-				special.add.call( elem, handleObj );
-
-				if ( !handleObj.handler.guid ) {
-					handleObj.handler.guid = handler.guid;
-				}
-			}
-
-			// Add to the element's handler list, delegates in front
-			if ( selector ) {
-				handlers.splice( handlers.delegateCount++, 0, handleObj );
-			} else {
-				handlers.push( handleObj );
-			}
-
-			// Keep track of which events have ever been used, for event optimization
-			jQuery.event.global[ type ] = true;
-		}
-
-	},
-
-	// Detach an event or set of events from an element
-	remove: function( elem, types, handler, selector, mappedTypes ) {
-
-		var j, origCount, tmp,
-			events, t, handleObj,
-			special, handlers, type, namespaces, origType,
-			elemData = dataPriv.hasData( elem ) && dataPriv.get( elem );
-
-		if ( !elemData || !( events = elemData.events ) ) {
-			return;
-		}
-
-		// Once for each type.namespace in types; type may be omitted
-		types = ( types || "" ).match( rnothtmlwhite ) || [ "" ];
-		t = types.length;
-		while ( t-- ) {
-			tmp = rtypenamespace.exec( types[ t ] ) || [];
-			type = origType = tmp[ 1 ];
-			namespaces = ( tmp[ 2 ] || "" ).split( "." ).sort();
-
-			// Unbind all events (on this namespace, if provided) for the element
-			if ( !type ) {
-				for ( type in events ) {
-					jQuery.event.remove( elem, type + types[ t ], handler, selector, true );
-				}
-				continue;
-			}
-
-			special = jQuery.event.special[ type ] || {};
-			type = ( selector ? special.delegateType : special.bindType ) || type;
-			handlers = events[ type ] || [];
-			tmp = tmp[ 2 ] &&
-				new RegExp( "(^|\\.)" + namespaces.join( "\\.(?:.*\\.|)" ) + "(\\.|$)" );
-
-			// Remove matching events
-			origCount = j = handlers.length;
-			while ( j-- ) {
-				handleObj = handlers[ j ];
-
-				if ( ( mappedTypes || origType === handleObj.origType ) &&
-					( !handler || handler.guid === handleObj.guid ) &&
-					( !tmp || tmp.test( handleObj.namespace ) ) &&
-					( !selector || selector === handleObj.selector ||
-						selector === "**" && handleObj.selector ) ) {
-					handlers.splice( j, 1 );
-
-					if ( handleObj.selector ) {
-						handlers.delegateCount--;
-					}
-					if ( special.remove ) {
-						special.remove.call( elem, handleObj );
-					}
-				}
-			}
-
-			// Remove generic event handler if we removed something and no more handlers exist
-			// (avoids potential for endless recursion during removal of special event handlers)
-			if ( origCount && !handlers.length ) {
-				if ( !special.teardown ||
-					special.teardown.call( elem, namespaces, elemData.handle ) === false ) {
-
-					jQuery.removeEvent( elem, type, elemData.handle );
-				}
-
-				delete events[ type ];
-			}
-		}
-
-		// Remove data and the expando if it's no longer used
-		if ( jQuery.isEmptyObject( events ) ) {
-			dataPriv.remove( elem, "handle events" );
-		}
-	},
-
-	dispatch: function( nativeEvent ) {
-
-		// Make a writable jQuery.Event from the native event object
-		var event = jQuery.event.fix( nativeEvent );
-
-		var i, j, ret, matched, handleObj, handlerQueue,
-			args = new Array( arguments.length ),
-			handlers = ( dataPriv.get( this, "events" ) || {} )[ event.type ] || [],
-			special = jQuery.event.special[ event.type ] || {};
-
-		// Use the fix-ed jQuery.Event rather than the (read-only) native event
-		args[ 0 ] = event;
-
-		for ( i = 1; i < arguments.length; i++ ) {
-			args[ i ] = arguments[ i ];
-		}
-
-		event.delegateTarget = this;
-
-		// Call the preDispatch hook for the mapped type, and let it bail if desired
-		if ( special.preDispatch && special.preDispatch.call( this, event ) === false ) {
-			return;
-		}
-
-		// Determine handlers
-		handlerQueue = jQuery.event.handlers.call( this, event, handlers );
-
-		// Run delegates first; they may want to stop propagation beneath us
-		i = 0;
-		while ( ( matched = handlerQueue[ i++ ] ) && !event.isPropagationStopped() ) {
-			event.currentTarget = matched.elem;
-
-			j = 0;
-			while ( ( handleObj = matched.handlers[ j++ ] ) &&
-				!event.isImmediatePropagationStopped() ) {
-
-				// Triggered event must either 1) have no namespace, or 2) have namespace(s)
-				// a subset or equal to those in the bound event (both can have no namespace).
-				if ( !event.rnamespace || event.rnamespace.test( handleObj.namespace ) ) {
-
-					event.handleObj = handleObj;
-					event.data = handleObj.data;
-
-					ret = ( ( jQuery.event.special[ handleObj.origType ] || {} ).handle ||
-						handleObj.handler ).apply( matched.elem, args );
-
-					if ( ret !== undefined ) {
-						if ( ( event.result = ret ) === false ) {
-							event.preventDefault();
-							event.stopPropagation();
-						}
-					}
-				}
-			}
-		}
-
-		// Call the postDispatch hook for the mapped type
-		if ( special.postDispatch ) {
-			special.postDispatch.call( this, event );
-		}
-
-		return event.result;
-	},
-
-	handlers: function( event, handlers ) {
-		var i, handleObj, sel, matchedHandlers, matchedSelectors,
-			handlerQueue = [],
-			delegateCount = handlers.delegateCount,
-			cur = event.target;
-
-		// Find delegate handlers
-		if ( delegateCount &&
-
-			// Support: IE <=9
-			// Black-hole SVG <use> instance trees (trac-13180)
-			cur.nodeType &&
-
-			// Support: Firefox <=42
-			// Suppress spec-violating clicks indicating a non-primary pointer button (trac-3861)
-			// https://www.w3.org/TR/DOM-Level-3-Events/#event-type-click
-			// Support: IE 11 only
-			// ...but not arrow key "clicks" of radio inputs, which can have `button` -1 (gh-2343)
-			!( event.type === "click" && event.button >= 1 ) ) {
-
-			for ( ; cur !== this; cur = cur.parentNode || this ) {
-
-				// Don't check non-elements (#13208)
-				// Don't process clicks on disabled elements (#6911, #8165, #11382, #11764)
-				if ( cur.nodeType === 1 && !( event.type === "click" && cur.disabled === true ) ) {
-					matchedHandlers = [];
-					matchedSelectors = {};
-					for ( i = 0; i < delegateCount; i++ ) {
-						handleObj = handlers[ i ];
-
-						// Don't conflict with Object.prototype properties (#13203)
-						sel = handleObj.selector + " ";
-
-						if ( matchedSelectors[ sel ] === undefined ) {
-							matchedSelectors[ sel ] = handleObj.needsContext ?
-								jQuery( sel, this ).index( cur ) > -1 :
-								jQuery.find( sel, this, null, [ cur ] ).length;
-						}
-						if ( matchedSelectors[ sel ] ) {
-							matchedHandlers.push( handleObj );
-						}
-					}
-					if ( matchedHandlers.length ) {
-						handlerQueue.push( { elem: cur, handlers: matchedHandlers } );
-					}
-				}
-			}
-		}
-
-		// Add the remaining (directly-bound) handlers
-		cur = this;
-		if ( delegateCount < handlers.length ) {
-			handlerQueue.push( { elem: cur, handlers: handlers.slice( delegateCount ) } );
-		}
-
-		return handlerQueue;
-	},
-
-	addProp: function( name, hook ) {
-		Object.defineProperty( jQuery.Event.prototype, name, {
-			enumerable: true,
-			configurable: true,
-
-			get: isFunction( hook ) ?
-				function() {
-					if ( this.originalEvent ) {
-							return hook( this.originalEvent );
-					}
-				} :
-				function() {
-					if ( this.originalEvent ) {
-							return this.originalEvent[ name ];
-					}
-				},
-
-			set: function( value ) {
-				Object.defineProperty( this, name, {
-					enumerable: true,
-					configurable: true,
-					writable: true,
-					value: value
-				} );
-			}
-		} );
-	},
-
-	fix: function( originalEvent ) {
-		return originalEvent[ jQuery.expando ] ?
-			originalEvent :
-			new jQuery.Event( originalEvent );
-	},
-
-	special: {
-		load: {
-
-			// Prevent triggered image.load events from bubbling to window.load
-			noBubble: true
-		},
-		focus: {
-
-			// Fire native event if possible so blur/focus sequence is correct
-			trigger: function() {
-				if ( this !== safeActiveElement() && this.focus ) {
-					this.focus();
-					return false;
-				}
-			},
-			delegateType: "focusin"
-		},
-		blur: {
-			trigger: function() {
-				if ( this === safeActiveElement() && this.blur ) {
-					this.blur();
-					return false;
-				}
-			},
-			delegateType: "focusout"
-		},
-		click: {
-
-			// For checkbox, fire native event so checked state will be right
-			trigger: function() {
-				if ( this.type === "checkbox" && this.click && nodeName( this, "input" ) ) {
-					this.click();
-					return false;
-				}
-			},
-
-			// For cross-browser consistency, don't fire native .click() on links
-			_default: function( event ) {
-				return nodeName( event.target, "a" );
-			}
-		},
-
-		beforeunload: {
-			postDispatch: function( event ) {
-
-				// Support: Firefox 20+
-				// Firefox doesn't alert if the returnValue field is not set.
-				if ( event.result !== undefined && event.originalEvent ) {
-					event.originalEvent.returnValue = event.result;
-				}
-			}
-		}
-	}
-};
-
-jQuery.removeEvent = function( elem, type, handle ) {
-
-	// This "if" is needed for plain objects
-	if ( elem.removeEventListener ) {
-		elem.removeEventListener( type, handle );
-	}
-};
-
-jQuery.Event = function( src, props ) {
-
-	// Allow instantiation without the 'new' keyword
-	if ( !( this instanceof jQuery.Event ) ) {
-		return new jQuery.Event( src, props );
-	}
-
-	// Event object
-	if ( src && src.type ) {
-		this.originalEvent = src;
-		this.type = src.type;
-
-		// Events bubbling up the document may have been marked as prevented
-		// by a handler lower down the tree; reflect the correct value.
-		this.isDefaultPrevented = src.defaultPrevented ||
-				src.defaultPrevented === undefined &&
-
-				// Support: Android <=2.3 only
-				src.returnValue === false ?
-			returnTrue :
-			returnFalse;
-
-		// Create target properties
-		// Support: Safari <=6 - 7 only
-		// Target should not be a text node (#504, #13143)
-		this.target = ( src.target && src.target.nodeType === 3 ) ?
-			src.target.parentNode :
-			src.target;
-
-		this.currentTarget = src.currentTarget;
-		this.relatedTarget = src.relatedTarget;
-
-	// Event type
-	} else {
-		this.type = src;
-	}
-
-	// Put explicitly provided properties onto the event object
-	if ( props ) {
-		jQuery.extend( this, props );
-	}
-
-	// Create a timestamp if incoming event doesn't have one
-	this.timeStamp = src && src.timeStamp || Date.now();
-
-	// Mark it as fixed
-	this[ jQuery.expando ] = true;
-};
-
-// jQuery.Event is based on DOM3 Events as specified by the ECMAScript Language Binding
-// https://www.w3.org/TR/2003/WD-DOM-Level-3-Events-20030331/ecma-script-binding.html
-jQuery.Event.prototype = {
-	constructor: jQuery.Event,
-	isDefaultPrevented: returnFalse,
-	isPropagationStopped: returnFalse,
-	isImmediatePropagationStopped: returnFalse,
-	isSimulated: false,
-
-	preventDefault: function() {
-		var e = this.originalEvent;
-
-		this.isDefaultPrevented = returnTrue;
-
-		if ( e && !this.isSimulated ) {
-			e.preventDefault();
-		}
-	},
-	stopPropagation: function() {
-		var e = this.originalEvent;
-
-		this.isPropagationStopped = returnTrue;
-
-		if ( e && !this.isSimulated ) {
-			e.stopPropagation();
-		}
-	},
-	stopImmediatePropagation: function() {
-		var e = this.originalEvent;
-
-		this.isImmediatePropagationStopped = returnTrue;
-
-		if ( e && !this.isSimulated ) {
-			e.stopImmediatePropagation();
-		}
-
-		this.stopPropagation();
-	}
-};
-
-// Includes all common event props including KeyEvent and MouseEvent specific props
-jQuery.each( {
-	altKey: true,
-	bubbles: true,
-	cancelable: true,
-	changedTouches: true,
-	ctrlKey: true,
-	detail: true,
-	eventPhase: true,
-	metaKey: true,
-	pageX: true,
-	pageY: true,
-	shiftKey: true,
-	view: true,
-	"char": true,
-	charCode: true,
-	key: true,
-	keyCode: true,
-	button: true,
-	buttons: true,
-	clientX: true,
-	clientY: true,
-	offsetX: true,
-	offsetY: true,
-	pointerId: true,
-	pointerType: true,
-	screenX: true,
-	screenY: true,
-	targetTouches: true,
-	toElement: true,
-	touches: true,
-
-	which: function( event ) {
-		var button = event.button;
-
-		// Add which for key events
-		if ( event.which == null && rkeyEvent.test( event.type ) ) {
-			return event.charCode != null ? event.charCode : event.keyCode;
-		}
-
-		// Add which for click: 1 === left; 2 === middle; 3 === right
-		if ( !event.which && button !== undefined && rmouseEvent.test( event.type ) ) {
-			if ( button & 1 ) {
-				return 1;
-			}
-
-			if ( button & 2 ) {
-				return 3;
-			}
-
-			if ( button & 4 ) {
-				return 2;
-			}
-
-			return 0;
-		}
-
-		return event.which;
-	}
-}, jQuery.event.addProp );
-
-// Create mouseenter/leave events using mouseover/out and event-time checks
-// so that event delegation works in jQuery.
-// Do the same for pointerenter/pointerleave and pointerover/pointerout
-//
-// Support: Safari 7 only
-// Safari sends mouseenter too often; see:
-// https://bugs.chromium.org/p/chromium/issues/detail?id=470258
-// for the description of the bug (it existed in older Chrome versions as well).
-jQuery.each( {
-	mouseenter: "mouseover",
-	mouseleave: "mouseout",
-	pointerenter: "pointerover",
-	pointerleave: "pointerout"
-}, function( orig, fix ) {
-	jQuery.event.special[ orig ] = {
-		delegateType: fix,
-		bindType: fix,
-
-		handle: function( event ) {
-			var ret,
-				target = this,
-				related = event.relatedTarget,
-				handleObj = event.handleObj;
-
-			// For mouseenter/leave call the handler if related is outside the target.
-			// NB: No relatedTarget if the mouse left/entered the browser window
-			if ( !related || ( related !== target && !jQuery.contains( target, related ) ) ) {
-				event.type = handleObj.origType;
-				ret = handleObj.handler.apply( this, arguments );
-				event.type = fix;
-			}
-			return ret;
-		}
-	};
-} );
-
-jQuery.fn.extend( {
-
-	on: function( types, selector, data, fn ) {
-		return on( this, types, selector, data, fn );
-	},
-	one: function( types, selector, data, fn ) {
-		return on( this, types, selector, data, fn, 1 );
-	},
-	off: function( types, selector, fn ) {
-		var handleObj, type;
-		if ( types && types.preventDefault && types.handleObj ) {
-
-			// ( event )  dispatched jQuery.Event
-			handleObj = types.handleObj;
-			jQuery( types.delegateTarget ).off(
-				handleObj.namespace ?
-					handleObj.origType + "." + handleObj.namespace :
-					handleObj.origType,
-				handleObj.selector,
-				handleObj.handler
-			);
-			return this;
-		}
-		if ( typeof types === "object" ) {
-
-			// ( types-object [, selector] )
-			for ( type in types ) {
-				this.off( type, selector, types[ type ] );
-			}
-			return this;
-		}
-		if ( selector === false || typeof selector === "function" ) {
-
-			// ( types [, fn] )
-			fn = selector;
-			selector = undefined;
-		}
-		if ( fn === false ) {
-			fn = returnFalse;
-		}
-		return this.each( function() {
-			jQuery.event.remove( this, types, fn, selector );
-		} );
-	}
-} );
-
-
-var
-
-	/* eslint-disable max-len */
-
-	// See https://github.com/eslint/eslint/issues/3229
-	rxhtmlTag = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([a-z][^\/\0>\x20\t\r\n\f]*)[^>]*)\/>/gi,
-
-	/* eslint-enable */
-
-	// Support: IE <=10 - 11, Edge 12 - 13 only
-	// In IE/Edge using regex groups here causes severe slowdowns.
-	// See https://connect.microsoft.com/IE/feedback/details/1736512/
-	rnoInnerhtml = /<script|<style|<link/i,
-
-	// checked="checked" or checked
-	rchecked = /checked\s*(?:[^=]|=\s*.checked.)/i,
-	rcleanScript = /^\s*<!(?:\[CDATA\[|--)|(?:\]\]|--)>\s*$/g;
-
-// Prefer a tbody over its parent table for containing new rows
-function manipulationTarget( elem, content ) {
-	if ( nodeName( elem, "table" ) &&
-		nodeName( content.nodeType !== 11 ? content : content.firstChild, "tr" ) ) {
-
-		return jQuery( elem ).children( "tbody" )[ 0 ] || elem;
-	}
-
-	return elem;
-}
-
-// Replace/restore the type attribute of script elements for safe DOM manipulation
-function disableScript( elem ) {
-	elem.type = ( elem.getAttribute( "type" ) !== null ) + "/" + elem.type;
-	return elem;
-}
-function restoreScript( elem ) {
-	if ( ( elem.type || "" ).slice( 0, 5 ) === "true/" ) {
-		elem.type = elem.type.slice( 5 );
-	} else {
-		elem.removeAttribute( "type" );
-	}
-
-	return elem;
-}
-
-function cloneCopyEvent( src, dest ) {
-	var i, l, type, pdataOld, pdataCur, udataOld, udataCur, events;
-
-	if ( dest.nodeType !== 1 ) {
-		return;
-	}
-
-	// 1. Copy private data: events, handlers, etc.
-	if ( dataPriv.hasData( src ) ) {
-		pdataOld = dataPriv.access( src );
-		pdataCur = dataPriv.set( dest, pdataOld );
-		events = pdataOld.events;
-
-		if ( events ) {
-			delete pdataCur.handle;
-			pdataCur.events = {};
-
-			for ( type in events ) {
-				for ( i = 0, l = events[ type ].length; i < l; i++ ) {
-					jQuery.event.add( dest, type, events[ type ][ i ] );
-				}
-			}
-		}
-	}
-
-	// 2. Copy user data
-	if ( dataUser.hasData( src ) ) {
-		udataOld = dataUser.access( src );
-		udataCur = jQuery.extend( {}, udataOld );
-
-		dataUser.set( dest, udataCur );
-	}
-}
-
-// Fix IE bugs, see support tests
-function fixInput( src, dest ) {
-	var nodeName = dest.nodeName.toLowerCase();
-
-	// Fails to persist the checked state of a cloned checkbox or radio button.
-	if ( nodeName === "input" && rcheckableType.test( src.type ) ) {
-		dest.checked = src.checked;
-
-	// Fails to return the selected option to the default selected state when cloning options
-	} else if ( nodeName === "input" || nodeName === "textarea" ) {
-		dest.defaultValue = src.defaultValue;
-	}
-}
-
-function domManip( collection, args, callback, ignored ) {
-
-	// Flatten any nested arrays
-	args = concat.apply( [], args );
-
-	var fragment, first, scripts, hasScripts, node, doc,
-		i = 0,
-		l = collection.length,
-		iNoClone = l - 1,
-		value = args[ 0 ],
-		valueIsFunction = isFunction( value );
-
-	// We can't cloneNode fragments that contain checked, in WebKit
-	if ( valueIsFunction ||
-			( l > 1 && typeof value === "string" &&
-				!support.checkClone && rchecked.test( value ) ) ) {
-		return collection.each( function( index ) {
-			var self = collection.eq( index );
-			if ( valueIsFunction ) {
-				args[ 0 ] = value.call( this, index, self.html() );
-			}
-			domManip( self, args, callback, ignored );
-		} );
-	}
-
-	if ( l ) {
-		fragment = buildFragment( args, collection[ 0 ].ownerDocument, false, collection, ignored );
-		first = fragment.firstChild;
-
-		if ( fragment.childNodes.length === 1 ) {
-			fragment = first;
-		}
-
-		// Require either new content or an interest in ignored elements to invoke the callback
-		if ( first || ignored ) {
-			scripts = jQuery.map( getAll( fragment, "script" ), disableScript );
-			hasScripts = scripts.length;
-
-			// Use the original fragment for the last item
-			// instead of the first because it can end up
-			// being emptied incorrectly in certain situations (#8070).
-			for ( ; i < l; i++ ) {
-				node = fragment;
-
-				if ( i !== iNoClone ) {
-					node = jQuery.clone( node, true, true );
-
-					// Keep references to cloned scripts for later restoration
-					if ( hasScripts ) {
-
-						// Support: Android <=4.0 only, PhantomJS 1 only
-						// push.apply(_, arraylike) throws on ancient WebKit
-						jQuery.merge( scripts, getAll( node, "script" ) );
-					}
-				}
-
-				callback.call( collection[ i ], node, i );
-			}
-
-			if ( hasScripts ) {
-				doc = scripts[ scripts.length - 1 ].ownerDocument;
-
-				// Reenable scripts
-				jQuery.map( scripts, restoreScript );
-
-				// Evaluate executable scripts on first document insertion
-				for ( i = 0; i < hasScripts; i++ ) {
-					node = scripts[ i ];
-					if ( rscriptType.test( node.type || "" ) &&
-						!dataPriv.access( node, "globalEval" ) &&
-						jQuery.contains( doc, node ) ) {
-
-						if ( node.src && ( node.type || "" ).toLowerCase()  !== "module" ) {
-
-							// Optional AJAX dependency, but won't run scripts if not present
-							if ( jQuery._evalUrl ) {
-								jQuery._evalUrl( node.src );
-							}
-						} else {
-							DOMEval( node.textContent.replace( rcleanScript, "" ), doc, node );
-						}
-					}
-				}
-			}
-		}
-	}
-
-	return collection;
-}
-
-function remove( elem, selector, keepData ) {
-	var node,
-		nodes = selector ? jQuery.filter( selector, elem ) : elem,
-		i = 0;
-
-	for ( ; ( node = nodes[ i ] ) != null; i++ ) {
-		if ( !keepData && node.nodeType === 1 ) {
-			jQuery.cleanData( getAll( node ) );
-		}
-
-		if ( node.parentNode ) {
-			if ( keepData && jQuery.contains( node.ownerDocument, node ) ) {
-				setGlobalEval( getAll( node, "script" ) );
-			}
-			node.parentNode.removeChild( node );
-		}
-	}
-
-	return elem;
-}
-
-jQuery.extend( {
-	htmlPrefilter: function( html ) {
-		return html.replace( rxhtmlTag, "<$1></$2>" );
-	},
-
-	clone: function( elem, dataAndEvents, deepDataAndEvents ) {
-		var i, l, srcElements, destElements,
-			clone = elem.cloneNode( true ),
-			inPage = jQuery.contains( elem.ownerDocument, elem );
-
-		// Fix IE cloning issues
-		if ( !support.noCloneChecked && ( elem.nodeType === 1 || elem.nodeType === 11 ) &&
-				!jQuery.isXMLDoc( elem ) ) {
-
-			// We eschew Sizzle here for performance reasons: https://jsperf.com/getall-vs-sizzle/2
-			destElements = getAll( clone );
-			srcElements = getAll( elem );
-
-			for ( i = 0, l = srcElements.length; i < l; i++ ) {
-				fixInput( srcElements[ i ], destElements[ i ] );
-			}
-		}
-
-		// Copy the events from the original to the clone
-		if ( dataAndEvents ) {
-			if ( deepDataAndEvents ) {
-				srcElements = srcElements || getAll( elem );
-				destElements = destElements || getAll( clone );
-
-				for ( i = 0, l = srcElements.length; i < l; i++ ) {
-					cloneCopyEvent( srcElements[ i ], destElements[ i ] );
-				}
-			} else {
-				cloneCopyEvent( elem, clone );
-			}
-		}
-
-		// Preserve script evaluation history
-		destElements = getAll( clone, "script" );
-		if ( destElements.length > 0 ) {
-			setGlobalEval( destElements, !inPage && getAll( elem, "script" ) );
-		}
-
-		// Return the cloned set
-		return clone;
-	},
-
-	cleanData: function( elems ) {
-		var data, elem, type,
-			special = jQuery.event.special,
-			i = 0;
-
-		for ( ; ( elem = elems[ i ] ) !== undefined; i++ ) {
-			if ( acceptData( elem ) ) {
-				if ( ( data = elem[ dataPriv.expando ] ) ) {
-					if ( data.events ) {
-						for ( type in data.events ) {
-							if ( special[ type ] ) {
-								jQuery.event.remove( elem, type );
-
-							// This is a shortcut to avoid jQuery.event.remove's overhead
-							} else {
-								jQuery.removeEvent( elem, type, data.handle );
-							}
-						}
-					}
-
-					// Support: Chrome <=35 - 45+
-					// Assign undefined instead of using delete, see Data#remove
-					elem[ dataPriv.expando ] = undefined;
-				}
-				if ( elem[ dataUser.expando ] ) {
-
-					// Support: Chrome <=35 - 45+
-					// Assign undefined instead of using delete, see Data#remove
-					elem[ dataUser.expando ] = undefined;
-				}
-			}
-		}
-	}
-} );
-
-jQuery.fn.extend( {
-	detach: function( selector ) {
-		return remove( this, selector, true );
-	},
-
-	remove: function( selector ) {
-		return remove( this, selector );
-	},
-
-	text: function( value ) {
-		return access( this, function( value ) {
-			return value === undefined ?
-				jQuery.text( this ) :
-				this.empty().each( function() {
-					if ( this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9 ) {
-						this.textContent = value;
-					}
-				} );
-		}, null, value, arguments.length );
-	},
-
-	append: function() {
-		return domManip( this, arguments, function( elem ) {
-			if ( this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9 ) {
-				var target = manipulationTarget( this, elem );
-				target.appendChild( elem );
-			}
-		} );
-	},
-
-	prepend: function() {
-		return domManip( this, arguments, function( elem ) {
-			if ( this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9 ) {
-				var target = manipulationTarget( this, elem );
-				target.insertBefore( elem, target.firstChild );
-			}
-		} );
-	},
-
-	before: function() {
-		return domManip( this, arguments, function( elem ) {
-			if ( this.parentNode ) {
-				this.parentNode.insertBefore( elem, this );
-			}
-		} );
-	},
-
-	after: function() {
-		return domManip( this, arguments, function( elem ) {
-			if ( this.parentNode ) {
-				this.parentNode.insertBefore( elem, this.nextSibling );
-			}
-		} );
-	},
-
-	empty: function() {
-		var elem,
-			i = 0;
-
-		for ( ; ( elem = this[ i ] ) != null; i++ ) {
-			if ( elem.nodeType === 1 ) {
-
-				// Prevent memory leaks
-				jQuery.cleanData( getAll( elem, false ) );
-
-				// Remove any remaining nodes
-				elem.textContent = "";
-			}
-		}
-
-		return this;
-	},
-
-	clone: function( dataAndEvents, deepDataAndEvents ) {
-		dataAndEvents = dataAndEvents == null ? false : dataAndEvents;
-		deepDataAndEvents = deepDataAndEvents == null ? dataAndEvents : deepDataAndEvents;
-
-		return this.map( function() {
-			return jQuery.clone( this, dataAndEvents, deepDataAndEvents );
-		} );
-	},
-
-	html: function( value ) {
-		return access( this, function( value ) {
-			var elem = this[ 0 ] || {},
-				i = 0,
-				l = this.length;
-
-			if ( value === undefined && elem.nodeType === 1 ) {
-				return elem.innerHTML;
-			}
-
-			// See if we can take a shortcut and just use innerHTML
-			if ( typeof value === "string" && !rnoInnerhtml.test( value ) &&
-				!wrapMap[ ( rtagName.exec( value ) || [ "", "" ] )[ 1 ].toLowerCase() ] ) {
-
-				value = jQuery.htmlPrefilter( value );
-
-				try {
-					for ( ; i < l; i++ ) {
-						elem = this[ i ] || {};
-
-						// Remove element nodes and prevent memory leaks
-						if ( elem.nodeType === 1 ) {
-							jQuery.cleanData( getAll( elem, false ) );
-							elem.innerHTML = value;
-						}
-					}
-
-					elem = 0;
-
-				// If using innerHTML throws an exception, use the fallback method
-				} catch ( e ) {}
-			}
-
-			if ( elem ) {
-				this.empty().append( value );
-			}
-		}, null, value, arguments.length );
-	},
-
-	replaceWith: function() {
-		var ignored = [];
-
-		// Make the changes, replacing each non-ignored context element with the new content
-		return domManip( this, arguments, function( elem ) {
-			var parent = this.parentNode;
-
-			if ( jQuery.inArray( this, ignored ) < 0 ) {
-				jQuery.cleanData( getAll( this ) );
-				if ( parent ) {
-					parent.replaceChild( elem, this );
-				}
-			}
-
-		// Force callback invocation
-		}, ignored );
-	}
-} );
-
-jQuery.each( {
-	appendTo: "append",
-	prependTo: "prepend",
-	insertBefore: "before",
-	insertAfter: "after",
-	replaceAll: "replaceWith"
-}, function( name, original ) {
-	jQuery.fn[ name ] = function( selector ) {
-		var elems,
-			ret = [],
-			insert = jQuery( selector ),
-			last = insert.length - 1,
-			i = 0;
-
-		for ( ; i <= last; i++ ) {
-			elems = i === last ? this : this.clone( true );
-			jQuery( insert[ i ] )[ original ]( elems );
-
-			// Support: Android <=4.0 only, PhantomJS 1 only
-			// .get() because push.apply(_, arraylike) throws on ancient WebKit
-			push.apply( ret, elems.get() );
-		}
-
-		return this.pushStack( ret );
-	};
-} );
-var rnumnonpx = new RegExp( "^(" + pnum + ")(?!px)[a-z%]+$", "i" );
-
-var getStyles = function( elem ) {
-
-		// Support: IE <=11 only, Firefox <=30 (#15098, #14150)
-		// IE throws on elements created in popups
-		// FF meanwhile throws on frame elements through "defaultView.getComputedStyle"
-		var view = elem.ownerDocument.defaultView;
-
-		if ( !view || !view.opener ) {
-			view = window;
-		}
-
-		return view.getComputedStyle( elem );
-	};
-
-var rboxStyle = new RegExp( cssExpand.join( "|" ), "i" );
-
-
-
-( function() {
-
-	// Executing both pixelPosition & boxSizingReliable tests require only one layout
-	// so they're executed at the same time to save the second computation.
-	function computeStyleTests() {
-
-		// This is a singleton, we need to execute it only once
-		if ( !div ) {
-			return;
-		}
-
-		container.style.cssText = "position:absolute;left:-11111px;width:60px;" +
-			"margin-top:1px;padding:0;border:0";
-		div.style.cssText =
-			"position:relative;display:block;box-sizing:border-box;overflow:scroll;" +
-			"margin:auto;border:1px;padding:1px;" +
-			"width:60%;top:1%";
-		documentElement.appendChild( container ).appendChild( div );
-
-		var divStyle = window.getComputedStyle( div );
-		pixelPositionVal = divStyle.top !== "1%";
-
-		// Support: Android 4.0 - 4.3 only, Firefox <=3 - 44
-		reliableMarginLeftVal = roundPixelMeasures( divStyle.marginLeft ) === 12;
-
-		// Support: Android 4.0 - 4.3 only, Safari <=9.1 - 10.1, iOS <=7.0 - 9.3
-		// Some styles come back with percentage values, even though they shouldn't
-		div.style.right = "60%";
-		pixelBoxStylesVal = roundPixelMeasures( divStyle.right ) === 36;
-
-		// Support: IE 9 - 11 only
-		// Detect misreporting of content dimensions for box-sizing:border-box elements
-		boxSizingReliableVal = roundPixelMeasures( divStyle.width ) === 36;
-
-		// Support: IE 9 only
-		// Detect overflow:scroll screwiness (gh-3699)
-		div.style.position = "absolute";
-		scrollboxSizeVal = div.offsetWidth === 36 || "absolute";
-
-		documentElement.removeChild( container );
-
-		// Nullify the div so it wouldn't be stored in the memory and
-		// it will also be a sign that checks already performed
-		div = null;
-	}
-
-	function roundPixelMeasures( measure ) {
-		return Math.round( parseFloat( measure ) );
-	}
-
-	var pixelPositionVal, boxSizingReliableVal, scrollboxSizeVal, pixelBoxStylesVal,
-		reliableMarginLeftVal,
-		container = document.createElement( "div" ),
-		div = document.createElement( "div" );
-
-	// Finish early in limited (non-browser) environments
-	if ( !div.style ) {
-		return;
-	}
-
-	// Support: IE <=9 - 11 only
-	// Style of cloned element affects source element cloned (#8908)
-	div.style.backgroundClip = "content-box";
-	div.cloneNode( true ).style.backgroundClip = "";
-	support.clearCloneStyle = div.style.backgroundClip === "content-box";
-
-	jQuery.extend( support, {
-		boxSizingReliable: function() {
-			computeStyleTests();
-			return boxSizingReliableVal;
-		},
-		pixelBoxStyles: function() {
-			computeStyleTests();
-			return pixelBoxStylesVal;
-		},
-		pixelPosition: function() {
-			computeStyleTests();
-			return pixelPositionVal;
-		},
-		reliableMarginLeft: function() {
-			computeStyleTests();
-			return reliableMarginLeftVal;
-		},
-		scrollboxSize: function() {
-			computeStyleTests();
-			return scrollboxSizeVal;
-		}
-	} );
-} )();
-
-
-function curCSS( elem, name, computed ) {
-	var width, minWidth, maxWidth, ret,
-
-		// Support: Firefox 51+
-		// Retrieving style before computed somehow
-		// fixes an issue with getting wrong values
-		// on detached elements
-		style = elem.style;
-
-	computed = computed || getStyles( elem );
-
-	// getPropertyValue is needed for:
-	//   .css('filter') (IE 9 only, #12537)
-	//   .css('--customProperty) (#3144)
-	if ( computed ) {
-		ret = computed.getPropertyValue( name ) || computed[ name ];
-
-		if ( ret === "" && !jQuery.contains( elem.ownerDocument, elem ) ) {
-			ret = jQuery.style( elem, name );
-		}
-
-		// A tribute to the "awesome hack by Dean Edwards"
-		// Android Browser returns percentage for some values,
-		// but width seems to be reliably pixels.
-		// This is against the CSSOM draft spec:
-		// https://drafts.csswg.org/cssom/#resolved-values
-		if ( !support.pixelBoxStyles() && rnumnonpx.test( ret ) && rboxStyle.test( name ) ) {
-
-			// Remember the original values
-			width = style.width;
-			minWidth = style.minWidth;
-			maxWidth = style.maxWidth;
-
-			// Put in the new values to get a computed value out
-			style.minWidth = style.maxWidth = style.width = ret;
-			ret = computed.width;
-
-			// Revert the changed values
-			style.width = width;
-			style.minWidth = minWidth;
-			style.maxWidth = maxWidth;
-		}
-	}
-
-	return ret !== undefined ?
-
-		// Support: IE <=9 - 11 only
-		// IE returns zIndex value as an integer.
-		ret + "" :
-		ret;
-}
-
-
-function addGetHookIf( conditionFn, hookFn ) {
-
-	// Define the hook, we'll check on the first run if it's really needed.
-	return {
-		get: function() {
-			if ( conditionFn() ) {
-
-				// Hook not needed (or it's not possible to use it due
-				// to missing dependency), remove it.
-				delete this.get;
-				return;
-			}
-
-			// Hook needed; redefine it so that the support test is not executed again.
-			return ( this.get = hookFn ).apply( this, arguments );
-		}
-	};
-}
-
-
-var
-
-	// Swappable if display is none or starts with table
-	// except "table", "table-cell", or "table-caption"
-	// See here for display values: https://developer.mozilla.org/en-US/docs/CSS/display
-	rdisplayswap = /^(none|table(?!-c[ea]).+)/,
-	rcustomProp = /^--/,
-	cssShow = { position: "absolute", visibility: "hidden", display: "block" },
-	cssNormalTransform = {
-		letterSpacing: "0",
-		fontWeight: "400"
-	},
-
-	cssPrefixes = [ "Webkit", "Moz", "ms" ],
-	emptyStyle = document.createElement( "div" ).style;
-
-// Return a css property mapped to a potentially vendor prefixed property
-function vendorPropName( name ) {
-
-	// Shortcut for names that are not vendor prefixed
-	if ( name in emptyStyle ) {
-		return name;
-	}
-
-	// Check for vendor prefixed names
-	var capName = name[ 0 ].toUpperCase() + name.slice( 1 ),
-		i = cssPrefixes.length;
-
-	while ( i-- ) {
-		name = cssPrefixes[ i ] + capName;
-		if ( name in emptyStyle ) {
-			return name;
-		}
-	}
-}
-
-// Return a property mapped along what jQuery.cssProps suggests or to
-// a vendor prefixed property.
-function finalPropName( name ) {
-	var ret = jQuery.cssProps[ name ];
-	if ( !ret ) {
-		ret = jQuery.cssProps[ name ] = vendorPropName( name ) || name;
-	}
-	return ret;
-}
-
-function setPositiveNumber( elem, value, subtract ) {
-
-	// Any relative (+/-) values have already been
-	// normalized at this point
-	var matches = rcssNum.exec( value );
-	return matches ?
-
-		// Guard against undefined "subtract", e.g., when used as in cssHooks
-		Math.max( 0, matches[ 2 ] - ( subtract || 0 ) ) + ( matches[ 3 ] || "px" ) :
-		value;
-}
-
-function boxModelAdjustment( elem, dimension, box, isBorderBox, styles, computedVal ) {
-	var i = dimension === "width" ? 1 : 0,
-		extra = 0,
-		delta = 0;
-
-	// Adjustment may not be necessary
-	if ( box === ( isBorderBox ? "border" : "content" ) ) {
-		return 0;
-	}
-
-	for ( ; i < 4; i += 2 ) {
-
-		// Both box models exclude margin
-		if ( box === "margin" ) {
-			delta += jQuery.css( elem, box + cssExpand[ i ], true, styles );
-		}
-
-		// If we get here with a content-box, we're seeking "padding" or "border" or "margin"
-		if ( !isBorderBox ) {
-
-			// Add padding
-			delta += jQuery.css( elem, "padding" + cssExpand[ i ], true, styles );
-
-			// For "border" or "margin", add border
-			if ( box !== "padding" ) {
-				delta += jQuery.css( elem, "border" + cssExpand[ i ] + "Width", true, styles );
-
-			// But still keep track of it otherwise
-			} else {
-				extra += jQuery.css( elem, "border" + cssExpand[ i ] + "Width", true, styles );
-			}
-
-		// If we get here with a border-box (content + padding + border), we're seeking "content" or
-		// "padding" or "margin"
-		} else {
-
-			// For "content", subtract padding
-			if ( box === "content" ) {
-				delta -= jQuery.css( elem, "padding" + cssExpand[ i ], true, styles );
-			}
-
-			// For "content" or "padding", subtract border
-			if ( box !== "margin" ) {
-				delta -= jQuery.css( elem, "border" + cssExpand[ i ] + "Width", true, styles );
-			}
-		}
-	}
-
-	// Account for positive content-box scroll gutter when requested by providing computedVal
-	if ( !isBorderBox && computedVal >= 0 ) {
-
-		// offsetWidth/offsetHeight is a rounded sum of content, padding, scroll gutter, and border
-		// Assuming integer scroll gutter, subtract the rest and round down
-		delta += Math.max( 0, Math.ceil(
-			elem[ "offset" + dimension[ 0 ].toUpperCase() + dimension.slice( 1 ) ] -
-			computedVal -
-			delta -
-			extra -
-			0.5
-		) );
-	}
-
-	return delta;
-}
-
-function getWidthOrHeight( elem, dimension, extra ) {
-
-	// Start with computed style
-	var styles = getStyles( elem ),
-		val = curCSS( elem, dimension, styles ),
-		isBorderBox = jQuery.css( elem, "boxSizing", false, styles ) === "border-box",
-		valueIsBorderBox = isBorderBox;
-
-	// Support: Firefox <=54
-	// Return a confounding non-pixel value or feign ignorance, as appropriate.
-	if ( rnumnonpx.test( val ) ) {
-		if ( !extra ) {
-			return val;
-		}
-		val = "auto";
-	}
-
-	// Check for style in case a browser which returns unreliable values
-	// for getComputedStyle silently falls back to the reliable elem.style
-	valueIsBorderBox = valueIsBorderBox &&
-		( support.boxSizingReliable() || val === elem.style[ dimension ] );
-
-	// Fall back to offsetWidth/offsetHeight when value is "auto"
-	// This happens for inline elements with no explicit setting (gh-3571)
-	// Support: Android <=4.1 - 4.3 only
-	// Also use offsetWidth/offsetHeight for misreported inline dimensions (gh-3602)
-	if ( val === "auto" ||
-		!parseFloat( val ) && jQuery.css( elem, "display", false, styles ) === "inline" ) {
-
-		val = elem[ "offset" + dimension[ 0 ].toUpperCase() + dimension.slice( 1 ) ];
-
-		// offsetWidth/offsetHeight provide border-box values
-		valueIsBorderBox = true;
-	}
-
-	// Normalize "" and auto
-	val = parseFloat( val ) || 0;
-
-	// Adjust for the element's box model
-	return ( val +
-		boxModelAdjustment(
-			elem,
-			dimension,
-			extra || ( isBorderBox ? "border" : "content" ),
-			valueIsBorderBox,
-			styles,
-
-			// Provide the current computed size to request scroll gutter calculation (gh-3589)
-			val
-		)
-	) + "px";
-}
-
-jQuery.extend( {
-
-	// Add in style property hooks for overriding the default
-	// behavior of getting and setting a style property
-	cssHooks: {
-		opacity: {
-			get: function( elem, computed ) {
-				if ( computed ) {
-
-					// We should always get a number back from opacity
-					var ret = curCSS( elem, "opacity" );
-					return ret === "" ? "1" : ret;
-				}
-			}
-		}
-	},
-
-	// Don't automatically add "px" to these possibly-unitless properties
-	cssNumber: {
-		"animationIterationCount": true,
-		"columnCount": true,
-		"fillOpacity": true,
-		"flexGrow": true,
-		"flexShrink": true,
-		"fontWeight": true,
-		"lineHeight": true,
-		"opacity": true,
-		"order": true,
-		"orphans": true,
-		"widows": true,
-		"zIndex": true,
-		"zoom": true
-	},
-
-	// Add in properties whose names you wish to fix before
-	// setting or getting the value
-	cssProps: {},
-
-	// Get and set the style property on a DOM Node
-	style: function( elem, name, value, extra ) {
-
-		// Don't set styles on text and comment nodes
-		if ( !elem || elem.nodeType === 3 || elem.nodeType === 8 || !elem.style ) {
-			return;
-		}
-
-		// Make sure that we're working with the right name
-		var ret, type, hooks,
-			origName = camelCase( name ),
-			isCustomProp = rcustomProp.test( name ),
-			style = elem.style;
-
-		// Make sure that we're working with the right name. We don't
-		// want to query the value if it is a CSS custom property
-		// since they are user-defined.
-		if ( !isCustomProp ) {
-			name = finalPropName( origName );
-		}
-
-		// Gets hook for the prefixed version, then unprefixed version
-		hooks = jQuery.cssHooks[ name ] || jQuery.cssHooks[ origName ];
-
-		// Check if we're setting a value
-		if ( value !== undefined ) {
-			type = typeof value;
-
-			// Convert "+=" or "-=" to relative numbers (#7345)
-			if ( type === "string" && ( ret = rcssNum.exec( value ) ) && ret[ 1 ] ) {
-				value = adjustCSS( elem, name, ret );
-
-				// Fixes bug #9237
-				type = "number";
-			}
-
-			// Make sure that null and NaN values aren't set (#7116)
-			if ( value == null || value !== value ) {
-				return;
-			}
-
-			// If a number was passed in, add the unit (except for certain CSS properties)
-			if ( type === "number" ) {
-				value += ret && ret[ 3 ] || ( jQuery.cssNumber[ origName ] ? "" : "px" );
-			}
-
-			// background-* props affect original clone's values
-			if ( !support.clearCloneStyle && value === "" && name.indexOf( "background" ) === 0 ) {
-				style[ name ] = "inherit";
-			}
-
-			// If a hook was provided, use that value, otherwise just set the specified value
-			if ( !hooks || !( "set" in hooks ) ||
-				( value = hooks.set( elem, value, extra ) ) !== undefined ) {
-
-				if ( isCustomProp ) {
-					style.setProperty( name, value );
-				} else {
-					style[ name ] = value;
-				}
-			}
-
-		} else {
-
-			// If a hook was provided get the non-computed value from there
-			if ( hooks && "get" in hooks &&
-				( ret = hooks.get( elem, false, extra ) ) !== undefined ) {
-
-				return ret;
-			}
-
-			// Otherwise just get the value from the style object
-			return style[ name ];
-		}
-	},
-
-	css: function( elem, name, extra, styles ) {
-		var val, num, hooks,
-			origName = camelCase( name ),
-			isCustomProp = rcustomProp.test( name );
-
-		// Make sure that we're working with the right name. We don't
-		// want to modify the value if it is a CSS custom property
-		// since they are user-defined.
-		if ( !isCustomProp ) {
-			name = finalPropName( origName );
-		}
-
-		// Try prefixed name followed by the unprefixed name
-		hooks = jQuery.cssHooks[ name ] || jQuery.cssHooks[ origName ];
-
-		// If a hook was provided get the computed value from there
-		if ( hooks && "get" in hooks ) {
-			val = hooks.get( elem, true, extra );
-		}
-
-		// Otherwise, if a way to get the computed value exists, use that
-		if ( val === undefined ) {
-			val = curCSS( elem, name, styles );
-		}
-
-		// Convert "normal" to computed value
-		if ( val === "normal" && name in cssNormalTransform ) {
-			val = cssNormalTransform[ name ];
-		}
-
-		// Make numeric if forced or a qualifier was provided and val looks numeric
-		if ( extra === "" || extra ) {
-			num = parseFloat( val );
-			return extra === true || isFinite( num ) ? num || 0 : val;
-		}
-
-		return val;
-	}
-} );
-
-jQuery.each( [ "height", "width" ], function( i, dimension ) {
-	jQuery.cssHooks[ dimension ] = {
-		get: function( elem, computed, extra ) {
-			if ( computed ) {
-
-				// Certain elements can have dimension info if we invisibly show them
-				// but it must have a current display style that would benefit
-				return rdisplayswap.test( jQuery.css( elem, "display" ) ) &&
-
-					// Support: Safari 8+
-					// Table columns in Safari have non-zero offsetWidth & zero
-					// getBoundingClientRect().width unless display is changed.
-					// Support: IE <=11 only
-					// Running getBoundingClientRect on a disconnected node
-					// in IE throws an error.
-					( !elem.getClientRects().length || !elem.getBoundingClientRect().width ) ?
-						swap( elem, cssShow, function() {
-							return getWidthOrHeight( elem, dimension, extra );
-						} ) :
-						getWidthOrHeight( elem, dimension, extra );
-			}
-		},
-
-		set: function( elem, value, extra ) {
-			var matches,
-				styles = getStyles( elem ),
-				isBorderBox = jQuery.css( elem, "boxSizing", false, styles ) === "border-box",
-				subtract = extra && boxModelAdjustment(
-					elem,
-					dimension,
-					extra,
-					isBorderBox,
-					styles
-				);
-
-			// Account for unreliable border-box dimensions by comparing offset* to computed and
-			// faking a content-box to get border and padding (gh-3699)
-			if ( isBorderBox && support.scrollboxSize() === styles.position ) {
-				subtract -= Math.ceil(
-					elem[ "offset" + dimension[ 0 ].toUpperCase() + dimension.slice( 1 ) ] -
-					parseFloat( styles[ dimension ] ) -
-					boxModelAdjustment( elem, dimension, "border", false, styles ) -
-					0.5
-				);
-			}
-
-			// Convert to pixels if value adjustment is needed
-			if ( subtract && ( matches = rcssNum.exec( value ) ) &&
-				( matches[ 3 ] || "px" ) !== "px" ) {
-
-				elem.style[ dimension ] = value;
-				value = jQuery.css( elem, dimension );
-			}
-
-			return setPositiveNumber( elem, value, subtract );
-		}
-	};
-} );
-
-jQuery.cssHooks.marginLeft = addGetHookIf( support.reliableMarginLeft,
-	function( elem, computed ) {
-		if ( computed ) {
-			return ( parseFloat( curCSS( elem, "marginLeft" ) ) ||
-				elem.getBoundingClientRect().left -
-					swap( elem, { marginLeft: 0 }, function() {
-						return elem.getBoundingClientRect().left;
-					} )
-				) + "px";
-		}
-	}
-);
-
-// These hooks are used by animate to expand properties
-jQuery.each( {
-	margin: "",
-	padding: "",
-	border: "Width"
-}, function( prefix, suffix ) {
-	jQuery.cssHooks[ prefix + suffix ] = {
-		expand: function( value ) {
-			var i = 0,
-				expanded = {},
-
-				// Assumes a single number if not a string
-				parts = typeof value === "string" ? value.split( " " ) : [ value ];
-
-			for ( ; i < 4; i++ ) {
-				expanded[ prefix + cssExpand[ i ] + suffix ] =
-					parts[ i ] || parts[ i - 2 ] || parts[ 0 ];
-			}
-
-			return expanded;
-		}
-	};
-
-	if ( prefix !== "margin" ) {
-		jQuery.cssHooks[ prefix + suffix ].set = setPositiveNumber;
-	}
-} );
-
-jQuery.fn.extend( {
-	css: function( name, value ) {
-		return access( this, function( elem, name, value ) {
-			var styles, len,
-				map = {},
-				i = 0;
-
-			if ( Array.isArray( name ) ) {
-				styles = getStyles( elem );
-				len = name.length;
-
-				for ( ; i < len; i++ ) {
-					map[ name[ i ] ] = jQuery.css( elem, name[ i ], false, styles );
-				}
-
-				return map;
-			}
-
-			return value !== undefined ?
-				jQuery.style( elem, name, value ) :
-				jQuery.css( elem, name );
-		}, name, value, arguments.length > 1 );
-	}
-} );
-
-
-function Tween( elem, options, prop, end, easing ) {
-	return new Tween.prototype.init( elem, options, prop, end, easing );
-}
-jQuery.Tween = Tween;
-
-Tween.prototype = {
-	constructor: Tween,
-	init: function( elem, options, prop, end, easing, unit ) {
-		this.elem = elem;
-		this.prop = prop;
-		this.easing = easing || jQuery.easing._default;
-		this.options = options;
-		this.start = this.now = this.cur();
-		this.end = end;
-		this.unit = unit || ( jQuery.cssNumber[ prop ] ? "" : "px" );
-	},
-	cur: function() {
-		var hooks = Tween.propHooks[ this.prop ];
-
-		return hooks && hooks.get ?
-			hooks.get( this ) :
-			Tween.propHooks._default.get( this );
-	},
-	run: function( percent ) {
-		var eased,
-			hooks = Tween.propHooks[ this.prop ];
-
-		if ( this.options.duration ) {
-			this.pos = eased = jQuery.easing[ this.easing ](
-				percent, this.options.duration * percent, 0, 1, this.options.duration
-			);
-		} else {
-			this.pos = eased = percent;
-		}
-		this.now = ( this.end - this.start ) * eased + this.start;
-
-		if ( this.options.step ) {
-			this.options.step.call( this.elem, this.now, this );
-		}
-
-		if ( hooks && hooks.set ) {
-			hooks.set( this );
-		} else {
-			Tween.propHooks._default.set( this );
-		}
-		return this;
-	}
-};
-
-Tween.prototype.init.prototype = Tween.prototype;
-
-Tween.propHooks = {
-	_default: {
-		get: function( tween ) {
-			var result;
-
-			// Use a property on the element directly when it is not a DOM element,
-			// or when there is no matching style property that exists.
-			if ( tween.elem.nodeType !== 1 ||
-				tween.elem[ tween.prop ] != null && tween.elem.style[ tween.prop ] == null ) {
-				return tween.elem[ tween.prop ];
-			}
-
-			// Passing an empty string as a 3rd parameter to .css will automatically
-			// attempt a parseFloat and fallback to a string if the parse fails.
-			// Simple values such as "10px" are parsed to Float;
-			// complex values such as "rotate(1rad)" are returned as-is.
-			result = jQuery.css( tween.elem, tween.prop, "" );
-
-			// Empty strings, null, undefined and "auto" are converted to 0.
-			return !result || result === "auto" ? 0 : result;
-		},
-		set: function( tween ) {
-
-			// Use step hook for back compat.
-			// Use cssHook if its there.
-			// Use .style if available and use plain properties where available.
-			if ( jQuery.fx.step[ tween.prop ] ) {
-				jQuery.fx.step[ tween.prop ]( tween );
-			} else if ( tween.elem.nodeType === 1 &&
-				( tween.elem.style[ jQuery.cssProps[ tween.prop ] ] != null ||
-					jQuery.cssHooks[ tween.prop ] ) ) {
-				jQuery.style( tween.elem, tween.prop, tween.now + tween.unit );
-			} else {
-				tween.elem[ tween.prop ] = tween.now;
-			}
-		}
-	}
-};
-
-// Support: IE <=9 only
-// Panic based approach to setting things on disconnected nodes
-Tween.propHooks.scrollTop = Tween.propHooks.scrollLeft = {
-	set: function( tween ) {
-		if ( tween.elem.nodeType && tween.elem.parentNode ) {
-			tween.elem[ tween.prop ] = tween.now;
-		}
-	}
-};
-
-jQuery.easing = {
-	linear: function( p ) {
-		return p;
-	},
-	swing: function( p ) {
-		return 0.5 - Math.cos( p * Math.PI ) / 2;
-	},
-	_default: "swing"
-};
-
-jQuery.fx = Tween.prototype.init;
-
-// Back compat <1.8 extension point
-jQuery.fx.step = {};
-
-
-
-
-var
-	fxNow, inProgress,
-	rfxtypes = /^(?:toggle|show|hide)$/,
-	rrun = /queueHooks$/;
-
-function schedule() {
-	if ( inProgress ) {
-		if ( document.hidden === false && window.requestAnimationFrame ) {
-			window.requestAnimationFrame( schedule );
-		} else {
-			window.setTimeout( schedule, jQuery.fx.interval );
-		}
-
-		jQuery.fx.tick();
-	}
-}
-
-// Animations created synchronously will run synchronously
-function createFxNow() {
-	window.setTimeout( function() {
-		fxNow = undefined;
-	} );
-	return ( fxNow = Date.now() );
-}
-
-// Generate parameters to create a standard animation
-function genFx( type, includeWidth ) {
-	var which,
-		i = 0,
-		attrs = { height: type };
-
-	// If we include width, step value is 1 to do all cssExpand values,
-	// otherwise step value is 2 to skip over Left and Right
-	includeWidth = includeWidth ? 1 : 0;
-	for ( ; i < 4; i += 2 - includeWidth ) {
-		which = cssExpand[ i ];
-		attrs[ "margin" + which ] = attrs[ "padding" + which ] = type;
-	}
-
-	if ( includeWidth ) {
-		attrs.opacity = attrs.width = type;
-	}
-
-	return attrs;
-}
-
-function createTween( value, prop, animation ) {
-	var tween,
-		collection = ( Animation.tweeners[ prop ] || [] ).concat( Animation.tweeners[ "*" ] ),
-		index = 0,
-		length = collection.length;
-	for ( ; index < length; index++ ) {
-		if ( ( tween = collection[ index ].call( animation, prop, value ) ) ) {
-
-			// We're done with this property
-			return tween;
-		}
-	}
-}
-
-function defaultPrefilter( elem, props, opts ) {
-	var prop, value, toggle, hooks, oldfire, propTween, restoreDisplay, display,
-		isBox = "width" in props || "height" in props,
-		anim = this,
-		orig = {},
-		style = elem.style,
-		hidden = elem.nodeType && isHiddenWithinTree( elem ),
-		dataShow = dataPriv.get( elem, "fxshow" );
-
-	// Queue-skipping animations hijack the fx hooks
-	if ( !opts.queue ) {
-		hooks = jQuery._queueHooks( elem, "fx" );
-		if ( hooks.unqueued == null ) {
-			hooks.unqueued = 0;
-			oldfire = hooks.empty.fire;
-			hooks.empty.fire = function() {
-				if ( !hooks.unqueued ) {
-					oldfire();
-				}
-			};
-		}
-		hooks.unqueued++;
-
-		anim.always( function() {
-
-			// Ensure the complete handler is called before this completes
-			anim.always( function() {
-				hooks.unqueued--;
-				if ( !jQuery.queue( elem, "fx" ).length ) {
-					hooks.empty.fire();
-				}
-			} );
-		} );
-	}
-
-	// Detect show/hide animations
-	for ( prop in props ) {
-		value = props[ prop ];
-		if ( rfxtypes.test( value ) ) {
-			delete props[ prop ];
-			toggle = toggle || value === "toggle";
-			if ( value === ( hidden ? "hide" : "show" ) ) {
-
-				// Pretend to be hidden if this is a "show" and
-				// there is still data from a stopped show/hide
-				if ( value === "show" && dataShow && dataShow[ prop ] !== undefined ) {
-					hidden = true;
-
-				// Ignore all other no-op show/hide data
-				} else {
-					continue;
-				}
-			}
-			orig[ prop ] = dataShow && dataShow[ prop ] || jQuery.style( elem, prop );
-		}
-	}
-
-	// Bail out if this is a no-op like .hide().hide()
-	propTween = !jQuery.isEmptyObject( props );
-	if ( !propTween && jQuery.isEmptyObject( orig ) ) {
-		return;
-	}
-
-	// Restrict "overflow" and "display" styles during box animations
-	if ( isBox && elem.nodeType === 1 ) {
-
-		// Support: IE <=9 - 11, Edge 12 - 15
-		// Record all 3 overflow attributes because IE does not infer the shorthand
-		// from identically-valued overflowX and overflowY and Edge just mirrors
-		// the overflowX value there.
-		opts.overflow = [ style.overflow, style.overflowX, style.overflowY ];
-
-		// Identify a display type, preferring old show/hide data over the CSS cascade
-		restoreDisplay = dataShow && dataShow.display;
-		if ( restoreDisplay == null ) {
-			restoreDisplay = dataPriv.get( elem, "display" );
-		}
-		display = jQuery.css( elem, "display" );
-		if ( display === "none" ) {
-			if ( restoreDisplay ) {
-				display = restoreDisplay;
-			} else {
-
-				// Get nonempty value(s) by temporarily forcing visibility
-				showHide( [ elem ], true );
-				restoreDisplay = elem.style.display || restoreDisplay;
-				display = jQuery.css( elem, "display" );
-				showHide( [ elem ] );
-			}
-		}
-
-		// Animate inline elements as inline-block
-		if ( display === "inline" || display === "inline-block" && restoreDisplay != null ) {
-			if ( jQuery.css( elem, "float" ) === "none" ) {
-
-				// Restore the original display value at the end of pure show/hide animations
-				if ( !propTween ) {
-					anim.done( function() {
-						style.display = restoreDisplay;
-					} );
-					if ( restoreDisplay == null ) {
-						display = style.display;
-						restoreDisplay = display === "none" ? "" : display;
-					}
-				}
-				style.display = "inline-block";
-			}
-		}
-	}
-
-	if ( opts.overflow ) {
-		style.overflow = "hidden";
-		anim.always( function() {
-			style.overflow = opts.overflow[ 0 ];
-			style.overflowX = opts.overflow[ 1 ];
-			style.overflowY = opts.overflow[ 2 ];
-		} );
-	}
-
-	// Implement show/hide animations
-	propTween = false;
-	for ( prop in orig ) {
-
-		// General show/hide setup for this element animation
-		if ( !propTween ) {
-			if ( dataShow ) {
-				if ( "hidden" in dataShow ) {
-					hidden = dataShow.hidden;
-				}
-			} else {
-				dataShow = dataPriv.access( elem, "fxshow", { display: restoreDisplay } );
-			}
-
-			// Store hidden/visible for toggle so `.stop().toggle()` "reverses"
-			if ( toggle ) {
-				dataShow.hidden = !hidden;
-			}
-
-			// Show elements before animating them
-			if ( hidden ) {
-				showHide( [ elem ], true );
-			}
-
-			/* eslint-disable no-loop-func */
-
-			anim.done( function() {
-
-			/* eslint-enable no-loop-func */
-
-				// The final step of a "hide" animation is actually hiding the element
-				if ( !hidden ) {
-					showHide( [ elem ] );
-				}
-				dataPriv.remove( elem, "fxshow" );
-				for ( prop in orig ) {
-					jQuery.style( elem, prop, orig[ prop ] );
-				}
-			} );
-		}
-
-		// Per-property setup
-		propTween = createTween( hidden ? dataShow[ prop ] : 0, prop, anim );
-		if ( !( prop in dataShow ) ) {
-			dataShow[ prop ] = propTween.start;
-			if ( hidden ) {
-				propTween.end = propTween.start;
-				propTween.start = 0;
-			}
-		}
-	}
-}
-
-function propFilter( props, specialEasing ) {
-	var index, name, easing, value, hooks;
-
-	// camelCase, specialEasing and expand cssHook pass
-	for ( index in props ) {
-		name = camelCase( index );
-		easing = specialEasing[ name ];
-		value = props[ index ];
-		if ( Array.isArray( value ) ) {
-			easing = value[ 1 ];
-			value = props[ index ] = value[ 0 ];
-		}
-
-		if ( index !== name ) {
-			props[ name ] = value;
-			delete props[ index ];
-		}
-
-		hooks = jQuery.cssHooks[ name ];
-		if ( hooks && "expand" in hooks ) {
-			value = hooks.expand( value );
-			delete props[ name ];
-
-			// Not quite $.extend, this won't overwrite existing keys.
-			// Reusing 'index' because we have the correct "name"
-			for ( index in value ) {
-				if ( !( index in props ) ) {
-					props[ index ] = value[ index ];
-					specialEasing[ index ] = easing;
-				}
-			}
-		} else {
-			specialEasing[ name ] = easing;
-		}
-	}
-}
-
-function Animation( elem, properties, options ) {
-	var result,
-		stopped,
-		index = 0,
-		length = Animation.prefilters.length,
-		deferred = jQuery.Deferred().always( function() {
-
-			// Don't match elem in the :animated selector
-			delete tick.elem;
-		} ),
-		tick = function() {
-			if ( stopped ) {
-				return false;
-			}
-			var currentTime = fxNow || createFxNow(),
-				remaining = Math.max( 0, animation.startTime + animation.duration - currentTime ),
-
-				// Support: Android 2.3 only
-				// Archaic crash bug won't allow us to use `1 - ( 0.5 || 0 )` (#12497)
-				temp = remaining / animation.duration || 0,
-				percent = 1 - temp,
-				index = 0,
-				length = animation.tweens.length;
-
-			for ( ; index < length; index++ ) {
-				animation.tweens[ index ].run( percent );
-			}
-
-			deferred.notifyWith( elem, [ animation, percent, remaining ] );
-
-			// If there's more to do, yield
-			if ( percent < 1 && length ) {
-				return remaining;
-			}
-
-			// If this was an empty animation, synthesize a final progress notification
-			if ( !length ) {
-				deferred.notifyWith( elem, [ animation, 1, 0 ] );
-			}
-
-			// Resolve the animation and report its conclusion
-			deferred.resolveWith( elem, [ animation ] );
-			return false;
-		},
-		animation = deferred.promise( {
-			elem: elem,
-			props: jQuery.extend( {}, properties ),
-			opts: jQuery.extend( true, {
-				specialEasing: {},
-				easing: jQuery.easing._default
-			}, options ),
-			originalProperties: properties,
-			originalOptions: options,
-			startTime: fxNow || createFxNow(),
-			duration: options.duration,
-			tweens: [],
-			createTween: function( prop, end ) {
-				var tween = jQuery.Tween( elem, animation.opts, prop, end,
-						animation.opts.specialEasing[ prop ] || animation.opts.easing );
-				animation.tweens.push( tween );
-				return tween;
-			},
-			stop: function( gotoEnd ) {
-				var index = 0,
-
-					// If we are going to the end, we want to run all the tweens
-					// otherwise we skip this part
-					length = gotoEnd ? animation.tweens.length : 0;
-				if ( stopped ) {
-					return this;
-				}
-				stopped = true;
-				for ( ; index < length; index++ ) {
-					animation.tweens[ index ].run( 1 );
-				}
-
-				// Resolve when we played the last frame; otherwise, reject
-				if ( gotoEnd ) {
-					deferred.notifyWith( elem, [ animation, 1, 0 ] );
-					deferred.resolveWith( elem, [ animation, gotoEnd ] );
-				} else {
-					deferred.rejectWith( elem, [ animation, gotoEnd ] );
-				}
-				return this;
-			}
-		} ),
-		props = animation.props;
-
-	propFilter( props, animation.opts.specialEasing );
-
-	for ( ; index < length; index++ ) {
-		result = Animation.prefilters[ index ].call( animation, elem, props, animation.opts );
-		if ( result ) {
-			if ( isFunction( result.stop ) ) {
-				jQuery._queueHooks( animation.elem, animation.opts.queue ).stop =
-					result.stop.bind( result );
-			}
-			return result;
-		}
-	}
-
-	jQuery.map( props, createTween, animation );
-
-	if ( isFunction( animation.opts.start ) ) {
-		animation.opts.start.call( elem, animation );
-	}
-
-	// Attach callbacks from options
-	animation
-		.progress( animation.opts.progress )
-		.done( animation.opts.done, animation.opts.complete )
-		.fail( animation.opts.fail )
-		.always( animation.opts.always );
-
-	jQuery.fx.timer(
-		jQuery.extend( tick, {
-			elem: elem,
-			anim: animation,
-			queue: animation.opts.queue
-		} )
-	);
-
-	return animation;
-}
-
-jQuery.Animation = jQuery.extend( Animation, {
-
-	tweeners: {
-		"*": [ function( prop, value ) {
-			var tween = this.createTween( prop, value );
-			adjustCSS( tween.elem, prop, rcssNum.exec( value ), tween );
-			return tween;
-		} ]
-	},
-
-	tweener: function( props, callback ) {
-		if ( isFunction( props ) ) {
-			callback = props;
-			props = [ "*" ];
-		} else {
-			props = props.match( rnothtmlwhite );
-		}
-
-		var prop,
-			index = 0,
-			length = props.length;
-
-		for ( ; index < length; index++ ) {
-			prop = props[ index ];
-			Animation.tweeners[ prop ] = Animation.tweeners[ prop ] || [];
-			Animation.tweeners[ prop ].unshift( callback );
-		}
-	},
-
-	prefilters: [ defaultPrefilter ],
-
-	prefilter: function( callback, prepend ) {
-		if ( prepend ) {
-			Animation.prefilters.unshift( callback );
-		} else {
-			Animation.prefilters.push( callback );
-		}
-	}
-} );
-
-jQuery.speed = function( speed, easing, fn ) {
-	var opt = speed && typeof speed === "object" ? jQuery.extend( {}, speed ) : {
-		complete: fn || !fn && easing ||
-			isFunction( speed ) && speed,
-		duration: speed,
-		easing: fn && easing || easing && !isFunction( easing ) && easing
-	};
-
-	// Go to the end state if fx are off
-	if ( jQuery.fx.off ) {
-		opt.duration = 0;
-
-	} else {
-		if ( typeof opt.duration !== "number" ) {
-			if ( opt.duration in jQuery.fx.speeds ) {
-				opt.duration = jQuery.fx.speeds[ opt.duration ];
-
-			} else {
-				opt.duration = jQuery.fx.speeds._default;
-			}
-		}
-	}
-
-	// Normalize opt.queue - true/undefined/null -> "fx"
-	if ( opt.queue == null || opt.queue === true ) {
-		opt.queue = "fx";
-	}
-
-	// Queueing
-	opt.old = opt.complete;
-
-	opt.complete = function() {
-		if ( isFunction( opt.old ) ) {
-			opt.old.call( this );
-		}
-
-		if ( opt.queue ) {
-			jQuery.dequeue( this, opt.queue );
-		}
-	};
-
-	return opt;
-};
-
-jQuery.fn.extend( {
-	fadeTo: function( speed, to, easing, callback ) {
-
-		// Show any hidden elements after setting opacity to 0
-		return this.filter( isHiddenWithinTree ).css( "opacity", 0 ).show()
-
-			// Animate to the value specified
-			.end().animate( { opacity: to }, speed, easing, callback );
-	},
-	animate: function( prop, speed, easing, callback ) {
-		var empty = jQuery.isEmptyObject( prop ),
-			optall = jQuery.speed( speed, easing, callback ),
-			doAnimation = function() {
-
-				// Operate on a copy of prop so per-property easing won't be lost
-				var anim = Animation( this, jQuery.extend( {}, prop ), optall );
-
-				// Empty animations, or finishing resolves immediately
-				if ( empty || dataPriv.get( this, "finish" ) ) {
-					anim.stop( true );
-				}
-			};
-			doAnimation.finish = doAnimation;
-
-		return empty || optall.queue === false ?
-			this.each( doAnimation ) :
-			this.queue( optall.queue, doAnimation );
-	},
-	stop: function( type, clearQueue, gotoEnd ) {
-		var stopQueue = function( hooks ) {
-			var stop = hooks.stop;
-			delete hooks.stop;
-			stop( gotoEnd );
-		};
-
-		if ( typeof type !== "string" ) {
-			gotoEnd = clearQueue;
-			clearQueue = type;
-			type = undefined;
-		}
-		if ( clearQueue && type !== false ) {
-			this.queue( type || "fx", [] );
-		}
-
-		return this.each( function() {
-			var dequeue = true,
-				index = type != null && type + "queueHooks",
-				timers = jQuery.timers,
-				data = dataPriv.get( this );
-
-			if ( index ) {
-				if ( data[ index ] && data[ index ].stop ) {
-					stopQueue( data[ index ] );
-				}
-			} else {
-				for ( index in data ) {
-					if ( data[ index ] && data[ index ].stop && rrun.test( index ) ) {
-						stopQueue( data[ index ] );
-					}
-				}
-			}
-
-			for ( index = timers.length; index--; ) {
-				if ( timers[ index ].elem === this &&
-					( type == null || timers[ index ].queue === type ) ) {
-
-					timers[ index ].anim.stop( gotoEnd );
-					dequeue = false;
-					timers.splice( index, 1 );
-				}
-			}
-
-			// Start the next in the queue if the last step wasn't forced.
-			// Timers currently will call their complete callbacks, which
-			// will dequeue but only if they were gotoEnd.
-			if ( dequeue || !gotoEnd ) {
-				jQuery.dequeue( this, type );
-			}
-		} );
-	},
-	finish: function( type ) {
-		if ( type !== false ) {
-			type = type || "fx";
-		}
-		return this.each( function() {
-			var index,
-				data = dataPriv.get( this ),
-				queue = data[ type + "queue" ],
-				hooks = data[ type + "queueHooks" ],
-				timers = jQuery.timers,
-				length = queue ? queue.length : 0;
-
-			// Enable finishing flag on private data
-			data.finish = true;
-
-			// Empty the queue first
-			jQuery.queue( this, type, [] );
-
-			if ( hooks && hooks.stop ) {
-				hooks.stop.call( this, true );
-			}
-
-			// Look for any active animations, and finish them
-			for ( index = timers.length; index--; ) {
-				if ( timers[ index ].elem === this && timers[ index ].queue === type ) {
-					timers[ index ].anim.stop( true );
-					timers.splice( index, 1 );
-				}
-			}
-
-			// Look for any animations in the old queue and finish them
-			for ( index = 0; index < length; index++ ) {
-				if ( queue[ index ] && queue[ index ].finish ) {
-					queue[ index ].finish.call( this );
-				}
-			}
-
-			// Turn off finishing flag
-			delete data.finish;
-		} );
-	}
-} );
-
-jQuery.each( [ "toggle", "show", "hide" ], function( i, name ) {
-	var cssFn = jQuery.fn[ name ];
-	jQuery.fn[ name ] = function( speed, easing, callback ) {
-		return speed == null || typeof speed === "boolean" ?
-			cssFn.apply( this, arguments ) :
-			this.animate( genFx( name, true ), speed, easing, callback );
-	};
-} );
-
-// Generate shortcuts for custom animations
-jQuery.each( {
-	slideDown: genFx( "show" ),
-	slideUp: genFx( "hide" ),
-	slideToggle: genFx( "toggle" ),
-	fadeIn: { opacity: "show" },
-	fadeOut: { opacity: "hide" },
-	fadeToggle: { opacity: "toggle" }
-}, function( name, props ) {
-	jQuery.fn[ name ] = function( speed, easing, callback ) {
-		return this.animate( props, speed, easing, callback );
-	};
-} );
-
-jQuery.timers = [];
-jQuery.fx.tick = function() {
-	var timer,
-		i = 0,
-		timers = jQuery.timers;
-
-	fxNow = Date.now();
-
-	for ( ; i < timers.length; i++ ) {
-		timer = timers[ i ];
-
-		// Run the timer and safely remove it when done (allowing for external removal)
-		if ( !timer() && timers[ i ] === timer ) {
-			timers.splice( i--, 1 );
-		}
-	}
-
-	if ( !timers.length ) {
-		jQuery.fx.stop();
-	}
-	fxNow = undefined;
-};
-
-jQuery.fx.timer = function( timer ) {
-	jQuery.timers.push( timer );
-	jQuery.fx.start();
-};
-
-jQuery.fx.interval = 13;
-jQuery.fx.start = function() {
-	if ( inProgress ) {
-		return;
-	}
-
-	inProgress = true;
-	schedule();
-};
-
-jQuery.fx.stop = function() {
-	inProgress = null;
-};
-
-jQuery.fx.speeds = {
-	slow: 600,
-	fast: 200,
-
-	// Default speed
-	_default: 400
-};
-
-
-// Based off of the plugin by Clint Helfers, with permission.
-// https://web.archive.org/web/20100324014747/http://blindsignals.com/index.php/2009/07/jquery-delay/
-jQuery.fn.delay = function( time, type ) {
-	time = jQuery.fx ? jQuery.fx.speeds[ time ] || time : time;
-	type = type || "fx";
-
-	return this.queue( type, function( next, hooks ) {
-		var timeout = window.setTimeout( next, time );
-		hooks.stop = function() {
-			window.clearTimeout( timeout );
-		};
-	} );
-};
-
-
-( function() {
-	var input = document.createElement( "input" ),
-		select = document.createElement( "select" ),
-		opt = select.appendChild( document.createElement( "option" ) );
-
-	input.type = "checkbox";
-
-	// Support: Android <=4.3 only
-	// Default value for a checkbox should be "on"
-	support.checkOn = input.value !== "";
-
-	// Support: IE <=11 only
-	// Must access selectedIndex to make default options select
-	support.optSelected = opt.selected;
-
-	// Support: IE <=11 only
-	// An input loses its value after becoming a radio
-	input = document.createElement( "input" );
-	input.value = "t";
-	input.type = "radio";
-	support.radioValue = input.value === "t";
-} )();
-
-
-var boolHook,
-	attrHandle = jQuery.expr.attrHandle;
-
-jQuery.fn.extend( {
-	attr: function( name, value ) {
-		return access( this, jQuery.attr, name, value, arguments.length > 1 );
-	},
-
-	removeAttr: function( name ) {
-		return this.each( function() {
-			jQuery.removeAttr( this, name );
-		} );
-	}
-} );
-
-jQuery.extend( {
-	attr: function( elem, name, value ) {
-		var ret, hooks,
-			nType = elem.nodeType;
-
-		// Don't get/set attributes on text, comment and attribute nodes
-		if ( nType === 3 || nType === 8 || nType === 2 ) {
-			return;
-		}
-
-		// Fallback to prop when attributes are not supported
-		if ( typeof elem.getAttribute === "undefined" ) {
-			return jQuery.prop( elem, name, value );
-		}
-
-		// Attribute hooks are determined by the lowercase version
-		// Grab necessary hook if one is defined
-		if ( nType !== 1 || !jQuery.isXMLDoc( elem ) ) {
-			hooks = jQuery.attrHooks[ name.toLowerCase() ] ||
-				( jQuery.expr.match.bool.test( name ) ? boolHook : undefined );
-		}
-
-		if ( value !== undefined ) {
-			if ( value === null ) {
-				jQuery.removeAttr( elem, name );
-				return;
-			}
-
-			if ( hooks && "set" in hooks &&
-				( ret = hooks.set( elem, value, name ) ) !== undefined ) {
-				return ret;
-			}
-
-			elem.setAttribute( name, value + "" );
-			return value;
-		}
-
-		if ( hooks && "get" in hooks && ( ret = hooks.get( elem, name ) ) !== null ) {
-			return ret;
-		}
-
-		ret = jQuery.find.attr( elem, name );
-
-		// Non-existent attributes return null, we normalize to undefined
-		return ret == null ? undefined : ret;
-	},
-
-	attrHooks: {
-		type: {
-			set: function( elem, value ) {
-				if ( !support.radioValue && value === "radio" &&
-					nodeName( elem, "input" ) ) {
-					var val = elem.value;
-					elem.setAttribute( "type", value );
-					if ( val ) {
-						elem.value = val;
-					}
-					return value;
-				}
-			}
-		}
-	},
-
-	removeAttr: function( elem, value ) {
-		var name,
-			i = 0,
-
-			// Attribute names can contain non-HTML whitespace characters
-			// https://html.spec.whatwg.org/multipage/syntax.html#attributes-2
-			attrNames = value && value.match( rnothtmlwhite );
-
-		if ( attrNames && elem.nodeType === 1 ) {
-			while ( ( name = attrNames[ i++ ] ) ) {
-				elem.removeAttribute( name );
-			}
-		}
-	}
-} );
-
-// Hooks for boolean attributes
-boolHook = {
-	set: function( elem, value, name ) {
-		if ( value === false ) {
-
-			// Remove boolean attributes when set to false
-			jQuery.removeAttr( elem, name );
-		} else {
-			elem.setAttribute( name, name );
-		}
-		return name;
-	}
-};
-
-jQuery.each( jQuery.expr.match.bool.source.match( /\w+/g ), function( i, name ) {
-	var getter = attrHandle[ name ] || jQuery.find.attr;
-
-	attrHandle[ name ] = function( elem, name, isXML ) {
-		var ret, handle,
-			lowercaseName = name.toLowerCase();
-
-		if ( !isXML ) {
-
-			// Avoid an infinite loop by temporarily removing this function from the getter
-			handle = attrHandle[ lowercaseName ];
-			attrHandle[ lowercaseName ] = ret;
-			ret = getter( elem, name, isXML ) != null ?
-				lowercaseName :
-				null;
-			attrHandle[ lowercaseName ] = handle;
-		}
-		return ret;
-	};
-} );
-
-
-
-
-var rfocusable = /^(?:input|select|textarea|button)$/i,
-	rclickable = /^(?:a|area)$/i;
-
-jQuery.fn.extend( {
-	prop: function( name, value ) {
-		return access( this, jQuery.prop, name, value, arguments.length > 1 );
-	},
-
-	removeProp: function( name ) {
-		return this.each( function() {
-			delete this[ jQuery.propFix[ name ] || name ];
-		} );
-	}
-} );
-
-jQuery.extend( {
-	prop: function( elem, name, value ) {
-		var ret, hooks,
-			nType = elem.nodeType;
-
-		// Don't get/set properties on text, comment and attribute nodes
-		if ( nType === 3 || nType === 8 || nType === 2 ) {
-			return;
-		}
-
-		if ( nType !== 1 || !jQuery.isXMLDoc( elem ) ) {
-
-			// Fix name and attach hooks
-			name = jQuery.propFix[ name ] || name;
-			hooks = jQuery.propHooks[ name ];
-		}
-
-		if ( value !== undefined ) {
-			if ( hooks && "set" in hooks &&
-				( ret = hooks.set( elem, value, name ) ) !== undefined ) {
-				return ret;
-			}
-
-			return ( elem[ name ] = value );
-		}
-
-		if ( hooks && "get" in hooks && ( ret = hooks.get( elem, name ) ) !== null ) {
-			return ret;
-		}
-
-		return elem[ name ];
-	},
-
-	propHooks: {
-		tabIndex: {
-			get: function( elem ) {
-
-				// Support: IE <=9 - 11 only
-				// elem.tabIndex doesn't always return the
-				// correct value when it hasn't been explicitly set
-				// https://web.archive.org/web/20141116233347/http://fluidproject.org/blog/2008/01/09/getting-setting-and-removing-tabindex-values-with-javascript/
-				// Use proper attribute retrieval(#12072)
-				var tabindex = jQuery.find.attr( elem, "tabindex" );
-
-				if ( tabindex ) {
-					return parseInt( tabindex, 10 );
-				}
-
-				if (
-					rfocusable.test( elem.nodeName ) ||
-					rclickable.test( elem.nodeName ) &&
-					elem.href
-				) {
-					return 0;
-				}
-
-				return -1;
-			}
-		}
-	},
-
-	propFix: {
-		"for": "htmlFor",
-		"class": "className"
-	}
-} );
-
-// Support: IE <=11 only
-// Accessing the selectedIndex property
-// forces the browser to respect setting selected
-// on the option
-// The getter ensures a default option is selected
-// when in an optgroup
-// eslint rule "no-unused-expressions" is disabled for this code
-// since it considers such accessions noop
-if ( !support.optSelected ) {
-	jQuery.propHooks.selected = {
-		get: function( elem ) {
-
-			/* eslint no-unused-expressions: "off" */
-
-			var parent = elem.parentNode;
-			if ( parent && parent.parentNode ) {
-				parent.parentNode.selectedIndex;
-			}
-			return null;
-		},
-		set: function( elem ) {
-
-			/* eslint no-unused-expressions: "off" */
-
-			var parent = elem.parentNode;
-			if ( parent ) {
-				parent.selectedIndex;
-
-				if ( parent.parentNode ) {
-					parent.parentNode.selectedIndex;
-				}
-			}
-		}
-	};
-}
-
-jQuery.each( [
-	"tabIndex",
-	"readOnly",
-	"maxLength",
-	"cellSpacing",
-	"cellPadding",
-	"rowSpan",
-	"colSpan",
-	"useMap",
-	"frameBorder",
-	"contentEditable"
-], function() {
-	jQuery.propFix[ this.toLowerCase() ] = this;
-} );
-
-
-
-
-	// Strip and collapse whitespace according to HTML spec
-	// https://infra.spec.whatwg.org/#strip-and-collapse-ascii-whitespace
-	function stripAndCollapse( value ) {
-		var tokens = value.match( rnothtmlwhite ) || [];
-		return tokens.join( " " );
-	}
-
-
-function getClass( elem ) {
-	return elem.getAttribute && elem.getAttribute( "class" ) || "";
-}
-
-function classesToArray( value ) {
-	if ( Array.isArray( value ) ) {
-		return value;
-	}
-	if ( typeof value === "string" ) {
-		return value.match( rnothtmlwhite ) || [];
-	}
-	return [];
-}
-
-jQuery.fn.extend( {
-	addClass: function( value ) {
-		var classes, elem, cur, curValue, clazz, j, finalValue,
-			i = 0;
-
-		if ( isFunction( value ) ) {
-			return this.each( function( j ) {
-				jQuery( this ).addClass( value.call( this, j, getClass( this ) ) );
-			} );
-		}
-
-		classes = classesToArray( value );
-
-		if ( classes.length ) {
-			while ( ( elem = this[ i++ ] ) ) {
-				curValue = getClass( elem );
-				cur = elem.nodeType === 1 && ( " " + stripAndCollapse( curValue ) + " " );
-
-				if ( cur ) {
-					j = 0;
-					while ( ( clazz = classes[ j++ ] ) ) {
-						if ( cur.indexOf( " " + clazz + " " ) < 0 ) {
-							cur += clazz + " ";
-						}
-					}
-
-					// Only assign if different to avoid unneeded rendering.
-					finalValue = stripAndCollapse( cur );
-					if ( curValue !== finalValue ) {
-						elem.setAttribute( "class", finalValue );
-					}
-				}
-			}
-		}
-
-		return this;
-	},
-
-	removeClass: function( value ) {
-		var classes, elem, cur, curValue, clazz, j, finalValue,
-			i = 0;
-
-		if ( isFunction( value ) ) {
-			return this.each( function( j ) {
-				jQuery( this ).removeClass( value.call( this, j, getClass( this ) ) );
-			} );
-		}
-
-		if ( !arguments.length ) {
-			return this.attr( "class", "" );
-		}
-
-		classes = classesToArray( value );
-
-		if ( classes.length ) {
-			while ( ( elem = this[ i++ ] ) ) {
-				curValue = getClass( elem );
-
-				// This expression is here for better compressibility (see addClass)
-				cur = elem.nodeType === 1 && ( " " + stripAndCollapse( curValue ) + " " );
-
-				if ( cur ) {
-					j = 0;
-					while ( ( clazz = classes[ j++ ] ) ) {
-
-						// Remove *all* instances
-						while ( cur.indexOf( " " + clazz + " " ) > -1 ) {
-							cur = cur.replace( " " + clazz + " ", " " );
-						}
-					}
-
-					// Only assign if different to avoid unneeded rendering.
-					finalValue = stripAndCollapse( cur );
-					if ( curValue !== finalValue ) {
-						elem.setAttribute( "class", finalValue );
-					}
-				}
-			}
-		}
-
-		return this;
-	},
-
-	toggleClass: function( value, stateVal ) {
-		var type = typeof value,
-			isValidValue = type === "string" || Array.isArray( value );
-
-		if ( typeof stateVal === "boolean" && isValidValue ) {
-			return stateVal ? this.addClass( value ) : this.removeClass( value );
-		}
-
-		if ( isFunction( value ) ) {
-			return this.each( function( i ) {
-				jQuery( this ).toggleClass(
-					value.call( this, i, getClass( this ), stateVal ),
-					stateVal
-				);
-			} );
-		}
-
-		return this.each( function() {
-			var className, i, self, classNames;
-
-			if ( isValidValue ) {
-
-				// Toggle individual class names
-				i = 0;
-				self = jQuery( this );
-				classNames = classesToArray( value );
-
-				while ( ( className = classNames[ i++ ] ) ) {
-
-					// Check each className given, space separated list
-					if ( self.hasClass( className ) ) {
-						self.removeClass( className );
-					} else {
-						self.addClass( className );
-					}
-				}
-
-			// Toggle whole class name
-			} else if ( value === undefined || type === "boolean" ) {
-				className = getClass( this );
-				if ( className ) {
-
-					// Store className if set
-					dataPriv.set( this, "__className__", className );
-				}
-
-				// If the element has a class name or if we're passed `false`,
-				// then remove the whole classname (if there was one, the above saved it).
-				// Otherwise bring back whatever was previously saved (if anything),
-				// falling back to the empty string if nothing was stored.
-				if ( this.setAttribute ) {
-					this.setAttribute( "class",
-						className || value === false ?
-						"" :
-						dataPriv.get( this, "__className__" ) || ""
-					);
-				}
-			}
-		} );
-	},
-
-	hasClass: function( selector ) {
-		var className, elem,
-			i = 0;
-
-		className = " " + selector + " ";
-		while ( ( elem = this[ i++ ] ) ) {
-			if ( elem.nodeType === 1 &&
-				( " " + stripAndCollapse( getClass( elem ) ) + " " ).indexOf( className ) > -1 ) {
-					return true;
-			}
-		}
-
-		return false;
-	}
-} );
-
-
-
-
-var rreturn = /\r/g;
-
-jQuery.fn.extend( {
-	val: function( value ) {
-		var hooks, ret, valueIsFunction,
-			elem = this[ 0 ];
-
-		if ( !arguments.length ) {
-			if ( elem ) {
-				hooks = jQuery.valHooks[ elem.type ] ||
-					jQuery.valHooks[ elem.nodeName.toLowerCase() ];
-
-				if ( hooks &&
-					"get" in hooks &&
-					( ret = hooks.get( elem, "value" ) ) !== undefined
-				) {
-					return ret;
-				}
-
-				ret = elem.value;
-
-				// Handle most common string cases
-				if ( typeof ret === "string" ) {
-					return ret.replace( rreturn, "" );
-				}
-
-				// Handle cases where value is null/undef or number
-				return ret == null ? "" : ret;
-			}
-
-			return;
-		}
-
-		valueIsFunction = isFunction( value );
-
-		return this.each( function( i ) {
-			var val;
-
-			if ( this.nodeType !== 1 ) {
-				return;
-			}
-
-			if ( valueIsFunction ) {
-				val = value.call( this, i, jQuery( this ).val() );
-			} else {
-				val = value;
-			}
-
-			// Treat null/undefined as ""; convert numbers to string
-			if ( val == null ) {
-				val = "";
-
-			} else if ( typeof val === "number" ) {
-				val += "";
-
-			} else if ( Array.isArray( val ) ) {
-				val = jQuery.map( val, function( value ) {
-					return value == null ? "" : value + "";
-				} );
-			}
-
-			hooks = jQuery.valHooks[ this.type ] || jQuery.valHooks[ this.nodeName.toLowerCase() ];
-
-			// If set returns undefined, fall back to normal setting
-			if ( !hooks || !( "set" in hooks ) || hooks.set( this, val, "value" ) === undefined ) {
-				this.value = val;
-			}
-		} );
-	}
-} );
-
-jQuery.extend( {
-	valHooks: {
-		option: {
-			get: function( elem ) {
-
-				var val = jQuery.find.attr( elem, "value" );
-				return val != null ?
-					val :
-
-					// Support: IE <=10 - 11 only
-					// option.text throws exceptions (#14686, #14858)
-					// Strip and collapse whitespace
-					// https://html.spec.whatwg.org/#strip-and-collapse-whitespace
-					stripAndCollapse( jQuery.text( elem ) );
-			}
-		},
-		select: {
-			get: function( elem ) {
-				var value, option, i,
-					options = elem.options,
-					index = elem.selectedIndex,
-					one = elem.type === "select-one",
-					values = one ? null : [],
-					max = one ? index + 1 : options.length;
-
-				if ( index < 0 ) {
-					i = max;
-
-				} else {
-					i = one ? index : 0;
-				}
-
-				// Loop through all the selected options
-				for ( ; i < max; i++ ) {
-					option = options[ i ];
-
-					// Support: IE <=9 only
-					// IE8-9 doesn't update selected after form reset (#2551)
-					if ( ( option.selected || i === index ) &&
-
-							// Don't return options that are disabled or in a disabled optgroup
-							!option.disabled &&
-							( !option.parentNode.disabled ||
-								!nodeName( option.parentNode, "optgroup" ) ) ) {
-
-						// Get the specific value for the option
-						value = jQuery( option ).val();
-
-						// We don't need an array for one selects
-						if ( one ) {
-							return value;
-						}
-
-						// Multi-Selects return an array
-						values.push( value );
-					}
-				}
-
-				return values;
-			},
-
-			set: function( elem, value ) {
-				var optionSet, option,
-					options = elem.options,
-					values = jQuery.makeArray( value ),
-					i = options.length;
-
-				while ( i-- ) {
-					option = options[ i ];
-
-					/* eslint-disable no-cond-assign */
-
-					if ( option.selected =
-						jQuery.inArray( jQuery.valHooks.option.get( option ), values ) > -1
-					) {
-						optionSet = true;
-					}
-
-					/* eslint-enable no-cond-assign */
-				}
-
-				// Force browsers to behave consistently when non-matching value is set
-				if ( !optionSet ) {
-					elem.selectedIndex = -1;
-				}
-				return values;
-			}
-		}
-	}
-} );
-
-// Radios and checkboxes getter/setter
-jQuery.each( [ "radio", "checkbox" ], function() {
-	jQuery.valHooks[ this ] = {
-		set: function( elem, value ) {
-			if ( Array.isArray( value ) ) {
-				return ( elem.checked = jQuery.inArray( jQuery( elem ).val(), value ) > -1 );
-			}
-		}
-	};
-	if ( !support.checkOn ) {
-		jQuery.valHooks[ this ].get = function( elem ) {
-			return elem.getAttribute( "value" ) === null ? "on" : elem.value;
-		};
-	}
-} );
-
-
-
-
-// Return jQuery for attributes-only inclusion
-
-
-support.focusin = "onfocusin" in window;
-
-
-var rfocusMorph = /^(?:focusinfocus|focusoutblur)$/,
-	stopPropagationCallback = function( e ) {
-		e.stopPropagation();
-	};
-
-jQuery.extend( jQuery.event, {
-
-	trigger: function( event, data, elem, onlyHandlers ) {
-
-		var i, cur, tmp, bubbleType, ontype, handle, special, lastElement,
-			eventPath = [ elem || document ],
-			type = hasOwn.call( event, "type" ) ? event.type : event,
-			namespaces = hasOwn.call( event, "namespace" ) ? event.namespace.split( "." ) : [];
-
-		cur = lastElement = tmp = elem = elem || document;
-
-		// Don't do events on text and comment nodes
-		if ( elem.nodeType === 3 || elem.nodeType === 8 ) {
-			return;
-		}
-
-		// focus/blur morphs to focusin/out; ensure we're not firing them right now
-		if ( rfocusMorph.test( type + jQuery.event.triggered ) ) {
-			return;
-		}
-
-		if ( type.indexOf( "." ) > -1 ) {
-
-			// Namespaced trigger; create a regexp to match event type in handle()
-			namespaces = type.split( "." );
-			type = namespaces.shift();
-			namespaces.sort();
-		}
-		ontype = type.indexOf( ":" ) < 0 && "on" + type;
-
-		// Caller can pass in a jQuery.Event object, Object, or just an event type string
-		event = event[ jQuery.expando ] ?
-			event :
-			new jQuery.Event( type, typeof event === "object" && event );
-
-		// Trigger bitmask: & 1 for native handlers; & 2 for jQuery (always true)
-		event.isTrigger = onlyHandlers ? 2 : 3;
-		event.namespace = namespaces.join( "." );
-		event.rnamespace = event.namespace ?
-			new RegExp( "(^|\\.)" + namespaces.join( "\\.(?:.*\\.|)" ) + "(\\.|$)" ) :
-			null;
-
-		// Clean up the event in case it is being reused
-		event.result = undefined;
-		if ( !event.target ) {
-			event.target = elem;
-		}
-
-		// Clone any incoming data and prepend the event, creating the handler arg list
-		data = data == null ?
-			[ event ] :
-			jQuery.makeArray( data, [ event ] );
-
-		// Allow special events to draw outside the lines
-		special = jQuery.event.special[ type ] || {};
-		if ( !onlyHandlers && special.trigger && special.trigger.apply( elem, data ) === false ) {
-			return;
-		}
-
-		// Determine event propagation path in advance, per W3C events spec (#9951)
-		// Bubble up to document, then to window; watch for a global ownerDocument var (#9724)
-		if ( !onlyHandlers && !special.noBubble && !isWindow( elem ) ) {
-
-			bubbleType = special.delegateType || type;
-			if ( !rfocusMorph.test( bubbleType + type ) ) {
-				cur = cur.parentNode;
-			}
-			for ( ; cur; cur = cur.parentNode ) {
-				eventPath.push( cur );
-				tmp = cur;
-			}
-
-			// Only add window if we got to document (e.g., not plain obj or detached DOM)
-			if ( tmp === ( elem.ownerDocument || document ) ) {
-				eventPath.push( tmp.defaultView || tmp.parentWindow || window );
-			}
-		}
-
-		// Fire handlers on the event path
-		i = 0;
-		while ( ( cur = eventPath[ i++ ] ) && !event.isPropagationStopped() ) {
-			lastElement = cur;
-			event.type = i > 1 ?
-				bubbleType :
-				special.bindType || type;
-
-			// jQuery handler
-			handle = ( dataPriv.get( cur, "events" ) || {} )[ event.type ] &&
-				dataPriv.get( cur, "handle" );
-			if ( handle ) {
-				handle.apply( cur, data );
-			}
-
-			// Native handler
-			handle = ontype && cur[ ontype ];
-			if ( handle && handle.apply && acceptData( cur ) ) {
-				event.result = handle.apply( cur, data );
-				if ( event.result === false ) {
-					event.preventDefault();
-				}
-			}
-		}
-		event.type = type;
-
-		// If nobody prevented the default action, do it now
-		if ( !onlyHandlers && !event.isDefaultPrevented() ) {
-
-			if ( ( !special._default ||
-				special._default.apply( eventPath.pop(), data ) === false ) &&
-				acceptData( elem ) ) {
-
-				// Call a native DOM method on the target with the same name as the event.
-				// Don't do default actions on window, that's where global variables be (#6170)
-				if ( ontype && isFunction( elem[ type ] ) && !isWindow( elem ) ) {
-
-					// Don't re-trigger an onFOO event when we call its FOO() method
-					tmp = elem[ ontype ];
-
-					if ( tmp ) {
-						elem[ ontype ] = null;
-					}
-
-					// Prevent re-triggering of the same event, since we already bubbled it above
-					jQuery.event.triggered = type;
-
-					if ( event.isPropagationStopped() ) {
-						lastElement.addEventListener( type, stopPropagationCallback );
-					}
-
-					elem[ type ]();
-
-					if ( event.isPropagationStopped() ) {
-						lastElement.removeEventListener( type, stopPropagationCallback );
-					}
-
-					jQuery.event.triggered = undefined;
-
-					if ( tmp ) {
-						elem[ ontype ] = tmp;
-					}
-				}
-			}
-		}
-
-		return event.result;
-	},
-
-	// Piggyback on a donor event to simulate a different one
-	// Used only for `focus(in | out)` events
-	simulate: function( type, elem, event ) {
-		var e = jQuery.extend(
-			new jQuery.Event(),
-			event,
-			{
-				type: type,
-				isSimulated: true
-			}
-		);
-
-		jQuery.event.trigger( e, null, elem );
-	}
-
-} );
-
-jQuery.fn.extend( {
-
-	trigger: function( type, data ) {
-		return this.each( function() {
-			jQuery.event.trigger( type, data, this );
-		} );
-	},
-	triggerHandler: function( type, data ) {
-		var elem = this[ 0 ];
-		if ( elem ) {
-			return jQuery.event.trigger( type, data, elem, true );
-		}
-	}
-} );
-
-
-// Support: Firefox <=44
-// Firefox doesn't have focus(in | out) events
-// Related ticket - https://bugzilla.mozilla.org/show_bug.cgi?id=687787
-//
-// Support: Chrome <=48 - 49, Safari <=9.0 - 9.1
-// focus(in | out) events fire after focus & blur events,
-// which is spec violation - http://www.w3.org/TR/DOM-Level-3-Events/#events-focusevent-event-order
-// Related ticket - https://bugs.chromium.org/p/chromium/issues/detail?id=449857
-if ( !support.focusin ) {
-	jQuery.each( { focus: "focusin", blur: "focusout" }, function( orig, fix ) {
-
-		// Attach a single capturing handler on the document while someone wants focusin/focusout
-		var handler = function( event ) {
-			jQuery.event.simulate( fix, event.target, jQuery.event.fix( event ) );
-		};
-
-		jQuery.event.special[ fix ] = {
-			setup: function() {
-				var doc = this.ownerDocument || this,
-					attaches = dataPriv.access( doc, fix );
-
-				if ( !attaches ) {
-					doc.addEventListener( orig, handler, true );
-				}
-				dataPriv.access( doc, fix, ( attaches || 0 ) + 1 );
-			},
-			teardown: function() {
-				var doc = this.ownerDocument || this,
-					attaches = dataPriv.access( doc, fix ) - 1;
-
-				if ( !attaches ) {
-					doc.removeEventListener( orig, handler, true );
-					dataPriv.remove( doc, fix );
-
-				} else {
-					dataPriv.access( doc, fix, attaches );
-				}
-			}
-		};
-	} );
-}
-var location = window.location;
-
-var nonce = Date.now();
-
-var rquery = ( /\?/ );
-
-
-
-// Cross-browser xml parsing
-jQuery.parseXML = function( data ) {
-	var xml;
-	if ( !data || typeof data !== "string" ) {
-		return null;
-	}
-
-	// Support: IE 9 - 11 only
-	// IE throws on parseFromString with invalid input.
-	try {
-		xml = ( new window.DOMParser() ).parseFromString( data, "text/xml" );
-	} catch ( e ) {
-		xml = undefined;
-	}
-
-	if ( !xml || xml.getElementsByTagName( "parsererror" ).length ) {
-		jQuery.error( "Invalid XML: " + data );
-	}
-	return xml;
-};
-
-
-var
-	rbracket = /\[\]$/,
-	rCRLF = /\r?\n/g,
-	rsubmitterTypes = /^(?:submit|button|image|reset|file)$/i,
-	rsubmittable = /^(?:input|select|textarea|keygen)/i;
-
-function buildParams( prefix, obj, traditional, add ) {
-	var name;
-
-	if ( Array.isArray( obj ) ) {
-
-		// Serialize array item.
-		jQuery.each( obj, function( i, v ) {
-			if ( traditional || rbracket.test( prefix ) ) {
-
-				// Treat each array item as a scalar.
-				add( prefix, v );
-
-			} else {
-
-				// Item is non-scalar (array or object), encode its numeric index.
-				buildParams(
-					prefix + "[" + ( typeof v === "object" && v != null ? i : "" ) + "]",
-					v,
-					traditional,
-					add
-				);
-			}
-		} );
-
-	} else if ( !traditional && toType( obj ) === "object" ) {
-
-		// Serialize object item.
-		for ( name in obj ) {
-			buildParams( prefix + "[" + name + "]", obj[ name ], traditional, add );
-		}
-
-	} else {
-
-		// Serialize scalar item.
-		add( prefix, obj );
-	}
-}
-
-// Serialize an array of form elements or a set of
-// key/values into a query string
-jQuery.param = function( a, traditional ) {
-	var prefix,
-		s = [],
-		add = function( key, valueOrFunction ) {
-
-			// If value is a function, invoke it and use its return value
-			var value = isFunction( valueOrFunction ) ?
-				valueOrFunction() :
-				valueOrFunction;
-
-			s[ s.length ] = encodeURIComponent( key ) + "=" +
-				encodeURIComponent( value == null ? "" : value );
-		};
-
-	// If an array was passed in, assume that it is an array of form elements.
-	if ( Array.isArray( a ) || ( a.jquery && !jQuery.isPlainObject( a ) ) ) {
-
-		// Serialize the form elements
-		jQuery.each( a, function() {
-			add( this.name, this.value );
-		} );
-
-	} else {
-
-		// If traditional, encode the "old" way (the way 1.3.2 or older
-		// did it), otherwise encode params recursively.
-		for ( prefix in a ) {
-			buildParams( prefix, a[ prefix ], traditional, add );
-		}
-	}
-
-	// Return the resulting serialization
-	return s.join( "&" );
-};
-
-jQuery.fn.extend( {
-	serialize: function() {
-		return jQuery.param( this.serializeArray() );
-	},
-	serializeArray: function() {
-		return this.map( function() {
-
-			// Can add propHook for "elements" to filter or add form elements
-			var elements = jQuery.prop( this, "elements" );
-			return elements ? jQuery.makeArray( elements ) : this;
-		} )
-		.filter( function() {
-			var type = this.type;
-
-			// Use .is( ":disabled" ) so that fieldset[disabled] works
-			return this.name && !jQuery( this ).is( ":disabled" ) &&
-				rsubmittable.test( this.nodeName ) && !rsubmitterTypes.test( type ) &&
-				( this.checked || !rcheckableType.test( type ) );
-		} )
-		.map( function( i, elem ) {
-			var val = jQuery( this ).val();
-
-			if ( val == null ) {
-				return null;
-			}
-
-			if ( Array.isArray( val ) ) {
-				return jQuery.map( val, function( val ) {
-					return { name: elem.name, value: val.replace( rCRLF, "\r\n" ) };
-				} );
-			}
-
-			return { name: elem.name, value: val.replace( rCRLF, "\r\n" ) };
-		} ).get();
-	}
-} );
-
-
-var
-	r20 = /%20/g,
-	rhash = /#.*$/,
-	rantiCache = /([?&])_=[^&]*/,
-	rheaders = /^(.*?):[ \t]*([^\r\n]*)$/mg,
-
-	// #7653, #8125, #8152: local protocol detection
-	rlocalProtocol = /^(?:about|app|app-storage|.+-extension|file|res|widget):$/,
-	rnoContent = /^(?:GET|HEAD)$/,
-	rprotocol = /^\/\//,
-
-	/* Prefilters
-	 * 1) They are useful to introduce custom dataTypes (see ajax/jsonp.js for an example)
-	 * 2) These are called:
-	 *    - BEFORE asking for a transport
-	 *    - AFTER param serialization (s.data is a string if s.processData is true)
-	 * 3) key is the dataType
-	 * 4) the catchall symbol "*" can be used
-	 * 5) execution will start with transport dataType and THEN continue down to "*" if needed
-	 */
-	prefilters = {},
-
-	/* Transports bindings
-	 * 1) key is the dataType
-	 * 2) the catchall symbol "*" can be used
-	 * 3) selection will start with transport dataType and THEN go to "*" if needed
-	 */
-	transports = {},
-
-	// Avoid comment-prolog char sequence (#10098); must appease lint and evade compression
-	allTypes = "*/".concat( "*" ),
-
-	// Anchor tag for parsing the document origin
-	originAnchor = document.createElement( "a" );
-	originAnchor.href = location.href;
-
-// Base "constructor" for jQuery.ajaxPrefilter and jQuery.ajaxTransport
-function addToPrefiltersOrTransports( structure ) {
-
-	// dataTypeExpression is optional and defaults to "*"
-	return function( dataTypeExpression, func ) {
-
-		if ( typeof dataTypeExpression !== "string" ) {
-			func = dataTypeExpression;
-			dataTypeExpression = "*";
-		}
-
-		var dataType,
-			i = 0,
-			dataTypes = dataTypeExpression.toLowerCase().match( rnothtmlwhite ) || [];
-
-		if ( isFunction( func ) ) {
-
-			// For each dataType in the dataTypeExpression
-			while ( ( dataType = dataTypes[ i++ ] ) ) {
-
-				// Prepend if requested
-				if ( dataType[ 0 ] === "+" ) {
-					dataType = dataType.slice( 1 ) || "*";
-					( structure[ dataType ] = structure[ dataType ] || [] ).unshift( func );
-
-				// Otherwise append
-				} else {
-					( structure[ dataType ] = structure[ dataType ] || [] ).push( func );
-				}
-			}
-		}
-	};
-}
-
-// Base inspection function for prefilters and transports
-function inspectPrefiltersOrTransports( structure, options, originalOptions, jqXHR ) {
-
-	var inspected = {},
-		seekingTransport = ( structure === transports );
-
-	function inspect( dataType ) {
-		var selected;
-		inspected[ dataType ] = true;
-		jQuery.each( structure[ dataType ] || [], function( _, prefilterOrFactory ) {
-			var dataTypeOrTransport = prefilterOrFactory( options, originalOptions, jqXHR );
-			if ( typeof dataTypeOrTransport === "string" &&
-				!seekingTransport && !inspected[ dataTypeOrTransport ] ) {
-
-				options.dataTypes.unshift( dataTypeOrTransport );
-				inspect( dataTypeOrTransport );
-				return false;
-			} else if ( seekingTransport ) {
-				return !( selected = dataTypeOrTransport );
-			}
-		} );
-		return selected;
-	}
-
-	return inspect( options.dataTypes[ 0 ] ) || !inspected[ "*" ] && inspect( "*" );
-}
-
-// A special extend for ajax options
-// that takes "flat" options (not to be deep extended)
-// Fixes #9887
-function ajaxExtend( target, src ) {
-	var key, deep,
-		flatOptions = jQuery.ajaxSettings.flatOptions || {};
-
-	for ( key in src ) {
-		if ( src[ key ] !== undefined ) {
-			( flatOptions[ key ] ? target : ( deep || ( deep = {} ) ) )[ key ] = src[ key ];
-		}
-	}
-	if ( deep ) {
-		jQuery.extend( true, target, deep );
-	}
-
-	return target;
-}
-
-/* Handles responses to an ajax request:
- * - finds the right dataType (mediates between content-type and expected dataType)
- * - returns the corresponding response
- */
-function ajaxHandleResponses( s, jqXHR, responses ) {
-
-	var ct, type, finalDataType, firstDataType,
-		contents = s.contents,
-		dataTypes = s.dataTypes;
-
-	// Remove auto dataType and get content-type in the process
-	while ( dataTypes[ 0 ] === "*" ) {
-		dataTypes.shift();
-		if ( ct === undefined ) {
-			ct = s.mimeType || jqXHR.getResponseHeader( "Content-Type" );
-		}
-	}
-
-	// Check if we're dealing with a known content-type
-	if ( ct ) {
-		for ( type in contents ) {
-			if ( contents[ type ] && contents[ type ].test( ct ) ) {
-				dataTypes.unshift( type );
-				break;
-			}
-		}
-	}
-
-	// Check to see if we have a response for the expected dataType
-	if ( dataTypes[ 0 ] in responses ) {
-		finalDataType = dataTypes[ 0 ];
-	} else {
-
-		// Try convertible dataTypes
-		for ( type in responses ) {
-			if ( !dataTypes[ 0 ] || s.converters[ type + " " + dataTypes[ 0 ] ] ) {
-				finalDataType = type;
-				break;
-			}
-			if ( !firstDataType ) {
-				firstDataType = type;
-			}
-		}
-
-		// Or just use first one
-		finalDataType = finalDataType || firstDataType;
-	}
-
-	// If we found a dataType
-	// We add the dataType to the list if needed
-	// and return the corresponding response
-	if ( finalDataType ) {
-		if ( finalDataType !== dataTypes[ 0 ] ) {
-			dataTypes.unshift( finalDataType );
-		}
-		return responses[ finalDataType ];
-	}
-}
-
-/* Chain conversions given the request and the original response
- * Also sets the responseXXX fields on the jqXHR instance
- */
-function ajaxConvert( s, response, jqXHR, isSuccess ) {
-	var conv2, current, conv, tmp, prev,
-		converters = {},
-
-		// Work with a copy of dataTypes in case we need to modify it for conversion
-		dataTypes = s.dataTypes.slice();
-
-	// Create converters map with lowercased keys
-	if ( dataTypes[ 1 ] ) {
-		for ( conv in s.converters ) {
-			converters[ conv.toLowerCase() ] = s.converters[ conv ];
-		}
-	}
-
-	current = dataTypes.shift();
-
-	// Convert to each sequential dataType
-	while ( current ) {
-
-		if ( s.responseFields[ current ] ) {
-			jqXHR[ s.responseFields[ current ] ] = response;
-		}
-
-		// Apply the dataFilter if provided
-		if ( !prev && isSuccess && s.dataFilter ) {
-			response = s.dataFilter( response, s.dataType );
-		}
-
-		prev = current;
-		current = dataTypes.shift();
-
-		if ( current ) {
-
-			// There's only work to do if current dataType is non-auto
-			if ( current === "*" ) {
-
-				current = prev;
-
-			// Convert response if prev dataType is non-auto and differs from current
-			} else if ( prev !== "*" && prev !== current ) {
-
-				// Seek a direct converter
-				conv = converters[ prev + " " + current ] || converters[ "* " + current ];
-
-				// If none found, seek a pair
-				if ( !conv ) {
-					for ( conv2 in converters ) {
-
-						// If conv2 outputs current
-						tmp = conv2.split( " " );
-						if ( tmp[ 1 ] === current ) {
-
-							// If prev can be converted to accepted input
-							conv = converters[ prev + " " + tmp[ 0 ] ] ||
-								converters[ "* " + tmp[ 0 ] ];
-							if ( conv ) {
-
-								// Condense equivalence converters
-								if ( conv === true ) {
-									conv = converters[ conv2 ];
-
-								// Otherwise, insert the intermediate dataType
-								} else if ( converters[ conv2 ] !== true ) {
-									current = tmp[ 0 ];
-									dataTypes.unshift( tmp[ 1 ] );
-								}
-								break;
-							}
-						}
-					}
-				}
-
-				// Apply converter (if not an equivalence)
-				if ( conv !== true ) {
-
-					// Unless errors are allowed to bubble, catch and return them
-					if ( conv && s.throws ) {
-						response = conv( response );
-					} else {
-						try {
-							response = conv( response );
-						} catch ( e ) {
-							return {
-								state: "parsererror",
-								error: conv ? e : "No conversion from " + prev + " to " + current
-							};
-						}
-					}
-				}
-			}
-		}
-	}
-
-	return { state: "success", data: response };
-}
-
-jQuery.extend( {
-
-	// Counter for holding the number of active queries
-	active: 0,
-
-	// Last-Modified header cache for next request
-	lastModified: {},
-	etag: {},
-
-	ajaxSettings: {
-		url: location.href,
-		type: "GET",
-		isLocal: rlocalProtocol.test( location.protocol ),
-		global: true,
-		processData: true,
-		async: true,
-		contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-
-		/*
-		timeout: 0,
-		data: null,
-		dataType: null,
-		username: null,
-		password: null,
-		cache: null,
-		throws: false,
-		traditional: false,
-		headers: {},
-		*/
-
-		accepts: {
-			"*": allTypes,
-			text: "text/plain",
-			html: "text/html",
-			xml: "application/xml, text/xml",
-			json: "application/json, text/javascript"
-		},
-
-		contents: {
-			xml: /\bxml\b/,
-			html: /\bhtml/,
-			json: /\bjson\b/
-		},
-
-		responseFields: {
-			xml: "responseXML",
-			text: "responseText",
-			json: "responseJSON"
-		},
-
-		// Data converters
-		// Keys separate source (or catchall "*") and destination types with a single space
-		converters: {
-
-			// Convert anything to text
-			"* text": String,
-
-			// Text to html (true = no transformation)
-			"text html": true,
-
-			// Evaluate text as a json expression
-			"text json": JSON.parse,
-
-			// Parse text as xml
-			"text xml": jQuery.parseXML
-		},
-
-		// For options that shouldn't be deep extended:
-		// you can add your own custom options here if
-		// and when you create one that shouldn't be
-		// deep extended (see ajaxExtend)
-		flatOptions: {
-			url: true,
-			context: true
-		}
-	},
-
-	// Creates a full fledged settings object into target
-	// with both ajaxSettings and settings fields.
-	// If target is omitted, writes into ajaxSettings.
-	ajaxSetup: function( target, settings ) {
-		return settings ?
-
-			// Building a settings object
-			ajaxExtend( ajaxExtend( target, jQuery.ajaxSettings ), settings ) :
-
-			// Extending ajaxSettings
-			ajaxExtend( jQuery.ajaxSettings, target );
-	},
-
-	ajaxPrefilter: addToPrefiltersOrTransports( prefilters ),
-	ajaxTransport: addToPrefiltersOrTransports( transports ),
-
-	// Main method
-	ajax: function( url, options ) {
-
-		// If url is an object, simulate pre-1.5 signature
-		if ( typeof url === "object" ) {
-			options = url;
-			url = undefined;
-		}
-
-		// Force options to be an object
-		options = options || {};
-
-		var transport,
-
-			// URL without anti-cache param
-			cacheURL,
-
-			// Response headers
-			responseHeadersString,
-			responseHeaders,
-
-			// timeout handle
-			timeoutTimer,
-
-			// Url cleanup var
-			urlAnchor,
-
-			// Request state (becomes false upon send and true upon completion)
-			completed,
-
-			// To know if global events are to be dispatched
-			fireGlobals,
-
-			// Loop variable
-			i,
-
-			// uncached part of the url
-			uncached,
-
-			// Create the final options object
-			s = jQuery.ajaxSetup( {}, options ),
-
-			// Callbacks context
-			callbackContext = s.context || s,
-
-			// Context for global events is callbackContext if it is a DOM node or jQuery collection
-			globalEventContext = s.context &&
-				( callbackContext.nodeType || callbackContext.jquery ) ?
-					jQuery( callbackContext ) :
-					jQuery.event,
-
-			// Deferreds
-			deferred = jQuery.Deferred(),
-			completeDeferred = jQuery.Callbacks( "once memory" ),
-
-			// Status-dependent callbacks
-			statusCode = s.statusCode || {},
-
-			// Headers (they are sent all at once)
-			requestHeaders = {},
-			requestHeadersNames = {},
-
-			// Default abort message
-			strAbort = "canceled",
-
-			// Fake xhr
-			jqXHR = {
-				readyState: 0,
-
-				// Builds headers hashtable if needed
-				getResponseHeader: function( key ) {
-					var match;
-					if ( completed ) {
-						if ( !responseHeaders ) {
-							responseHeaders = {};
-							while ( ( match = rheaders.exec( responseHeadersString ) ) ) {
-								responseHeaders[ match[ 1 ].toLowerCase() ] = match[ 2 ];
-							}
-						}
-						match = responseHeaders[ key.toLowerCase() ];
-					}
-					return match == null ? null : match;
-				},
-
-				// Raw string
-				getAllResponseHeaders: function() {
-					return completed ? responseHeadersString : null;
-				},
-
-				// Caches the header
-				setRequestHeader: function( name, value ) {
-					if ( completed == null ) {
-						name = requestHeadersNames[ name.toLowerCase() ] =
-							requestHeadersNames[ name.toLowerCase() ] || name;
-						requestHeaders[ name ] = value;
-					}
-					return this;
-				},
-
-				// Overrides response content-type header
-				overrideMimeType: function( type ) {
-					if ( completed == null ) {
-						s.mimeType = type;
-					}
-					return this;
-				},
-
-				// Status-dependent callbacks
-				statusCode: function( map ) {
-					var code;
-					if ( map ) {
-						if ( completed ) {
-
-							// Execute the appropriate callbacks
-							jqXHR.always( map[ jqXHR.status ] );
-						} else {
-
-							// Lazy-add the new callbacks in a way that preserves old ones
-							for ( code in map ) {
-								statusCode[ code ] = [ statusCode[ code ], map[ code ] ];
-							}
-						}
-					}
-					return this;
-				},
-
-				// Cancel the request
-				abort: function( statusText ) {
-					var finalText = statusText || strAbort;
-					if ( transport ) {
-						transport.abort( finalText );
-					}
-					done( 0, finalText );
-					return this;
-				}
-			};
-
-		// Attach deferreds
-		deferred.promise( jqXHR );
-
-		// Add protocol if not provided (prefilters might expect it)
-		// Handle falsy url in the settings object (#10093: consistency with old signature)
-		// We also use the url parameter if available
-		s.url = ( ( url || s.url || location.href ) + "" )
-			.replace( rprotocol, location.protocol + "//" );
-
-		// Alias method option to type as per ticket #12004
-		s.type = options.method || options.type || s.method || s.type;
-
-		// Extract dataTypes list
-		s.dataTypes = ( s.dataType || "*" ).toLowerCase().match( rnothtmlwhite ) || [ "" ];
-
-		// A cross-domain request is in order when the origin doesn't match the current origin.
-		if ( s.crossDomain == null ) {
-			urlAnchor = document.createElement( "a" );
-
-			// Support: IE <=8 - 11, Edge 12 - 15
-			// IE throws exception on accessing the href property if url is malformed,
-			// e.g. http://example.com:80x/
-			try {
-				urlAnchor.href = s.url;
-
-				// Support: IE <=8 - 11 only
-				// Anchor's host property isn't correctly set when s.url is relative
-				urlAnchor.href = urlAnchor.href;
-				s.crossDomain = originAnchor.protocol + "//" + originAnchor.host !==
-					urlAnchor.protocol + "//" + urlAnchor.host;
-			} catch ( e ) {
-
-				// If there is an error parsing the URL, assume it is crossDomain,
-				// it can be rejected by the transport if it is invalid
-				s.crossDomain = true;
-			}
-		}
-
-		// Convert data if not already a string
-		if ( s.data && s.processData && typeof s.data !== "string" ) {
-			s.data = jQuery.param( s.data, s.traditional );
-		}
-
-		// Apply prefilters
-		inspectPrefiltersOrTransports( prefilters, s, options, jqXHR );
-
-		// If request was aborted inside a prefilter, stop there
-		if ( completed ) {
-			return jqXHR;
-		}
-
-		// We can fire global events as of now if asked to
-		// Don't fire events if jQuery.event is undefined in an AMD-usage scenario (#15118)
-		fireGlobals = jQuery.event && s.global;
-
-		// Watch for a new set of requests
-		if ( fireGlobals && jQuery.active++ === 0 ) {
-			jQuery.event.trigger( "ajaxStart" );
-		}
-
-		// Uppercase the type
-		s.type = s.type.toUpperCase();
-
-		// Determine if request has content
-		s.hasContent = !rnoContent.test( s.type );
-
-		// Save the URL in case we're toying with the If-Modified-Since
-		// and/or If-None-Match header later on
-		// Remove hash to simplify url manipulation
-		cacheURL = s.url.replace( rhash, "" );
-
-		// More options handling for requests with no content
-		if ( !s.hasContent ) {
-
-			// Remember the hash so we can put it back
-			uncached = s.url.slice( cacheURL.length );
-
-			// If data is available and should be processed, append data to url
-			if ( s.data && ( s.processData || typeof s.data === "string" ) ) {
-				cacheURL += ( rquery.test( cacheURL ) ? "&" : "?" ) + s.data;
-
-				// #9682: remove data so that it's not used in an eventual retry
-				delete s.data;
-			}
-
-			// Add or update anti-cache param if needed
-			if ( s.cache === false ) {
-				cacheURL = cacheURL.replace( rantiCache, "$1" );
-				uncached = ( rquery.test( cacheURL ) ? "&" : "?" ) + "_=" + ( nonce++ ) + uncached;
-			}
-
-			// Put hash and anti-cache on the URL that will be requested (gh-1732)
-			s.url = cacheURL + uncached;
-
-		// Change '%20' to '+' if this is encoded form body content (gh-2658)
-		} else if ( s.data && s.processData &&
-			( s.contentType || "" ).indexOf( "application/x-www-form-urlencoded" ) === 0 ) {
-			s.data = s.data.replace( r20, "+" );
-		}
-
-		// Set the If-Modified-Since and/or If-None-Match header, if in ifModified mode.
-		if ( s.ifModified ) {
-			if ( jQuery.lastModified[ cacheURL ] ) {
-				jqXHR.setRequestHeader( "If-Modified-Since", jQuery.lastModified[ cacheURL ] );
-			}
-			if ( jQuery.etag[ cacheURL ] ) {
-				jqXHR.setRequestHeader( "If-None-Match", jQuery.etag[ cacheURL ] );
-			}
-		}
-
-		// Set the correct header, if data is being sent
-		if ( s.data && s.hasContent && s.contentType !== false || options.contentType ) {
-			jqXHR.setRequestHeader( "Content-Type", s.contentType );
-		}
-
-		// Set the Accepts header for the server, depending on the dataType
-		jqXHR.setRequestHeader(
-			"Accept",
-			s.dataTypes[ 0 ] && s.accepts[ s.dataTypes[ 0 ] ] ?
-				s.accepts[ s.dataTypes[ 0 ] ] +
-					( s.dataTypes[ 0 ] !== "*" ? ", " + allTypes + "; q=0.01" : "" ) :
-				s.accepts[ "*" ]
-		);
-
-		// Check for headers option
-		for ( i in s.headers ) {
-			jqXHR.setRequestHeader( i, s.headers[ i ] );
-		}
-
-		// Allow custom headers/mimetypes and early abort
-		if ( s.beforeSend &&
-			( s.beforeSend.call( callbackContext, jqXHR, s ) === false || completed ) ) {
-
-			// Abort if not done already and return
-			return jqXHR.abort();
-		}
-
-		// Aborting is no longer a cancellation
-		strAbort = "abort";
-
-		// Install callbacks on deferreds
-		completeDeferred.add( s.complete );
-		jqXHR.done( s.success );
-		jqXHR.fail( s.error );
-
-		// Get transport
-		transport = inspectPrefiltersOrTransports( transports, s, options, jqXHR );
-
-		// If no transport, we auto-abort
-		if ( !transport ) {
-			done( -1, "No Transport" );
-		} else {
-			jqXHR.readyState = 1;
-
-			// Send global event
-			if ( fireGlobals ) {
-				globalEventContext.trigger( "ajaxSend", [ jqXHR, s ] );
-			}
-
-			// If request was aborted inside ajaxSend, stop there
-			if ( completed ) {
-				return jqXHR;
-			}
-
-			// Timeout
-			if ( s.async && s.timeout > 0 ) {
-				timeoutTimer = window.setTimeout( function() {
-					jqXHR.abort( "timeout" );
-				}, s.timeout );
-			}
-
-			try {
-				completed = false;
-				transport.send( requestHeaders, done );
-			} catch ( e ) {
-
-				// Rethrow post-completion exceptions
-				if ( completed ) {
-					throw e;
-				}
-
-				// Propagate others as results
-				done( -1, e );
-			}
-		}
-
-		// Callback for when everything is done
-		function done( status, nativeStatusText, responses, headers ) {
-			var isSuccess, success, error, response, modified,
-				statusText = nativeStatusText;
-
-			// Ignore repeat invocations
-			if ( completed ) {
-				return;
-			}
-
-			completed = true;
-
-			// Clear timeout if it exists
-			if ( timeoutTimer ) {
-				window.clearTimeout( timeoutTimer );
-			}
-
-			// Dereference transport for early garbage collection
-			// (no matter how long the jqXHR object will be used)
-			transport = undefined;
-
-			// Cache response headers
-			responseHeadersString = headers || "";
-
-			// Set readyState
-			jqXHR.readyState = status > 0 ? 4 : 0;
-
-			// Determine if successful
-			isSuccess = status >= 200 && status < 300 || status === 304;
-
-			// Get response data
-			if ( responses ) {
-				response = ajaxHandleResponses( s, jqXHR, responses );
-			}
-
-			// Convert no matter what (that way responseXXX fields are always set)
-			response = ajaxConvert( s, response, jqXHR, isSuccess );
-
-			// If successful, handle type chaining
-			if ( isSuccess ) {
-
-				// Set the If-Modified-Since and/or If-None-Match header, if in ifModified mode.
-				if ( s.ifModified ) {
-					modified = jqXHR.getResponseHeader( "Last-Modified" );
-					if ( modified ) {
-						jQuery.lastModified[ cacheURL ] = modified;
-					}
-					modified = jqXHR.getResponseHeader( "etag" );
-					if ( modified ) {
-						jQuery.etag[ cacheURL ] = modified;
-					}
-				}
-
-				// if no content
-				if ( status === 204 || s.type === "HEAD" ) {
-					statusText = "nocontent";
-
-				// if not modified
-				} else if ( status === 304 ) {
-					statusText = "notmodified";
-
-				// If we have data, let's convert it
-				} else {
-					statusText = response.state;
-					success = response.data;
-					error = response.error;
-					isSuccess = !error;
-				}
-			} else {
-
-				// Extract error from statusText and normalize for non-aborts
-				error = statusText;
-				if ( status || !statusText ) {
-					statusText = "error";
-					if ( status < 0 ) {
-						status = 0;
-					}
-				}
-			}
-
-			// Set data for the fake xhr object
-			jqXHR.status = status;
-			jqXHR.statusText = ( nativeStatusText || statusText ) + "";
-
-			// Success/Error
-			if ( isSuccess ) {
-				deferred.resolveWith( callbackContext, [ success, statusText, jqXHR ] );
-			} else {
-				deferred.rejectWith( callbackContext, [ jqXHR, statusText, error ] );
-			}
-
-			// Status-dependent callbacks
-			jqXHR.statusCode( statusCode );
-			statusCode = undefined;
-
-			if ( fireGlobals ) {
-				globalEventContext.trigger( isSuccess ? "ajaxSuccess" : "ajaxError",
-					[ jqXHR, s, isSuccess ? success : error ] );
-			}
-
-			// Complete
-			completeDeferred.fireWith( callbackContext, [ jqXHR, statusText ] );
-
-			if ( fireGlobals ) {
-				globalEventContext.trigger( "ajaxComplete", [ jqXHR, s ] );
-
-				// Handle the global AJAX counter
-				if ( !( --jQuery.active ) ) {
-					jQuery.event.trigger( "ajaxStop" );
-				}
-			}
-		}
-
-		return jqXHR;
-	},
-
-	getJSON: function( url, data, callback ) {
-		return jQuery.get( url, data, callback, "json" );
-	},
-
-	getScript: function( url, callback ) {
-		return jQuery.get( url, undefined, callback, "script" );
-	}
-} );
-
-jQuery.each( [ "get", "post" ], function( i, method ) {
-	jQuery[ method ] = function( url, data, callback, type ) {
-
-		// Shift arguments if data argument was omitted
-		if ( isFunction( data ) ) {
-			type = type || callback;
-			callback = data;
-			data = undefined;
-		}
-
-		// The url can be an options object (which then must have .url)
-		return jQuery.ajax( jQuery.extend( {
-			url: url,
-			type: method,
-			dataType: type,
-			data: data,
-			success: callback
-		}, jQuery.isPlainObject( url ) && url ) );
-	};
-} );
-
-
-jQuery._evalUrl = function( url ) {
-	return jQuery.ajax( {
-		url: url,
-
-		// Make this explicit, since user can override this through ajaxSetup (#11264)
-		type: "GET",
-		dataType: "script",
-		cache: true,
-		async: false,
-		global: false,
-		"throws": true
-	} );
-};
-
-
-jQuery.fn.extend( {
-	wrapAll: function( html ) {
-		var wrap;
-
-		if ( this[ 0 ] ) {
-			if ( isFunction( html ) ) {
-				html = html.call( this[ 0 ] );
-			}
-
-			// The elements to wrap the target around
-			wrap = jQuery( html, this[ 0 ].ownerDocument ).eq( 0 ).clone( true );
-
-			if ( this[ 0 ].parentNode ) {
-				wrap.insertBefore( this[ 0 ] );
-			}
-
-			wrap.map( function() {
-				var elem = this;
-
-				while ( elem.firstElementChild ) {
-					elem = elem.firstElementChild;
-				}
-
-				return elem;
-			} ).append( this );
-		}
-
-		return this;
-	},
-
-	wrapInner: function( html ) {
-		if ( isFunction( html ) ) {
-			return this.each( function( i ) {
-				jQuery( this ).wrapInner( html.call( this, i ) );
-			} );
-		}
-
-		return this.each( function() {
-			var self = jQuery( this ),
-				contents = self.contents();
-
-			if ( contents.length ) {
-				contents.wrapAll( html );
-
-			} else {
-				self.append( html );
-			}
-		} );
-	},
-
-	wrap: function( html ) {
-		var htmlIsFunction = isFunction( html );
-
-		return this.each( function( i ) {
-			jQuery( this ).wrapAll( htmlIsFunction ? html.call( this, i ) : html );
-		} );
-	},
-
-	unwrap: function( selector ) {
-		this.parent( selector ).not( "body" ).each( function() {
-			jQuery( this ).replaceWith( this.childNodes );
-		} );
-		return this;
-	}
-} );
-
-
-jQuery.expr.pseudos.hidden = function( elem ) {
-	return !jQuery.expr.pseudos.visible( elem );
-};
-jQuery.expr.pseudos.visible = function( elem ) {
-	return !!( elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length );
-};
-
-
-
-
-jQuery.ajaxSettings.xhr = function() {
-	try {
-		return new window.XMLHttpRequest();
-	} catch ( e ) {}
-};
-
-var xhrSuccessStatus = {
-
-		// File protocol always yields status code 0, assume 200
-		0: 200,
-
-		// Support: IE <=9 only
-		// #1450: sometimes IE returns 1223 when it should be 204
-		1223: 204
-	},
-	xhrSupported = jQuery.ajaxSettings.xhr();
-
-support.cors = !!xhrSupported && ( "withCredentials" in xhrSupported );
-support.ajax = xhrSupported = !!xhrSupported;
-
-jQuery.ajaxTransport( function( options ) {
-	var callback, errorCallback;
-
-	// Cross domain only allowed if supported through XMLHttpRequest
-	if ( support.cors || xhrSupported && !options.crossDomain ) {
-		return {
-			send: function( headers, complete ) {
-				var i,
-					xhr = options.xhr();
-
-				xhr.open(
-					options.type,
-					options.url,
-					options.async,
-					options.username,
-					options.password
-				);
-
-				// Apply custom fields if provided
-				if ( options.xhrFields ) {
-					for ( i in options.xhrFields ) {
-						xhr[ i ] = options.xhrFields[ i ];
-					}
-				}
-
-				// Override mime type if needed
-				if ( options.mimeType && xhr.overrideMimeType ) {
-					xhr.overrideMimeType( options.mimeType );
-				}
-
-				// X-Requested-With header
-				// For cross-domain requests, seeing as conditions for a preflight are
-				// akin to a jigsaw puzzle, we simply never set it to be sure.
-				// (it can always be set on a per-request basis or even using ajaxSetup)
-				// For same-domain requests, won't change header if already provided.
-				if ( !options.crossDomain && !headers[ "X-Requested-With" ] ) {
-					headers[ "X-Requested-With" ] = "XMLHttpRequest";
-				}
-
-				// Set headers
-				for ( i in headers ) {
-					xhr.setRequestHeader( i, headers[ i ] );
-				}
-
-				// Callback
-				callback = function( type ) {
-					return function() {
-						if ( callback ) {
-							callback = errorCallback = xhr.onload =
-								xhr.onerror = xhr.onabort = xhr.ontimeout =
-									xhr.onreadystatechange = null;
-
-							if ( type === "abort" ) {
-								xhr.abort();
-							} else if ( type === "error" ) {
-
-								// Support: IE <=9 only
-								// On a manual native abort, IE9 throws
-								// errors on any property access that is not readyState
-								if ( typeof xhr.status !== "number" ) {
-									complete( 0, "error" );
-								} else {
-									complete(
-
-										// File: protocol always yields status 0; see #8605, #14207
-										xhr.status,
-										xhr.statusText
-									);
-								}
-							} else {
-								complete(
-									xhrSuccessStatus[ xhr.status ] || xhr.status,
-									xhr.statusText,
-
-									// Support: IE <=9 only
-									// IE9 has no XHR2 but throws on binary (trac-11426)
-									// For XHR2 non-text, let the caller handle it (gh-2498)
-									( xhr.responseType || "text" ) !== "text"  ||
-									typeof xhr.responseText !== "string" ?
-										{ binary: xhr.response } :
-										{ text: xhr.responseText },
-									xhr.getAllResponseHeaders()
-								);
-							}
-						}
-					};
-				};
-
-				// Listen to events
-				xhr.onload = callback();
-				errorCallback = xhr.onerror = xhr.ontimeout = callback( "error" );
-
-				// Support: IE 9 only
-				// Use onreadystatechange to replace onabort
-				// to handle uncaught aborts
-				if ( xhr.onabort !== undefined ) {
-					xhr.onabort = errorCallback;
-				} else {
-					xhr.onreadystatechange = function() {
-
-						// Check readyState before timeout as it changes
-						if ( xhr.readyState === 4 ) {
-
-							// Allow onerror to be called first,
-							// but that will not handle a native abort
-							// Also, save errorCallback to a variable
-							// as xhr.onerror cannot be accessed
-							window.setTimeout( function() {
-								if ( callback ) {
-									errorCallback();
-								}
-							} );
-						}
-					};
-				}
-
-				// Create the abort callback
-				callback = callback( "abort" );
-
-				try {
-
-					// Do send the request (this may raise an exception)
-					xhr.send( options.hasContent && options.data || null );
-				} catch ( e ) {
-
-					// #14683: Only rethrow if this hasn't been notified as an error yet
-					if ( callback ) {
-						throw e;
-					}
-				}
-			},
-
-			abort: function() {
-				if ( callback ) {
-					callback();
-				}
-			}
-		};
-	}
-} );
-
-
-
-
-// Prevent auto-execution of scripts when no explicit dataType was provided (See gh-2432)
-jQuery.ajaxPrefilter( function( s ) {
-	if ( s.crossDomain ) {
-		s.contents.script = false;
-	}
-} );
-
-// Install script dataType
-jQuery.ajaxSetup( {
-	accepts: {
-		script: "text/javascript, application/javascript, " +
-			"application/ecmascript, application/x-ecmascript"
-	},
-	contents: {
-		script: /\b(?:java|ecma)script\b/
-	},
-	converters: {
-		"text script": function( text ) {
-			jQuery.globalEval( text );
-			return text;
-		}
-	}
-} );
-
-// Handle cache's special case and crossDomain
-jQuery.ajaxPrefilter( "script", function( s ) {
-	if ( s.cache === undefined ) {
-		s.cache = false;
-	}
-	if ( s.crossDomain ) {
-		s.type = "GET";
-	}
-} );
-
-// Bind script tag hack transport
-jQuery.ajaxTransport( "script", function( s ) {
-
-	// This transport only deals with cross domain requests
-	if ( s.crossDomain ) {
-		var script, callback;
-		return {
-			send: function( _, complete ) {
-				script = jQuery( "<script>" ).prop( {
-					charset: s.scriptCharset,
-					src: s.url
-				} ).on(
-					"load error",
-					callback = function( evt ) {
-						script.remove();
-						callback = null;
-						if ( evt ) {
-							complete( evt.type === "error" ? 404 : 200, evt.type );
-						}
-					}
-				);
-
-				// Use native DOM manipulation to avoid our domManip AJAX trickery
-				document.head.appendChild( script[ 0 ] );
-			},
-			abort: function() {
-				if ( callback ) {
-					callback();
-				}
-			}
-		};
-	}
-} );
-
-
-
-
-var oldCallbacks = [],
-	rjsonp = /(=)\?(?=&|$)|\?\?/;
-
-// Default jsonp settings
-jQuery.ajaxSetup( {
-	jsonp: "callback",
-	jsonpCallback: function() {
-		var callback = oldCallbacks.pop() || ( jQuery.expando + "_" + ( nonce++ ) );
-		this[ callback ] = true;
-		return callback;
-	}
-} );
-
-// Detect, normalize options and install callbacks for jsonp requests
-jQuery.ajaxPrefilter( "json jsonp", function( s, originalSettings, jqXHR ) {
-
-	var callbackName, overwritten, responseContainer,
-		jsonProp = s.jsonp !== false && ( rjsonp.test( s.url ) ?
-			"url" :
-			typeof s.data === "string" &&
-				( s.contentType || "" )
-					.indexOf( "application/x-www-form-urlencoded" ) === 0 &&
-				rjsonp.test( s.data ) && "data"
-		);
-
-	// Handle iff the expected data type is "jsonp" or we have a parameter to set
-	if ( jsonProp || s.dataTypes[ 0 ] === "jsonp" ) {
-
-		// Get callback name, remembering preexisting value associated with it
-		callbackName = s.jsonpCallback = isFunction( s.jsonpCallback ) ?
-			s.jsonpCallback() :
-			s.jsonpCallback;
-
-		// Insert callback into url or form data
-		if ( jsonProp ) {
-			s[ jsonProp ] = s[ jsonProp ].replace( rjsonp, "$1" + callbackName );
-		} else if ( s.jsonp !== false ) {
-			s.url += ( rquery.test( s.url ) ? "&" : "?" ) + s.jsonp + "=" + callbackName;
-		}
-
-		// Use data converter to retrieve json after script execution
-		s.converters[ "script json" ] = function() {
-			if ( !responseContainer ) {
-				jQuery.error( callbackName + " was not called" );
-			}
-			return responseContainer[ 0 ];
-		};
-
-		// Force json dataType
-		s.dataTypes[ 0 ] = "json";
-
-		// Install callback
-		overwritten = window[ callbackName ];
-		window[ callbackName ] = function() {
-			responseContainer = arguments;
-		};
-
-		// Clean-up function (fires after converters)
-		jqXHR.always( function() {
-
-			// If previous value didn't exist - remove it
-			if ( overwritten === undefined ) {
-				jQuery( window ).removeProp( callbackName );
-
-			// Otherwise restore preexisting value
-			} else {
-				window[ callbackName ] = overwritten;
-			}
-
-			// Save back as free
-			if ( s[ callbackName ] ) {
-
-				// Make sure that re-using the options doesn't screw things around
-				s.jsonpCallback = originalSettings.jsonpCallback;
-
-				// Save the callback name for future use
-				oldCallbacks.push( callbackName );
-			}
-
-			// Call if it was a function and we have a response
-			if ( responseContainer && isFunction( overwritten ) ) {
-				overwritten( responseContainer[ 0 ] );
-			}
-
-			responseContainer = overwritten = undefined;
-		} );
-
-		// Delegate to script
-		return "script";
-	}
-} );
-
-
-
-
-// Support: Safari 8 only
-// In Safari 8 documents created via document.implementation.createHTMLDocument
-// collapse sibling forms: the second one becomes a child of the first one.
-// Because of that, this security measure has to be disabled in Safari 8.
-// https://bugs.webkit.org/show_bug.cgi?id=137337
-support.createHTMLDocument = ( function() {
-	var body = document.implementation.createHTMLDocument( "" ).body;
-	body.innerHTML = "<form></form><form></form>";
-	return body.childNodes.length === 2;
-} )();
-
-
-// Argument "data" should be string of html
-// context (optional): If specified, the fragment will be created in this context,
-// defaults to document
-// keepScripts (optional): If true, will include scripts passed in the html string
-jQuery.parseHTML = function( data, context, keepScripts ) {
-	if ( typeof data !== "string" ) {
-		return [];
-	}
-	if ( typeof context === "boolean" ) {
-		keepScripts = context;
-		context = false;
-	}
-
-	var base, parsed, scripts;
-
-	if ( !context ) {
-
-		// Stop scripts or inline event handlers from being executed immediately
-		// by using document.implementation
-		if ( support.createHTMLDocument ) {
-			context = document.implementation.createHTMLDocument( "" );
-
-			// Set the base href for the created document
-			// so any parsed elements with URLs
-			// are based on the document's URL (gh-2965)
-			base = context.createElement( "base" );
-			base.href = document.location.href;
-			context.head.appendChild( base );
-		} else {
-			context = document;
-		}
-	}
-
-	parsed = rsingleTag.exec( data );
-	scripts = !keepScripts && [];
-
-	// Single tag
-	if ( parsed ) {
-		return [ context.createElement( parsed[ 1 ] ) ];
-	}
-
-	parsed = buildFragment( [ data ], context, scripts );
-
-	if ( scripts && scripts.length ) {
-		jQuery( scripts ).remove();
-	}
-
-	return jQuery.merge( [], parsed.childNodes );
-};
-
-
-/**
- * Load a url into a page
- */
-jQuery.fn.load = function( url, params, callback ) {
-	var selector, type, response,
-		self = this,
-		off = url.indexOf( " " );
-
-	if ( off > -1 ) {
-		selector = stripAndCollapse( url.slice( off ) );
-		url = url.slice( 0, off );
-	}
-
-	// If it's a function
-	if ( isFunction( params ) ) {
-
-		// We assume that it's the callback
-		callback = params;
-		params = undefined;
-
-	// Otherwise, build a param string
-	} else if ( params && typeof params === "object" ) {
-		type = "POST";
-	}
-
-	// If we have elements to modify, make the request
-	if ( self.length > 0 ) {
-		jQuery.ajax( {
-			url: url,
-
-			// If "type" variable is undefined, then "GET" method will be used.
-			// Make value of this field explicit since
-			// user can override it through ajaxSetup method
-			type: type || "GET",
-			dataType: "html",
-			data: params
-		} ).done( function( responseText ) {
-
-			// Save response for use in complete callback
-			response = arguments;
-
-			self.html( selector ?
-
-				// If a selector was specified, locate the right elements in a dummy div
-				// Exclude scripts to avoid IE 'Permission Denied' errors
-				jQuery( "<div>" ).append( jQuery.parseHTML( responseText ) ).find( selector ) :
-
-				// Otherwise use the full result
-				responseText );
-
-		// If the request succeeds, this function gets "data", "status", "jqXHR"
-		// but they are ignored because response was set above.
-		// If it fails, this function gets "jqXHR", "status", "error"
-		} ).always( callback && function( jqXHR, status ) {
-			self.each( function() {
-				callback.apply( this, response || [ jqXHR.responseText, status, jqXHR ] );
-			} );
-		} );
-	}
-
-	return this;
-};
-
-
-
-
-// Attach a bunch of functions for handling common AJAX events
-jQuery.each( [
-	"ajaxStart",
-	"ajaxStop",
-	"ajaxComplete",
-	"ajaxError",
-	"ajaxSuccess",
-	"ajaxSend"
-], function( i, type ) {
-	jQuery.fn[ type ] = function( fn ) {
-		return this.on( type, fn );
-	};
-} );
-
-
-
-
-jQuery.expr.pseudos.animated = function( elem ) {
-	return jQuery.grep( jQuery.timers, function( fn ) {
-		return elem === fn.elem;
-	} ).length;
-};
-
-
-
-
-jQuery.offset = {
-	setOffset: function( elem, options, i ) {
-		var curPosition, curLeft, curCSSTop, curTop, curOffset, curCSSLeft, calculatePosition,
-			position = jQuery.css( elem, "position" ),
-			curElem = jQuery( elem ),
-			props = {};
-
-		// Set position first, in-case top/left are set even on static elem
-		if ( position === "static" ) {
-			elem.style.position = "relative";
-		}
-
-		curOffset = curElem.offset();
-		curCSSTop = jQuery.css( elem, "top" );
-		curCSSLeft = jQuery.css( elem, "left" );
-		calculatePosition = ( position === "absolute" || position === "fixed" ) &&
-			( curCSSTop + curCSSLeft ).indexOf( "auto" ) > -1;
-
-		// Need to be able to calculate position if either
-		// top or left is auto and position is either absolute or fixed
-		if ( calculatePosition ) {
-			curPosition = curElem.position();
-			curTop = curPosition.top;
-			curLeft = curPosition.left;
-
-		} else {
-			curTop = parseFloat( curCSSTop ) || 0;
-			curLeft = parseFloat( curCSSLeft ) || 0;
-		}
-
-		if ( isFunction( options ) ) {
-
-			// Use jQuery.extend here to allow modification of coordinates argument (gh-1848)
-			options = options.call( elem, i, jQuery.extend( {}, curOffset ) );
-		}
-
-		if ( options.top != null ) {
-			props.top = ( options.top - curOffset.top ) + curTop;
-		}
-		if ( options.left != null ) {
-			props.left = ( options.left - curOffset.left ) + curLeft;
-		}
-
-		if ( "using" in options ) {
-			options.using.call( elem, props );
-
-		} else {
-			curElem.css( props );
-		}
-	}
-};
-
-jQuery.fn.extend( {
-
-	// offset() relates an element's border box to the document origin
-	offset: function( options ) {
-
-		// Preserve chaining for setter
-		if ( arguments.length ) {
-			return options === undefined ?
-				this :
-				this.each( function( i ) {
-					jQuery.offset.setOffset( this, options, i );
-				} );
-		}
-
-		var rect, win,
-			elem = this[ 0 ];
-
-		if ( !elem ) {
-			return;
-		}
-
-		// Return zeros for disconnected and hidden (display: none) elements (gh-2310)
-		// Support: IE <=11 only
-		// Running getBoundingClientRect on a
-		// disconnected node in IE throws an error
-		if ( !elem.getClientRects().length ) {
-			return { top: 0, left: 0 };
-		}
-
-		// Get document-relative position by adding viewport scroll to viewport-relative gBCR
-		rect = elem.getBoundingClientRect();
-		win = elem.ownerDocument.defaultView;
-		return {
-			top: rect.top + win.pageYOffset,
-			left: rect.left + win.pageXOffset
-		};
-	},
-
-	// position() relates an element's margin box to its offset parent's padding box
-	// This corresponds to the behavior of CSS absolute positioning
-	position: function() {
-		if ( !this[ 0 ] ) {
-			return;
-		}
-
-		var offsetParent, offset, doc,
-			elem = this[ 0 ],
-			parentOffset = { top: 0, left: 0 };
-
-		// position:fixed elements are offset from the viewport, which itself always has zero offset
-		if ( jQuery.css( elem, "position" ) === "fixed" ) {
-
-			// Assume position:fixed implies availability of getBoundingClientRect
-			offset = elem.getBoundingClientRect();
-
-		} else {
-			offset = this.offset();
-
-			// Account for the *real* offset parent, which can be the document or its root element
-			// when a statically positioned element is identified
-			doc = elem.ownerDocument;
-			offsetParent = elem.offsetParent || doc.documentElement;
-			while ( offsetParent &&
-				( offsetParent === doc.body || offsetParent === doc.documentElement ) &&
-				jQuery.css( offsetParent, "position" ) === "static" ) {
-
-				offsetParent = offsetParent.parentNode;
-			}
-			if ( offsetParent && offsetParent !== elem && offsetParent.nodeType === 1 ) {
-
-				// Incorporate borders into its offset, since they are outside its content origin
-				parentOffset = jQuery( offsetParent ).offset();
-				parentOffset.top += jQuery.css( offsetParent, "borderTopWidth", true );
-				parentOffset.left += jQuery.css( offsetParent, "borderLeftWidth", true );
-			}
-		}
-
-		// Subtract parent offsets and element margins
-		return {
-			top: offset.top - parentOffset.top - jQuery.css( elem, "marginTop", true ),
-			left: offset.left - parentOffset.left - jQuery.css( elem, "marginLeft", true )
-		};
-	},
-
-	// This method will return documentElement in the following cases:
-	// 1) For the element inside the iframe without offsetParent, this method will return
-	//    documentElement of the parent window
-	// 2) For the hidden or detached element
-	// 3) For body or html element, i.e. in case of the html node - it will return itself
-	//
-	// but those exceptions were never presented as a real life use-cases
-	// and might be considered as more preferable results.
-	//
-	// This logic, however, is not guaranteed and can change at any point in the future
-	offsetParent: function() {
-		return this.map( function() {
-			var offsetParent = this.offsetParent;
-
-			while ( offsetParent && jQuery.css( offsetParent, "position" ) === "static" ) {
-				offsetParent = offsetParent.offsetParent;
-			}
-
-			return offsetParent || documentElement;
-		} );
-	}
-} );
-
-// Create scrollLeft and scrollTop methods
-jQuery.each( { scrollLeft: "pageXOffset", scrollTop: "pageYOffset" }, function( method, prop ) {
-	var top = "pageYOffset" === prop;
-
-	jQuery.fn[ method ] = function( val ) {
-		return access( this, function( elem, method, val ) {
-
-			// Coalesce documents and windows
-			var win;
-			if ( isWindow( elem ) ) {
-				win = elem;
-			} else if ( elem.nodeType === 9 ) {
-				win = elem.defaultView;
-			}
-
-			if ( val === undefined ) {
-				return win ? win[ prop ] : elem[ method ];
-			}
-
-			if ( win ) {
-				win.scrollTo(
-					!top ? val : win.pageXOffset,
-					top ? val : win.pageYOffset
-				);
-
-			} else {
-				elem[ method ] = val;
-			}
-		}, method, val, arguments.length );
-	};
-} );
-
-// Support: Safari <=7 - 9.1, Chrome <=37 - 49
-// Add the top/left cssHooks using jQuery.fn.position
-// Webkit bug: https://bugs.webkit.org/show_bug.cgi?id=29084
-// Blink bug: https://bugs.chromium.org/p/chromium/issues/detail?id=589347
-// getComputedStyle returns percent when specified for top/left/bottom/right;
-// rather than make the css module depend on the offset module, just check for it here
-jQuery.each( [ "top", "left" ], function( i, prop ) {
-	jQuery.cssHooks[ prop ] = addGetHookIf( support.pixelPosition,
-		function( elem, computed ) {
-			if ( computed ) {
-				computed = curCSS( elem, prop );
-
-				// If curCSS returns percentage, fallback to offset
-				return rnumnonpx.test( computed ) ?
-					jQuery( elem ).position()[ prop ] + "px" :
-					computed;
-			}
-		}
-	);
-} );
-
-
-// Create innerHeight, innerWidth, height, width, outerHeight and outerWidth methods
-jQuery.each( { Height: "height", Width: "width" }, function( name, type ) {
-	jQuery.each( { padding: "inner" + name, content: type, "": "outer" + name },
-		function( defaultExtra, funcName ) {
-
-		// Margin is only for outerHeight, outerWidth
-		jQuery.fn[ funcName ] = function( margin, value ) {
-			var chainable = arguments.length && ( defaultExtra || typeof margin !== "boolean" ),
-				extra = defaultExtra || ( margin === true || value === true ? "margin" : "border" );
-
-			return access( this, function( elem, type, value ) {
-				var doc;
-
-				if ( isWindow( elem ) ) {
-
-					// $( window ).outerWidth/Height return w/h including scrollbars (gh-1729)
-					return funcName.indexOf( "outer" ) === 0 ?
-						elem[ "inner" + name ] :
-						elem.document.documentElement[ "client" + name ];
-				}
-
-				// Get document width or height
-				if ( elem.nodeType === 9 ) {
-					doc = elem.documentElement;
-
-					// Either scroll[Width/Height] or offset[Width/Height] or client[Width/Height],
-					// whichever is greatest
-					return Math.max(
-						elem.body[ "scroll" + name ], doc[ "scroll" + name ],
-						elem.body[ "offset" + name ], doc[ "offset" + name ],
-						doc[ "client" + name ]
-					);
-				}
-
-				return value === undefined ?
-
-					// Get width or height on the element, requesting but not forcing parseFloat
-					jQuery.css( elem, type, extra ) :
-
-					// Set width or height on the element
-					jQuery.style( elem, type, value, extra );
-			}, type, chainable ? margin : undefined, chainable );
-		};
-	} );
-} );
-
-
-jQuery.each( ( "blur focus focusin focusout resize scroll click dblclick " +
-	"mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave " +
-	"change select submit keydown keypress keyup contextmenu" ).split( " " ),
-	function( i, name ) {
-
-	// Handle event binding
-	jQuery.fn[ name ] = function( data, fn ) {
-		return arguments.length > 0 ?
-			this.on( name, null, data, fn ) :
-			this.trigger( name );
-	};
-} );
-
-jQuery.fn.extend( {
-	hover: function( fnOver, fnOut ) {
-		return this.mouseenter( fnOver ).mouseleave( fnOut || fnOver );
-	}
-} );
-
-
-
-
-jQuery.fn.extend( {
-
-	bind: function( types, data, fn ) {
-		return this.on( types, null, data, fn );
-	},
-	unbind: function( types, fn ) {
-		return this.off( types, null, fn );
-	},
-
-	delegate: function( selector, types, data, fn ) {
-		return this.on( types, selector, data, fn );
-	},
-	undelegate: function( selector, types, fn ) {
-
-		// ( namespace ) or ( selector, types [, fn] )
-		return arguments.length === 1 ?
-			this.off( selector, "**" ) :
-			this.off( types, selector || "**", fn );
-	}
-} );
-
-// Bind a function to a context, optionally partially applying any
-// arguments.
-// jQuery.proxy is deprecated to promote standards (specifically Function#bind)
-// However, it is not slated for removal any time soon
-jQuery.proxy = function( fn, context ) {
-	var tmp, args, proxy;
-
-	if ( typeof context === "string" ) {
-		tmp = fn[ context ];
-		context = fn;
-		fn = tmp;
-	}
-
-	// Quick check to determine if target is callable, in the spec
-	// this throws a TypeError, but we will just return undefined.
-	if ( !isFunction( fn ) ) {
-		return undefined;
-	}
-
-	// Simulated bind
-	args = slice.call( arguments, 2 );
-	proxy = function() {
-		return fn.apply( context || this, args.concat( slice.call( arguments ) ) );
-	};
-
-	// Set the guid of unique handler to the same of original handler, so it can be removed
-	proxy.guid = fn.guid = fn.guid || jQuery.guid++;
-
-	return proxy;
-};
-
-jQuery.holdReady = function( hold ) {
-	if ( hold ) {
-		jQuery.readyWait++;
-	} else {
-		jQuery.ready( true );
-	}
-};
-jQuery.isArray = Array.isArray;
-jQuery.parseJSON = JSON.parse;
-jQuery.nodeName = nodeName;
-jQuery.isFunction = isFunction;
-jQuery.isWindow = isWindow;
-jQuery.camelCase = camelCase;
-jQuery.type = toType;
-
-jQuery.now = Date.now;
-
-jQuery.isNumeric = function( obj ) {
-
-	// As of jQuery 3.0, isNumeric is limited to
-	// strings and numbers (primitives or objects)
-	// that can be coerced to finite numbers (gh-2662)
-	var type = jQuery.type( obj );
-	return ( type === "number" || type === "string" ) &&
-
-		// parseFloat NaNs numeric-cast false positives ("")
-		// ...but misinterprets leading-number strings, particularly hex literals ("0x...")
-		// subtraction forces infinities to NaN
-		!isNaN( obj - parseFloat( obj ) );
-};
-
-
-
-
-// Register as a named AMD module, since jQuery can be concatenated with other
-// files that may use define, but not via a proper concatenation script that
-// understands anonymous AMD modules. A named AMD is safest and most robust
-// way to register. Lowercase jquery is used because AMD module names are
-// derived from file names, and jQuery is normally delivered in a lowercase
-// file name. Do this after creating the global so that if an AMD module wants
-// to call noConflict to hide this version of jQuery, it will work.
-
-// Note that for maximum portability, libraries that are not jQuery should
-// declare themselves as anonymous modules, and avoid setting a global if an
-// AMD loader is present. jQuery is a special case. For more information, see
-// https://github.com/jrburke/requirejs/wiki/Updating-existing-libraries#wiki-anon
-
-if ( true ) {
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function() {
-		return jQuery;
-	}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-}
-
-
-
-
-var
-
-	// Map over jQuery in case of overwrite
-	_jQuery = window.jQuery,
-
-	// Map over the $ in case of overwrite
-	_$ = window.$;
-
-jQuery.noConflict = function( deep ) {
-	if ( window.$ === jQuery ) {
-		window.$ = _$;
-	}
-
-	if ( deep && window.jQuery === jQuery ) {
-		window.jQuery = _jQuery;
-	}
-
-	return jQuery;
-};
-
-// Expose jQuery and $ identifiers, even in AMD
-// (#7102#comment:10, https://github.com/jquery/jquery/pull/557)
-// and CommonJS for browser emulators (#13566)
-if ( !noGlobal ) {
-	window.jQuery = window.$ = jQuery;
-}
-
-
-
-
-return jQuery;
-} );
 
 
 /***/ }),
@@ -30968,7 +30969,7 @@ module.exports = __webpack_require__(18);
 
 
 var utils = __webpack_require__(0);
-var bind = __webpack_require__(3);
+var bind = __webpack_require__(4);
 var Axios = __webpack_require__(20);
 var defaults = __webpack_require__(2);
 
@@ -31003,9 +31004,9 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(8);
+axios.Cancel = __webpack_require__(9);
 axios.CancelToken = __webpack_require__(34);
-axios.isCancel = __webpack_require__(7);
+axios.isCancel = __webpack_require__(8);
 
 // Expose all/spread
 axios.all = function all(promises) {
@@ -31165,7 +31166,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 "use strict";
 
 
-var createError = __webpack_require__(6);
+var createError = __webpack_require__(7);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -31584,7 +31585,7 @@ module.exports = InterceptorManager;
 
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(31);
-var isCancel = __webpack_require__(7);
+var isCancel = __webpack_require__(8);
 var defaults = __webpack_require__(2);
 
 /**
@@ -31737,7 +31738,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 "use strict";
 
 
-var Cancel = __webpack_require__(8);
+var Cancel = __webpack_require__(9);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -31835,7 +31836,7 @@ module.exports = function spread(callback) {
 
 module.exports = {
 	getCountries: function () {
-		var data = __webpack_require__(9) // data : [country : [cities]]
+		var data = __webpack_require__(10) // data : [country : [cities]]
 		var countries = [];
 		for (key in data["countries"]) {
 			countries.push (key);
@@ -31853,13 +31854,1080 @@ module.exports = {
 			}
 		);
 		
-		var data = __webpack_require__(9) // data : [country : [cities]]
+		var data = __webpack_require__(10) // data : [country : [cities]]
 		return data["countries"][country];
 	}
 }
 
 /***/ }),
 /* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
+ * Toastr
+ * Copyright 2012-2015
+ * Authors: John Papa, Hans Fjällemark, and Tim Ferrell.
+ * All Rights Reserved.
+ * Use, reproduction, distribution, and modification of this code is subject to the terms and
+ * conditions of the MIT license, available at http://www.opensource.org/licenses/mit-license.php
+ *
+ * ARIA Support: Greta Krafsig
+ *
+ * Project: https://github.com/CodeSeven/toastr
+ */
+/* global define */
+(function (define) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(3)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
+        return (function () {
+            var $container;
+            var listener;
+            var toastId = 0;
+            var toastType = {
+                error: 'error',
+                info: 'info',
+                success: 'success',
+                warning: 'warning'
+            };
+
+            var toastr = {
+                clear: clear,
+                remove: remove,
+                error: error,
+                getContainer: getContainer,
+                info: info,
+                options: {},
+                subscribe: subscribe,
+                success: success,
+                version: '2.1.4',
+                warning: warning
+            };
+
+            var previousToast;
+
+            return toastr;
+
+            ////////////////
+
+            function error(message, title, optionsOverride) {
+                return notify({
+                    type: toastType.error,
+                    iconClass: getOptions().iconClasses.error,
+                    message: message,
+                    optionsOverride: optionsOverride,
+                    title: title
+                });
+            }
+
+            function getContainer(options, create) {
+                if (!options) { options = getOptions(); }
+                $container = $('#' + options.containerId);
+                if ($container.length) {
+                    return $container;
+                }
+                if (create) {
+                    $container = createContainer(options);
+                }
+                return $container;
+            }
+
+            function info(message, title, optionsOverride) {
+                return notify({
+                    type: toastType.info,
+                    iconClass: getOptions().iconClasses.info,
+                    message: message,
+                    optionsOverride: optionsOverride,
+                    title: title
+                });
+            }
+
+            function subscribe(callback) {
+                listener = callback;
+            }
+
+            function success(message, title, optionsOverride) {
+                return notify({
+                    type: toastType.success,
+                    iconClass: getOptions().iconClasses.success,
+                    message: message,
+                    optionsOverride: optionsOverride,
+                    title: title
+                });
+            }
+
+            function warning(message, title, optionsOverride) {
+                return notify({
+                    type: toastType.warning,
+                    iconClass: getOptions().iconClasses.warning,
+                    message: message,
+                    optionsOverride: optionsOverride,
+                    title: title
+                });
+            }
+
+            function clear($toastElement, clearOptions) {
+                var options = getOptions();
+                if (!$container) { getContainer(options); }
+                if (!clearToast($toastElement, options, clearOptions)) {
+                    clearContainer(options);
+                }
+            }
+
+            function remove($toastElement) {
+                var options = getOptions();
+                if (!$container) { getContainer(options); }
+                if ($toastElement && $(':focus', $toastElement).length === 0) {
+                    removeToast($toastElement);
+                    return;
+                }
+                if ($container.children().length) {
+                    $container.remove();
+                }
+            }
+
+            // internal functions
+
+            function clearContainer (options) {
+                var toastsToClear = $container.children();
+                for (var i = toastsToClear.length - 1; i >= 0; i--) {
+                    clearToast($(toastsToClear[i]), options);
+                }
+            }
+
+            function clearToast ($toastElement, options, clearOptions) {
+                var force = clearOptions && clearOptions.force ? clearOptions.force : false;
+                if ($toastElement && (force || $(':focus', $toastElement).length === 0)) {
+                    $toastElement[options.hideMethod]({
+                        duration: options.hideDuration,
+                        easing: options.hideEasing,
+                        complete: function () { removeToast($toastElement); }
+                    });
+                    return true;
+                }
+                return false;
+            }
+
+            function createContainer(options) {
+                $container = $('<div/>')
+                    .attr('id', options.containerId)
+                    .addClass(options.positionClass);
+
+                $container.appendTo($(options.target));
+                return $container;
+            }
+
+            function getDefaults() {
+                return {
+                    tapToDismiss: true,
+                    toastClass: 'toast',
+                    containerId: 'toast-container',
+                    debug: false,
+
+                    showMethod: 'fadeIn', //fadeIn, slideDown, and show are built into jQuery
+                    showDuration: 300,
+                    showEasing: 'swing', //swing and linear are built into jQuery
+                    onShown: undefined,
+                    hideMethod: 'fadeOut',
+                    hideDuration: 1000,
+                    hideEasing: 'swing',
+                    onHidden: undefined,
+                    closeMethod: false,
+                    closeDuration: false,
+                    closeEasing: false,
+                    closeOnHover: true,
+
+                    extendedTimeOut: 1000,
+                    iconClasses: {
+                        error: 'toast-error',
+                        info: 'toast-info',
+                        success: 'toast-success',
+                        warning: 'toast-warning'
+                    },
+                    iconClass: 'toast-info',
+                    positionClass: 'toast-top-right',
+                    timeOut: 5000, // Set timeOut and extendedTimeOut to 0 to make it sticky
+                    titleClass: 'toast-title',
+                    messageClass: 'toast-message',
+                    escapeHtml: false,
+                    target: 'body',
+                    closeHtml: '<button type="button">&times;</button>',
+                    closeClass: 'toast-close-button',
+                    newestOnTop: true,
+                    preventDuplicates: false,
+                    progressBar: false,
+                    progressClass: 'toast-progress',
+                    rtl: false
+                };
+            }
+
+            function publish(args) {
+                if (!listener) { return; }
+                listener(args);
+            }
+
+            function notify(map) {
+                var options = getOptions();
+                var iconClass = map.iconClass || options.iconClass;
+
+                if (typeof (map.optionsOverride) !== 'undefined') {
+                    options = $.extend(options, map.optionsOverride);
+                    iconClass = map.optionsOverride.iconClass || iconClass;
+                }
+
+                if (shouldExit(options, map)) { return; }
+
+                toastId++;
+
+                $container = getContainer(options, true);
+
+                var intervalId = null;
+                var $toastElement = $('<div/>');
+                var $titleElement = $('<div/>');
+                var $messageElement = $('<div/>');
+                var $progressElement = $('<div/>');
+                var $closeElement = $(options.closeHtml);
+                var progressBar = {
+                    intervalId: null,
+                    hideEta: null,
+                    maxHideTime: null
+                };
+                var response = {
+                    toastId: toastId,
+                    state: 'visible',
+                    startTime: new Date(),
+                    options: options,
+                    map: map
+                };
+
+                personalizeToast();
+
+                displayToast();
+
+                handleEvents();
+
+                publish(response);
+
+                if (options.debug && console) {
+                    console.log(response);
+                }
+
+                return $toastElement;
+
+                function escapeHtml(source) {
+                    if (source == null) {
+                        source = '';
+                    }
+
+                    return source
+                        .replace(/&/g, '&amp;')
+                        .replace(/"/g, '&quot;')
+                        .replace(/'/g, '&#39;')
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;');
+                }
+
+                function personalizeToast() {
+                    setIcon();
+                    setTitle();
+                    setMessage();
+                    setCloseButton();
+                    setProgressBar();
+                    setRTL();
+                    setSequence();
+                    setAria();
+                }
+
+                function setAria() {
+                    var ariaValue = '';
+                    switch (map.iconClass) {
+                        case 'toast-success':
+                        case 'toast-info':
+                            ariaValue =  'polite';
+                            break;
+                        default:
+                            ariaValue = 'assertive';
+                    }
+                    $toastElement.attr('aria-live', ariaValue);
+                }
+
+                function handleEvents() {
+                    if (options.closeOnHover) {
+                        $toastElement.hover(stickAround, delayedHideToast);
+                    }
+
+                    if (!options.onclick && options.tapToDismiss) {
+                        $toastElement.click(hideToast);
+                    }
+
+                    if (options.closeButton && $closeElement) {
+                        $closeElement.click(function (event) {
+                            if (event.stopPropagation) {
+                                event.stopPropagation();
+                            } else if (event.cancelBubble !== undefined && event.cancelBubble !== true) {
+                                event.cancelBubble = true;
+                            }
+
+                            if (options.onCloseClick) {
+                                options.onCloseClick(event);
+                            }
+
+                            hideToast(true);
+                        });
+                    }
+
+                    if (options.onclick) {
+                        $toastElement.click(function (event) {
+                            options.onclick(event);
+                            hideToast();
+                        });
+                    }
+                }
+
+                function displayToast() {
+                    $toastElement.hide();
+
+                    $toastElement[options.showMethod](
+                        {duration: options.showDuration, easing: options.showEasing, complete: options.onShown}
+                    );
+
+                    if (options.timeOut > 0) {
+                        intervalId = setTimeout(hideToast, options.timeOut);
+                        progressBar.maxHideTime = parseFloat(options.timeOut);
+                        progressBar.hideEta = new Date().getTime() + progressBar.maxHideTime;
+                        if (options.progressBar) {
+                            progressBar.intervalId = setInterval(updateProgress, 10);
+                        }
+                    }
+                }
+
+                function setIcon() {
+                    if (map.iconClass) {
+                        $toastElement.addClass(options.toastClass).addClass(iconClass);
+                    }
+                }
+
+                function setSequence() {
+                    if (options.newestOnTop) {
+                        $container.prepend($toastElement);
+                    } else {
+                        $container.append($toastElement);
+                    }
+                }
+
+                function setTitle() {
+                    if (map.title) {
+                        var suffix = map.title;
+                        if (options.escapeHtml) {
+                            suffix = escapeHtml(map.title);
+                        }
+                        $titleElement.append(suffix).addClass(options.titleClass);
+                        $toastElement.append($titleElement);
+                    }
+                }
+
+                function setMessage() {
+                    if (map.message) {
+                        var suffix = map.message;
+                        if (options.escapeHtml) {
+                            suffix = escapeHtml(map.message);
+                        }
+                        $messageElement.append(suffix).addClass(options.messageClass);
+                        $toastElement.append($messageElement);
+                    }
+                }
+
+                function setCloseButton() {
+                    if (options.closeButton) {
+                        $closeElement.addClass(options.closeClass).attr('role', 'button');
+                        $toastElement.prepend($closeElement);
+                    }
+                }
+
+                function setProgressBar() {
+                    if (options.progressBar) {
+                        $progressElement.addClass(options.progressClass);
+                        $toastElement.prepend($progressElement);
+                    }
+                }
+
+                function setRTL() {
+                    if (options.rtl) {
+                        $toastElement.addClass('rtl');
+                    }
+                }
+
+                function shouldExit(options, map) {
+                    if (options.preventDuplicates) {
+                        if (map.message === previousToast) {
+                            return true;
+                        } else {
+                            previousToast = map.message;
+                        }
+                    }
+                    return false;
+                }
+
+                function hideToast(override) {
+                    var method = override && options.closeMethod !== false ? options.closeMethod : options.hideMethod;
+                    var duration = override && options.closeDuration !== false ?
+                        options.closeDuration : options.hideDuration;
+                    var easing = override && options.closeEasing !== false ? options.closeEasing : options.hideEasing;
+                    if ($(':focus', $toastElement).length && !override) {
+                        return;
+                    }
+                    clearTimeout(progressBar.intervalId);
+                    return $toastElement[method]({
+                        duration: duration,
+                        easing: easing,
+                        complete: function () {
+                            removeToast($toastElement);
+                            clearTimeout(intervalId);
+                            if (options.onHidden && response.state !== 'hidden') {
+                                options.onHidden();
+                            }
+                            response.state = 'hidden';
+                            response.endTime = new Date();
+                            publish(response);
+                        }
+                    });
+                }
+
+                function delayedHideToast() {
+                    if (options.timeOut > 0 || options.extendedTimeOut > 0) {
+                        intervalId = setTimeout(hideToast, options.extendedTimeOut);
+                        progressBar.maxHideTime = parseFloat(options.extendedTimeOut);
+                        progressBar.hideEta = new Date().getTime() + progressBar.maxHideTime;
+                    }
+                }
+
+                function stickAround() {
+                    clearTimeout(intervalId);
+                    progressBar.hideEta = 0;
+                    $toastElement.stop(true, true)[options.showMethod](
+                        {duration: options.showDuration, easing: options.showEasing}
+                    );
+                }
+
+                function updateProgress() {
+                    var percentage = ((progressBar.hideEta - (new Date().getTime())) / progressBar.maxHideTime) * 100;
+                    $progressElement.width(percentage + '%');
+                }
+            }
+
+            function getOptions() {
+                return $.extend({}, getDefaults(), toastr.options);
+            }
+
+            function removeToast($toastElement) {
+                if (!$container) { $container = getContainer(); }
+                if ($toastElement.is(':visible')) {
+                    return;
+                }
+                $toastElement.remove();
+                $toastElement = null;
+                if ($container.children().length === 0) {
+                    $container.remove();
+                    previousToast = undefined;
+                }
+            }
+
+        })();
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+}(__webpack_require__(38)));
+
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports) {
+
+module.exports = function() {
+	throw new Error("define cannot be used indirect");
+};
+
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(40);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(42)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../css-loader/index.js!./toastr.min.css", function() {
+			var newContent = require("!!../../css-loader/index.js!./toastr.min.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(41)(false);
+// imports
+
+
+// module
+exports.push([module.i, ".toast-title{font-weight:700}.toast-message{-ms-word-wrap:break-word;word-wrap:break-word}.toast-message a,.toast-message label{color:#FFF}.toast-message a:hover{color:#CCC;text-decoration:none}.toast-close-button{position:relative;right:-.3em;top:-.3em;float:right;font-size:20px;font-weight:700;color:#FFF;-webkit-text-shadow:0 1px 0 #fff;text-shadow:0 1px 0 #fff;opacity:.8;-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=80);filter:alpha(opacity=80);line-height:1}.toast-close-button:focus,.toast-close-button:hover{color:#000;text-decoration:none;cursor:pointer;opacity:.4;-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=40);filter:alpha(opacity=40)}.rtl .toast-close-button{left:-.3em;float:left;right:.3em}button.toast-close-button{padding:0;cursor:pointer;background:0 0;border:0;-webkit-appearance:none}.toast-top-center{top:0;right:0;width:100%}.toast-bottom-center{bottom:0;right:0;width:100%}.toast-top-full-width{top:0;right:0;width:100%}.toast-bottom-full-width{bottom:0;right:0;width:100%}.toast-top-left{top:12px;left:12px}.toast-top-right{top:12px;right:12px}.toast-bottom-right{right:12px;bottom:12px}.toast-bottom-left{bottom:12px;left:12px}#toast-container{position:fixed;z-index:999999;pointer-events:none}#toast-container *{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}#toast-container>div{position:relative;pointer-events:auto;overflow:hidden;margin:0 0 6px;padding:15px 15px 15px 50px;width:300px;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;background-position:15px center;background-repeat:no-repeat;-moz-box-shadow:0 0 12px #999;-webkit-box-shadow:0 0 12px #999;box-shadow:0 0 12px #999;color:#FFF;opacity:.8;-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=80);filter:alpha(opacity=80)}#toast-container>div.rtl{direction:rtl;padding:15px 50px 15px 15px;background-position:right 15px center}#toast-container>div:hover{-moz-box-shadow:0 0 12px #000;-webkit-box-shadow:0 0 12px #000;box-shadow:0 0 12px #000;opacity:1;-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=100);filter:alpha(opacity=100);cursor:pointer}#toast-container>.toast-info{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGwSURBVEhLtZa9SgNBEMc9sUxxRcoUKSzSWIhXpFMhhYWFhaBg4yPYiWCXZxBLERsLRS3EQkEfwCKdjWJAwSKCgoKCcudv4O5YLrt7EzgXhiU3/4+b2ckmwVjJSpKkQ6wAi4gwhT+z3wRBcEz0yjSseUTrcRyfsHsXmD0AmbHOC9Ii8VImnuXBPglHpQ5wwSVM7sNnTG7Za4JwDdCjxyAiH3nyA2mtaTJufiDZ5dCaqlItILh1NHatfN5skvjx9Z38m69CgzuXmZgVrPIGE763Jx9qKsRozWYw6xOHdER+nn2KkO+Bb+UV5CBN6WC6QtBgbRVozrahAbmm6HtUsgtPC19tFdxXZYBOfkbmFJ1VaHA1VAHjd0pp70oTZzvR+EVrx2Ygfdsq6eu55BHYR8hlcki+n+kERUFG8BrA0BwjeAv2M8WLQBtcy+SD6fNsmnB3AlBLrgTtVW1c2QN4bVWLATaIS60J2Du5y1TiJgjSBvFVZgTmwCU+dAZFoPxGEEs8nyHC9Bwe2GvEJv2WXZb0vjdyFT4Cxk3e/kIqlOGoVLwwPevpYHT+00T+hWwXDf4AJAOUqWcDhbwAAAAASUVORK5CYII=)!important}#toast-container>.toast-error{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHOSURBVEhLrZa/SgNBEMZzh0WKCClSCKaIYOED+AAKeQQLG8HWztLCImBrYadgIdY+gIKNYkBFSwu7CAoqCgkkoGBI/E28PdbLZmeDLgzZzcx83/zZ2SSXC1j9fr+I1Hq93g2yxH4iwM1vkoBWAdxCmpzTxfkN2RcyZNaHFIkSo10+8kgxkXIURV5HGxTmFuc75B2RfQkpxHG8aAgaAFa0tAHqYFfQ7Iwe2yhODk8+J4C7yAoRTWI3w/4klGRgR4lO7Rpn9+gvMyWp+uxFh8+H+ARlgN1nJuJuQAYvNkEnwGFck18Er4q3egEc/oO+mhLdKgRyhdNFiacC0rlOCbhNVz4H9FnAYgDBvU3QIioZlJFLJtsoHYRDfiZoUyIxqCtRpVlANq0EU4dApjrtgezPFad5S19Wgjkc0hNVnuF4HjVA6C7QrSIbylB+oZe3aHgBsqlNqKYH48jXyJKMuAbiyVJ8KzaB3eRc0pg9VwQ4niFryI68qiOi3AbjwdsfnAtk0bCjTLJKr6mrD9g8iq/S/B81hguOMlQTnVyG40wAcjnmgsCNESDrjme7wfftP4P7SP4N3CJZdvzoNyGq2c/HWOXJGsvVg+RA/k2MC/wN6I2YA2Pt8GkAAAAASUVORK5CYII=)!important}#toast-container>.toast-success{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADsSURBVEhLY2AYBfQMgf///3P8+/evAIgvA/FsIF+BavYDDWMBGroaSMMBiE8VC7AZDrIFaMFnii3AZTjUgsUUWUDA8OdAH6iQbQEhw4HyGsPEcKBXBIC4ARhex4G4BsjmweU1soIFaGg/WtoFZRIZdEvIMhxkCCjXIVsATV6gFGACs4Rsw0EGgIIH3QJYJgHSARQZDrWAB+jawzgs+Q2UO49D7jnRSRGoEFRILcdmEMWGI0cm0JJ2QpYA1RDvcmzJEWhABhD/pqrL0S0CWuABKgnRki9lLseS7g2AlqwHWQSKH4oKLrILpRGhEQCw2LiRUIa4lwAAAABJRU5ErkJggg==)!important}#toast-container>.toast-warning{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGYSURBVEhL5ZSvTsNQFMbXZGICMYGYmJhAQIJAICYQPAACiSDB8AiICQQJT4CqQEwgJvYASAQCiZiYmJhAIBATCARJy+9rTsldd8sKu1M0+dLb057v6/lbq/2rK0mS/TRNj9cWNAKPYIJII7gIxCcQ51cvqID+GIEX8ASG4B1bK5gIZFeQfoJdEXOfgX4QAQg7kH2A65yQ87lyxb27sggkAzAuFhbbg1K2kgCkB1bVwyIR9m2L7PRPIhDUIXgGtyKw575yz3lTNs6X4JXnjV+LKM/m3MydnTbtOKIjtz6VhCBq4vSm3ncdrD2lk0VgUXSVKjVDJXJzijW1RQdsU7F77He8u68koNZTz8Oz5yGa6J3H3lZ0xYgXBK2QymlWWA+RWnYhskLBv2vmE+hBMCtbA7KX5drWyRT/2JsqZ2IvfB9Y4bWDNMFbJRFmC9E74SoS0CqulwjkC0+5bpcV1CZ8NMej4pjy0U+doDQsGyo1hzVJttIjhQ7GnBtRFN1UarUlH8F3xict+HY07rEzoUGPlWcjRFRr4/gChZgc3ZL2d8oAAAAASUVORK5CYII=)!important}#toast-container.toast-bottom-center>div,#toast-container.toast-top-center>div{width:300px;margin-left:auto;margin-right:auto}#toast-container.toast-bottom-full-width>div,#toast-container.toast-top-full-width>div{width:96%;margin-left:auto;margin-right:auto}.toast{background-color:#030303}.toast-success{background-color:#51A351}.toast-error{background-color:#BD362F}.toast-info{background-color:#2F96B4}.toast-warning{background-color:#F89406}.toast-progress{position:absolute;left:0;bottom:0;height:4px;background-color:#000;opacity:.4;-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=40);filter:alpha(opacity=40)}@media all and (max-width:240px){#toast-container>div{padding:8px 8px 8px 50px;width:11em}#toast-container>div.rtl{padding:8px 50px 8px 8px}#toast-container .toast-close-button{right:-.2em;top:-.2em}#toast-container .rtl .toast-close-button{left:-.2em;right:.2em}}@media all and (min-width:241px) and (max-width:480px){#toast-container>div{padding:8px 8px 8px 50px;width:18em}#toast-container>div.rtl{padding:8px 50px 8px 8px}#toast-container .toast-close-button{right:-.2em;top:-.2em}#toast-container .rtl .toast-close-button{left:-.2em;right:.2em}}@media all and (min-width:481px) and (max-width:768px){#toast-container>div{padding:15px 15px 15px 50px;width:25em}#toast-container>div.rtl{padding:15px 50px 15px 15px}}", ""]);
+
+// exports
+
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
+
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+
+var stylesInDom = {};
+
+var	memoize = function (fn) {
+	var memo;
+
+	return function () {
+		if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+		return memo;
+	};
+};
+
+var isOldIE = memoize(function () {
+	// Test for IE <= 9 as proposed by Browserhacks
+	// @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
+	// Tests for existence of standard globals is to allow style-loader
+	// to operate correctly into non-standard environments
+	// @see https://github.com/webpack-contrib/style-loader/issues/177
+	return window && document && document.all && !window.atob;
+});
+
+var getElement = (function (fn) {
+	var memo = {};
+
+	return function(selector) {
+		if (typeof memo[selector] === "undefined") {
+			memo[selector] = fn.call(this, selector);
+		}
+
+		return memo[selector]
+	};
+})(function (target) {
+	return document.querySelector(target)
+});
+
+var singleton = null;
+var	singletonCounter = 0;
+var	stylesInsertedAtTop = [];
+
+var	fixUrls = __webpack_require__(43);
+
+module.exports = function(list, options) {
+	if (typeof DEBUG !== "undefined" && DEBUG) {
+		if (typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+	}
+
+	options = options || {};
+
+	options.attrs = typeof options.attrs === "object" ? options.attrs : {};
+
+	// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+	// tags it will allow on a page
+	if (!options.singleton) options.singleton = isOldIE();
+
+	// By default, add <style> tags to the <head> element
+	if (!options.insertInto) options.insertInto = "head";
+
+	// By default, add <style> tags to the bottom of the target
+	if (!options.insertAt) options.insertAt = "bottom";
+
+	var styles = listToStyles(list, options);
+
+	addStylesToDom(styles, options);
+
+	return function update (newList) {
+		var mayRemove = [];
+
+		for (var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+
+			domStyle.refs--;
+			mayRemove.push(domStyle);
+		}
+
+		if(newList) {
+			var newStyles = listToStyles(newList, options);
+			addStylesToDom(newStyles, options);
+		}
+
+		for (var i = 0; i < mayRemove.length; i++) {
+			var domStyle = mayRemove[i];
+
+			if(domStyle.refs === 0) {
+				for (var j = 0; j < domStyle.parts.length; j++) domStyle.parts[j]();
+
+				delete stylesInDom[domStyle.id];
+			}
+		}
+	};
+};
+
+function addStylesToDom (styles, options) {
+	for (var i = 0; i < styles.length; i++) {
+		var item = styles[i];
+		var domStyle = stylesInDom[item.id];
+
+		if(domStyle) {
+			domStyle.refs++;
+
+			for(var j = 0; j < domStyle.parts.length; j++) {
+				domStyle.parts[j](item.parts[j]);
+			}
+
+			for(; j < item.parts.length; j++) {
+				domStyle.parts.push(addStyle(item.parts[j], options));
+			}
+		} else {
+			var parts = [];
+
+			for(var j = 0; j < item.parts.length; j++) {
+				parts.push(addStyle(item.parts[j], options));
+			}
+
+			stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+		}
+	}
+}
+
+function listToStyles (list, options) {
+	var styles = [];
+	var newStyles = {};
+
+	for (var i = 0; i < list.length; i++) {
+		var item = list[i];
+		var id = options.base ? item[0] + options.base : item[0];
+		var css = item[1];
+		var media = item[2];
+		var sourceMap = item[3];
+		var part = {css: css, media: media, sourceMap: sourceMap};
+
+		if(!newStyles[id]) styles.push(newStyles[id] = {id: id, parts: [part]});
+		else newStyles[id].parts.push(part);
+	}
+
+	return styles;
+}
+
+function insertStyleElement (options, style) {
+	var target = getElement(options.insertInto)
+
+	if (!target) {
+		throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
+	}
+
+	var lastStyleElementInsertedAtTop = stylesInsertedAtTop[stylesInsertedAtTop.length - 1];
+
+	if (options.insertAt === "top") {
+		if (!lastStyleElementInsertedAtTop) {
+			target.insertBefore(style, target.firstChild);
+		} else if (lastStyleElementInsertedAtTop.nextSibling) {
+			target.insertBefore(style, lastStyleElementInsertedAtTop.nextSibling);
+		} else {
+			target.appendChild(style);
+		}
+		stylesInsertedAtTop.push(style);
+	} else if (options.insertAt === "bottom") {
+		target.appendChild(style);
+	} else {
+		throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
+	}
+}
+
+function removeStyleElement (style) {
+	if (style.parentNode === null) return false;
+	style.parentNode.removeChild(style);
+
+	var idx = stylesInsertedAtTop.indexOf(style);
+	if(idx >= 0) {
+		stylesInsertedAtTop.splice(idx, 1);
+	}
+}
+
+function createStyleElement (options) {
+	var style = document.createElement("style");
+
+	options.attrs.type = "text/css";
+
+	addAttrs(style, options.attrs);
+	insertStyleElement(options, style);
+
+	return style;
+}
+
+function createLinkElement (options) {
+	var link = document.createElement("link");
+
+	options.attrs.type = "text/css";
+	options.attrs.rel = "stylesheet";
+
+	addAttrs(link, options.attrs);
+	insertStyleElement(options, link);
+
+	return link;
+}
+
+function addAttrs (el, attrs) {
+	Object.keys(attrs).forEach(function (key) {
+		el.setAttribute(key, attrs[key]);
+	});
+}
+
+function addStyle (obj, options) {
+	var style, update, remove, result;
+
+	// If a transform function was defined, run it on the css
+	if (options.transform && obj.css) {
+	    result = options.transform(obj.css);
+
+	    if (result) {
+	    	// If transform returns a value, use that instead of the original css.
+	    	// This allows running runtime transformations on the css.
+	    	obj.css = result;
+	    } else {
+	    	// If the transform function returns a falsy value, don't add this css.
+	    	// This allows conditional loading of css
+	    	return function() {
+	    		// noop
+	    	};
+	    }
+	}
+
+	if (options.singleton) {
+		var styleIndex = singletonCounter++;
+
+		style = singleton || (singleton = createStyleElement(options));
+
+		update = applyToSingletonTag.bind(null, style, styleIndex, false);
+		remove = applyToSingletonTag.bind(null, style, styleIndex, true);
+
+	} else if (
+		obj.sourceMap &&
+		typeof URL === "function" &&
+		typeof URL.createObjectURL === "function" &&
+		typeof URL.revokeObjectURL === "function" &&
+		typeof Blob === "function" &&
+		typeof btoa === "function"
+	) {
+		style = createLinkElement(options);
+		update = updateLink.bind(null, style, options);
+		remove = function () {
+			removeStyleElement(style);
+
+			if(style.href) URL.revokeObjectURL(style.href);
+		};
+	} else {
+		style = createStyleElement(options);
+		update = applyToTag.bind(null, style);
+		remove = function () {
+			removeStyleElement(style);
+		};
+	}
+
+	update(obj);
+
+	return function updateStyle (newObj) {
+		if (newObj) {
+			if (
+				newObj.css === obj.css &&
+				newObj.media === obj.media &&
+				newObj.sourceMap === obj.sourceMap
+			) {
+				return;
+			}
+
+			update(obj = newObj);
+		} else {
+			remove();
+		}
+	};
+}
+
+var replaceText = (function () {
+	var textStore = [];
+
+	return function (index, replacement) {
+		textStore[index] = replacement;
+
+		return textStore.filter(Boolean).join('\n');
+	};
+})();
+
+function applyToSingletonTag (style, index, remove, obj) {
+	var css = remove ? "" : obj.css;
+
+	if (style.styleSheet) {
+		style.styleSheet.cssText = replaceText(index, css);
+	} else {
+		var cssNode = document.createTextNode(css);
+		var childNodes = style.childNodes;
+
+		if (childNodes[index]) style.removeChild(childNodes[index]);
+
+		if (childNodes.length) {
+			style.insertBefore(cssNode, childNodes[index]);
+		} else {
+			style.appendChild(cssNode);
+		}
+	}
+}
+
+function applyToTag (style, obj) {
+	var css = obj.css;
+	var media = obj.media;
+
+	if(media) {
+		style.setAttribute("media", media)
+	}
+
+	if(style.styleSheet) {
+		style.styleSheet.cssText = css;
+	} else {
+		while(style.firstChild) {
+			style.removeChild(style.firstChild);
+		}
+
+		style.appendChild(document.createTextNode(css));
+	}
+}
+
+function updateLink (link, options, obj) {
+	var css = obj.css;
+	var sourceMap = obj.sourceMap;
+
+	/*
+		If convertToAbsoluteUrls isn't defined, but sourcemaps are enabled
+		and there is no publicPath defined then lets turn convertToAbsoluteUrls
+		on by default.  Otherwise default to the convertToAbsoluteUrls option
+		directly
+	*/
+	var autoFixUrls = options.convertToAbsoluteUrls === undefined && sourceMap;
+
+	if (options.convertToAbsoluteUrls || autoFixUrls) {
+		css = fixUrls(css);
+	}
+
+	if (sourceMap) {
+		// http://stackoverflow.com/a/26603875
+		css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+	}
+
+	var blob = new Blob([css], { type: "text/css" });
+
+	var oldSrc = link.href;
+
+	link.href = URL.createObjectURL(blob);
+
+	if(oldSrc) URL.revokeObjectURL(oldSrc);
+}
+
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports) {
+
+
+/**
+ * When source maps are enabled, `style-loader` uses a link element with a data-uri to
+ * embed the css on the page. This breaks all relative urls because now they are relative to a
+ * bundle instead of the current page.
+ *
+ * One solution is to only use full urls, but that may be impossible.
+ *
+ * Instead, this function "fixes" the relative urls to be absolute according to the current page location.
+ *
+ * A rudimentary test suite is located at `test/fixUrls.js` and can be run via the `npm test` command.
+ *
+ */
+
+module.exports = function (css) {
+  // get current location
+  var location = typeof window !== "undefined" && window.location;
+
+  if (!location) {
+    throw new Error("fixUrls requires window.location");
+  }
+
+	// blank or null?
+	if (!css || typeof css !== "string") {
+	  return css;
+  }
+
+  var baseUrl = location.protocol + "//" + location.host;
+  var currentDir = baseUrl + location.pathname.replace(/\/[^\/]*$/, "/");
+
+	// convert each url(...)
+	/*
+	This regular expression is just a way to recursively match brackets within
+	a string.
+
+	 /url\s*\(  = Match on the word "url" with any whitespace after it and then a parens
+	   (  = Start a capturing group
+	     (?:  = Start a non-capturing group
+	         [^)(]  = Match anything that isn't a parentheses
+	         |  = OR
+	         \(  = Match a start parentheses
+	             (?:  = Start another non-capturing groups
+	                 [^)(]+  = Match anything that isn't a parentheses
+	                 |  = OR
+	                 \(  = Match a start parentheses
+	                     [^)(]*  = Match anything that isn't a parentheses
+	                 \)  = Match a end parentheses
+	             )  = End Group
+              *\) = Match anything and then a close parens
+          )  = Close non-capturing group
+          *  = Match anything
+       )  = Close capturing group
+	 \)  = Match a close parens
+
+	 /gi  = Get all matches, not the first.  Be case insensitive.
+	 */
+	var fixedCss = css.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function(fullMatch, origUrl) {
+		// strip quotes (if they exist)
+		var unquotedOrigUrl = origUrl
+			.trim()
+			.replace(/^"(.*)"$/, function(o, $1){ return $1; })
+			.replace(/^'(.*)'$/, function(o, $1){ return $1; });
+
+		// already a full url? no change
+		if (/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/)/i.test(unquotedOrigUrl)) {
+		  return fullMatch;
+		}
+
+		// convert the url to a full url
+		var newUrl;
+
+		if (unquotedOrigUrl.indexOf("//") === 0) {
+		  	//TODO: should we add protocol?
+			newUrl = unquotedOrigUrl;
+		} else if (unquotedOrigUrl.indexOf("/") === 0) {
+			// path should be relative to the base url
+			newUrl = baseUrl + unquotedOrigUrl; // already starts with '/'
+		} else {
+			// path should be relative to current directory
+			newUrl = currentDir + unquotedOrigUrl.replace(/^\.\//, ""); // Strip leading './'
+		}
+
+		// send back the fixed url(...)
+		return "url(" + JSON.stringify(newUrl) + ")";
+	});
+
+	// send back the fixed css
+	return fixedCss;
+};
+
+
+/***/ }),
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42822,10 +43890,10 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(38).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(45).setImmediate))
 
 /***/ }),
-/* 38 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var scope = (typeof global !== "undefined" && global) ||
@@ -42881,7 +43949,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(39);
+__webpack_require__(46);
 // On some exotic environments, it's not clear which object `setimmediate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -42895,7 +43963,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 39 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -43085,18 +44153,18 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(5)))
 
 /***/ }),
-/* 40 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(41)
+var normalizeComponent = __webpack_require__(48)
 /* script */
-var __vue_script__ = __webpack_require__(42)
+var __vue_script__ = __webpack_require__(49)
 /* template */
-var __vue_template__ = __webpack_require__(43)
+var __vue_template__ = __webpack_require__(50)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -43135,7 +44203,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 41 */
+/* 48 */
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -43244,7 +44312,7 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 42 */
+/* 49 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -43273,7 +44341,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 43 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -43316,7 +44384,7 @@ if (false) {
 }
 
 /***/ }),
-/* 44 */
+/* 51 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

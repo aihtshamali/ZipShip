@@ -362,7 +362,7 @@ article
 }
 #result {
     border: 4px dotted #cccccc;
-    display: none;
+    {{-- display: none; --}}
     float: right;
     margin:5px auto;
     width: 473px;
@@ -386,7 +386,8 @@ article
                 <h4>Checkout & delivery</h4>
               </div>
             </div>
-            <form class="postForm" action="{{route('post.store')}}"  method="post" enctype="multipart/form-data">
+            <form class="postForm" action="{{route('post.update',$order->id)}}"  method="post" enctype="multipart/form-data">
+              {{method_field('PATCH')}}
               {{ csrf_field() }}
               <div id="firstDiv" style="">
               <div class="card row">
@@ -397,62 +398,71 @@ article
                   <label for="product_image" class="d-b btn btn--bb-outline pos-r px30 mt20 h50 bdr5 as-s">
                     <input type="file" id="product_image" multiple name="product_image[]" class="d-n" accept="image/*">
                     <div class="fx-r ai-c jc-c pos-a t0 l10 b0 w25 SM_l20" style="display:inline;padding-top:2.5%">
-                      <!-- <svg width="26" height="20" vector-effect="non-scaling-stroke" class="icon camera-icon" viewBox="0 0 27 21">
-                        <path d="M25.5 5v13c0 .8-.7 1.5-1.5 1.5H2c-.8 0-1.5-.7-1.5-1.5V5c0-.8.7-1.5 1.5-1.5h5c.3 0 .5-.1.6-.4l1.1-1.9C9 .7 9.5.5 10 .5h5.6c.5 0 1 .3 1.3.7L18 3.1c.1.2.4.4.6.4H24c.8 0 1.5.7 1.5 1.5z" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></path>
-                        <circle cx="13" cy="10.9" r="5.5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></circle>
-                      </svg> -->
                       <i class="fas fa-camera" style="font-size: 23px;"></i>
                     </div>
                     <span>Upload image</span>
                   </label>
                 </div>
-                <output id="result"></output>
+                <output id="result">
+                  @if(isset($order->image_1))
+                    <div class="">
+                      <img src="{{asset('uploads/postImages/'.$order->image_1)}}" class="thumbnail" alt="image_1">
+                    </div>
+                  @endif
+                  @if(isset($order->image_2))
+                    <div class="">
+                      <img src="{{asset('uploads/postImages/'.$order->image_2)}}" class="thumbnail" alt="image_2">
+                    </div>
+                  @endif
+                  @if(isset($order->image_3))
+                    <div class="">
+                      <img src="{{asset('uploads/postImages/'.$order->image_3)}}" class="thumbnail" alt="image_3">
+                    </div>
+                  @endif
+                </output>
               </article>
               <div class="row card">
                 <label for="" class="label">Item Name</label>
                 <div class="form-group">
-                  <input type="text" name="title" placeholder="Enter Item Name" class="form-control" value="" >
+                  <input type="text" name="title" placeholder="Enter Item Name" class="form-control" value="{{$order->title}}" >
                 </div>
               </div>
               <div class="row card">
                 <label for="" class="label">Description</label>
                 <div class="form-group">
-                  <input type="text" name="description" placeholder="Enter Item Description" class="form-control" value="" >
+                  <input type="text" name="description" placeholder="Enter Item Description" class="form-control" value="{{$order->description}}" >
                 </div>
               </div>
               <div class="row card">
                 <label for="" class="label">Item URL</label>
                 <div class="form-group">
-                  <input type="text" name="item_url" placeholder="Enter Item Description" class="form-control" value="" >
+                  <input type="text" name="item_url" placeholder="Enter Item Description" class="form-control" value="{{$order->item_url}}" >
                 </div>
               </div>
               <div class="row card">
                 <label for="" class="label">Item Price (USD)</label>
                 <div class="form-group">
-                  <input type="text" name="item_price" placeholder="Enter price in $" class="form-control" value="" >
+                  <input type="text" name="item_price" placeholder="Enter price in $" class="form-control" value="{{$order->item_price}}" >
                 </div>
               </div>
               <div class="row card">
                 <label for="" class="label">Traveler's Reward (USD)</label>
                 <div class="form-group">
-                  <input type="text" name="reward" placeholder="Enter price in $" class="form-control" value="" >
+                  <input type="text" name="reward" placeholder="Enter price in $" class="form-control" value="{{$order->traveler_reward}}" >
                 </div>
               </div>
               <div class="row card">
                 <label for="" class="label">Quantity</label>
                 <div class="form-group">
-                  <input type="number" name="quantity" placeholder="Enter quantity" class="form-control" value="" >
+                  <input type="number" name="quantity" placeholder="Enter quantity" class="form-control" value="{{$order->quantity}}" >
                 </div>
               </div>
-              <div class="row">
-                <input id="" name="" class="form-control btn showSecondDiv" type="button" style="background-color:#9c57b8;color:white" value="Next">
-              </div>
-          </div>
-              <div id="SecondDiv" class="disnone">
+            </div>
+              <div id="SecondDiv" class="">
               <div class="row card">
                 <label for="" class="label">Where is your item going?</label>
                 <p>
-                    Tell us which city to bring your item to. You’ll coordinate the exact delivery location and address with the traveler who brings you your item, so you only need to tell us the city & country right now.
+                    Tell us which city to bring your item to. You’ll coordinate the exact delivery location and address with the traveler who brings you your item, so you only need to tell us the city & country right now(Addresses are Optional).
                 </p>
                 <div class="form-group">
                   <select  class="selectpicker selectCountry" style="width:100%;" data-show-subtext="true" data-live-search="true" id="countrylist" name="from_country">
@@ -466,7 +476,7 @@ article
                 </div>
 
                 <div class="form-group">
-                  <input type="text" name="from_loc" placeholder="Source Adrress (Optional) " class="form-control" value="">
+                  <input type="text" name="from_loc" placeholder="Source Adrress (Optional) " class="form-control" value="{{$order->from_loc}}">
                 </div>
                 <label for="" class="label">Your Address?</label>
                 <div class="form-group">
@@ -480,7 +490,7 @@ article
                   </select>
                 </div>
                 <div class="form-group">
-                  <input type="text" name="to_loc" placeholder="Destination Address (Optional)" class="form-control" value="">
+                  <input type="text" name="to_loc" placeholder="Destination Address (Optional)" class="form-control" value="{{$order->to_loc}}">
                 </div>
                 <div class="form-group">
                   <b class="headngOne cursolOnhover">
@@ -490,7 +500,7 @@ article
                   <div id="decOne" class="disnone">
                       <b>Delivery before</b>
                       <p>If you want your item to arrive by a specific date, please tell us.</p>
-                      <input id="date" name="Deliver_before" type="date" class="form-control" style="color: #777" />
+                      <input id="date" name="Deliver_before" type="date" class="form-control" style="color: #777" value="{{$order->deliver_before}}" />
                       <p id="Cancel" class="cursolOnhover">Cancel</p>
                   </div>
                 </div>
@@ -500,52 +510,15 @@ article
                   </b>
                   <div id="decTwo" class="disnone">
                       <p>Include a note to your traveler</p>
-                      <input id="date" type="text" name="comment" class="form-control" style="color: #777" />
+                      <input id="date" type="text" name="comment" class="form-control" style="color: #777" value="{{$order->comment}}" />
                       <p id="CancelTwo" class="cursolOnhover">Cancel</p>
                   </div>
                 </div>
-              <div class="row">
-                <input id="" name="" class="form-control btn showThirdDiv " type="button" style="background-color:#9c57b8;color:white" value="Next">
               </div>
               </div>
+              <div class="form-group">
+                <input type="submit" value="Update My Order" class="btn form-control white bg-colored bg-colored-hover"  name="update">
               </div>
-              <div id="ThirdDiv" class="disnone">
-                <div class="row card">
-                <label for="" class="label">Almost there! Now, review your details.</label><br/>
-                <div style="min-height: 150px">
-                  <img src="#" width="30%" class="lastdiv_img" style="clear: both;float: left;" />
-                  <div style="width: 67%;float:left;padding: 0px 0px 0px 10px">
-                      <h4 class="lastdiv_title">Title</h4>
-                      <div style="padding: 10px;width: 100%;">
-                        <p><span>From:</span> <b class="lastdiv_from">country</b><br/>
-                          <span>To:</span> <b class="lastdiv_to">City</b><br/>
-                          <span>Deliver before:</span> <b class="lastdiv_before">mm/dd/yyyy</b>
-                        </p>
-                      </div>
-                  </div>
-                </div>
-                <p>Below is the approximate price summary for your order delivery</p>
-                <span style="float: left;color: #777">Item Price</span>
-                <span style="float: right;color: #777" class="lastdiv_price">$6</span>
-                <span style="clear:both;float: left;color: #777" >Reward</span>
-                <span style="float: right;color: #777" class="lastdiv_tax">$12</span>
-                <br/><br/><span style="color: #777;font-weight: 200;">This is the delivery cost which includes paying the traveler for shopping and delivering your order</span></p>
-                <div class="form-group">
-                <b><span style="float: left;color: #777">Estimated Total</span>
-                <span style="float: right;color: #777" class="total">$18</span></b>
-                </div>
-                <div class="form-group">
-                  <p style="text-align:justify;"><br/>This is the estimated total amount you’ll pay once you receive your item. When you and your traveler confirm order and delivery details, we’ll send you the updated total price. You will be asked to enter your credit card details as payment; however, this amount will not be transferred to your traveler until you confirm that you received your item.</p>
-                </div>
-                <hr/>
-                <div class="form-group">
-                  <p>By publishing my order, I agree to ZipShip’s <span>terms and conditions.</span></p>
-                </div>
-                <div class="row">
-                  <input type="submit" name="" class="form-control btn " style="background-color:#9c57b8;color:white" value="submit">
-                </div>
-              </div>
-            </div>
           </form>
         </div>
       </div>
@@ -553,77 +526,6 @@ article
 @endsection
 @section('script')
   $(document).ready(function(){
-
-    $("input[type=submit]").click(function(e) {
-      e.preventDefault();
-      if ($("input:invalid").length) {
-        toastr.error('Please Fill out the  fields.', ' Fields');
-      } else {
-        $('.postForm').submit();
-      }
-    });
-      $(".showThirdDiv").click(function(){
-      $("#firstDiv").hide();
-      $("#SecondDiv").hide();
-      $("#ThirdDiv").show();
-      $('.lastdiv_title').text($('input[name="title"]').val());
-      $('.lastdiv_before').text($('input[name="Deliver_before"]').val());
-      $('.lastdiv_price').text("$"+$('input[name="item_price"]').val());
-      {{-- Total --}}
-      {{-- $('.lastdiv_price').text("$"+explode($('lastdiv_tax').val(),'$')); --}}
-      $('.lastdiv_img').attr('src',$('img.thumbnail').first().attr('src'));
-      {{-- Source --}}
-      var fcity=$('select[name="from_city"]').val();
-      var fcountry=$('select[name="from_country"]').val();
-      var faddress=$('input[name="from_loc"]').val();
-      var from='';
-      if(faddress){
-        from=from+faddress;
-        console.log(from);
-        $('.lastdiv_from').text(from);
-
-      }
-      if(fcity){
-        from=from+" "+fcity;
-        console.log(from);
-        $('.lastdiv_from').text(from);
-
-      }
-      if(fcountry){
-        from=from+" ,"+fcountry;
-        console.log(from);
-        $('.lastdiv_from').text(from);
-      }
-      {{-- Destination --}}
-      $('.lastdiv_from').text($('select[name="from_country"]').val());
-      var tcity=$('input[name="to_city"]').val();
-      var tcountry=$('input[name="to_country"]').val();
-      var taddress=$('input[name="to_loc"]').val();
-      var to='';
-      if(taddress){
-        to=to+taddress;
-      }
-      if(tcity){
-        to=to+" "+tcity;
-      }
-      if(tcountry){
-        to=to+" ,"+tcountry;
-      }
-      $('.lastdiv_to').text(to);
-    });
-    {{-- END Destination  --}}
-    $(".showFirstDiv").click(function(){
-
-      $("#firstDiv").show();
-      $("#SecondDiv").hide();
-      $("#ThirdDiv").hide();
-    });
-    $(".showSecondDiv").click(function(){
-
-      $("#firstDiv").hide();
-      $("#SecondDiv").show();
-      $("#ThirdDiv").hide();
-    });
     $(".headngOne").click(function(){
       $("#decOne").show();
       $(".headngOne").hide();
@@ -706,8 +608,30 @@ article
     });
       var countrylist = $('.selectCountry');
       $.each(countriess,function(index,value){
+        if("<?php echo $order->from_country ?>" == this[1] )
+          countrylist.append($('<option/>').attr('value', this[0]).attr('selected','selected').text(this[1]));
+        else
           countrylist.append($('<option/>').attr('value', this[0]).text(this[1]));
     });
+    var temp=0;
+    var citiess = countries.getCities($('.selectCountry').val()).map(function(){
+     var city=countries.getCities($('.selectCountry').val())[temp++];
+     return [city, city];
+   });
+
+     var cityl = $('.CitySelect');
+     $('select.selectCity,div.selectCity').remove();
+     cityl.append('<select  class="selectpicker selectCity" data-show-subtext="true" data-live-search="true" id="citylist" name="from_city"><option value="">Select City</option></select>')
+     var citylist=$('#citylist');
+     $.each(citiess,function(index,value){
+       if("<?php echo  $order->from_city?>"==this[1])
+         citylist.append($('<option/>').attr('value', this[0]).attr('selected','selected').text(this[1]));
+       else
+         citylist.append($('<option/>').attr('value', this[0]).text(this[1]));
+
+     });
+     citylist.selectpicker('render');
+
      $('.selectCountry').on('change',function(){
 
        {{-- console.log(countries.getCities($('.selectCountry').val())); --}}
@@ -735,8 +659,30 @@ article
     }); --}}
       var countrylist = $('.tselectCountry');
       $.each(countriess,function(index,value){
+        if("<?php echo $order->to_country ?>" == this[1] )
+          countrylist.append($('<option/>').attr('value', this[0]).attr('selected','selected').text(this[1]));
+        else
           countrylist.append($('<option/>').attr('value', this[0]).text(this[1]));
     });
+    {{-- User previous Entered Value --}}
+    var temp=0;
+    var citiess = countries.getCities($('.tselectCountry').val()).map(function(){
+     var city=countries.getCities($('.tselectCountry').val())[temp++];
+     return [city, city];
+   });
+
+   var cityl = $('.tCitySelect');
+   $('select.tselectCity,div.tselectCity').remove();
+   cityl.append('<select  class="selectpicker tselectCity" data-show-subtext="true" data-live-search="true" id="tcitylist" name="to_city"><option value="">Select City</option></select>')
+   var citylist=$('#tcitylist');
+   $.each(citiess,function(index,value){
+     if("<?php echo $order->to_city ?>"==this[1])
+       citylist.append($('<option/>').attr('value', this[0]).attr('selected','selected').text(this[1]));
+    else
+       citylist.append($('<option/>').attr('value', this[0]).text(this[1]));
+   });
+   citylist.selectpicker('render');
+
      $('.tselectCountry').on('change',function(){
 
        {{-- console.log(countries.getCities($('.selectCountry').val())); --}}
@@ -752,7 +698,6 @@ article
       var citylist=$('#tcitylist');
       $.each(citiess,function(index,value){
           citylist.append($('<option/>').attr('value', this[0]).text(this[1]));
-
       });
       citylist.selectpicker('render');
     });

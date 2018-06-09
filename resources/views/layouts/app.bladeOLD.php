@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @yield('styleTags')
     <style media="screen">
       @yield('style')
     </style>
@@ -33,8 +34,8 @@
 
                     <!-- Branding Image -->
                     <a class=""  href="{{ url('/') }}">
-                       <img src="{{ asset('images/final.jpg') }}" width="40" height="40" alt="ZipShip-Logo">
-                        <!-- {{ config('app.name', 'Laravel') }} -->
+                       <img src="{{ asset('images/finalOld.jpg') }}" width="40" height="40" style="border-radius:150px" alt="ZipShip-Logo">
+
                     </a>
                 </div>
 
@@ -75,14 +76,23 @@
                 </div>
             </div>
         </nav>
-
+        @if(Session::has('message'))
+          <div class="container">
+            <div class="col-md-4 col-md-offset-3">
+              <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+            </div>
+          </div>
+        @endif
         @yield('content')
     </div>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+
     <script type="text/javascript">
       @yield('script')
     </script>
+    @yield('scriptTags')
+
 </body>
 </html>

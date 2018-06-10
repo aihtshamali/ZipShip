@@ -32,6 +32,15 @@ class User extends Authenticatable
     public function chat(){
       return $this->hasMany('App\Chat');
     }
+    public function post(){
+      return $this->hasMany('App\Post');
+    }
+    public function bid(){
+      return $this->hasMany('App\Bid');
+    }
+    public function flight(){
+      return $this->hasMany('App\Flight');
+    }
     public function credit_info(){
       return $this->hasOne('App\CreditInfo');
     }

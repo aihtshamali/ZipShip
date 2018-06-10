@@ -43,7 +43,11 @@ class LoginController extends Controller
         $user = User::where('email', $request->email)
                      ->where('password',md5($request->password))
                      ->first();
-        Auth::login($user);
-        return redirect('/home');
+              if($user){
+                     Auth::login($user);
+                     return redirect('/home');
+                   }else{
+                     return view('auth.login');
+                   }
      }
 }

@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
-use App\Flight;
-use Session;
+use App\Bid;
 use Auth;
-class FlightController extends Controller
+use Session;
+class BidController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +15,8 @@ class FlightController extends Controller
      */
     public function index()
     {
-        $flights=Flight::where('user_id',Auth::user()->id)
-                ->whereDate('date','>=',date('Y-m-d'))
-                ->get();
-        return view('flights.index',['flights'=>$flights]);
+        $bids=Bid::where('user_id',Auth::id())->orderBy('post_id')->get();
+        return view('bids.index',['bids'=>$bids]);
     }
 
     /**
@@ -27,7 +26,7 @@ class FlightController extends Controller
      */
     public function create()
     {
-        return view('flights.create');
+        //
     }
 
     /**
@@ -38,17 +37,16 @@ class FlightController extends Controller
      */
     public function store(Request $request)
     {
-        $flight=new Flight();
-        $flight->source_country=$request->from_country;
-        $flight->source_city=$request->from_city;
-        $flight->destination_city=$request->to_city;
-        $flight->destination_country=$request->to_country;
-        $flight->date=$request->date;
-        $flight->user()->associate(Auth::user());
-        $flight->save();
+        $bid=new Bid();
+        $bid->post()->associate($request->post_id);
+        $bid->user()->associate(Auth::user());
+        $bid->flight()->associate($request->flight_id);
+        $bid->amount=$request->bidding_amount;
+        $bid->save();
         Session::flash('message', 'Inserted Successfully!');
         Session::flash('alert-class', 'alert-success');
-        return redirect()->route('flight.index');
+        return redirect()->route('bids.index');
+        // dd($bid);
     }
 
     /**
@@ -70,7 +68,8 @@ class FlightController extends Controller
      */
     public function edit($id)
     {
-        //
+        $bid=Bid::findOrFail($id);
+        return view('bids',['bid'=>$bid]);
     }
 
     /**
@@ -82,7 +81,15 @@ class FlightController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $bid=Bid::findOrFail($id);
+      $bid->post()->associate($request->post_id);
+      $bid->user()->associate(Auth::user());
+      $bid->flight()->associate($request->flight_id);
+      $bid->amount=$request->bidding_amount;
+      $bid->save();
+      Session::flash('message', 'Updated Successfully!');
+      Session::flash('alert-class', 'alert-success');
+      return redirect()->route('bids.index');
     }
 
     /**
@@ -93,6 +100,6 @@ class FlightController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Bid::destroy($id);
     }
 }

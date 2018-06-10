@@ -130,6 +130,13 @@
                 </div>
             </div>
         </nav>
+        @if(Session::has('message'))
+          <div class="container">
+            <div class="col-md-4 col-md-offset-3">
+              <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+            </div>
+          </div>
+        @endif
 
         @yield('content')
     </div>
@@ -204,7 +211,7 @@
                 <div class="row clearfix calculate-height t-center-xs">
                     <div class="col-sm-6 col-xs-12 table-im t-left height-auto-mobile t-center-xs">
                         <div class="v-middle">
-                            <img src="{{asset('images/final.jpg')}}" alt="logo icon" class="logo">
+                            <img src="{{asset('images/finalOld.jpg')}}" alt="logo icon" class="logo">
                         </div>
                     </div>
                     <!-- Bottom Note -->
@@ -213,7 +220,7 @@
                             <a href="#" target="_blank" class="gray6-hover underline-hover">Term and Condition</a> |
                             <a href="#" target="_blank" class="gray6-hover underline-hover">Privacy Policy</a> <br class="hidden-xs">
                             © 2018. Powered By
-                            <a href="mailto:aihtshamali@gmail.com" target="_blank" class="colored-hover underline-hover">CodeXStudio</a>.
+                            <a href="aihtshamali@gmail.com" target="_blank" class="colored-hover underline-hover">CodeCrackers</a>.
                         </p>
                     </div>
                 </div>

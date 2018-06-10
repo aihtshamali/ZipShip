@@ -22,8 +22,49 @@
   <link rel="stylesheet" href="{{asset('css/ContactCss/css/custom.css')}}" />
   <!-- Color Skins -->
   <link rel="stylesheet" href="{{asset('css/ContactCss/css/revolutionslider/settings.css')}}" />
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+<style type="text/css">
+    .destinations-offers-wave-decoration{position:absolute;left:0;bottom:0;right:0;z-index:3}
+    .destinations-offers-wave-decoration svg{vertical-align:bottom;margin-bottom:-1px;border-bottom: none !important;}
+    .destinations-offers-wave-decoration svg path{fill:#f7f7f7b0;border-bottom: none !important;}
+    .destinations-offers-wave-decoration .is-destinations-offers_privilege-club svg path{fill:#f7f7f7b0;}
+.wave-decoration svg{vertical-align:bottom;margin:-2px -2px 0}
+@media(min-width:1999px){.wave-decoration svg{display:block;width:100%;height:auto}
+}
+.wave-decoration svg path{fill:#f7f7f7}
+svg:not(:root) {
+    overflow: hidden;
+}
+.st012 {
+    opacity: 0.2;
+    enable-background: new;
+}
+
+.st012 {
+    opacity: 0.2;
+    enable-background: new;
+}
+.st012 {
+    opacity: 0.2;
+    enable-background: new;
+}
+
+</style>
 
 
+    <!-- jQuery -->
+      <script type="text/javascript" src="{{asset('js/ContactJss/js/jquery.min.js')}}"></script>
+      <!-- MAIN SCRIPTS - Classic scripts for all theme -->
+      <script type="text/javascript" src="{{asset('js/ContactJss/js/scripts6da2.js?v=2.2')}}"></script>
+      <!-- END JS FILES -->
+    <!-- REVOLUTION SLIDER -->
+    <script type="text/javascript" src="{{asset('js/ContactJss/js/revolutionslider/jquery.themepunch.revolution.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/ContactJss/js/revolutionslider/jquery.themepunch.tools.min.js')}}"></script>
+    <!-- PAGE OPTIONS - You can find special scripts for this version -->
+    <script type="text/javascript" src="{{asset('herakles/js/pluginsf195.js?v=2.1')}}"></script>
+    <!-- MAIN SCRIPTS - Classic scripts for all theme -->
+    <script type="text/javascript" src="{{asset('js/scripts6da2.js?v=2.2')}}"></script>
+    <!-- END JS FILES -->
 </head>
 
 <!-- BODY START -->
@@ -89,8 +130,8 @@
                     <img src="images/final.jpg"  data-second-logo="images/finalOld.jpg" style="height:64px" class="retina-logo" alt="ZipShip Logo">
                   </a>
                 </div>
-                <div class="pull-right" style="background-color: white;border-radius: 73px;height: 35px;line-height: 0;margin-top: 4px;">
-                  <a href="{{route('post.create')}}" class="slow lg-btn uppercase radius-lg font-11 extrabold bs-inset-hover qdr-hover-6">
+                <div class="pull-right" style="background-color: white;border-radius: 10px;height: 35px;line-height: 0;margin-top: 4px;">
+                  <a href="{{route('post.create')}}" class="slow lg-btn uppercase radius-lg font-11 extrabold bs-inset-hover qdr-hover-6" style="color: #800080;">
                     Post an Order
                   </a>
                 </div>
@@ -100,7 +141,7 @@
             <!-- END NAVIGATION -->
             <ul>
                 <!-- Slide -->
-                <li data-masterspeed="300" data-transition="fade" data-thumb="content/herakles/images/home_01.jpg" data-saveperformance="off"  data-title="Check the features" data-description="Home Slider">
+                <li data-masterspeed="300" data-transition="fade" data-thumb="content/herakles/images/home_01.jpg" data-saveperformance="off" data-title=""  data-description="Home Slider">
                     <!-- Background Image -->
                     <img src="images/Slider_1.jpg"  alt="Image Background"  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="0" data-scaleend="110" data-scalestart="100" data-duration="10000" data-kenburns="on" class="rev-slidebg" data-no-retina>
                     <!-- Layer -->
@@ -112,7 +153,7 @@
                         data-frames='[{"delay":"+1200","speed":2000,"frame":"0","from":"y:50px;opacity:0;fb:20px;","to":"o:1;fb:0;","ease":"Power4.easeOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;fb:0;","ease":"Power3.easeInOut"}]'
                         data-hoffset="['0','0','0','0']"
                         data-voffset="['-95','-80','-70','-65']">
-                        Meet With Quadra
+                        <!-- Meet With Quadra -->
                     </div>
                     <!-- Layer -->
                     <div class="tp-caption bold rs-parallaxlevel-1"
@@ -125,8 +166,8 @@
                         data-frames='[{"delay":"+1400","speed":2000,"frame":"0","from":"y:50px;opacity:0;fb:20px;","to":"o:1;fb:0;","ease":"Power4.easeOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;fb:0;","ease":"Power3.easeInOut"}]'
                         data-hoffset="['0','0','0','0']"
                         data-voffset="['-24','-10','-7','-5']">
-                        Train for push <span class="playfair italic">your limits.</span> Get stronger, <br>
-                        be healthy. Live the better.
+                        <!-- Train for push <span class="playfair italic">your limits.</span> Get stronger, <br> -->
+                        <!-- be healthy. Live the better. -->
                     </div>
 
                     <!-- Layer -->
@@ -143,7 +184,7 @@
                 <!-- End Slide -->
 
                 <!-- Slide -->
-                <li data-masterspeed="300" data-transition="fade" data-thumb="content/herakles/images/home_02.jpg" data-saveperformance="off"  data-title="Check the features" data-description="Home Slider">
+                <li data-masterspeed="300" data-transition="fade" data-thumb="content/herakles/images/home_02.jpg" data-saveperformance="off"  data-title="" data-description="Home Slider">
                     <!-- Background Image -->
                     <img src="images/Slider_2.jpg"  alt="Image Background"  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="0" data-scaleend="110" data-scalestart="100" data-duration="10000" data-kenburns="on" class="rev-slidebg" data-no-retina>
                     <!-- Layer -->
@@ -155,7 +196,7 @@
                         data-frames='[{"delay":"+1200","speed":2000,"frame":"0","from":"y:50px;opacity:0;fb:20px;","to":"o:1;fb:0;","ease":"Power4.easeOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;fb:0;","ease":"Power3.easeInOut"}]'
                         data-hoffset="['0','0','0','0']"
                         data-voffset="['-95','-80','-70','-65']">
-                        Meet With Quadra
+                        <!-- Meet With Quadra -->
                     </div>
                     <!-- Layer -->
                     <div class="tp-caption bold rs-parallaxlevel-1"
@@ -168,8 +209,8 @@
                         data-frames='[{"delay":"+1400","speed":2000,"frame":"0","from":"y:50px;opacity:0;fb:20px;","to":"o:1;fb:0;","ease":"Power4.easeOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;fb:0;","ease":"Power3.easeInOut"}]'
                         data-hoffset="['0','0','0','0']"
                         data-voffset="['-24','-10','-7','-5']">
-                        Train for push <span class="playfair italic">your limits.</span> Get stronger, <br>
-                        be healthy. Live the better.
+                        <!-- Train for push <span class="playfair italic">your limits.</span> Get stronger, <br> -->
+                        <!-- be healthy. Live the better. -->
                     </div>
 
                     <!-- Layer -->
@@ -195,15 +236,16 @@
         <!-- Gradient or SVg -->
 
         <div class="wave-decooration is-bottom is-white-light" style="position:relative;top:-88px">
-          <!-- wave start -->
+
           <svg width="2000" height="128" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="2000" y="128" viewBox="0 0 2000 128" enable-background="new 0 0 2000 128" xml:space="preserve">
               <path opacity="0.2" fill="#f7f7f7" d="M1999.5,22.2c-346-0.6-524.6-4.7-878.8,4.4c-286.6,7.4-442.3,54-608.1,51.2C307.3,74.3,202.5,5-0.5,28.1v100.4l2000-0.5V22.2z"></path>
               <path opacity="0.2" fill="#f7f7f7" d="M-0.3,46.1C251,15.3,440.9,84.7,499.6,98.4c54.7,12.8,122.5,12,186.7-5.3c154.2-41.6,315.5-70.9,475.2-67.5s324.6,22.4,484.3,19.7c133-2.3,302.8,1.7,352.8,3.7c0,21.3,0,80,0,80H-0.5L-0.3,46.1z"></path>
               <path opacity="0.4" fill="#f7f7f7" d="M2000,41.2c-139.8-12.7-219.9-10.8-360.2-11.2c-285.5-0.8-487.5,18-736.2,51.1C647,115.4,546.7,116.4,199.2,53.6C140.3,43,59.5,45.6-0.5,52.3V130h2000L2000,41.2z"></path>
               <path fill="#f7f7f7" d="M1634.6,50.1c-193.8,11.9-366.9,24.9-569,50c-110.2,13.7-221.2,21.5-332.3,19.6c-187-3.3-344.5-29.7-560.9-69.8c-122.2-22.6-172.8-4-172.8-4V130h1998V46C1997.5,46,1831,38.1,1634.6,50.1z"></path>
           </svg>
-          <!-- wave end -->
+
         </div>
+
 
 
     </section>
@@ -212,7 +254,7 @@
     <!-- BLOCK NAVIGATION -->
     <div class="sticky-item fullwidth hidden-xs" data-top-spacing="25">
         <!-- Container for nav -->
-        <div class="block-navigation top-moved nav-menu bg-colored container bs-lg radius-lg o-hidden">
+        <div class="block-navigation top-moved nav-menu container bs-lg borderRad7px o-hidden" style="background-color: #80008094;box-shadow: none !important;">
             <!-- Link Styles -->
             <ul class="nav uppercase font-12 extrabold calculate-width white">
                 <li><a href="#top" class="click-effect">Home</a></li>
@@ -226,9 +268,30 @@
     </div>
     <!-- END BLOCK NAVIGATION -->
     <!-- ABOUT SECTION -->
-    <section id="about" class="container t-center py" style="padding-top:40px !important">
+
+    <section id="about" class="t-center py" style="background-image: url('images/ContactImages/images/blocks/block_city_02.jpg'); ">
+    <div class="wave-decoration is-white-light is-reflection hidden-xs hidden-sm" style="margin-top: -8.7% !important;">
+        <!-- wave start -->
+        <svg width="100%" height="109" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1998.1 109" style="enable-background:new 0 0 1998 109;" xml:space="preserve">
+            <style type="text/css">
+                .st012 {
+                    opacity: 0.2;
+                    enable-background: new;
+                }
+                .st112 {
+                    opacity: 0.4;
+                    enable-background: new;
+                }
+            </style>
+            <path class="st012" d="M-1,107.6c346,0.6,524.3,4.7,878.4-4.4c286.6-7.4,442.5-54,608.3-51.2c205.4,3.5,310.3,72.8,513.3,49.7V1.2L-1,1.7V107.6z"></path>
+            <path class="st012" d="M1997.5,83.8c-251.3,30.8-441.2-38.7-499.9-52.4c-54.7-12.8-122.5-12-186.7,5.3c-154.2,41.6-315.5,70.9-475.2,67.5c-159.6-3.4-324.4-22.4-484.1-19.7C218.6,86.8,49,82.8-1,80.8C-1,59.5-1,1.1-1,1.1h1998.8L1997.5,83.8z"></path>
+            <path class="st112" d="M-2,88.7c139.8,12.7,219.9,10.7,360.2,11.1c285.5,0.8,487.5-18.1,736.2-51.2C1351,14.4,1451.5,13.3,1799,76.2c58.9,10.6,140,8,200,1.3V0H-1.5L-2,88.7z"></path>
+            <path d="M362.6,79.6c193.8-11.8,366.7-24.8,568.8-49.9c110.2-13.7,221.1-21.6,332.2-19.6c187,3.3,344.8,29.7,561.3,69.8c122.2,22.6,173.2,4,173.2,4V0H0v83.7C0,83.7,166.1,91.7,362.6,79.6z"></path>
+        </svg>
+        <!-- wave end -->
+    </div>
         <!-- Title -->
-        <h4 class="playfair italic light gray7">Welcome To ZipShip</h4>
+        <h4 class="playfair italic light gray7 clearfix" style="padding-top:40px !important;">Welcome To ZipShip</h4>
         <!-- Title Slider Texts - For #type span. -->
          <div id="type-get">
              <p>With ZipShip.</p>
@@ -247,61 +310,71 @@
             'Content here, content here', making it look like readable English
         </p> -->
         <!-- attiq -->
-    <div class="container-fluid main-content">
+    <div class="container-fluid main-content container">
         <div class="row margintop10">
-            <div class="col-md-4 marginLefRigZero">
-                <div class="col-md-12 ft-img marginLefRigZero">
-                    <div class="col-md-11 textOver marginLefRigZero">
-                        <center><p>UAE</p></center>
+            <div class="col-md-4 marginLefRigZero pointer">
+                <div class="col-md-12 ft-img marginLefRigZero container0 item">
+                    <img src="images/ContactImages/images/blog/blog_post_02.jpg" class="image" />
+                    <div class="middle item-overlay top">
+                        <div class="text">UAE</div>
                     </div>
-                    <img src="images/ContactImages/images/blog/blog_post_02.jpg">
                 </div>
             </div>
-            <div class="col-md-4 marginLefRigZero">
-                <div class="col-md-12 ft-img marginLefRigZero">
-                    <div class="col-md-11 textOver marginLefRigZero">
-                        <center><p>USA</p></center>
+            <div class="col-md-4 marginLefRigZero pointer">
+                <div class="col-md-12 ft-img marginLefRigZero container0 item">
+                    <img src="images/ContactImages/images/blog/blog_post_02.jpg" class="image" />
+                    <div class="middle item-overlay top">
+                        <div class="text">USA</div>
                     </div>
-                    <img src="images/ContactImages/images/blog/blog_post_03.jpg">
                 </div>
-
             </div>
-            <div class="col-md-4 marginLefRigZero">
-                <div class="col-md-12 ft-img marginLefRigZero">
-                    <div class="col-md-11 textOver marginLefRigZero">
-                        <center><p>UK</p></center>
+            <div class="col-md-4 marginLefRigZero pointer">
+                <div class="col-md-12 ft-img marginLefRigZero container0 item">
+                    <img src="images/ContactImages/images/blog/blog_post_02.jpg" class="image" />
+                    <div class="middle item-overlay top">
+                        <div class="text">UK</div>
                     </div>
-                    <img src="images/ContactImages/images/blog/blog_post_05.jpg">
                 </div>
             </div>
         </div> <!-- END OF ROW 1 -->
     </div>  <!-- END OF CONTAINER -->
-    <div class="container-fluid main-content">
+    <div class="container-fluid main-content container">
         <div class="row margintop10">
-            <div class="col-md-3 marginLefRigZero">
-                <div class="col-md-12 ft-img marginLefRigZero BigHeight">
-                    <div class="col-md-11 textOver marginLefRigZero">
-                        <center><p>Testing 1</p></center>
+            <div class="col-md-3 marginLefRigZero pointer">
+                <div class="col-md-12 ft-img marginLefRigZero BigHeight container0 item">
+                    <img class="fullimagewidth image" src="images/ContactImages/images/gallery/mosaic_05.jpg" />
+                    <div class="middle item-overlay top">
+                        <div class="text">testing</div>
                     </div>
-                    <img class="fullimagewidth" src="images/ContactImages/images/gallery/mosaic_05.jpg">
                 </div>
             </div>
             <div class="col-md-6 marginLefRigZero">
-                <div class="col-md-12 ft-img marginLefRigZero SmallHeight">
-                    <div class="col-md-12 textOver marginLefRigZero">
-                        <center><p>Testing 2</p></center>
+                <div class="col-md-12 ft-img marginLefRigZero SmallHeight pointer">
+                    <div class="container0 item"><img class="fullimagewidth image" src="images/ContactImages/images/gallery/mosaic_07.jpg" />
+                    <div class="middle item-overlay top">
+                        <div class="text">testing</div>
                     </div>
-                    <img class="fullimagewidth" src="images/ContactImages/images/gallery/mosaic_07.jpg">
-                    <img class="halfimagewidthleft" src="images/ContactImages/images/gallery/mosaic_07.jpg">
-                    <img class="halfimagewidthright" src="images/ContactImages/images/gallery/mosaic_07.jpg">
+                    </div>
+                    <div class="container0 item halfimagewidthleft pointer">
+                    <img src="images/ContactImages/images/gallery/mosaic_07.jpg" class="image" />
+                    <div class="middle item-overlay top">
+                        <div class="text">testing</div>
+                    </div>
+                    </div>
+                    <div class="container0 item halfimagewidthleft pointer right">
+                    <img src="images/ContactImages/images/gallery/mosaic_07.jpg" class="image" />
+                    <div class="middle item-overlay top">
+                        <div class="text">testing</div>
+                    </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-3 marginLefRigZero">
-                <div class="col-md-12 ft-img marginLefRigZero BigHeight">
-                    <div class="col-md-11 textOver marginLefRigZero">
-                        <center><p>Testing 3</p></center>
+            <div class="col-md-3 marginLefRigZero pointer">
+                <div class="col-md-12 ft-img marginLefRigZero BigHeight container0 item">
+                    <img src="images/ContactImages/images/gallery/mosaic_06.jpg" class="image" />
+                    <div class="middle item-overlay top">
+                        <div class="text">testing</div>
                     </div>
-                    <img src="images/ContactImages/images/gallery/mosaic_06.jpg">
                 </div>
             </div>
         </div> <!-- END OF ROW 2 -->
@@ -372,280 +445,21 @@
                 </div>
             </div>
         </div>
-    </section>
-    <!-- END ABOUT SECTION -->
-    <!-- WORKS -->
-    <section class="bg-soft-colored2 bg-soft lg-mt pb cover" data-background="content/herakles/images/background_01.jpg">
 
-        <!-- Carousel Works -->
-        <section id="works" class="works container-lg">
-            <!-- Portfolio Items -->
-            <div id="work-items" class="cbp lightbox_gallery white t-left">
+        <!-- Gradient or SVg -->
 
-                <!-- Item -->
-                <div class="cbp-item">
-                    <!-- Your Url -->
-                    <a href="content/herakles/images/works_01_b.jpg" class="cbp-caption">
-                        <!-- Your Image -->
-                        <div class="cbp-caption-defaultWrap ">
-                            <img src="content/herakles/images/works_01.jpg" alt="">
-                        </div>
-                        <!-- Details -->
-                        <div class="cbp-caption-activeWrap">
-                            <div class="cbp-l-caption-alignLeft">
-                                <div class="cbp-l-caption-body">
-                                    <!-- Texts -->
-                                    <h2>Don't miss the life</h2>
-                                    <p>Photography</p>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <!-- End Item -->
+        <div class="wave-decooration is-bottom is-white-light hidden-xs hidden-sm" style="position:relative;bottom:-120px">
 
-                <!-- Item -->
-                <div class="cbp-item">
-                    <!-- Your Url -->
-                    <a href="content/herakles/images/works_02_b.jpg" class="cbp-caption">
-                        <!-- Your Image -->
-                        <div class="cbp-caption-defaultWrap">
-                            <img src="content/herakles/images/works_02.jpg" alt="">
-                        </div>
-                        <!-- Details -->
-                        <div class="cbp-caption-activeWrap">
-                            <div class="cbp-l-caption-alignLeft">
-                                <div class="cbp-l-caption-body">
-                                    <!-- Texts -->
-                                    <h2>The best gyms</h2>
-                                    <p>Video, GYM</p>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <!-- End Item -->
-
-                <!-- Item -->
-                <div class="cbp-item">
-                    <!-- Your Url -->
-                    <a href="content/herakles/images/works_03_b.jpg" class="cbp-caption">
-                        <!-- Your Image -->
-                        <div class="cbp-caption-defaultWrap">
-                            <img src="content/herakles/images/works_03.jpg" alt="">
-                        </div>
-                        <!-- Details -->
-                        <div class="cbp-caption-activeWrap">
-                            <div class="cbp-l-caption-alignLeft">
-                                <div class="cbp-l-caption-body">
-                                    <!-- Texts -->
-                                    <h2>Warm-up tours</h2>
-                                    <p>Photography, gyms</p>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <!-- End Item -->
-
-                <!-- Item -->
-                <div class="cbp-item">
-                    <!-- Your Url -->
-                    <a href="content/herakles/images/works_04_b.jpg" class="cbp-caption">
-                        <!-- Your Image -->
-                        <div class="cbp-caption-defaultWrap">
-                            <img src="content/herakles/images/works_04.jpg" alt="">
-                        </div>
-                        <!-- Details -->
-                        <div class="cbp-caption-activeWrap">
-                            <div class="cbp-l-caption-alignLeft">
-                                <div class="cbp-l-caption-body">
-                                    <!-- Texts -->
-                                    <h2>The best assistant</h2>
-                                    <p>health, water</p>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <!-- End Item -->
-
-                <!-- Item -->
-                <div class="cbp-item">
-                    <!-- Your Url -->
-                    <a href="content/herakles/images/works_05_b.jpg" class="cbp-caption">
-                        <!-- Your Image -->
-                        <div class="cbp-caption-defaultWrap">
-                            <img src="content/herakles/images/works_05.jpg" alt="">
-                        </div>
-                        <!-- Details -->
-                        <div class="cbp-caption-activeWrap">
-                            <div class="cbp-l-caption-alignLeft">
-                                <div class="cbp-l-caption-body">
-                                    <!-- Texts -->
-                                    <h2>Fitness center</h2>
-                                    <p>Team, work</p>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <!-- End Item -->
-
-                <!-- Item -->
-                <div class="cbp-item">
-                    <!-- Your Url -->
-                    <a href="content/herakles/images/works_01_b.jpg" class="cbp-caption">
-                        <!-- Your Image -->
-                        <div class="cbp-caption-defaultWrap">
-                            <img src="content/herakles/images/works_01.jpg" alt="">
-                        </div>
-                        <!-- Details -->
-                        <div class="cbp-caption-activeWrap">
-                            <div class="cbp-l-caption-alignLeft">
-                                <div class="cbp-l-caption-body">
-                                    <!-- Texts -->
-                                    <h2>Don't stop the music</h2>
-                                    <p>Music, Lifestyle</p>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <!-- End Item -->
-
-                <!-- Item -->
-                <div class="cbp-item">
-                    <!-- Your Url -->
-                    <a href="content/herakles/images/works_02_b.jpg" class="cbp-caption">
-                        <!-- Your Image -->
-                        <div class="cbp-caption-defaultWrap">
-                            <img src="content/herakles/images/works_02.jpg" alt="">
-                        </div>
-                        <!-- Details -->
-                        <div class="cbp-caption-activeWrap">
-                            <div class="cbp-l-caption-alignLeft">
-                                <div class="cbp-l-caption-body">
-                                    <!-- Texts -->
-                                    <h2>The best gyms</h2>
-                                    <p>Video, GYM</p>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <!-- End Item -->
-            </div>
-            <!-- End Portfolio Items -->
-        </section>
-
-
-        <!-- Skills -->
-        <div class="container skills white t-center">
-            <!-- Title -->
-            <h1 class="normal-title">Meet With <span class="extrabold"> Quadra Multi Purpose </span> &amp; Creative Theme.</h1>
-            <h4 class="gray4 xxs-mt font-16 lh-md font-13-mobile">
-                It is a long established fact that a reader will be distracted by the readable content of <br class="hidden-xs">
-                a page when looking at its layout. The point of using Lorem Ipsum.
-            </h4>
-
-            <div class="sm-mt">
-                <a href="https://vimeo.com/46491619" class="lightbox border-btn border-dashed lg-btn mnw-180 radius-lg inline-block bg-white-hover dark-hover qdr-hover-3 fa fa-play bs-light-hover"><i class="fa fa-play"></i></a>
-            </div>
-
-            <!-- Skills -->
-            <div class="container qdr-col-2 gap-5 skills-type-2 progress-sm uppercase">
-                <!-- Item -->
-                <div class="item">
-                    <!-- Title -->
-                    <h5 class="xxs-mb">Web Design %92</h5>
-                    <!-- Bar Container -->
-                    <div class="progress">
-                        <!-- Bar - You can edit the data-value area -->
-                        <div class="progress-bar bg-white" data-value="92"></div>
-                    </div>
-                </div>
-                <!-- End Item -->
-                <!-- Item -->
-                <div class="item">
-                    <!-- Title -->
-                    <h5 class="xxs-mb">HTML&amp;CSS %89</h5>
-                    <!-- Bar Container -->
-                    <div class="progress">
-                        <!-- Bar - You can edit the data-value area -->
-                        <div class="progress-bar bg-white" data-value="89"></div>
-                    </div>
-                </div>
-                <!-- End Item -->
-                <!-- Item -->
-                <div class="item">
-                    <!-- Title -->
-                    <h5 class="xxs-mb">Wordpress 80%</h5>
-                    <!-- Bar Container -->
-                    <div class="progress">
-                        <!-- Bar - You can edit the data-value area -->
-                        <div class="progress-bar bg-white" data-value="80"></div>
-                    </div>
-                </div>
-                <!-- End Item -->
-                <!-- Item -->
-                <div class="item">
-                    <!-- Title -->
-                    <h5 class="xxs-mb">Photoshop %90</h5>
-                    <!-- Bar Container -->
-                    <div class="progress">
-                        <!-- Bar - You can edit the data-value area -->
-                        <div class="progress-bar bg-white" data-value="90"></div>
-                    </div>
-                </div>
-                <!-- End Item -->
-                <!-- Item -->
-                <div class="item">
-                    <!-- Title -->
-                    <h5 class="xxs-mb">Graphic 95%</h5>
-                    <!-- Bar Container -->
-                    <div class="progress">
-                        <!-- Bar - You can edit the data-value area -->
-                        <div class="progress-bar bg-white" data-value="95"></div>
-                    </div>
-                </div>
-                <!-- End Item -->
-                <!-- Item -->
-                <div class="item">
-                    <!-- Title -->
-                    <h5 class="xxs-mb">Videography %80</h5>
-                    <!-- Bar Container -->
-                    <div class="progress">
-                        <!-- Bar - You can edit the data-value area -->
-                        <div class="progress-bar bg-white" data-value="94"></div>
-                    </div>
-                </div>
-                <!-- End Item -->
-            </div>
-            <!-- End Container -->
-
-
-            <!-- Call To Action -->
-            <div class="t-left container bg-gradient1 white radius bs-lg">
-                <div class="row no-mx calculate-height">
-                    <div class="col-md-9 col-12 t-center-sm height-auto-mobile xs-py xs-pl">
-                        <h3 class="playfair italic light lh-sm">Create a <strong> pixel perfect</strong> web site with the <strong>Quadra!</strong></h3>
-                        <p class="gray4 mini-mt">This is a modified jumbotron that occupies the.</p>
-                    </div>
-                    <div class="col-md-3 col-12 t-center height-auto-mobile xs-mb-mobile">
-                        <div class="v-center">
-                            <a href="#" class="stay qfm-trigger lg-btn radius-lg border-btn border-dashed bg-white-hover slow1 dark-hover inline-block">Learn more</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End Call To Action -->
+          <svg width="2000" height="128" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="2000" y="128" viewBox="0 0 2000 128" enable-background="new 0 0 2000 128" xml:space="preserve">
+              <path opacity="0.2" fill="#f7f7f7" d="M1999.5,22.2c-346-0.6-524.6-4.7-878.8,4.4c-286.6,7.4-442.3,54-608.1,51.2C307.3,74.3,202.5,5-0.5,28.1v100.4l2000-0.5V22.2z"></path>
+              <path opacity="0.2" fill="#f7f7f7" d="M-0.3,46.1C251,15.3,440.9,84.7,499.6,98.4c54.7,12.8,122.5,12,186.7-5.3c154.2-41.6,315.5-70.9,475.2-67.5s324.6,22.4,484.3,19.7c133-2.3,302.8,1.7,352.8,3.7c0,21.3,0,80,0,80H-0.5L-0.3,46.1z"></path>
+              <path opacity="0.4" fill="#f7f7f7" d="M2000,41.2c-139.8-12.7-219.9-10.8-360.2-11.2c-285.5-0.8-487.5,18-736.2,51.1C647,115.4,546.7,116.4,199.2,53.6C140.3,43,59.5,45.6-0.5,52.3V130h2000L2000,41.2z"></path>
+              <path fill="#f7f7f7" d="M1634.6,50.1c-193.8,11.9-366.9,24.9-569,50c-110.2,13.7-221.2,21.5-332.3,19.6c-187-3.3-344.5-29.7-560.9-69.8c-122.2-22.6-172.8-4-172.8-4V130h1998V46C1997.5,46,1831,38.1,1634.6,50.1z"></path>
+          </svg>
 
         </div>
-        <!-- End Skills -->
-
     </section>
-    <!-- END WORKS -->
+    <!-- END ABOUT SECTION -->
     <!-- Boxes With Slider -->
     <section id="boxes" class="py">
 
@@ -687,23 +501,31 @@
                 <p class="xxs-mt gray6 font15">There are many variations of passages of Lorem load Ipsum available, predefined but the majority have suffe alteration in some form, by injected humour.</p>
             </div>
             <!-- End Box -->
-            <!-- Box -->
-            <div class="xxs-px xxs-pt">
-                <!-- Icon -->
-                <div class="icon-extreme circle bg-white gray6 border-1 border-dashed border-gray6 relative">
-                    <i class="icon-options text-lg"></i>
-                    <div class="basic-mark icon-mark to-right to-bottom font-10 circle white bg-colored bold">4</div>
-                </div>
-                <h4 class="xxs-mt bold-subtitle">High Performance</h4>
-                <p class="gray6">Discovered the undoubtable source.</p>
-                <p class="xxs-mt gray6 font15">There are many variations of passages of Lorem load Ipsum available, predefined but the majority have suffe alteration in some form, by injected humour.</p>
-            </div>
-            <!-- End Box -->
         </div>
 
     </section>
     <!-- TEAM SECTION -->
-    <section id="team" class="team-type-2 t-center py bg-gray1 border-1 border-gray1">
+    <section id="team" class="team-type-2 t-center py bg-gray1 border-1 border-gray1" style="background-image: url('images/ContactImages/images/blog/blog_post_05.jpg');">
+    <div class="wave-decoration is-white-light is-reflection hidden-xs hidden-sm" style="margin-top: -8.7% !important;">
+        <!-- wave start -->
+        <svg width="100%" height="109" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1998.1 109" style="enable-background:new 0 0 1998 109;" xml:space="preserve">
+            <style type="text/css">
+                .st012 {
+                    opacity: 0.2;
+                    enable-background: new;
+                }
+                .st112 {
+                    opacity: 0.4;
+                    enable-background: new;
+                }
+            </style>
+            <path class="st012" d="M-1,107.6c346,0.6,524.3,4.7,878.4-4.4c286.6-7.4,442.5-54,608.3-51.2c205.4,3.5,310.3,72.8,513.3,49.7V1.2L-1,1.7V107.6z"></path>
+            <path class="st012" d="M1997.5,83.8c-251.3,30.8-441.2-38.7-499.9-52.4c-54.7-12.8-122.5-12-186.7,5.3c-154.2,41.6-315.5,70.9-475.2,67.5c-159.6-3.4-324.4-22.4-484.1-19.7C218.6,86.8,49,82.8-1,80.8C-1,59.5-1,1.1-1,1.1h1998.8L1997.5,83.8z"></path>
+            <path class="st112" d="M-2,88.7c139.8,12.7,219.9,10.7,360.2,11.1c285.5,0.8,487.5-18.1,736.2-51.2C1351,14.4,1451.5,13.3,1799,76.2c58.9,10.6,140,8,200,1.3V0H-1.5L-2,88.7z"></path>
+            <path d="M362.6,79.6c193.8-11.8,366.7-24.8,568.8-49.9c110.2-13.7,221.1-21.6,332.2-19.6c187,3.3,344.8,29.7,561.3,69.8c122.2,22.6,173.2,4,173.2,4V0H0v83.7C0,83.7,166.1,91.7,362.6,79.6z"></path>
+        </svg>
+        <!-- wave end -->
+    </div>
 
         <!-- Title -->
         <h1 class="normal-title">Meet With Our <span class="extrabold">Professional</span> Coaches.</h1>
@@ -713,562 +535,210 @@
         </h4>
 
         <!-- Container -->
-        <div class="container custom-slider strip-dots dark-dots" data-slick='{"dots": true, "arrows": false, "fade": false, "slidesToShow": 3, "slidesToScroll": 2}'>
-
-            <!-- Member -->
-            <div class="member">
-                <!-- Container for details -->
-                <div class="member-body">
-                    <img src="content/herakles/images/team_01.jpg" alt="team member">
-                    <!-- Socials -->
-                    <div class="member-socials">
-                         <!-- Social -->
-                        <div><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></div>
-                        <!-- Social -->
-                        <div><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></div>
-                        <!-- Social -->
-                        <div><a href="#" class="instagram"><i class="fa fa-instagram"></i></a></div>
-                        <!-- Social -->
-                        <div><a href="#" class="pinterest"><i class="fa fa-pinterest"></i></a></div>
+        <div class="container-fluid main-content container">
+        <div class="row margintop10">
+            <div class="col-md-4 marginLefRigZero border margin10px backgrounwhiteopp">
+                <div class="col-md-12 ft-img marginLefRigZero">
+                    <div class="col-md-11 textOver marginLefRigZero">
+                        <!-- <center><p>UAE</p></center> -->
+                    </div>
+                    <img src="images/ContactImages/images/blog/blog_post_02.jpg">
+                    <div class="clearfix fullwidth margintop10 paddingtop3per bordertop">
+                        <span class="left width30 pointer"> <img src="images/ContactImages/images/clients/avatar_07.jpg" class="circle width70 left" /> <b class=" capitalize left leftext borderRad7px backgrounpurpleopp white" style="padding: 0px 5px 0px 5px">earned $15</b><br/>
+                            <b class="leftext left paddingLef3per">Traveler</b></span>
+                        <span class="left width30 marginLef5_7 pointer">
+                            <i class="fa fa-plane" style="font-size: 40px;margin-top: 10px;color: #800080"></i>
+                        </span>
+                        <span class="right width30 pointer"> <img src="images/ContactImages/images/clients/avatar_07.jpg" class="circle width70 right" /> <b class=" capitalize right leftext borderRad7px backgrounpurpleopp white" style="padding: 0px 5px 0px 5px">saved $15</b><br/>
+                            <b class="leftext paddingLef3per">Shopper</b></span>
                     </div>
                 </div>
-                <!-- End Container for details -->
-                <!-- Description -->
-                <div class="member-description">
-                    <h2>
-                        Amelia Anderson
-                    </h2>
-                    <h4 class="colored">
-                        Fitness trainer
-                    </h4>
-                    <p>
-                        There are many variations of passages of Lorem Ipsum available, in some form.
-                    </p>
-                </div>
-                <!-- Progress Bars -->
-                <div class="team-progress">
-                    <!-- Title -->
-                    <h3>FITNESS 82%</h3>
-                    <!-- Bar -->
-                    <div class="prg-bg"><div class="progress-bar bg-colored t-left" data-value="82"></div></div>
-                    <!-- Title -->
-                    <h3>YOGA 91%</h3>
-                    <!-- Bar -->
-                    <div class="prg-bg"><div class="progress-bar bg-colored t-left" data-value="91"></div></div>
-                </div>
-                <!-- End Progress Bars -->
             </div>
-
-            <!-- Member -->
-            <div class="member">
-                <!-- Container for details -->
-                <div class="member-body">
-                    <img src="content/herakles/images/team_02.jpg" alt="team member">
-                    <!-- Socials -->
-                    <div class="member-socials">
-                         <!-- Social -->
-                        <div><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></div>
-                        <!-- Social -->
-                        <div><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></div>
-                        <!-- Social -->
-                        <div><a href="#" class="instagram"><i class="fa fa-instagram"></i></a></div>
-                        <!-- Social -->
-                        <div><a href="#" class="pinterest"><i class="fa fa-pinterest"></i></a></div>
+            <div class="col-md-4 marginLefRigZero border margin10px backgrounwhiteopp">
+                <div class="col-md-12 ft-img marginLefRigZero">
+                    <div class="col-md-11 textOver marginLefRigZero">
+                        <!-- <center><p>UAE</p></center> -->
+                    </div>
+                    <img src="images/ContactImages/images/blog/blog_post_02.jpg">
+                    <div class="clearfix fullwidth margintop10 paddingtop3per bordertop">
+                        <span class="left width30 pointer"> <img src="images/ContactImages/images/clients/avatar_07.jpg" class="circle width70 left" /> <b class=" capitalize left leftext borderRad7px backgrounpurpleopp white" style="padding: 0px 5px 0px 5px">earned $15</b><br/>
+                            <b class="leftext left paddingLef3per">Traveler</b></span>
+                        <span class="left width30 marginLef5_7 pointer">
+                            <i class="fa fa-plane" style="font-size: 40px;margin-top: 10px;color: #800080"></i>
+                        </span>
+                        <span class="right width30 pointer"> <img src="images/ContactImages/images/clients/avatar_07.jpg" class="circle width70 right" /> <b class=" capitalize right leftext borderRad7px backgrounpurpleopp white" style="padding: 0px 5px 0px 5px">saved $15</b><br/>
+                            <b class="leftext paddingLef3per">Shopper</b></span>
                     </div>
                 </div>
-                <!-- End Container for details -->
-                <!-- Description -->
-                <div class="member-description">
-                    <h2>
-                        Carter Cox
-                    </h2>
-                    <h4 class="colored">
-                        Fitness trainer
-                    </h4>
-                    <p>
-                        There are many variations of passages of Lorem Ipsum available, in some form.
-                    </p>
-                </div>
-                <!-- Progress Bars -->
-                <div class="team-progress">
-                    <!-- Title -->
-                    <h3>FITNESS 80%</h3>
-                    <!-- Bar -->
-                    <div class="prg-bg"><div class="progress-bar bg-colored t-left" data-value="80"></div></div>
-                   <!-- Title -->
-                    <h3>BODY BUILDING 91%</h3>
-                    <!-- Bar -->
-                    <div class="prg-bg"><div class="progress-bar bg-colored t-left" data-value="80"></div></div>
-                </div>
-                <!-- End Progress Bars -->
             </div>
-
-            <!-- Member -->
-            <div class="member">
-                <!-- Container for details -->
-                <div class="member-body">
-                    <img src="content/herakles/images/team_03.jpg" alt="team member">
-                    <!-- Socials -->
-                    <div class="member-socials">
-                         <!-- Social -->
-                        <div><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></div>
-                        <!-- Social -->
-                        <div><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></div>
-                        <!-- Social -->
-                        <div><a href="#" class="instagram"><i class="fa fa-instagram"></i></a></div>
-                        <!-- Social -->
-                        <div><a href="#" class="pinterest"><i class="fa fa-pinterest"></i></a></div>
+            <div class="col-md-4 marginLefRigZero border margin10px backgrounwhiteopp">
+                <div class="col-md-12 ft-img marginLefRigZero">
+                    <div class="col-md-11 textOver marginLefRigZero">
+                        <!-- <center><p>UAE</p></center> -->
+                    </div>
+                    <img src="images/ContactImages/images/blog/blog_post_02.jpg">
+                    <div class="clearfix fullwidth margintop10 paddingtop3per bordertop">
+                        <span class="left width30 pointer"> <img src="images/ContactImages/images/clients/avatar_07.jpg" class="circle width70 left" /> <b class=" capitalize left leftext borderRad7px backgrounpurpleopp white" style="padding: 0px 5px 0px 5px">earned $15</b><br/>
+                            <b class="leftext left paddingLef3per">Traveler</b></span>
+                        <span class="left width30 marginLef5_7 pointer">
+                            <i class="fa fa-plane" style="font-size: 40px;margin-top: 10px;color: #800080"></i>
+                        </span>
+                        <span class="right width30 pointer"> <img src="images/ContactImages/images/clients/avatar_07.jpg" class="circle width70 right" /> <b class=" capitalize right leftext borderRad7px backgrounpurpleopp white" style="padding: 0px 5px 0px 5px">saved $15</b><br/>
+                            <b class="leftext paddingLef3per">Shopper</b></span>
                     </div>
                 </div>
-                <!-- End Container for details -->
-                <!-- Description -->
-                <div class="member-description">
-                    <h2>
-                        Eva Holmes
-                    </h2>
-                    <h4 class="colored">
-                        Fitness trainer
-                    </h4>
-                    <p>
-                        There are many variations of passages of Lorem Ipsum available, in some form.
-                    </p>
-                </div>
-                <!-- Progress Bars -->
-                <div class="team-progress">
-                    <!-- Title -->
-                    <h3>FITNESS 80%</h3>
-                    <!-- Bar -->
-                    <div class="prg-bg"><div class="progress-bar bg-colored t-left" data-value="75"></div></div>
-                   <!-- Title -->
-                    <h3>YOGA 75%</h3>
-                    <!-- Bar -->
-                    <div class="prg-bg"><div class="progress-bar bg-colored t-left" data-value="75"></div></div>
-                </div>
-                <!-- End Progress Bars -->
             </div>
+        </div> <!-- END OF ROW 1 -->
+    </div>
+        <div class="wave-decooration is-bottom is-white-light hidden-xs hidden-sm" style="position:relative;bottom:-107px">
+
+          <svg width="2000" height="128" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="2000" y="128" viewBox="0 0 2000 128" enable-background="new 0 0 2000 128" xml:space="preserve">
+              <path opacity="0.2" fill="#f7f7f7" d="M1999.5,22.2c-346-0.6-524.6-4.7-878.8,4.4c-286.6,7.4-442.3,54-608.1,51.2C307.3,74.3,202.5,5-0.5,28.1v100.4l2000-0.5V22.2z"></path>
+              <path opacity="0.2" fill="#f7f7f7" d="M-0.3,46.1C251,15.3,440.9,84.7,499.6,98.4c54.7,12.8,122.5,12,186.7-5.3c154.2-41.6,315.5-70.9,475.2-67.5s324.6,22.4,484.3,19.7c133-2.3,302.8,1.7,352.8,3.7c0,21.3,0,80,0,80H-0.5L-0.3,46.1z"></path>
+              <path opacity="0.4" fill="#f7f7f7" d="M2000,41.2c-139.8-12.7-219.9-10.8-360.2-11.2c-285.5-0.8-487.5,18-736.2,51.1C647,115.4,546.7,116.4,199.2,53.6C140.3,43,59.5,45.6-0.5,52.3V130h2000L2000,41.2z"></path>
+              <path fill="#f7f7f7" d="M1634.6,50.1c-193.8,11.9-366.9,24.9-569,50c-110.2,13.7-221.2,21.5-332.3,19.6c-187-3.3-344.5-29.7-560.9-69.8c-122.2-22.6-172.8-4-172.8-4V130h1998V46C1997.5,46,1831,38.1,1634.6,50.1z"></path>
+          </svg>
 
         </div>
-        <!-- End Team Slider -->
     </section>
     <!-- END TEAM -->
-    <!-- MODAL TRIGGER -->
-    <section id="modal-hider" class="qfm-trigger qdr-hover-6 c-pointer py bg-gradient white t-center">
-        <div class="container">
-            <span class="icon-plus text-lg"></span>
-            <h5 class="extrabold mt-7">SEE OUR PLANS</h5>
-        </div>
-    </section>
-    <!-- END MODAL TRIGGER -->
-    <!-- QUADRA FIXED MODAL - you can leave empty showme and hideme areas -->
-    <section id="quadra_fixed_modal" class="faq bg-white slow-qdr" data-showme="#works" data-hideme="#modal-hider">
-        <!-- Modal title and title -->
-        <div class="quadra_fixed_modal_top slow-qdr no-border">
-            <!-- Button, select your color and background color. you can use data-color="#" attribute. -->
-            <div id="qfm_button" class="white bg-gradient">
-                <!-- Comp. Hide Modal -->
-                <span class="hide-modal"></span>
-                <!-- Plus icon -->
-                <i class="icon-plus fa-2x gray1"></i>
-            </div>
-            <!-- Title, select your color and background color. you can use data-color="#" attribute. -->
-            <div id="qfm_title" class="dark bg-white">
-                <i class="fa fa-close close_modal"></i>
-                <span class="modal_title font-16 extrabold">Read more about us.</span>
-            </div>
-        </div>
-        <!-- Modal Body -->
-        <div class="qfm-body bg-gray2 clearfix">
-            <!-- Filters -->
-            <div id="works-without-images-filters" class="cbp-l-filters-work uppercase">
-                <div data-filter="*" class="cbp-filter-item-active cbp-filter-item">
-                    SHOW ALL
-                </div>
-                <div data-filter=".design" class="cbp-filter-item">
-                    design <div class="cbp-filter-counter"></div>
-                </div>
-                <div data-filter=".logo" class="cbp-filter-item">
-                    logo <div class="cbp-filter-counter"></div>
-                </div>
-                <div data-filter=".branding" class="cbp-filter-item">
-                    branding <div class="cbp-filter-counter"></div>
-                </div>
-                <div data-filter=".wordpress" class="cbp-filter-item">
-                    wordpress <div class="cbp-filter-counter"></div>
-                </div>
-            </div>
-            <!-- Works -->
-            <div id="works-without-images" class="works-without-images cbp container t-left font-14">
-                <!-- Item -->
-                <div class="cbp-item logo wordpress">
-                    <a href="#" target="_blank" class="cbp-caption item-body icon-arrow-trigger bg-white slow">
-                        <h3 class="title">Our Vision</h3>
-                        <p class="desc">
-                            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. accompanied by English versions from the 1914 translation by H. Rackham.
-                        </p>
-                        <span class="icon-arrow bg-colored"></span>
-                    </a>
-                </div>
-                <!-- Item -->
-                <div class="cbp-item logo branding">
-                    <a href="#" target="_blank" class="cbp-caption item-body icon-arrow-trigger bg-white slow">
-                        <h3 class="title">Our Mission</h3>
-                        <p class="desc">
-                            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
-                        </p>
-                        <span class="icon-arrow bg-colored"></span>
-                    </a>
-                </div>
-                <!-- Item -->
-                <div class="cbp-item design branding wordpress">
-                    <a href="#" target="_blank" class="cbp-caption item-body icon-arrow-trigger bg-white slow">
-                        <h3 class="title">About Quadra</h3>
-                        <p class="desc">
-                            Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
-                        </p>
-                        <span class="icon-arrow bg-colored"></span>
-                    </a>
-                </div>
-                <!-- Item -->
-                <div class="cbp-item logo wordpress">
-                    <a href="#" target="_blank" class="cbp-caption item-body icon-arrow-trigger bg-white slow">
-                        <h3 class="title">Our Vision</h3>
-                        <p class="desc">
-                            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
-                        </p>
-                        <span class="icon-arrow bg-colored"></span>
-                    </a>
-                </div>
-                <!-- Item -->
-                <div class="cbp-item design logo branding">
-                    <a href="#" target="_blank" class="cbp-caption item-body icon-arrow-trigger bg-white slow">
-                        <h3 class="title">
-                            <img src="content/atlas/images/logo_01.png" alt="logo image">
-                        </h3>
-                        <p class="desc">
-                            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
-                        </p>
-                        <span class="icon-arrow bg-colored"></span>
-                    </a>
-                </div>
-                <!-- Item -->
-                <div class="cbp-item design wordpress">
-                    <a href="#" target="_blank" class="cbp-caption item-body icon-arrow-trigger bg-white slow">
-                        <h3 class="title">
-                            <img src="images/logos/logo_02.png" alt="logo image">
-                        </h3>
-                        <p class="desc">
-                            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
-                        </p>
-                        <span class="icon-arrow bg-colored"></span>
-                    </a>
-                </div>
-                <!-- Item -->
-                <div class="cbp-item design branding">
-                    <a href="#" target="_blank" class="cbp-caption item-body icon-arrow-trigger bg-white slow">
-                        <h3 class="title extrabold-title">
-                            Extrabold Title
-                        </h3>
-                        <p class="desc">
-                            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
-                        </p>
-                        <span class="icon-arrow bg-colored"></span>
-                    </a>
-                </div>
-                <!-- Item -->
-                <div class="cbp-item design logo branding wordpress">
-                    <a href="#" target="_blank" class="cbp-caption item-body icon-arrow-trigger bg-white slow">
-                        <h2 class="title colored playfair italic">Styled Title</h2>
-                        <p class="desc">
-                            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
-                        </p>
-                        <span class="icon-arrow bg-colored"></span>
-                    </a>
-                </div>
-                <!-- Item -->
-                <div class="cbp-item logo wordpress">
-                    <a href="#" target="_blank" class="cbp-caption item-body icon-arrow-trigger bg-white slow">
-                        <h4 class="title">Extra long description</h4>
-                        <p class="desc">
-                            TheOn the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, standard chunk of Lorem Ipsum used since the 1500s is
-                        </p>
-                        <p class="desc">
-                            reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
-                        </p>
-                        <span class="icon-arrow bg-colored"></span>
-                    </a>
-                </div>
-                <!-- Item -->
-                <div class="cbp-item design branding">
-                    <a href="#" target="_blank" class="cbp-caption item-body icon-arrow-trigger bg-white slow">
-                        <h3 class="title">Attach an image</h3>
-                        <p class="desc">
-                            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.
-                        </p>
-                        <p class="desc">
-                            <img src="images/blocks/text-background.jpg" alt="">
-                        </p>
-                        <p class="desc">
-                            Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
-                        </p>
-                        <span class="icon-arrow bg-colored"></span>
-                    </a>
-                </div>
-                <!-- Item -->
-                <div class="cbp-item design logo branding">
-                    <a href="#" target="_blank" class="cbp-caption item-body icon-arrow-trigger bg-white slow">
-                        <h3 class="title">
-                            <i class="icon-home"></i>
-                            Flat Icon
-                        </h3>
-                        <p class="desc">
-                            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
-                        </p>
-                        <span class="icon-arrow bg-colored"></span>
-                    </a>
-                </div>
-                <!-- Item -->
-                <div class="cbp-item design branding wordpress">
-                    <a href="#" target="_blank" class="cbp-caption item-body icon-arrow-trigger bg-white slow">
-                        <h3 class="title">Only Title</h3>
+<!-- thumbnail slider -->
+<script src="js/jssor.slider.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        jssor_1_slider_init = function() {
 
-                        <span class="icon-arrow bg-colored"></span>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <!-- Modal Body End -->
-    </section>
-    <!-- END QUADRA FIXED MODAL -->
-    <!-- PRICES SECTION -->
-    <section id="prices" class="py bg-gray border-gray2 border-1 t-center">
+            var jssor_1_options = {
+              $AutoPlay: 1,
+              $AutoPlaySteps: 4,
+              $SlideDuration: 160,
+              $SlideWidth: 200,
+              $SlideSpacing: 3,
+              $Cols: 5,
+              $Align: 390,
+              $ArrowNavigatorOptions: {
+                $Class: $JssorArrowNavigator$,
+                $Steps: 5
+              },
+              $BulletNavigatorOptions: {
+                $Class: $JssorBulletNavigator$
+              }
+            };
 
-        <!-- Title -->
-        <h1 class="text-lg normal-title">Our <span class="extrabold italic playfair"> Package Prices </span></h1>
-        <h4 class="gray7 xxs-mt font-15">
-            It is a long established fact that a reader will be distracted by the readable content of a page when looking at <br>
-            its layout. The point of using Lorem Ipsum.
-        </h4>
-        <!-- Divider -->
-        <div class="clearfix">
-            <div class="divider-3 font-13 uppercase extrabold col-md-6 offset-md-3 col-sm-12 xs-mt">
-                <span><i class="fa fa-gift fa-2x gray6"></i></span>
-            </div>
-        </div>
+            var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
 
-        <div class="qdr-col-3 container t-center gray7 sm-pb pt">
-            <!-- Box -->
+            /*#region responsive code begin*/
+
+            var MAX_WIDTH = 980;
+
+            function ScaleSlider() {
+                var containerElement = jssor_1_slider.$Elmt.parentNode;
+                var containerWidth = containerElement.clientWidth;
+
+                if (containerWidth) {
+
+                    var expectedWidth = Math.min(MAX_WIDTH || containerWidth, containerWidth);
+
+                    jssor_1_slider.$ScaleWidth(expectedWidth);
+                }
+                else {
+                    window.setTimeout(ScaleSlider, 30);
+                }
+            }
+
+            ScaleSlider();
+
+            $Jssor$.$AddEvent(window, "load", ScaleSlider);
+            $Jssor$.$AddEvent(window, "resize", ScaleSlider);
+            $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
+            /*#endregion responsive code end*/
+        };
+    </script>
+    <style>
+        /* jssor slider loading skin spin css */
+        .jssorl-009-spin img {
+            animation-name: jssorl-009-spin;
+            animation-duration: 1.6s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+
+        @keyframes jssorl-009-spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+
+        .jssorb057 .i {position:absolute;cursor:pointer;}
+        .jssorb057 .i .b {fill:none;stroke:#fff;stroke-width:2000;stroke-miterlimit:10;stroke-opacity:0.4;}
+        .jssorb057 .i:hover .b {stroke-opacity:.7;}
+        .jssorb057 .iav .b {stroke-opacity: 1;}
+        .jssorb057 .i.idn {opacity:.3;}
+
+        .jssora073 {display:block;position:absolute;cursor:pointer;}
+        .jssora073 .a {fill:#ddd;fill-opacity:.7;stroke:#000;stroke-width:160;stroke-miterlimit:10;stroke-opacity:.7;}
+        .jssora073:hover {opacity:.8;}
+        .jssora073.jssora073dn {opacity:.4;}
+        .jssora073.jssora073ds {opacity:.3;pointer-events:none;}
+    </style>
+    <div id="jssor_1" style="position:relative;margin:0 auto;top:0px;left:0px;width:980px;height:150px;overflow:hidden;visibility:hidden;">
+        <!-- Loading Screen -->
+        <div data-u="loading" class="jssorl-009-spin" style="position:absolute;top:0px;left:0px;width:100%;height:100%;text-align:center;background-color:rgba(0,0,0,0.7);">
+            <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="../svg/loading/static-svg/spin.svg" />
+        </div>
+        <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:980px;height:150px;overflow:hidden;">
             <div>
-                <!-- Box Border -->
-                <div class="bs-light bs-hover slow xs-pb relative">
-                    <!-- Mark -->
-                    <div class="basic-mark bold uppercase font-10 radius bg-white dark">
-                        Hot!
-                    </div>
-                    <!-- Box Top -->
-                    <div class="xs-py bg-gradient white">
-                        <h4 class="extrabold">Standart Package</h4>
-                        <h5 class="gray4">Package Subtitle</h5>
-                        <!-- Price -->
-                        <h3>$<span class="text-lg2 extrabold-title">19</span></h3>
-                        <p class="uppercase">Per Monthly / USD</p>
-                    </div>
-                    <!-- List -->
-                    <ul class="basic-list list-lg xs-my">
-                        <li>PREMIUM PROFILE LISTING</li>
-                        <li>UNLIMITED FILE ACCESS</li>
-                        <li>FREE APPOINTMENTS</li>
-                        <li>5 BONUS POINTS PERMONTH</li>
-                        <li>2 MONTHS SUPPORT</li>
-                        <li>2 SUBDOMAINS</li>
-                    </ul>
-                    <!-- Button -->
-                    <div class="xs-mt xs-pl xs-pr">
-                        <!-- Button -->
-                        <a href="#" class="xl-btn block font-11 uppercase bold border-btn border-gray6 border-dashed bg-colored-hover white-hover radius-lg slow">Select This Plan</a>
-                    </div>
-                </div>
+                <img data-u="image" src="images/ContactImages/images/gallery/mosaic_01.jpg" />
             </div>
-            <!-- Box -->
-            <div class="scaled">
-
-                <!-- Box Border -->
-                <div class="bg-gradient white bs-inset slow xs-pb relative">
-                    <!-- Mark -->
-                    <div class="basic-mark bold dark uppercase font-10 radius bg-white">
-                        Best Deal!
-                    </div>
-                    <!-- Box Top -->
-                    <div class="xs-py">
-                        <h4 class="extrabold">Gold Package</h4>
-                        <h5 class="gray4">Package Subtitle</h5>
-                        <!-- Price -->
-                        <h3>$<span class="text-lg2 extrabold-title">39</span></h3>
-                        <p class="uppercase">Per Monthly / USD</p>
-                    </div>
-                    <!-- List -->
-                    <ul class="basic-list list-lg border-white xs-my">
-                        <li>PREMIUM PROFILE LISTING</li>
-                        <li>UNLIMITED FILE ACCESS</li>
-                        <li>FREE APPOINTMENTS</li>
-                        <li>5 BONUS POINTS PERMONTH</li>
-                        <li>2 MONTHS SUPPORT</li>
-                        <li>2 SUBDOMAINS</li>
-                    </ul>
-                    <!-- Button -->
-                    <div class="xs-mt xs-pl xs-pr">
-                        <!-- Button -->
-                        <a href="#" class="xl-btn block font-11 uppercase bold white border-btn border-dashed bg-white-hover colored1-hover radius-lg slow">Select This Plan</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Box -->
             <div>
-                <!-- Box Border -->
-                <div class="bs-light bs-hover slow xs-pb relative">
-
-                    <!-- Box Top -->
-                    <div class="xs-py bg-gradient white">
-                        <h4 class="extrabold">Platinium Package</h4>
-                        <h5 class="gray4">Package Subtitle</h5>
-                        <!-- Price -->
-                        <h3>$<span class="text-lg2 extrabold-title">59</span></h3>
-                        <p class="uppercase">Per Monthly / USD</p>
-                    </div>
-                    <!-- List -->
-                    <ul class="basic-list list-lg xs-my">
-                        <li>PREMIUM PROFILE LISTING</li>
-                        <li>UNLIMITED FILE ACCESS</li>
-                        <li>FREE APPOINTMENTS</li>
-                        <li>5 BONUS POINTS PERMONTH</li>
-                        <li>2 MONTHS SUPPORT</li>
-                        <li>2 SUBDOMAINS</li>
-                    </ul>
-                    <!-- Button -->
-                    <div class="xs-mt xs-pl xs-pr">
-                        <!-- Button -->
-                        <a href="#" class="xl-btn block font-11 uppercase bold border-btn border-gray6 border-dashed bg-colored-hover white-hover radius-lg slow">Select This Plan</a>
-                    </div>
-                </div>
+                <img data-u="image" src="images/ContactImages/images/gallery/mosaic_02.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="images/ContactImages/images/gallery/mosaic_03.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="images/ContactImages/images/gallery/mosaic_04.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="images/ContactImages/images/gallery/mosaic_05.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="images/ContactImages/images/gallery/mosaic_06.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="images/ContactImages/images/gallery/mosaic_07.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="images/ContactImages/images/gallery/mosaic_08.jpg" />
             </div>
         </div>
-
-    </section>
-    <!-- TESTIMONIALS -->
-    <section class="testimonials bg-soft-colored2">
-        <!-- Background image - you can choose parallax ratio and offset -->
-        <div class="bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background="content/herakles/images/background_02.jpg"></div>
-        <!-- Container -->
-        <div class="container t-center white">
-            <!-- Icon -->
-            <div class="testimonials-icon"><i class="fa fa-quote-left"></i></div>
-            <!-- Slider -->
-            <div class="custom-slider qdr-controls-3 uppercase c-grab" data-slick='{"slidesToShow": 1, "arrows":true, "slidesToScroll": 1, "draggable": true, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 1}}]}'>
-                <!-- Slide -->
-                <div>
-                    <!-- Title -->
-                    <h2>
-                        Consultants have credibility because they are not dumb enough to work at your company.
-                    </h2>
-                    <!-- Author or a note -->
-                    <p>
-                        Scott Adams
-                    </p>
-                </div>
-                <!-- Slide -->
-                <div>
-                    <!-- Title -->
-                    <h2>
-                        Informed decision-making comes from a long tradition of guessing and then blaming others for inadequate results.
-                    </h2>
-                    <!-- Author or a note -->
-                    <p>
-                        Scott Adams
-                    </p>
-                </div>
-                <!-- Slide -->
-                <div>
-                    <!-- Title -->
-                    <h2>
-                        Rotten bosses don't get better. Any strategy that assumes they can is doomed.
-                    </h2>
-                    <!-- Author or a note -->
-                    <p>
-                        Scott Adams
-                    </p>
-                </div>
-
+        <!-- Bullet Navigator -->
+        <div data-u="navigator" class="jssorb057" style="position:absolute;bottom:12px;right:12px;" data-autocenter="1" data-scale="0.5" data-scale-bottom="0.75">
+            <div data-u="prototype" class="i" style="width:16px;height:16px;">
+                <svg viewBox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                    <circle class="b" cx="8000" cy="8000" r="5000"></circle>
+                </svg>
             </div>
-            <!-- End Slider -->
         </div>
-    </section>
-    <!-- END TESTIMONIALS -->
-    <!-- CONTACT SECTION -->
-    <section id="contact" class="py">
-
-        <div class="t-center">
-            <h1 class="bold-title lh-sm">
-                Drop Us a Message
-            </h1>
-            <p class="gray6">It is a long established fact that.</p>
+        <!-- Arrow Navigator -->
+        <div data-u="arrowleft" class="jssora073" style="width:50px;height:50px;top:0px;left:30px;" data-autocenter="2" data-scale="0.75" data-scale-left="0.75">
+            <svg viewBox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                <path class="a" d="M4037.7,8357.3l5891.8,5891.8c100.6,100.6,219.7,150.9,357.3,150.9s256.7-50.3,357.3-150.9 l1318.1-1318.1c100.6-100.6,150.9-219.7,150.9-357.3c0-137.6-50.3-256.7-150.9-357.3L7745.9,8000l4216.4-4216.4 c100.6-100.6,150.9-219.7,150.9-357.3c0-137.6-50.3-256.7-150.9-357.3l-1318.1-1318.1c-100.6-100.6-219.7-150.9-357.3-150.9 s-256.7,50.3-357.3,150.9L4037.7,7642.7c-100.6,100.6-150.9,219.7-150.9,357.3C3886.8,8137.6,3937.1,8256.7,4037.7,8357.3 L4037.7,8357.3z"></path>
+            </svg>
         </div>
-
-        <!-- Container for form -->
-        <div class="container">
-            <!-- Form -->
-            <div id="form" class="sm-mt t-center gray7">
-                <!-- Contact Form -->
-                <form id="contact_form" name="contact_form" method="post" action="http://quadra.goldeyestheme.com/v2/php/mail.php">
-                    <!-- Half Inputs -->
-                    <div class="half clearfix">
-                        <!-- Name -->
-                        <input type="text" name="name" id="name" required placeholder="Name" class="classic_form big radius-lg bg-gray3 bs-light-focus">
-                        <!-- Email -->
-                        <input type="email" name="email" id="email" required placeholder="E-Mail" class="classic_form big radius-lg bg-gray3 bs-light-focus">
-                    </div>
-                    <!-- Subject -->
-                    <input type="text" name="subject" id="subject" required placeholder="Subject" class="classic_form big radius-lg bg-gray3 bs-light-focus">
-                    <!-- Message -->
-                    <textarea name="message" id="message" placeholder="Message" class="classic_form big radius bg-gray3 bs-light-focus"></textarea>
-                    <!-- Half Inputs -->
-                    <div class="half clearfix">
-                        <select name="subject" form="contact_form" required class="classic_form big radius-lg bg-gray3 bs-light-focus">
-                            <option value="">Select an Option</option>
-                            <option value="opt1">Option 1</option>
-                            <option value="opt2">Option 2</option>
-                            <option value="opt3">Option 3</option>
-                        </select>
-                        <!-- Verify -->
-                        <input type="text" name="verify" id="verify" required class="classic_form f-right big radius-lg bg-gray3 bs-light-focus">
-
-                    </div>
-                    <!-- Send Button -->
-                    <button type="submit" id="submit" class="bg-colored lh-lg xl-btn font-12 bs-inset-hover long-btn xxs-mt slow width-auto click-effect white bold qdr-hover-6 radius-lg">SEND MESSAGE</button>
-                </form>
-                <!-- End Form -->
-            </div>
-            <!-- End #form div -->
+        <div data-u="arrowright" class="jssora073" style="width:50px;height:50px;top:0px;right:30px;" data-autocenter="2" data-scale="0.75" data-scale-right="0.75">
+            <svg viewBox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                <path class="a" d="M11962.3,8357.3l-5891.8,5891.8c-100.6,100.6-219.7,150.9-357.3,150.9s-256.7-50.3-357.3-150.9 L4037.7,12931c-100.6-100.6-150.9-219.7-150.9-357.3c0-137.6,50.3-256.7,150.9-357.3L8254.1,8000L4037.7,3783.6 c-100.6-100.6-150.9-219.7-150.9-357.3c0-137.6,50.3-256.7,150.9-357.3l1318.1-1318.1c100.6-100.6,219.7-150.9,357.3-150.9 s256.7,50.3,357.3,150.9l5891.8,5891.8c100.6,100.6,150.9,219.7,150.9,357.3C12113.2,8137.6,12062.9,8256.7,11962.3,8357.3 L11962.3,8357.3z"></path>
+            </svg>
         </div>
-        <!-- Divider -->
-        <div class="divider-1 font-11 gray6 uppercase container extrabold sm-mt xs-mb">
-            <span>Stalk Us</span>
-        </div>
-
-        <!-- Buttons -->
-        <div class="qdr-col-5 gap-15 container t-center">
-            <!-- Button -->
-            <div><a href="#" class="xl-btn block-im qdr-hover-3 fa fa-facebook facebook-bg white radius-lg bs-inset-hover qdr-hover-4">Facebook</a></div>
-            <!-- Button -->
-            <div><a href="#" class="xl-btn block-im qdr-hover-3 fa fa-twitter twitter-bg white radius-lg bs-inset-hover qdr-hover-4">Twitter</a></div>
-            <!-- Button -->
-            <div><a href="#" class="xl-btn block-im qdr-hover-3 fa fa-pinterest pinterest-bg white radius-lg bs-inset-hover qdr-hover-4">Pinterest</a></div>
-            <!-- Button -->
-            <div><a href="#" class="xl-btn block-im qdr-hover-3 fa fa-linkedin linkedin-bg white radius-lg bs-inset-hover qdr-hover-4">Linkedin</a></div>
-            <!-- Button -->
-            <div><a href="#" class="xl-btn block-im qdr-hover-3 fa fa-google-plus google-plus-bg white radius-lg bs-inset-hover qdr-hover-4">Google+</a></div>
-        </div>
-
-    </section>
-    <!-- END CONTACT SECTION -->
+    </div>
+    <script type="text/javascript">jssor_1_slider_init();</script>
+    <!-- #endregion Jssor Slider End -->
+<!-- end thumbnail slider -->
     <!-- FOOTER -->
     <footer id="footer" class="classic_footer">
         <!-- Container -->
@@ -1377,7 +847,7 @@
         <a href="https://themeforest.net/user/goldeyes#contact" target="_blank" class="inline-block colored-hover uppercase extrabold h6 no-pm qdr-hover-5">Or see contact page</a>
     </div>
     <!-- Contact us button -->
-    <div class="drop-msg hide-on-home dark"><i class="fa fa-envelope-o"></i></div>
+    <div class="drop-msg hide-on-home dark"><i class="fa fa-envelope"></i></div>
     <!-- Back To Top -->
     <a id="back-to-top" class="dark" href="#top"><i class="fa fa-angle-up"></i></a>
 
@@ -1419,21 +889,6 @@
     </div>
 
 
-
-
-    <!-- jQuery -->
-      <script type="text/javascript" src="{{asset('js/ContactJss/js/jquery.min.js')}}"></script>
-      <!-- MAIN SCRIPTS - Classic scripts for all theme -->
-      <script type="text/javascript" src="{{asset('js/ContactJss/js/scripts6da2.js?v=2.2')}}"></script>
-      <!-- END JS FILES -->
-    <!-- REVOLUTION SLIDER -->
-	<script type="text/javascript" src="{{asset('js/ContactJss/js/revolutionslider/jquery.themepunch.revolution.min.js')}}"></script>
-	<script type="text/javascript" src="{{asset('js/ContactJss/js/revolutionslider/jquery.themepunch.tools.min.js')}}"></script>
-    <!-- PAGE OPTIONS - You can find special scripts for this version -->
-    <script type="text/javascript" src="{{asset('herakles/js/pluginsf195.js?v=2.1')}}"></script>
-    <!-- MAIN SCRIPTS - Classic scripts for all theme -->
-    <script type="text/javascript" src="{{asset('js/scripts6da2.js?v=2.2')}}"></script>
-    <!-- END JS FILES -->
 
 </body>
 <!-- Body End -->

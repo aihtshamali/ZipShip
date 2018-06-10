@@ -339,7 +339,7 @@
 
 .item {
   position: relative;
-  
+
   /*border: 1px solid #333;*/
   /*margin: 2%;*/
   overflow: hidden;
@@ -347,7 +347,7 @@
 }
 .item img {
   max-width: 100%;
-  
+
   -moz-transition: all 0.3s;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
@@ -358,4 +358,6 @@
   transform: scale(1.1);
 }
 /*end attiq*/
-.message{padding: 5%;border-radius: 50% 50% 50% 0%;}
+.dropdown-menu li a{padding:7px !important;margin:0px !important;}
+select option{color:#000;}
+.bootstrap-select.btn-group .dropdown-menu li a span.text{color:#000 !important;font-size:14px !important;font-weight:400 !important;}

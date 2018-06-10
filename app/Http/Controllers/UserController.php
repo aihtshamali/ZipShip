@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
-use App\Flight;
-use Session;
 use Auth;
-class FlightController extends Controller
+use App\User;
+use Storage;
+use Session;
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +16,8 @@ class FlightController extends Controller
      */
     public function index()
     {
-        $flights=Flight::where('user_id',Auth::user()->id)
-                ->whereDate('date','>=',date('Y-m-d'))
-                ->get();
-        return view('flights.index',['flights'=>$flights]);
+        $user=Auth::user();
+        return view('profile.index',['user'=>$user]);
     }
 
     /**
@@ -27,7 +27,7 @@ class FlightController extends Controller
      */
     public function create()
     {
-        return view('flights.create');
+        //
     }
 
     /**
@@ -38,17 +38,7 @@ class FlightController extends Controller
      */
     public function store(Request $request)
     {
-        $flight=new Flight();
-        $flight->source_country=$request->from_country;
-        $flight->source_city=$request->from_city;
-        $flight->destination_city=$request->to_city;
-        $flight->destination_country=$request->to_country;
-        $flight->date=$request->date;
-        $flight->user()->associate(Auth::user());
-        $flight->save();
-        Session::flash('message', 'Inserted Successfully!');
-        Session::flash('alert-class', 'alert-success');
-        return redirect()->route('flight.index');
+        //
     }
 
     /**
@@ -70,7 +60,8 @@ class FlightController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user=Auth::user();
+        return view("profile.edit",['user'=>$user]);
     }
 
     /**
@@ -82,7 +73,23 @@ class FlightController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user=User::findOrFail($id);
+        $user->firstname=$request->firstname;
+        $user->lastname=$request->lastname;
+        $user->email=$request->email;
+        $user->phone=$request->phone;
+        $user->address=$request->address;
+        if($request->hasFile('dp')){
+          if(Storage::disk('public')->exists('/userprofile/'.$user->dp) && $user->dp) {
+            Storage::disk('public')->delete('/userprofile/'.$user->dp);
+          }
+          $request->dp->store('uploads/userprofile');
+          $user->dp = $request->dp->hashName();
+        }
+        $user->save();
+        Session::flash('message', 'Inserted Successfully!');
+        Session::flash('alert-class', 'alert-success');
+        return redirect()->route('profile.index');
     }
 
     /**

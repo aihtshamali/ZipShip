@@ -9,8 +9,6 @@
   <meta name="keywords" content="modern, creative, website, html5, bootstrap responsive, parallax, soft, front-end, designer, coming soon, account, portfolio, photographer, grid, social, modules, design, personal, faq, one page, multi-purpose, branding, studio, agency, templates, css3, carousel, slider, corporate, theme, quadra, demos, blog, shop" />
   <meta name="author" content="ZipShip" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1" />
-  <!--Favicon -->
-  <link rel="icon" type="image/png" href="images/finalOld.jpg" />
 
   <!-- CSS Files -->
   <link rel="stylesheet" href="{{asset('css/ContactCss/css/plugins6da2.css?v=2.2')}}"/>
@@ -23,6 +21,8 @@
   <!-- Color Skins -->
   <link rel="stylesheet" href="{{asset('css/ContactCss/css/revolutionslider/settings.css')}}" />
  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+ <!--Favicon -->
+ <link rel="icon" type="image/png"  href="images/finalOld.jpg" />
 <style type="text/css">
     .destinations-offers-wave-decoration{position:absolute;left:0;bottom:0;right:0;z-index:3}
     .destinations-offers-wave-decoration svg{vertical-align:bottom;margin-bottom:-1px;border-bottom: none !important;}
@@ -810,7 +810,7 @@ svg:not(:root) {
                 <div class="row clearfix calculate-height t-center-xs">
                     <div class="col-sm-6 col-xs-12 table-im t-left height-auto-mobile t-center-xs">
                         <div class="v-middle">
-                            <img src="images/logos/icon_02_b.png" alt="logo icon" class="logo">
+                            <img src="{{asset('images/final.jpg')}}" alt="logo icon" class="logo">
                         </div>
                     </div>
                     <!-- Bottom Note -->

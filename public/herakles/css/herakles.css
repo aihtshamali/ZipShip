@@ -153,6 +153,7 @@
     .width68{width: 68% !important;}
     .width30{width: 30% !important;}
     .width40{width: 40% !important;}
+    .width50{width: 50% !important;}
     .width20{width: 20% !important;}
     .width25{width: 25% !important;}
     .halfimagewidthleft{width: 49% !important;float: left;margin: 0.5% 0.5% 0% 0%; }
@@ -213,6 +214,9 @@
     .paddingtop3per{padding-top: 3%;}
     .paddingtop1_5per{padding-top: 1.5%;}
     .paddingbottom1per{padding-bottom: 1%;}
+    .paddingbottom1_5per{padding-bottom: 1.5%;}
+		a{color: inherit !important;}
+		a:hover{text-decoration: none !important;}
     .onhoveroshadow:hover{box-shadow: 5px 5px 5px #777;}
     .marginTopTen{margin-top:10px !important;clear: both !important;}
     .pointer{cursor: pointer;}
@@ -324,10 +328,13 @@
   /*background-color: #80008054;*/
 /*border-radius:7px;*/
   color: white;
-  font-size: 40px;
+  font-size: 14px !important;
   font-weight: 900;
-  /*padding: 7px 14px;*/
+  padding: 1px !important;
+	color: #000 !important;
+
 }
+/* .text:hover{color: #fff !important;} */
 	/*end overlay*/
 	* {
   -moz-box-sizing: border-box;
@@ -339,7 +346,7 @@
 
 .item {
   position: relative;
-  
+
   /*border: 1px solid #333;*/
   /*margin: 2%;*/
   overflow: hidden;
@@ -347,7 +354,7 @@
 }
 .item img {
   max-width: 100%;
-  
+
   -moz-transition: all 0.3s;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
@@ -359,3 +366,4 @@
 }
 /*end attiq*/
 .message{padding: 5%;border-radius: 50% 50% 50% 0%;}
+.dropdown-menu > li > a{padding: 3px 20px !important;}

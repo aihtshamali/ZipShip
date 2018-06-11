@@ -22,20 +22,24 @@
 .SM_c-b, .SM_c-b-hf:focus, .SM_c-b-hf:hover {
     color: #000;
 }
+#app{background: #fff;}
+.navbar-static-top{margin-bottom:0px !important;}
 @endsection
 @section('content')
-<div class="container profile animate-left">
-    <div>
-        <div class="left halfWidth">
+<div class="fullwidth backgrounwhite profile animate-left paddingtop1_5per paddingbottom1_5per border">
+    <div class="container">
+        <div class="left width40">
         <p class="boldName">
             Deliveries
         </p>
     </div>
-    <div class="left halfWidth">
-      <a href="{{ route('flight.create') }}"><div class="right button borderRad10px" style="margin-top:-3px !important;"><i class="fa fa-code-branch"></i><span>Add Trip</span></div></a>
+    <div class="right width40">
+      <a href="{{ route('flight.create') }}"><div class="right button borderRad10px white backgrounpurple" style="width:60%;">
+        <i class="fa fa-code-branch"></i><b class="white noborder">Add Trip</b></div></a>
     </div>
     </div>
-    <div class="clear review">
+  </div>
+    <div class="clear review container ">
       <h1>Upcoming Trips</h1>
       <center>
         @foreach ($flights as $flight)

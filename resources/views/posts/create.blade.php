@@ -71,8 +71,8 @@
      .btn:not(button), .request-delivery-link--button:not(button), .request-delivery-link--button-grey:not(button), .fx-r, .fxd-r {
          /* -webkit-box-orient: horizontal; */
          /* -webkit-box-direction: normal; */
-         -ms-flex-direction: row;
-         /* flex-direction: row; */
+         -ms-flex-direction: ;
+         /* flex-direction: ; */
      }
      .btn:not(button), .request-delivery-link--button:not(button), .request-delivery-link--button-grey:not(button), .fx-c, .itinerary-preview--detailed, body, #app-root, .fx-cr, .fx-r, .fx-rr {
          display: -webkit-box;
@@ -319,8 +319,8 @@
    .btn:not(button), .request-delivery-link--button:not(button), .request-delivery-link--button-grey:not(button), .fx-r, .fxd-r {
        -webkit-box-orient: horizontal;
        -webkit-box-direction: normal;
-       -ms-flex-direction: row;
-       flex-direction: row;
+       -ms-flex-direction: ;
+       flex-direction: ;
    }
    .btn:not(button), .request-delivery-link--button:not(button), .request-delivery-link--button-grey:not(button), .fx-c, .itinerary-preview--detailed, body, #app-root, .fx-cr, .fx-r, .fx-rr {
        display: -webkit-box;
@@ -340,8 +340,8 @@
    .btn:not(button), .request-delivery-link--button:not(button), .request-delivery-link--button-grey:not(button), .fx-r, .fxd-r {
        -webkit-box-orient: horizontal;
        -webkit-box-direction: normal;
-       -ms-flex-direction: row;
-       flex-direction: row;
+       -ms-flex-direction: ;
+       flex-direction: ;
      }
      .card{
        margin-top:15px;
@@ -371,12 +371,12 @@ article
 @endsection
 @section('content')
   <div class="container">
-      <div class="row" >
-        <div class="col-md-offset-3 col-md-5" >
+      <div class="" >
+        <div class="border width50 backgrounwhite marginauto padding1per" >
             <div class="">
               <h1><b>Get your item in 3 easy steps<b></h1>
             </div>
-            <div class="row">
+            <div class="">
               <div class="pointer col-md-4 col-xs-4 headingcolor showFirstDiv">
                 <h5>Tell us about your item</h5>
               </div>
@@ -390,7 +390,7 @@ article
             <form class="postForm" action="{{route('post.store')}}"  method="post" enctype="multipart/form-data">
               {{ csrf_field() }}
               <div id="firstDiv" style="">
-              <div class="card row">
+              <div class="card ">
                 <article>
                   <div class="label">
                     <label for="" style="font-weight:normal !important;"><b>Item Image (please provide at least one) <b></label>
@@ -409,48 +409,48 @@ article
                 </div>
                 <output id="result"></output>
               </article>
-              <div class="row card">
+              <div class=" card">
                 <label for="" class="label">Item Name</label>
                 <div class="form-group">
                   <input type="text" name="title" placeholder="Enter Item Name" class="form-control" value="" >
                 </div>
               </div>
-              <div class="row card">
+              <div class=" card">
                 <label for="" class="label">Description</label>
                 <div class="form-group">
                   <input type="text" name="description" placeholder="Enter Item Description" class="form-control" value="" >
                 </div>
               </div>
-              <div class="row card">
+              <div class=" card">
                 <label for="" class="label">Item URL</label>
                 <div class="form-group">
                   <input type="text" name="item_url" placeholder="Enter Item Description" class="form-control" value="" >
                 </div>
               </div>
-              <div class="row card">
+              <div class=" card">
                 <label for="" class="label">Item Price (USD)</label>
                 <div class="form-group">
                   <input type="text" name="item_price" placeholder="Enter price in $" class="form-control" value="" >
                 </div>
               </div>
-              <div class="row card">
+              <div class=" card">
                 <label for="" class="label">Traveler's Reward (USD)</label>
                 <div class="form-group">
                   <input type="text" name="reward" placeholder="Enter price in $" class="form-control" value="" >
                 </div>
               </div>
-              <div class="row card">
+              <div class=" card">
                 <label for="" class="label">Quantity</label>
                 <div class="form-group">
                   <input type="number" name="quantity" placeholder="Enter quantity" class="form-control" value="" >
                 </div>
               </div>
-              <div class="row">
+              <div class="">
                 <input id="" name="" class="form-control btn showSecondDiv" type="button" style="background-color:#9c57b8;color:white" value="Next">
               </div>
           </div>
               <div id="SecondDiv" class="disnone">
-              <div class="row card">
+              <div class=" card">
                 <label for="" class="label">Where is your item going?</label>
                 <p>
                     Tell us which city to bring your item to. You’ll coordinate the exact delivery location and address with the traveler who brings you your item, so you only need to tell us the city & country right now.
@@ -505,13 +505,13 @@ article
                       <p id="CancelTwo" class="cursolOnhover">Cancel</p>
                   </div>
                 </div>
-              <div class="row">
+              <div class="">
                 <input id="" name="" class="form-control btn showThirdDiv " type="button" style="background-color:#9c57b8;color:white" value="Next">
               </div>
               </div>
               </div>
               <div id="ThirdDiv" class="disnone">
-                <div class="row card">
+                <div class=" card">
                 <label for="" class="label">Almost there! Now, review your details.</label><br/>
                 <div style="min-height: 150px">
                   <img src="#" width="30%" class="lastdiv_img" style="clear: both;float: left;" />
@@ -542,7 +542,7 @@ article
                 <div class="form-group">
                   <p>By publishing my order, I agree to ZipShip’s <span>terms and conditions.</span></p>
                 </div>
-                <div class="row">
+                <div class="">
                   <input type="submit" name="" class="form-control btn " style="background-color:#9c57b8;color:white" value="submit">
                 </div>
               </div>
@@ -681,7 +681,7 @@ article
     }
     else
     {
-        console.log("Your browser does not support File API");
+        console.log("Your bser does not support File API");
     }
 }
 
@@ -804,7 +804,7 @@ article
       }
       else
       {
-          console.log("Your browser does not support File API");
+          console.log("Your bser does not support File API");
       }
   });
 

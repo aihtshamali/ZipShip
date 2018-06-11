@@ -4,11 +4,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png"  href="{{asset('images/finalOld.jpg')}}" />
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'ZipShip') }}</title>
+    <title>@yield('Pagetitle')</title>
     <meta name="author" content="ZipShip" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1" />
     <link rel="stylesheet" href="{{asset('herakles/css/herakles.css')}}" />
@@ -106,22 +107,25 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('settings') }}">
-                                            Settings
+                                        <a href="{{ route('post.create') }}">
+                                            Create Order
                                         <span class="right">
-                                            <i class="fa fa-cog"></i>
+                                            <i class="fab fa-first-order"></i>
                                         </span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
+                                      <a href="{{ route('logout') }}"
+                                          onclick="event.preventDefault();
+                                                   document.getElementById('logout-form').submit();">
+                                          Logout
                                         <span class="right">
                                             <i class="fas fa-sign-out-alt"></i>
                                         </span>
                                         </a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
                                     </li>
                                 </ul>
                             </li>

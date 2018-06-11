@@ -5,20 +5,21 @@
 @section('style')
   .selectCountry , .selectCity, .tselectCity,.tselectCountry{
     width:100% !important;  }
-    
+
+    #app{background: #fff;}
 @endsection
 
 @section('content')
 
 <div class="container profile animate-left">
-    <form class="" action="{{route('flight.store')}}" method="post" enctype="multipart/form-data" style="width: 35%;margin: auto;">
+    <form class="border padding2per width40 marginauto" action="{{route('flight.store')}}" method="post" enctype="multipart/form-data" style="">
       {{ csrf_field() }}
         <div id="firstDiv" style="">
         	<center><i class="fa fa-code-branch textpurple" style="font-size: 50px;"></i>
         		<h3>Add New Trip</h3>
         		<span class="grayee">With a trip added, you can make multiple offers and make more money.</span>
           </center>
-          <div class="row card" style="margin-top: 7%;">
+          <div class=" card" style="margin-top: 7%;">
             <label for=""> Source </label>
             <div class="form-group">
               <select  class="selectpicker selectCountry" style="width:100%;" data-show-subtext="true" data-live-search="true" id="countrylist" name="from_country">
@@ -45,7 +46,7 @@
               <input type="date" name="date" placeholder="date" class="form-control" value="">
           </div>
         </div>
-        <div class="row">
+        <div class="">
           <input name="submit" type="submit" class="form-control btn " style="background-color:#9c57b8;color:white" value="Add">
         </div>
       </div>

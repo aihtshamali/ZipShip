@@ -24,19 +24,20 @@ class UserPostController extends Controller
     public function index(Request $request)
     {
       $order=null;$status=null;
-      if($request->status=='intransite'){
-          $order=Post::where('user_id',Auth::user()->id)->where('status','intransite')
-            ->get();
-            $status='intransite';
-      }elseif($request->status=="received"){
-        $order=Post::where('user_id',Auth::user()->id)->where('status','received')
-          ->get();
-          $status='received';
-      }else{
+      // if($request->status=='intransite'){
+      //     $order=Post::where('user_id',Auth::user()->id)->where('status','intransite')
+      //       ->get();
+      //       $status='intransite';
+      // }elseif($request->status=="received"){
+      //   $order=Post::where('user_id',Auth::user()->id)->where('status','received')
+      //     ->get();
+      //     $status='received';
+      // }else{
         $status='requested';
-        $order=Post::where('user_id',Auth::user()->id)->where('status',null)
-        ->get();
-      }
+        $order=Post::all();
+        // ->get();
+      // }
+      // dd($order);
         return view('posts.index',['orders'=>$order,'status'=>$status]);
 
         // return view('posts.index',['orders'=>$order]);

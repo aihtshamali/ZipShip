@@ -1,5 +1,12 @@
 @extends('layouts.app')
+@section('styleTags')
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet"/>
+@endsection
 @section('style')
+  option,select {
+    font-family: 'FontAwesome', 'Second Font name'
+  }
+  {{-- select{font-family: sans-serif;} --}}
 /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
@@ -422,7 +429,7 @@ article
                     <span class="black">From</span>
                     <span class="white">{{$order->from_loc}} {{$order->from_city}} , {{$order->from_country}}</span>
                 </p>
-                 <b><spna class="grayee">where to buy </span><span class="textpurple pointer">{{$order->item_url}}</span></b>
+                 <b><span class="grayee">where to buy </span><span class="textpurple pointer">{{$order->item_url}}</span></b>
                     <hr class="margin10px">
                 <b>Delivery Reward</b><br/>
                 <h1 class="left widthfitcon nopad-nomar">
@@ -468,7 +475,7 @@ article
             <select class="right border fullwidth padding2per borderRad7px grayee" name="flight_id" required>
                 <option hidden>Choose your flight</option>
                 @foreach ($flights as $flight)
-                  <option value="{{$flight->id}}">{{$flight->source_country}} --> {{$flight->destination_country}}  <span class="grayee">({{$flight->date}})</span>  </option>
+                  <option value="{{$flight->id}}">{{$flight->source_country}} &#xf072; {{$flight->destination_country}}  <span class="grayee">({{$flight->date}})</span>  </option>
                 @endforeach
             </select>
           </div>

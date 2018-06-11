@@ -424,7 +424,7 @@ article
                     <hr class="margin10px">
                 <b>Delivery reward</b><br/>
                 <h1 class="left widthfitcon nopad-nomar">
-                   <span class="grayee">from</span><span class="black"> $10</span> 
+                   <span class="grayee">from</span><span class="black"> $10</span>
                 </h1>
                 <div name="" id="myBtn" class="right padding3per borderRad7px pointer border" style="background-color:transparent;color:#800080">
                     <center>Make offer</center>
@@ -438,12 +438,12 @@ article
                   <!-- Modal content -->
                   <div class="modal-content container width30">
                     <span class="close">&times;</span>
-                <form>    
+                <form>
                     <div class="form-group">
                         <center><h4 style="margin-top: 0px !important;">biddig section</h4></center>
                     <label class="grayee capitalize" style="font-size: 17px;">add ur desired ammount</label>
                       <input type="text" name="text" placeholder="biding" class="form-control" value="">
-                    </div>    
+                    </div>
                     <div class="form-group">
                     <label class="grayee capitalize" style="font-size: 17px;">choose your flight</label>
                       <select class="right border fullwidth padding2per borderRad7px grayee">
@@ -478,7 +478,7 @@ var btn = document.getElementById("myBtn");
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
-// When the user clicks the button, open the modal 
+// When the user clicks the button, open the modal
 btn.onclick = function() {
     modal.style.display = "block";
 }
@@ -496,5 +496,3 @@ window.onclick = function(event) {
 }
 
 @endsection
-
-

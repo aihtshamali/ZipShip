@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('Pagetitle')
+  Edit Profile
+@endsection
 @section ('styleTags')
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
 @endsection
@@ -10,8 +13,8 @@
 
 @section('content')
 
-<div class="container marginauto profile animate-left">
-    <form class="" action="{{route('profile.update',Auth::user()->id)}}" method="post" enctype="multipart/form-data" style="width: 35%;margin: auto;">
+<div class="width30 marginauto profile animate-left border backgrounwhite">
+    <form class="" action="{{route('profile.update',Auth::user()->id)}}" method="post" enctype="multipart/form-data" style="width: 100%;margin: auto;">
       {{method_field('PATCH')}}
       {{ csrf_field() }}
         <div id="firstDiv" class="" style="">
@@ -24,7 +27,7 @@
             <label for="dp" class="btn form-control" style="background-color:#9c57b8;color:white">Upload Your Dp</label>
             <input type="file" onchange="readURL(this);" id="dp" name="dp" style="display:none" value="">
           </div>
-          <div class="row card" style="margin-top: 7%;">
+          <div class=" card" style="margin-top: 7%;">
             <div class="form-group">
               <input type="text" class="form-control" name="firstname" placeholder="First Name" value="{{$user->firstname}}">
             </div>
@@ -41,7 +44,7 @@
               <input type="text" class="form-control" name="address" placeholder="Address" value="{{$user->address}}">
             </div>
           </div>
-        <div class="row">
+        <div class="">
           <input name="submit" type="submit" class="form-control btn " style="background-color:#9c57b8;color:white" value="Update">
         </div>
       </div>

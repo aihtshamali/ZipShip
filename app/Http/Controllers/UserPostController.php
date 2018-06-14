@@ -6,6 +6,7 @@ use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Bid;
+use App\Order;
 use Auth;
 use Session;
 use Storage;
@@ -17,30 +18,28 @@ class UserPostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function Poststatus($status){
-      return view('posts.index',['orders'=>$order,'status'=>$status]);
+    public function getpost($status){
+      $orders=null;
+      if($status=='intransite'){
+          $orders=Post::where('user_id',Auth::id())->where('status','intransite')
+            ->get();
+            $status='intransite';
+      }elseif($status=="received"){
+        $orders=Post::select('posts.*','orders.*','posts.status','bids.amount as bidding_amount','orders.status as order_status')->where('posts.user_id',Auth::id())->where('posts.status','received')
+          ->leftJoin('bids','bids.post_id','posts.id')
+          ->leftJoin('orders','orders.bid_id','=','bids.id')
+          ->get();
+          $status='received';
+      }
+      return view('posts.index',['orders'=>$orders,'status'=>$status]);
 
     }
     public function index(Request $request)
     {
-      $order=null;$status=null;
-      // if($request->status=='intransite'){
-      //     $order=Post::where('user_id',Auth::user()->id)->where('status','intransite')
-      //       ->get();
-      //       $status='intransite';
-      // }elseif($request->status=="received"){
-      //   $order=Post::where('user_id',Auth::user()->id)->where('status','received')
-      //     ->get();
-      //     $status='received';
-      // }else{
         $status='requested';
-        $order=Post::all();
-        // ->get();
-      // }
-      // dd($order);
+        $order=Post::where('user_id',Auth::id())->where('status',null)
+        ->get();
         return view('posts.index',['orders'=>$order,'status'=>$status]);
-
-        // return view('posts.index',['orders'=>$order]);
     }
 
     /**
@@ -142,6 +141,14 @@ class UserPostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function setPoststatus(Request $request){
+        $post=Post::find($request->id);
+        $post->status=$request->status;
+        $post->save();
+        Session::flash('message', 'Status Updated Successfully!');
+        Session::flash('alert-class', 'alert-success');
+        return redirect()->route('getpost',['status'=>$post->status]);
+    }
     public function edit($id)
     {
         $order=Post::findOrFail($id);
@@ -215,6 +222,7 @@ class UserPostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Post::destroy($id);
+        return redirect()->route('post.index');
     }
 }

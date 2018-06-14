@@ -14,7 +14,7 @@ class FlightController extends Controller
      */
     public function index()
     {
-        $flights=Flight::where('user_id',Auth::user()->id)
+        $flights=Flight::where('user_id',Auth::id())
                 ->whereDate('date','>=',date('Y-m-d'))
                 ->get();
         return view('flights.index',['flights'=>$flights]);

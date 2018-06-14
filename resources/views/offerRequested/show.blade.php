@@ -408,7 +408,7 @@ article
     @foreach ($bids as $bid)
       <div class="marginauto border width70 padding1per">
           <img src="{{asset('uploads/postImages/'.$bid->post->image_1)}}" class="circle" width="35px" />
-          <b class="paddingLef1per"><span class="black capitalize">{{$bid->user->firstname}} {{$bid->user->lastname}}</span><span class="grayee"> requested</span></b>
+          <b class="paddingLef1per"><span class="black capitalize">{{$bid->user->firstname}} {{$bid->user->lastname}}</span><span class="grayee"> requested</span> <span class="pull-right"><a href="{{route('chat.show',$bid->user_id)}}" class="btn btn-md btn-primary capitalize ">Contact to {{$bid->user->firstname}}</a></span></b>
           <div class="marginper fullwidth marginTopTen" style="min-height: 155px;">
               <div class="backgrounwhite width30 left">
                   <center>

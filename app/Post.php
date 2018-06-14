@@ -20,4 +20,7 @@ class Post extends Model
     public function bid(){
       return $this->hasMany('App\Bid');
     }
+    public function getuser($id){
+      return User::find($id);
+    }
 }

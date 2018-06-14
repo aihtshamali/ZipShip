@@ -43,15 +43,17 @@
       <h1>Upcoming Trips</h1>
       <center>
         @foreach ($flights as $flight)
-          <div class="row">
-            <div class="col-md-4">
-              <img src="{{asset('uploads/postImages/BY7dcEwqgtUHRfj8TaFSrAWX4rp3uoMJoUe0DCOY.png')}}" class="thumbnail" alt="">
+          <a href="{{route('makeOffer.index')}}">
+            <div class="row">
+              <div class="col-md-4">
+                <img src="{{asset('uploads/postImages/BY7dcEwqgtUHRfj8TaFSrAWX4rp3uoMJoUe0DCOY.png')}}" class="thumbnail" alt="">
+              </div>
+              <div class="col-md-5">
+                <div class="fz-l c-w fw-sb SM_fz-xl SM_c-b"><span>{{$flight->source_city}} , {{$flight->source_country}} - {{$flight->destination_city}} , {{$flight->destination_country}}</span></div>
+                <div class="fz14 c-w SM_fz-xl SM_c-g44 SM_ord2"><span>{{date('M d, Y ',strtotime($flight->date))}}</span></div>
+              </div>
             </div>
-            <div class="col-md-5">
-              <div class="fz-l c-w fw-sb SM_fz-xl SM_c-b"><span>{{$flight->source_city}} , {{$flight->source_country}} - {{$flight->destination_city}} , {{$flight->destination_country}}</span></div>
-              <div class="fz14 c-w SM_fz-xl SM_c-g44 SM_ord2"><span>{{date('M d, Y ',strtotime($flight->date))}}</span></div>
-            </div>
-          </div>
+          </a>
         @endforeach
       </center>
     </div>

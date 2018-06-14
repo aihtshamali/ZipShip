@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -27,7 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -45,7 +44,7 @@ class LoginController extends Controller
                      ->first();
               if($user){
                      Auth::login($user);
-                     return redirect('/home');
+                     return redirect('/');
                    }else{
                      return view('auth.login');
                    }

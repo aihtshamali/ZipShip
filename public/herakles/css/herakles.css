@@ -191,7 +191,7 @@
     .backgrounpurpleopp{background-color: #8000806b !important;}
     .backgrounwhite{background-color: #fff !important;}
     .backgrounwhiteopp{background-color: #ffffff80 !important;}
-    .textpurple{color: #800080bf;}
+    .textpurple{color: #800080bf !important;}
     .noborder{border:none !important;}
     .backgrounpurple span{border-right: 1px solid #fff;color: #d2c8c8;padding: 0% 1% 0% 1%;}
     .grayee{color: #777}
@@ -208,16 +208,19 @@
     .paddingLef3per{padding-left: 3%;}
     .paddingLef2per{padding-left: 2%;}
     .paddingLef1per{padding-left: 1%;}
+    .paddingReght1per{padding-right: 1%;}
     .padding3per{padding: 3%;}
     .padding2per{padding: 2%;}
     .padding1per{padding: 1%;}
     .paddingtop3per{padding-top: 3%;}
+    .paddingtopnone{padding-top: 0% !important;}
     .paddingtop1_5per{padding-top: 1.5%;}
     .paddingbottom1per{padding-bottom: 1%;}
     .paddingbottom1_5per{padding-bottom: 1.5%;}
 		a{color: inherit !important;}
 		a:hover{text-decoration: none !important;}
     .onhoveroshadow:hover{box-shadow: 5px 5px 5px #777;}
+		.onhovercolorpurple:hover{color: #800080 !important;}
     .marginTopTen{margin-top:10px !important;clear: both !important;}
     .pointer{cursor: pointer;}
     .hoverColor{cursor: pointer;color: #a040a0 !important;}
@@ -367,3 +370,43 @@
 /*end attiq*/
 .message{padding: 5%;border-radius: 50% 50% 50% 0%;}
 .dropdown-menu > li > a{padding: 3px 20px !important;}
+/* modal */
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+/* end modal */

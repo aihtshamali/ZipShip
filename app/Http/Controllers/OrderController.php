@@ -43,8 +43,8 @@ class OrderController extends Controller
       $order->frm_user_id=$request->user;
       $order->to_user_id=Auth::id();
       $order->bid()->associate($request->bid);
+      $order->status='intransite';
       $order->save();
-      // dd();
       $post=$order->bid->post;
       $post->status='intransite';
       $post->save();

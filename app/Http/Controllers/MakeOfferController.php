@@ -7,6 +7,7 @@ use Auth;
 use App\Post;
 use App\Flight;
 use DB;
+use stdClass;
 use App\Bid;
 class MakeOfferController extends Controller
 {
@@ -15,6 +16,7 @@ class MakeOfferController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
 
@@ -30,7 +32,7 @@ class MakeOfferController extends Controller
       //               })
       //               ->whereDate('deliver_before','<', 'date')
       //               ->get();
-      $orders=DB::select(DB::raw("SELECT flights.*,posts.*  FROM `posts` left join flights on flights.source_country=posts.from_country AND flights.destination_country=posts.to_country and flights.source_city = posts.from_city where flights.date >= posts.deliver_before and posts.user_id!=".Auth::id()));
+      $orders=DB::select(DB::raw("SELECT flights.*,posts.*,users.firstname,users.lastname,users.dp  FROM `posts` left join users on posts.user_id=users.id left join flights on flights.source_country=posts.from_country AND flights.destination_country=posts.to_country and flights.source_city = posts.from_city where (flights.date >= posts.deliver_before or posts.deliver_before is NULL or posts.deliver_before='' ) and posts.user_id!=".Auth::id()));
       // $bids=Bid::select('bids.*','flights.*','flights.user_id as    flights_user_id')->leftJoin('flights','flights.user_id','=','bids.user_id')->get();
       // $orders = new \Illuminate\Support\Collection($orders);
 

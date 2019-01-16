@@ -10,59 +10,17 @@
     <div class="container">
         <div class="left fullWidth">
         <p class="boldName">
-            Orders
+          My Orders
         </p>
         <p class="menuOrders">
-            <span class="requestedc"><a href="{{route('post.index')}}"><b>Requested</b></a></span>
-            <span class="in_transitec"><a href="{{route('getpost',['status'=>'intransite'])}}"><b>In Transite</b></a></span>
-            <span class="recievedc"><a href="{{route('getpost',['status'=>'received'])}}"><b>Received</b></a></span>
+            <span class="in_transitec"><a href="{{route('order.index')}}"><b>In Transite</b></a></span>
+            <span class="recievedc"><a href="{{route('getorderbyStatus',['status'=>'delivered'])}}"><b>Delivered</b></a></span>
             <!-- <span id="inactive"><b>inactive</b></span> -->
         </p>
     </div>
     </div>
-    @php
-      $style=''
-    @endphp
-    @if (isset($status) && $status=='requested')
-      <?php $style="display:unset" ?>;
-    @endif
-    <div class="clear container" >
-      @foreach($orders as $order)
-        <span style="{{$style}}" class="requested_box">
-          <div class="marginauto border padding1per backgrounwhite clear">
-          @if(isset($order->bids($order->id)[0]->bids_count) && $order->bids($order->id)[0]->bids_count > 0)
-            <b><span class="textpurple">{{$order->bids($order->id)[0]->bids_count}} People requested </span></a>on your Post
-            <span class="right boldName grayee" style="line-height:normal"><a href="{{route('showRequests',$order->id)}}"><button data-id="{{$order->id}}"  id="showRequests" class="btn btn-md bg-colored white"> See all Requests</button></a></span>
-          @endif
-        </div>
-        <div >
-          <div class="fullWidth review" >
-            <div class="left" style="width: 25%">
-              <img src="{{asset('uploads/postImages/'.$order->image_1)}}" width="100%">
-            </div>
 
-            <div class="left" style="width: 75%">
-              <div class="right">
-                <a type="button" href="{{url('post/'.$order->id.'/edit')}}" style="background-color:#9e3e9e;color:white" class="btn btn-default btn-sm">
-                  <span class="glyphicon glyphicon-edit"></span> Edit
-                </a>
-              </div>
-              <h3 class="paddingLef3per" style="margin-top:0">
-                {{$order->title}}
-              </h3>
-              <div class="fullWidth marginLef backgrounpurple borderRad10px">
-                <p class="white paddingLef3per">Deliver to: <b>{{$order->to_loc}} {{$order->to_city}},{{$order->to_country}}</b>
-                  <br/>Deliver from: <b>{{$order->from_loc}} {{$order->from_city}},{{$order->from_country}}</b></p>
-              </div>
-              <p class="marginLef fullWidth">
-              {{$order->bids($order->id)[0]->bids_count}}  Requested<br/>
-                <b class="grayee">Item price ${{$order->item_price}}</b>
-              </p>
-            </div>
-          </div>
-        </div>
-      </span>
-      @endforeach
+    <div class="clear container" >
       @php
         $style='';
       @endphp
@@ -71,31 +29,29 @@
       @endif
       <div class="in_transite_box" style="{{$style}}">
           @foreach($orders as $order)
-            @if(isset($order->bids($order->id)[0]->bids_count) && $order->bids($order->id)[0]->bids_count > 0)
-              <b class="container"><span class="textpurple capitalize">{{$order->getuser($order->bids($order->id)[0]->user_id)->firstname}} requested </span></a>on your Post
-                <span class="right boldName grayee" style="line-height:normal"><a href="{{url('chat/'.$order->user_id)}}"><button class="btn btn-sm bg-colored white" style="line-height:normal">Contact to {{$order->user->firstname}}</button></a></span>
-              </b>
-              @endif
             <div class="fullWidth review" >
               <div class="left" style="width: 25%">
-                <img src="{{asset('uploads/postImages/'.$order->image_1)}}" width="100%">
+                <img src="{{asset('uploads/postImages/'.$order->bid->post->image_1)}}" width="100%">
               </div>
               <div class="left" style="width: 75%">
                 <div class="right">
-                  <a type="button" href="{{route('setPoststatus',['id'=>$order->id,'status'=>'received'])}}" style="background-color:#9e3e9e;color:white !important" class="btn btn-default btn-sm">
-                    <span class="glyphicon glyphicon-edit"></span>Mark as Received
+                  <a type="button" href="{{route('setOrderstatus',['id'=>$order->id,'status'=>'delivered'])}}" style="background-color:#9e3e9e;color:white !important" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-edit"></span> Mark as Delivered
                   </a>
                 </div>
                 <h3 class="paddingLef3per" style="margin-top:0">
-                  {{$order->title}}
+                  {{$order->bid->post->title}}
                 </h3>
+                <b><span class="grayee capitalize" style="margin-left:25px">where to buy </span><span class="textpurple pointer"><a target="_blank" href="{{$order->bid->post->item_url}}">{{$order->bid->post->item_url}}</a></span></b>
+                   {{-- <hr class="margin10px"> --}}
                 <div class="fullWidth marginLef backgrounpurple borderRad10px">
-                  <p class="white paddingLef3per">Deliver to: <b>{{$order->to_loc}} {{$order->to_city}},{{$order->to_country}}</b>
-                    <br/>Deliver from: <b>{{$order->from_loc}} {{$order->from_city}},{{$order->from_country}}</b></p>
+                  <p class="white paddingLef3per">Deliver to: <b>{{$order->bid->post->to_loc}} {{$order->bid->post->to_city}},{{$order->bid->post->to_country}}</b>
+                    <br/>Deliver from: <b>{{$order->bid->post->from_loc}} {{$order->bid->post->from_city}},{{$order->bid->post->from_country}}</b></p>
+
                 </div>
                 <p class="marginLef fullWidth">
-                <b class="grayee">Bidding Amount ${{$order->bids($order->id)[0]->amount}} </b><br/>
-                  <b class="grayee">item price ${{$order->item_price}}</b>
+                <b class="grayee">Bidding Amount ${{$order->bidding_amount}} </b><br/>
+                  <b class="grayee">item price ${{$order->bid->post->item_price}}</b>
                 </p>
               </div>
             </div>
@@ -105,39 +61,42 @@
         $style='';
       @endphp
 
-      @if( isset($status) && $status=='received' )
+      @if( isset($status) && $status=='delivered' )
         <?php $style="display:unset;"; ?>
       @endif
         <div class="recieved_box" style="{{$style}}">
         @foreach ($orders as $order)
         <div class="fullWidth review" >
-          @if ($order->traveler_status=='intransite')
+          @if ($order->status=='intransite')
             <div class="row" style="margin:10px 0">
               <div class="col-md-12" style="text-align:center;background-color:purple;color:white;">
-                <label for="">Post has been marked as Received but still Pending from Traveler's Side</label>
+                <label for="">Order has been marked as Delivered but still Pending from User's Side</label>
               </div>
             </div>
           @endif
           <div class="left" style="width: 25%">
-          <img src="{{asset('uploads/postImages/'.$order->image_1)}}" width="100%">
+          <img src="{{asset('uploads/postImages/'.$order->bid->post->image_1)}}" width="100%">
           </div>
 
           <div class="left" style="width: 75%">
           <div class="right">
           <label for="" style="background-color:#9e3e9e;color:white" class="btn btn-default btn-sm">
-          <span class="glyphicon glyphicon-edit"></span> Received
+          <span class="glyphicon glyphicon-edit"></span> Delivered
           </label>
           </div>
           <h3 class="paddingLef3per" style="margin-top:0">
-            {{$order->title}}
+            {{$order->bid->post->title}}
           </h3>
           <div class="fullWidth marginLef backgrounpurple borderRad10px">
-            <p class="white paddingLef3per">Deliver to: <b>{{$order->to_loc}} {{$order->to_city}},{{$order->to_country}}</b>
-            <br/>Deliver from: <b>{{$order->from_loc}} {{$order->from_city}},{{$order->from_country}}</b></p>
+            <p class="white paddingLef3per">Deliver to: <b>{{$order->bid->post->to_loc}} {{$order->bid->post->to_city}},{{$order->bid->post->to_country}}</b>
+            <br/>Deliver from: <b>{{$order->bid->post->from_loc}} {{$order->bid->post->from_city}},{{$order->bid->post->from_country}}</b></p>
           </div>
           <p class="marginLef fullWidth">
             <b class="grayee">Bidding Amount: ${{$order->bidding_amount}}</b><br/>
-            <b class="grayee">Item price ${{$order->item_price}}</b>
+            <b class="grayee">Item price ${{$order->bid->post->item_price}}</b>
+          </p>
+          <p class="pull-right" style="position:relative;bottom:0">
+            <b class="grayee">Delivered on: {{$order->updated_at}}</b>
           </p>
           </div>
         </div>

@@ -44,5 +44,8 @@ class User extends Authenticatable
     public function credit_info(){
       return $this->hasOne('App\CreditInfo');
     }
+    public function order(){
+      return $this->hasMany('App\Order');
+    }
 
 }

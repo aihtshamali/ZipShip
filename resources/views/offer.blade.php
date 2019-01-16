@@ -426,7 +426,7 @@ article
                 <h1 class="left widthfitcon nopad-nomar">
                    <span class="grayee">from</span><span class="black"> $10</span>
                 </h1>
-                <div name="" id="myBtn" class="right padding3per borderRad7px pointer border" style="background-color:transparent;color:#800080">
+                <div name=""  class="right myBtn padding3per borderRad7px pointer border" style="background-color:transparent;color:#800080">
                     <center>Make offer</center>
 
                     <!-- Trigger/Open The Modal -->
@@ -473,7 +473,7 @@ article
 var modal = document.getElementById('myModal');
 
 // Get the button that opens the modal
-var btn = document.getElementById("myBtn");
+var btn = document.getElementsByClassName("myBtn");
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];

@@ -23,8 +23,9 @@
   },
   "dependencies": {
     "countries-cities": "0.0.11",
-    "firebase": "^4.13.0",
+    "firebase": "^4.13.1",
     "pgwslider": "^2.3.1",
-    "toastr": "^2.1.4"
+    "toastr": "^2.1.4",
+    "vue-chat-scroll": "^1.3.3"
   }
 }

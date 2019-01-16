@@ -91,6 +91,18 @@ class UserController extends Controller
         Session::flash('alert-class', 'alert-success');
         return redirect()->route('profile.index');
     }
+    public function updatePassword(Request $request){
+
+          // return Validator::make($data, [
+          //     'firstname' => 'required|string|max:255',
+          //     'lastname' => 'required|string|max:255',
+          //     'address' => 'required|string|max:255',
+          //     // 'phone' => 'required|integer|max:255',
+          //     'email' => 'required|string|email|max:255|unique:users',
+          //     'password' => 'required|string|min:6|confirmed',
+          // ]);
+      
+    }
 
     /**
      * Remove the specified resource from storage.

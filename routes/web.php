@@ -39,23 +39,31 @@ Route::get('/coupons', function () {
 Route::get('/aboutUs', function () {
     return view('aboutUs');
 })->name('aboutUs');
+Route::get('firebase','FirebaseController@index');
 
 Auth::routes();
 
 Route::group(['middleware' => ['auth']],function(){
   Route::get('postStatus/{status?}','UserPostController@getpost')->name('getpost');
+  Route::get('orderStatus/{status?}','OrderController@getorderbyStatus')->name('getorderbyStatus');
+
   Route::resource('order','OrderController');
   Route::get('offersRequested/{id}','OfferRequestedController@showOffers')->name('showRequests');
   Route::get('/settings', function () {
     return view('settings');
   })->name('settings');
+  Route::post('updatePassword','UserController@updatePassword')->name('updatePassword');
   // Route::get('post/{status?}','UserPostController@index');
   Route::resource('makeOffer','MakeOfferController');
   Route::resource('order','OrderController');
   Route::resource('profile','UserController');
   Route::get('setPoststatus','UserPostController@setPoststatus')->name('setPoststatus');
+  Route::get('setOrderstatus','OrderController@setOrderstatus')->name('setOrderstatus');
   Route::resource('bids','BidController');
-  Route::resource('chat','ChatController');
+  Route::post('/chat', 'ChatController@store' );
+  Route::put('/chat/{chat}', 'ChatController@update' );
+  Route::get('/chat/{chat}', 'ChatController@show' );
+  // Route::resource('chats','ChatController');
   Route::resource('flight','FlightController');
   Route::resource('post','UserPostController');
 });

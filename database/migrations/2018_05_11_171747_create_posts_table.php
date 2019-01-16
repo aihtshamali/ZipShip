@@ -23,13 +23,13 @@ class CreatePostsTable extends Migration
             $table->integer('traveler_reward');
             $table->string('from_loc');
             $table->string('to_loc');
-            $table->integer('to_userid')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->string('buying_place');
             $table->timestamps();
             // Foriegn Keys
-            $table->foreign('to_userid')->references('id')->on('users');
-            $table->dropForeign(['to_userid']);
-            $table->foreign('to_userid')
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->dropForeign(['user_id']);
+            $table->foreign('user_id')
                 ->references('id')->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');

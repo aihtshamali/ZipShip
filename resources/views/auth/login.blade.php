@@ -41,7 +41,7 @@
                    </form>
                </div>
                <h5>Did you lost your password? <a href="{{ route('password.request') }}" class="underline">Click Here.</a></h5>
-               <h5>Do you want see more? <a href="{{url('/')}}" class="underline">Back to ZipShip.</a></h5>
+               <h5>Don't have an account?  <a href="{{ route('register') }}" class="underline">Create New Account</a></h5>
            </div>
         </div>
         <!-- End Container -->

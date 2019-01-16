@@ -13801,7 +13801,7 @@ module.exports = {"countries":{"Afghanistan":["Kabul","Achin","´Ali Khayl","Qan
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(16);
-module.exports = __webpack_require__(64);
+module.exports = __webpack_require__(63);
 
 
 /***/ }),
@@ -13818,7 +13818,6 @@ module.exports = __webpack_require__(64);
 __webpack_require__(17);
 
 window.Vue = __webpack_require__(62);
-Vue.use(__webpack_require__(63));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -13829,28 +13828,25 @@ Vue.use(__webpack_require__(63));
 // Vue.component('example', require('./components/Example.vue'));
 // Initialize Firebase
 var config = {
-    apiKey: "AIzaSyA1csKPvLIZ0iOXGjKicoG1SzBxmuA5Kn8",
-    authDomain: "testing-7687.firebaseapp.com",
-    databaseURL: "https://testing-7687.firebaseio.com",
-    projectId: "testing-7687",
-    storageBucket: "testing-7687.appspot.com",
-    messagingSenderId: "953819231795"
+    apiKey: "{{ config('services.firebase.api_key') }}",
+    authDomain: "{{ config('services.firebase.auth_domain') }}",
+    databaseURL: "{{ config('services.firebase.database_url') }}",
+    storageBucket: "{{ config('services.firebase.storage_bucket') }}"
 };
 firebase.initializeApp(config);
 new Vue({
     el: '#chat',
     data: {
         chat: '',
-        reciever_id: document.querySelector('input[name="reciever_id"]').getAttribute('value'),
-        sender_id: document.querySelector('input[name="sender_id"]').getAttribute('value'),
+        reciever_id: '4',
+        sender_id: '3',
         chats: []
     },
-    mounted: function mounted() {
+    ready: function ready() {
         var self = this;
         // Initialize firebase realtime database.
-        firebase.database().ref('chats/users/' + this.sender_id + '/' + this.reciever_id + '/').on('value', function (snapshot) {
-            console.log(snapshot.val());
-            self.chats = snapshot.val();
+        firebase.database().ref('chat/').on('value', function (snapshot) {
+            self.$set('chats', snapshot.val());
         });
     },
     methods: {
@@ -13858,15 +13854,13 @@ new Vue({
          * Create a new todo and synchronize it with Firebase
          */
         sendMessage: function sendMessage() {
-            firebase.database().ref('chats/users/' + this.sender_id + '/' + this.reciever_id + '/').set({ text: this.chat });
-            // var self = this;
-            // $.post('/chat', {
-            //     _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-            //     text: self.chat,
-            //     reciever_id: self.reciever_id,
-            //     sender_id:self.sender_id,
-            //     created_at: new Date($.now())
-            // });
+            var self = this;
+            $.post('/chat', {
+                _token: '{!! csrf_token() !!}',
+                message: self.message,
+                reciever_id: self.reciever_id,
+                sender_id: self.senfer_id
+            });
             this.chat = '';
         },
         /**
@@ -13878,7 +13872,7 @@ new Vue({
                 _token: '{!! csrf_token() !!}',
                 message: self.message,
                 reciever_id: self.reciever_id,
-                sender_id: self.sender_id
+                sender_id: self.senfer_id
             });
         }
     }
@@ -13935,16 +13929,14 @@ if (token) {
  * for events that are broadcast by Laravel. Echo and event broadcasting
  * allows your team to easily build robust real-time web applications.
  */
-// 
+
 // import Echo from 'laravel-echo'
-//
+
 // window.Pusher = require('pusher-js');
-//
+
 // window.Echo = new Echo({
-//   broadcaster: 'pusher',
-//   key: '66572ef04f3c2ff0cd23',
-//   cluster:'ap2',
-//   encrypted:true
+//     broadcaster: 'pusher',
+//     key: 'your-pusher-key'
 // });
 
 /***/ }),
@@ -69355,70 +69347,6 @@ module.exports = Vue;
 
 /***/ }),
 /* 63 */
-/***/ (function(module, exports, __webpack_require__) {
-
-(function (global, factory) {
-	 true ? module.exports = factory() :
-	typeof define === 'function' && define.amd ? define(factory) :
-	(global['vue-chat-scroll'] = factory());
-}(this, (function () { 'use strict';
-
-/**
-* @name VueJS vChatScroll (vue-chat-scroll)
-* @description Monitors an element and scrolls to the bottom if a new child is added
-* @author Theodore Messinezis <theo@theomessin.com>
-* @file v-chat-scroll  directive definition
-*/
-
-var scrollToBottom = function scrollToBottom(el, smooth) {
-  el.scroll({
-    top: el.scrollHeight,
-    behavior: smooth ? 'smooth' : 'instant'
-  });
-};
-
-var vChatScroll = {
-  bind: function bind(el, binding) {
-    var scrolled = false;
-
-    el.addEventListener('scroll', function (e) {
-      scrolled = el.scrollTop + el.clientHeight + 1 < el.scrollHeight;
-    });
-
-    new MutationObserver(function (e) {
-      var config = binding.value || {};
-      var pause = config.always === false && scrolled;
-      if (pause || e[e.length - 1].addedNodes.length != 1) return;
-      scrollToBottom(el, config.smooth);
-    }).observe(el, { childList: true });
-  },
-  inserted: scrollToBottom
-};
-
-/**
-* @name VueJS vChatScroll (vue-chat-scroll)
-* @description Monitors an element and scrolls to the bottom if a new child is added
-* @author Theodore Messinezis <theo@theomessin.com>
-* @file vue-chat-scroll plugin definition
-*/
-
-var VueChatScroll = {
-  install: function install(Vue, options) {
-    Vue.directive('chat-scroll', vChatScroll);
-  }
-};
-
-if (typeof window !== 'undefined' && window.Vue) {
-  window.Vue.use(VueChatScroll);
-}
-
-return VueChatScroll;
-
-})));
-
-
-/***/ }),
-/* 64 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

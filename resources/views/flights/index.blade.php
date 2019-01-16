@@ -40,7 +40,7 @@
     </div>
   </div>
     <div class="clear review container ">
-      <h1>Upcoming Trips</h1>
+      <h1 style="margin-top:0">Upcoming Trips</h1>
       <center>
         @foreach ($flights as $flight)
           <a href="{{route('makeOffer.index')}}">

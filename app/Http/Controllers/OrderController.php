@@ -16,8 +16,29 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+     public function getorderbyStatus($status){
+
+         $orders=Order::select('bids.amount as bidding_amount','bids.created_at as bidding_date','orders.*')
+         ->where('frm_user_id',Auth::id())->where('traveler_status','delivered')
+         ->leftJoin('bids','bids.id','orders.id')
+           ->where('orders.traveler_status','delivered')
+           ->get();
+           $status='delivered';
+       return view('orders.index',['orders'=>$orders,'status'=>$status]);
+
+     }
     public function index()
     {
+      $orders=Order::select('bids.amount as bidding_amount','bids.created_at as bidding_date','orders.*')
+      ->where('frm_user_id',Auth::id())->where('traveler_status','intransite')
+      ->leftJoin('bids','bids.id','orders.id')
+      ->get();
+        $status='intransite';
+        // dd($orders);
+      // $status='requested';
+      // $order=Bid::where('user_id',Auth::id())
+      // ->get();
+      return view('orders.index',['orders'=>$orders,'status'=>$status]);
     }
 
     /**
@@ -52,6 +73,14 @@ class OrderController extends Controller
       Session::flash('alert-class', 'alert-success');
       return redirect()->route('post.index');
       // dd($request);
+    }
+    public function setOrderstatus(Request $request){
+        $post=Order::find($request->id);
+        $post->traveler_status=$request->status;
+        $post->save();
+        Session::flash('message', 'Status Updated Successfully!');
+        Session::flash('alert-class', 'alert-success');
+        return redirect()->route('getorderbyStatus',['status'=>$post->traveler_status]);
     }
 
     /**

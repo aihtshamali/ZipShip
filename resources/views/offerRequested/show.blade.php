@@ -408,7 +408,7 @@ article
     @foreach ($bids as $bid)
       <div class="marginauto border width70 padding1per">
           <img src="{{asset('uploads/postImages/'.$bid->post->image_1)}}" class="circle" width="35px" />
-          <b class="paddingLef1per"><span class="black capitalize">{{$bid->user->firstname}} {{$bid->user->lastname}}</span><span class="grayee"> requested</span> <span class="pull-right"><a href="{{route('chat.show',$bid->user_id)}}" class="btn btn-md btn-primary capitalize ">Contact to {{$bid->user->firstname}}</a></span></b>
+          <b class="paddingLef1per"><span class="black capitalize">{{$bid->user->firstname}} {{$bid->user->lastname}}</span><span class="grayee"> requested</span> <span class="pull-right"><a href="{{url('chat/'.$bid->user_id)}}" class="btn btn-md btn-primary capitalize ">Contact to {{$bid->user->firstname}}</a></span></b>
           <div class="marginper fullwidth marginTopTen" style="min-height: 155px;">
               <div class="backgrounwhite width30 left">
                   <center>
@@ -441,7 +441,7 @@ article
 var modal = document.getElementById('myModal');
 
 // Get the button that opens the modal
-  var btn = document.getElementById("myBtn");
+  var btn = document.getElementsByClassName("myBtn");
 if(btn)
 {
 
@@ -450,10 +450,10 @@ if(btn)
 var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks the button, open the modal
-btn.onclick = function() {
+  $('.myBtn').on('click', function() {
     modal.style.display = "block";
     $('input[name="post_id"]').val($(this).data('id'));
-}
+});
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {

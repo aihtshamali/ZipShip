@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Chat;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 class ChatController extends Controller
 {
@@ -34,12 +35,16 @@ class ChatController extends Controller
      */
     public function store(Request $request)
     {
+      // dd($request->all());
+        Chat::create($request->all());
+        // print_r($request->all()->json());
+        // return redirect('/');
       // dd(Auth::id());
-        $chat=new Chat();
-        $chat->sender_id=Auth::id();
-        $chat->reciever_id=$request->id;
-        $chat->text=$request->message;
-        echo $chat->save();
+        // $chat=new Chat();
+        // $chat->sender_id=Auth::id();
+        // $chat->reciever_id=$request->id;
+        // $chat->text=$request->message;
+        // echo $chat->save();
 
     }
 
@@ -55,9 +60,10 @@ class ChatController extends Controller
       $userchat=Chat::where('reciever_id',Auth::id())->where('sender_id',$id)
       ->orWhere('sender_id',Auth::id())
       ->where('reciever_id',$id)->get();
-      // dd($userchat);
+      $user=User::find($id);
+      // dd($user);
       // $userchat=null;
-      return view('chats.index',['chats'=>$chats,'userchat'=>$userchat,'id'=>$id]);  }
+      return view('chats.index',['chats'=>$chats,'userchat'=>$userchat,'id'=>$id,'user'=>$user]);  }
 
     /**
      * Show the form for editing the specified resource.

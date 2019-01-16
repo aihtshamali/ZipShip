@@ -13,7 +13,13 @@ return [
     | to have a conventional place to find your various credentials.
     |
     */
-
+    'firebase' => [
+        'api_key' => 'AIzaSyA1csKPvLIZ0iOXGjKicoG1SzBxmuA5Kn8',
+        'auth_domain' => 'testing-7687.firebaseapp.com',
+        'database_url' => 'https://testing-7687.firebaseio.com',
+        'secret' => 'pz9O5RR4Do8PR5m7tTpE2nR3A6NS0cpZC6pzhzEp', //from service accounts
+        'storage_bucket' => 'testing-7687.appspot.com',
+    ],
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),

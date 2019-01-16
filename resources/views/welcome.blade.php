@@ -101,16 +101,16 @@ svg:not(:root) {
     <!--END PAGETOP -->
     <!-- Dotted Navigation -->
     <section id="dotted-navigation" class="nav-menu">
-        <ul id="side-dotted-navigation" class="spy nav hide-on-home font-11 extrabold uppercase">
-            <!-- <li style="border: 1px solid #fff;border-radius: 10px;position: absolute;"></li> -->
-            <li><a href="{{url('/')}}"><span>Home</span></a></li>
-            <li><a href="{{route('flight.create')}}"><span>Add Flight</span></a></li>
-            <li><a href="{{route('post.create')}}"><span>Create Post</span></a></li>
-            <li><a href="{{route('aboutUs')}}"><span>About</span></a></li>
-            <li><a href="{{route('contactUs')}}"><span>Contact Us</span></a></li>
-            <li><a href="{{route('login')}}"><span>Login</span></a></li>
-            {{-- <li><a class="bg-colored" href="https://themeforest.net/item/quadra-creative-multipurpose-template/21409528" target="_blank"><span>Buy Quadra</span></a></li> --}}
-        </ul>
+      <ul id="side-dotted-navigation" class="spy nav hide-on-home font-11 extrabold uppercase">
+          <!-- <li style="border: 1px solid #fff;border-radius: 10px;position: absolute;"></li> -->
+          <li><a href="{{url('/')}}"><span>Home</span></a></li>
+          <li><a href="{{route('flight.create')}}"><span>Add Flight</span></a></li>
+          <li><a href="{{route('post.create')}}"><span>Create Post</span></a></li>
+          <li><a href="{{route('aboutUs')}}"><span>About</span></a></li>
+          <li><a href="{{route('contactUs')}}"><span>Contact Us</span></a></li>
+          <li><a href="{{route('login')}}"><span>Login</span></a></li>
+          {{-- <li><a class="bg-colored" href="https://themeforest.net/item/quadra-creative-multipurpose-template/21409528" target="_blank"><span>Buy Quadra</span></a></li> --}}
+      </ul>
     </section>
 
     <!-- HOME SECTION -->
@@ -130,8 +130,8 @@ svg:not(:root) {
                     <img src="images/final.jpg"  data-second-logo="images/finalOld.jpg" style="height:64px" class="retina-logo" alt="ZipShip Logo">
                   </a>
                 </div>
-                <div class="pull-right" style="background-color: white;border-radius: 10px;height: 35px;line-height: 0;margin-top: 4px;">
-                  <a href="{{route('post.create')}}" class="slow lg-btn uppercase radius-lg font-11 extrabold bs-inset-hover qdr-hover-6" style="color: #800080 !important;">
+                <div class="pull-right" style="height: 35px;line-height: 0;margin-top: 4px;">
+                  <a href="{{route('post.create')}}" class="slow lg-btn uppercase font-11 extrabold bs-inset-hover qdr-hover-6 backgrounwhite textpurple borderRad7px" style="color: #800080;">
                     Post an Order
                   </a>
                 </div>
@@ -257,14 +257,14 @@ svg:not(:root) {
         <div class="block-navigation top-moved nav-menu container bs-lg borderRad7px o-hidden" style="background-color: #80008094;box-shadow: none !important;">
             <!-- Link Styles -->
             <ul class="nav uppercase font-12 extrabold calculate-width white">
-                <li><a href="{{url('/')}}" class="click-effect">Home</a></li>
-                <li><a href="{{route('aboutUs')}}" class="click-effect">About Us</a></li>
-                <li><a href="{{route('contactUs')}}" class="click-effect">Contact Us</a></li>
-                <li><a href="{{route('flight.create')}}" class="click-effect">Add Flight</a></li>
-                <li><a href="{{route('post.create')}}" class="click-effect">Create Post</a></li>
-                <li><a href="{{route('login')}}" class="click-effect">Login</a></li>
-                <li><a href="{{route('register')}}" class="click-effect">Register</a></li>
-            </ul>
+                  <li><a href="{{url('/')}}" class="click-effect">Home</a></li>
+                  <li><a href="{{route('aboutUs')}}" class="click-effect">About Us</a></li>
+                  <li><a href="{{route('contactUs')}}" class="click-effect">Contact Us</a></li>
+                  <li><a href="{{route('flight.create')}}" class="click-effect">Add Flight</a></li>
+                  <li><a href="{{route('post.create')}}" class="click-effect">Create Post</a></li>
+                  <li><a href="{{route('login')}}" class="click-effect">Login</a></li>
+                  <li><a href="{{route('register')}}" class="click-effect">Register</a></li>
+              </ul>
         </div>
     </div>
     <!-- END BLOCK NAVIGATION -->
@@ -790,8 +790,8 @@ svg:not(:root) {
                     <p class="mini-mt">The standard chunk of Lorem Ipsum used.</p>
                     <div id="newsletter-form" class="footer-newsletter clearfix xs-mt">
                         <form id="newsletter_form" name="newsletter_form" method="post" action="http://quadra.goldeyestheme.com/v2/php/newsletter.php">
-                            <input type="email" name="n-email" id="n-email" required placeholder="Add your E-Mail address" class="font-12 radius-lg form-control">
-                            <button type="submit" id="n-submit" name="submit" class="btn-lg fullwidth radius-lg bg-colored white qdr-hover-6 click-effect bold font-12">SUBSCRIBE</button>
+                            <input type="email" name="n-email" id="n-email" required placeholder="Add your E-Mail address" class="font-12 borderRad7px form-control">
+                            <button type="submit" id="n-submit" name="submit" class="slow lg-btn uppercase font-12 extrabold bs-inset-hover qdr-hover-6 backgrounpurpleopp white borderRad7px">SUBSCRIBE</button>
                         </form>
                     </div>
                     <!-- End Form -->

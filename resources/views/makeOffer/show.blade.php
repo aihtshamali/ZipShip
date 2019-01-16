@@ -429,7 +429,7 @@ article
                      <span class="grayee">from</span><span class="black"> ${{$order->traveler_reward}}</span>
                   </h1>
                   @if(Auth::id()!=$order->user_id)
-                  <div name="" id="myBtn" data-id="{{$order->id}}" class="right padding3per borderRad7px pointer border" style="background-color:transparent;color:#800080">
+                  <div name=""  data-id="{{$order->id}}" class="right myBtn padding3per borderRad7px pointer border" style="background-color:transparent;color:#800080">
                       <center>Make offer</center>
                   </div>
                 @endif
